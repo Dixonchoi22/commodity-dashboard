@@ -1,0 +1,169 @@
+{
+  "period": {
+    "reportMonth": "April 2026",
+    "mom": "March 2026 vs February 2026",
+    "yoy": "March 2026 vs March 2025"
+  },
+  "entries": [
+    {
+      "name": "Thai Rice",
+      "as_of": "March 25",
+      "mom_pct": -7.9,
+      "yoy_pct": -16.7,
+      "price": "$350/MT",
+      "paragraph": "The average weekly price of Indian Rice as of March 25 decreased by 2.8% MOM and declined by              The average weekly price of Thai Rice as of March 25 decreased by 7.9% MOM and declined by 16.7% YOY to $350/MT. Market players stated that despite concerns of rising fuel and fertiliser costs,    12.1% YOY to $372/MT. Following supply recoveries and an alleviation of policy driven concerns prices declined on stiff competition and strong supply prospects. As well as this, sources say that old   (previously supporting the Thai market), players commented that Thai rice prices have steeply corrected crop stocks are record high, further weighing on prices.                                                  downwards."
+    },
+    {
+      "name": "Vietnamese Rice",
+      "as_of": "March 25",
+      "mom_pct": -1.3,
+      "yoy_pct": -9.2,
+      "price": "$343.75/MT",
+      "paragraph": "The average weekly price of Vietnamese Rice as of March 25 decreased by 1.3% MOM and declined by 9.2% YOY to $343.75/MT. Similarly to Indian FOB prices, market players noted that strong supply prospects in 2025/2026 have weigfhed on prices."
+    },
+    {
+      "name": "Russian Sunflower Seed",
+      "as_of": "March 25",
+      "mom_pct": 0.9,
+      "yoy_pct": 18.7,
+      "price": "UAH 29,200/MT",
+      "paragraph": "The average weekly price of Ukrainian Sunflower Seed as of March 25 increased by 5.8% MOM and                The average weekly price of Russian Sunflower Seed as of March 25 increased by 0.9% MOM and rose by 18.7% YOY to UAH 29,200/MT. Market sources expect demand for seed to rise amid much                  declined by 9.0% YOY to RUB 36,575/MT. Industry sources told Expana that Russian sunflower lower than usual processing activity in Ukraine, which has primarily been due to conflict escalations and    production estimates remain subject to considerable uncertainty, with market participants continuing to attacks on plants. This has in turn, supported prices.                                                       question USDA's 17.0 million tonne figure following earlier season expectations of 18 million tonnes that players were predicting. However, traders expressed skepticism about even the revised 17 million mt figure, with sources suggesting that actual Russian production could potentially be even lower than current estimates, emphasizing that harvest realities may not align with official projections despite substantial levels appearing on paper"
+    },
+    {
+      "name": "Russian Sunflower Oil",
+      "as_of": "March 25",
+      "mom_pct": 8.1,
+      "yoy_pct": 21.7,
+      "price": "UAH 58,226.22/MT",
+      "paragraph": "The average weekly price of Ukrainian Sunflower Oil as of March 25 increased by 0.8% MOM and                 The average weekly price of Russian Sunflower Oil as of March 25 increased by 8.1% MOM and rose by 21.7% YOY to UAH 58,226.22/MT. Sources said that Ukraine's sunflower oil processing is at its        rose by 13.1% YOY to RUB 109,891/MT. Market players noted that processors are struggling with lowest in a decade, heightening supply concerns and lending support to prices. Production declines           logistical constraints due to diesel shortages affecting transportation and crushing operations. could be up to 10% year-on-year."
+    },
+    {
+      "name": "US Soyabean Oil",
+      "as_of": "March 25",
+      "mom_pct": 10.4,
+      "yoy_pct": 15.7,
+      "price": "$427.69/MT",
+      "paragraph": "The average weekly price of US Soyabean as of March 25 increased by 2.1% MOM and rose by                       The average weekly price of US Soyabean Oil as of March 25 increased by 10.4% MOM and rose by 15.7% YOY to $427.69/MT. Soybean prices have been supported from spillover from crude oil prices due           55.5% YOY to $1,452.08/MT. Soybean oil prices have tracked rallies in crude closely throughout the war to the US-Iran war. Currently, this has superseded many of the bearish fundamentals in the soybean             in the conflict in the Middle-East, owing to price increases. Sources added that ongoing policy discussion market. Market players say that as long as crude oil is volatile the soybean complex will follow as oilseeds   surrounding biodiesel mandates added sensitivity to energy related rallies. are more like energy commodities due to biofuel mandates."
+    },
+    {
+      "name": "EU Sunflower Oil",
+      "as_of": "March 25",
+      "mom_pct": 2.7,
+      "yoy_pct": 10.0,
+      "price": "\u20ac1,244.36/MT",
+      "paragraph": "The average weekly price of EU Sunflower Oil as of March 25 increased by 2.7% MOM and rose by 10.0% YOY to \u20ac1,244.36/MT. Market players said that lower black sea processing activity and wider vegetable oil price increases have supported EU sunflower oil values."
+    },
+    {
+      "name": "EU Palm Oil",
+      "as_of": "March 25",
+      "mom_pct": 10.0,
+      "yoy_pct": 4.2,
+      "price": "\u20ac1,188.60/MT",
+      "paragraph": "The average weekly price of EU Palm Oil as of March 25 increased by 10.0% MOM and rose by 4.2% YOY to \u20ac1,188.60/MT. EU palm oil prices found significant support due to wider vegetable oil and crude oil rallies that occurred during the strait of Hormuz crisis in the middle east. Sources said that palm oil has tracked crude prices very closely amid market uncertainty, increasing volatility further. Despite this, the market is well supplies and sources expect downward correction in the near term if crude oil follows the same trajectory."
+    },
+    {
+      "name": "UK Pork",
+      "as_of": "March 25",
+      "mom_pct": -2.1,
+      "yoy_pct": -10.8,
+      "price": "\u00a31,793.40/MT",
+      "paragraph": "The average weekly price of UK Pork as of March 25 decreased by 2.1% MOM and declined by 10.8% YOY to \u00a31,793.40/MT. Unlike the EU pork market, UK price levels declined during March. Supply and demand were reported as balanced, with little spot buying activity observed as demand was reported as well covered."
+    },
+    {
+      "name": "US Beef",
+      "as_of": "March 25",
+      "mom_pct": -2.8,
+      "yoy_pct": 10.1,
+      "price": "\u20ac6,983.36/MT",
+      "paragraph": "The average weekly price of EU Beef as of March 25 decreased by 2.6% MOM and declined by 0.1%               The average weekly price of US Beef as of March 25 decreased by 2.8% MOM and rose by 10.1% YOY to \u20ac6,983.36/MT. According to market participants, overall market conditions remained subdued,          YOY to $8,197.14/MT. Cattle slaughter continued to fall short of the prior year. YTD slaughter was 7.9% with weak demand offsetting ongoing supply tightness. On a year over year (YOY) basis, prices have          lower as of March 21st. The average dressed steer weight as of March 21st was 898 lbs, up 27 lbs YOY remained firm, largely supported by persistent supply-side constraints. Market participants note that the   and 6 lbs lower WOW, according to the US Department of Agriculture (USDA). The USDA\u2019s Economica Research Service (ERS) estimated beef production for 2026 was 25.810 billion lbs, 1.0% lower than 2025 deadweight beef segment continues to demonstrate resilience, underpinned by limited cattle availability levels. and steady demand from key buyers across mainland Europe and the United Kingdom."
+    },
+    {
+      "name": "UK Beef",
+      "as_of": "March 25",
+      "mom_pct": -1.9,
+      "yoy_pct": -2.6,
+      "price": "\u00a36,260/MT",
+      "paragraph": "The average weekly price of UK Beef as of March 25 decreased by 1.9% MOM and declined by 2.6% YOY to \u00a36,260/MT primarily due to subdued demand. The most pronounced declines were observed in cuts such as round and roasting joints. Market participants attribute this weakness to warmer weather conditions, which have dampened seasonal demand for these products. Prices for cuts such as rump, fillet, and striploin have also softened, with market participants noting that substantial inventories of steak cuts accumulated since February 2026 have weighed on the market."
+    },
+    {
+      "name": "UK Milk",
+      "as_of": "March 25",
+      "mom_pct": -13.6,
+      "yoy_pct": -51.3,
+      "price": "GBp 19/L",
+      "paragraph": "The average weekly price of UK Milk as of March 25 decreased by 13.6% MOM and declined by 51.3% YOY to GBp 19/L. Prices continued declined MOM in line with the seasonal trend. Milk intakes remain elevated compared with last year. Processing capacity remains tight, and processors remain reluctant to separate milk, which is restricting demand for spot volumes. Overall, the market remains under pressure in the short term, with limited drivers for a sharp rebound and a fragile balance between available milk and processing capacity"
+    },
+    {
+      "name": "US NFDM - SMP",
+      "as_of": "March 25",
+      "mom_pct": 16.3,
+      "yoy_pct": 28.5,
+      "price": "$3,476.98/MT",
+      "paragraph": "The average weekly price of US NFDM - SMP as of March 25 increased by 16.3% MOM and rose by 28.5% YOY to $3,476.98/MT. NFDM prices continued to increase as constrained production and tight inventory levels supported bullish market sentiment. Processors continue to divert milk into higher profit margin production streams, leaving limited volumes for NFDM production. The deliberate shift in production priorities by major manufacturers, coupled with sustained international and domestic demand for NFDM, reinforced the bullish pricing environment"
+    },
+    {
+      "name": "UK Cheddar",
+      "as_of": "March 25",
+      "mom_pct": 4.2,
+      "yoy_pct": -13.8,
+      "price": "$1.56/Lb",
+      "paragraph": "The average weekly price of US Cheddar as of March 25 increased by 8.4% MOM and declined by                The average weekly price of UK Cheddar as of March 25 increased by 4.2% MOM and declined by 13.8% YOY to $1.56/Lb. Similar to the broader US dairy market, cheese prices rebounded during the          26.6% YOY to \u00a32,960/MT. UK Cheddar prices increased in March. Stocks are tight\u2014particularly for mature\u2014after strong curd sales last year. Demand remains firm, but overall market confidence month but remained below the previous year\u2019s levels. Cheese production continued to increase month remains low amid potential trade disruptions. over month (MOM) as new and expanding production facilities ramped up operations and absorbed increased milk supplies. US cheese products maintained a favorable price discount relative to global competitors, expanding international demand and absorbing increased production."
+    },
+    {
+      "name": "Russian Alaska Pollock",
+      "as_of": "March 25",
+      "mom_pct": -1.8,
+      "yoy_pct": 17.7,
+      "price": "$3,679.15/MT",
+      "paragraph": "The average weekly price of Russian Alaska Pollock as of March 25 decreased by 1.8% MOM and rose by 17.7% YOY to $3,679.15/MT. The pollock market in Europe remains active, with market participants reporting fair demand due to low availability of other whitefish such as Atlantic cod. The slight price decrease MOM reflects a weak euro against the US dollar and does not indicate real market sentiment. Market participants are reporting upward pressure on prices for Russian pollock products. According to the Russian Federal Agency for Fisheries, pollock landings through March 16 amounted to 698,600 MT, which is 66,000 MT lower than the same period in 2025. *February 2026 is the last available data."
+    },
+    {
+      "name": "Chinese Pear",
+      "as_of": "March 25",
+      "mom_pct": -1.2,
+      "yoy_pct": 5.1,
+      "price": "\u20ac1,900/MT",
+      "paragraph": "The average weekly price of Spanish Pear as of March 25 increased by 9.2% MOM and rose by 4.4%           The average weekly price of Chinese Pear as of March 25 decreased by 1.2% MOM and rose by 5.1% YOY to \u20ac1,900/MT. Market sources report a challenging outlook for Spain\u2019s pear market, as production     YOY to CNY 6,610/MT. The Chinese pear sector continues to struggle with oversupply, according to volumes remain significantly below the average of recent years and storage challenges are reportedly     sources. However, the market is under pressure from rising input costs and a labor shortage. In addition, negatively affecting fruit quality. In addition, Spain is struggling with tough competition from other   domestic consumption patterns tend to favor higher quality fruit, which has been negatively affected by European producers.                                                                                      adverse weather conditions."
+    },
+    {
+      "name": "Argentinian Pear",
+      "as_of": "March 25",
+      "mom_pct": -26.2,
+      "yoy_pct": 32.2,
+      "price": "ARS 1,366.67/kg",
+      "paragraph": "The average weekly price of Argentinian Pear as of March 25 decreased by 26.2% MOM and rose by 32.2% YOY to ARS 1,366.67/kg. According to market players, Argentina\u2019s 2026 pear season will see reduced production, as adverse weather conditions reduced crop yields. However, fruit quality is reportedly still good, and exports to Brazil, a key destination, are reportedly likely to benefit from reduced availability in Europe."
+    },
+    {
+      "name": "South African Orange",
+      "as_of": "March 25",
+      "mom_pct": -46.5,
+      "yoy_pct": -32.2,
+      "price": "ZAR 9,091.59/MT",
+      "paragraph": "The average weekly price of South African Orange as of March 25 decreased by 46.5% MOM and declined by 32.2% YOY to ZAR 9,091.59/MT. The Citrus Growers\u2019 Association of Southern Africa (CGA) has released its initial export forecasts for 2026. Some orange varieties are expected to record declines in export volumes, while others, such as Valencia oranges, show slight increases. According to the CGA, the industry continues to face market access challenges, as well as logistical inefficiencies."
+    },
+    {
+      "name": "US Banana",
+      "as_of": "March 25",
+      "mom_pct": -4.2,
+      "yoy_pct": -0.1,
+      "price": "\u20ac1,146.33/MT",
+      "paragraph": "The average weekly price of EU Banana as of March 25 increased by 0.9% MOM and declined by          The average weekly price of US Banana as of March 25 decreased by 4.2% MOM and declined by 0.1% YOY to \u20ac1,146.33/MT. Market sources say the banana market continues to demonstrate stability   18.0% YOY to $0.51/Lb. US Banana prices slipped slightly amid solid supply from Costa Rica. Still, overall as Costa Rica\u2019s banana production continues to produce consistent volumes. Still, some      concerns around TR4, or Panama Disease, are front of mind as some South American crops are producers are expressing concern that tight margins have not kept up with growing labor and         impacted. Meanwhile, banana exports to key UAE markets, such as Saudi Arabia, Oman, and Dubai, are production costs. Meanwhile, FreshPlaza said the UK banana market experienced a decline in Belize   largely paused due to the US-Isreal-Iran conflict, leaving supply available for alternative destinations. banana imports in January, contradicting Belize's improved performance in other EU markets."
+    },
+    {
+      "name": "Indian Chilli",
+      "as_of": "March 25",
+      "mom_pct": -3.9,
+      "yoy_pct": 68.1,
+      "price": "$245.20/100kg",
+      "paragraph": "The average weekly price of Indian Chilli as of March 25 decreased by 3.9% MOM and rose by 68.1% YOY to $245.20/100kg."
+    },
+    {
+      "name": "Indian Cotton",
+      "as_of": "March 25",
+      "mom_pct": 2.6,
+      "yoy_pct": 3.8,
+      "price": "USc 67.59/Lb",
+      "paragraph": "The average weekly price of US Cotton as of March 25 increased by 6.9% MOM and rose by 3.2%               The average weekly price of Indian Cotton as of March 25 increased by 2.6% MOM and rose by 3.8% YOY to USc 67.59/Lb. Prices for cotton in the US rose in March due to concerns about severe drought in    YOY to INR 156,772.34/MT. Cotton prices in India rose in March driven by strong demand from spinning Texas and other key growing regions, which threatens the 2026 harvest and could lead to a reduction in    mills and traders against the backdrop of overall increases in global quotations. A significant impact was planted acreage.                                                                                          exerted by the weakening of the Indian rupee against the dollar, which made cotton imports more expensive and stimulated purchases on the domestic market."
+    }
+  ]
+}
