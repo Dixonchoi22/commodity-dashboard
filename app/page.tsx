@@ -56,7 +56,7 @@ export default function HomePage() {
                 <p className="text-sm text-dark-muted mt-1">{report.subtitle}</p>
               </div>
               <Link
-                href={report.file}
+                href={report.html}
                 target="_blank"
                 className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary-blue/10 border border-primary-blue/30 text-primary-blue text-sm font-semibold hover:bg-primary-blue/20 transition"
               >
@@ -101,8 +101,10 @@ export default function HomePage() {
       </section>
 
       <footer className="mt-12 text-xs text-dark-muted">
-        Drop new HTML reports into <code>public/reports/</code> and register them in{" "}
-        <code>lib/reports.ts</code>.
+        Add a new month: drop raw sources into <code>data/{"{YYYY-MM}"}/raw/</code>,
+        run <code>python scripts/extract_april_2026.py</code> then{" "}
+        <code>python scripts/build_html.py {"{YYYY-MM}"}</code>, and register it
+        in <code>data/manifest.json</code>.
       </footer>
     </main>
   );

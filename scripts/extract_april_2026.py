@@ -24,10 +24,12 @@ from pathlib import Path
 import openpyxl
 
 ROOT = Path(__file__).resolve().parent.parent
-PDF = ROOT / "Commodity Price Change Overview Report April 2026.pdf"
-HICP_XLSX = ROOT / "HICP Data EU.xlsx"
-FORECAST_XLSX = ROOT / "Forecast Data Q1 26.xlsx"
-OUT = ROOT / "data" / "april-2026"
+PERIOD_DIR = ROOT / "data" / "2026-04"
+RAW = PERIOD_DIR / "raw"
+PDF = RAW / "overview.pdf"
+HICP_XLSX = RAW / "hicp.xlsx"
+FORECAST_XLSX = RAW / "forecast.xlsx"
+OUT = PERIOD_DIR
 OUT.mkdir(parents=True, exist_ok=True)
 
 PERIOD = {

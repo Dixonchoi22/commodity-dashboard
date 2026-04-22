@@ -1,0 +1,54 @@
+{
+  "slug": "2026-04",
+  "title": "Commodity Intelligence: EU Outlook",
+  "subtitle": "April 2026 — key cost drivers for food & catering procurement",
+  "region": "European Union",
+  "period": "April 2026",
+  "period_mom": "March 2026 vs February 2026",
+  "period_yoy": "March 2026 vs March 2025",
+  "source": "Expana (Mintec) Commodity Price Change Overview Report",
+  "output_html": "/reports/eu-outlook-apr-2026.html",
+  "kpis": [
+    {
+      "label": "EU HICP Food YoY (Jan 2026)",
+      "value": "+2.5%",
+      "caption": "EU aggregate, vs Jan 2025",
+      "tone": "red"
+    },
+    {
+      "label": "Highest MoM Price Hike",
+      "value": "Egg US +106.2%",
+      "caption": "Easter demand shock",
+      "tone": "red"
+    },
+    {
+      "label": "Biggest MoM Drop",
+      "value": "Milk EU -26.3%",
+      "caption": "Strong supply flows",
+      "tone": "green"
+    },
+    {
+      "label": "Largest YoY Deflation",
+      "value": "Potato processing EU -73.9%",
+      "caption": "Persistent oversupply",
+      "tone": "green"
+    }
+  ],
+  "highlights": [
+    {
+      "tone": "red",
+      "label": "Extreme price risk",
+      "body": "Egg US +106.2% MoM and Tomato EU +48.3% MoM / +42.0% YoY on Spanish supply shortage. Lamb UK +15.1% MoM / +22.0% YoY driven by Easter & Ramadan demand."
+    },
+    {
+      "tone": "green",
+      "label": "Major opportunity",
+      "body": "Potato processing EU -73.9% YoY, Milk EU -73.1% YoY, Cocoa ICE London -61.5% YoY, Butter EU -42.5% YoY — window for long-term contracts."
+    },
+    {
+      "tone": "blue",
+      "label": "Energy spillover",
+      "body": "Crude oil volatility from the Middle East has pushed vegetable oils higher: Soyabean Oil US +55.5% YoY, Rapeseed Oil Canada +41.2% YoY, Palm Oil EU +4.2% YoY."
+    }
+  ]
+}
