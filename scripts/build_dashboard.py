@@ -75,6 +75,12 @@ def build() -> str:
         for r in reports
     )
 
+    # Escape "</" in the JSON blob so the browser's HTML parser doesn't
+    # mistake an inlined </script> (e.g. inside a legacy report's srcdoc)
+    # for the end of our outer <script> tag. "<\/" is legal inside JSON
+    # strings and JS unescapes it back to "</".
+    periods_json = json.dumps(periods_js).replace("</", "<\\/")
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -254,7 +260,7 @@ def build() -> str:
   </main>
 
   <script>
-    const PERIODS = {json.dumps(periods_js, indent=2)};
+    const PERIODS = {periods_json};
     const DEFAULT = {json.dumps(default)};
 
     function selectPeriod(slug) {{
