@@ -1,0 +1,29 @@
+{
+  "slug": "YYYY-MM",
+  "title": "Commodity Intelligence: EU Outlook",
+  "subtitle": "Month YYYY — key cost drivers for food & catering procurement",
+  "region": "European Union",
+  "period": "Month YYYY",
+  "period_mom": "PrevMonth YYYY vs PrevPrevMonth YYYY",
+  "period_yoy": "PrevMonth YYYY vs PrevMonth YYYY-1",
+  "source": "Expana (Mintec) Commodity Price Change Overview Report",
+  "output_html": "/reports/YYYY-MM.html",
+  "trend_analysis": "TODO: 2-3 sentences summarising the HICP trend this month. Mention the latest published index level, whether YoY inflation is accelerating/moderating, and any category-level MoM spikes worth flagging.",
+  "highlights": [
+    {
+      "tone": "red",
+      "label": "Extreme price risk",
+      "body": "TODO: the biggest red flags — commodities with huge MoM or YoY inflation this period."
+    },
+    {
+      "tone": "green",
+      "label": "Major opportunity",
+      "body": "TODO: commodities in deep deflation — candidates for long-term contract lock-in."
+    },
+    {
+      "tone": "blue",
+      "label": "Secondary theme",
+      "body": "TODO: a cross-cutting story (energy spillover, currency moves, weather, policy)."
+    }
+  ]
+}
