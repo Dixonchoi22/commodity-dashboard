@@ -55,7 +55,9 @@ def build() -> str:
             "period_mom": meta.get("period_mom", ""),
             "period_yoy": meta.get("period_yoy", ""),
             "region": meta.get("region", r.get("region", "")),
-            "src": r["html"].lstrip("/"),
+            # index.html sits in public/reports/, so point at sibling files
+            # (works both under file:// and when served at /reports/).
+            "src": Path(r["html"]).name,
             "legacy": bool(meta.get("legacy")),
         }
 
