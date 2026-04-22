@@ -158,7 +158,7 @@
     },
     {
       "category": "Oilseeds & Vegetable Oils",
-      "name": "Oilseeds & Vegetable Sunflower Seed Russia",
+      "name": "Sunflower Seed Russia",
       "mom_pct": 0.9,
       "yoy_pct": -9.0
     },
@@ -170,7 +170,7 @@
     },
     {
       "category": "Oilseeds & Vegetable Oils",
-      "name": "Oils Sunflower Oil Ukraine",
+      "name": "Sunflower Oil Ukraine",
       "mom_pct": 0.8,
       "yoy_pct": 21.7
     },
@@ -536,7 +536,7 @@
     },
     {
       "category": "Nuts & Dried Fruit",
-      "name": "Dried Apricots Turkey",
+      "name": "Apricots Turkey",
       "mom_pct": 0.0,
       "yoy_pct": 85.0
     },

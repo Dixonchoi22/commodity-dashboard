@@ -55,9 +55,28 @@ CATEGORIES = [
 
 
 def pdf_to_text(pdf_path: Path) -> str:
+    """Full-page text (columns will interleave) — used for the summary
+    table on pages 1-4, which is easier to parse with both columns visible."""
     return subprocess.check_output(
         ["pdftotext", "-layout", str(pdf_path), "-"], text=True, encoding="utf-8"
     )
+
+
+def pdf_columns_to_text(pdf_path: Path) -> str:
+    """Return left-column + right-column text concatenated. We crop the PDF
+    to each half separately so pdftotext doesn't interleave the two columns'
+    paragraphs — critical for the per-commodity commentary sections."""
+    # A4 page: 841.92 x 595.2 pts. The two-column layout puts each column
+    # in ~420pt wide bands. Small overlap (5pt) absorbs borderline text.
+    left = subprocess.check_output(
+        ["pdftotext", "-layout", "-x", "0", "-y", "0", "-W", "425", "-H", "600", str(pdf_path), "-"],
+        text=True, encoding="utf-8",
+    )
+    right = subprocess.check_output(
+        ["pdftotext", "-layout", "-x", "416", "-y", "0", "-W", "425", "-H", "600", str(pdf_path), "-"],
+        text=True, encoding="utf-8",
+    )
+    return left + "\n\n----COLUMN-BREAK----\n\n" + right
 
 
 # ---------- Summary table extraction ----------
@@ -126,10 +145,28 @@ def extract_summary(text: str) -> list[dict]:
             prev_end = m.end()
 
             name = segment
-            # Strip any category label that appears within the segment
+            # Strip any full category label that appears within the segment
             for c in CATEGORIES:
                 if c in name:
                     name = name.replace(c, " ")
+            # Some multi-word category labels wrap across pdftotext lines,
+            # leaving fragments like "Oilseeds & Vegetable" or "Oils" attached
+            # to the first / last row of the section. Strip those too.
+            for frag in (
+                "Oilseeds & Vegetable",
+                "Oilseeds &amp; Vegetable",
+                "Fruit & Vegetables",
+                "Dairy & Eggs",
+                "Meat & Poultry",
+                "Fish & Seafood",
+                "Nuts & Dried Fruit",
+                "Herbs & Spices",
+                "Grains & Feed",
+            ):
+                name = name.replace(frag, " ")
+            # Leading stray words left behind by wrapped categories
+            name = name.strip()
+            name = re.sub(r"^(Oils|Vegetable|Vegetables|Spices|Fruit|Eggs|Poultry|Seafood|Feed|Dried)\s+", "", name)
             # Strip PDF page-footer / header noise that pdftotext occasionally
             # pastes next to a commodity name ("2 Expana © 2026", etc.)
             name = re.sub(r"\b\d+\s*Expana\s*©\s*\d{4}\b", "", name)
@@ -190,10 +227,14 @@ PRICE_LINE = re.compile(
 )
 
 
-def extract_commentary(text: str) -> list[dict]:
+def extract_commentary(text: str, summary_rows: list[dict] | None = None) -> list[dict]:
     """Pull standardized "The average weekly price of X..." lines out of the
-    body. The PDF renders paragraphs in two side-by-side columns, so a single
-    paragraph block from pdftotext may contain two commodity narratives.
+    body. Text should be column-split (see pdf_columns_to_text) so paragraphs
+    aren't interleaved.
+
+    If `summary_rows` is passed, tries to resolve each commentary's free-form
+    name (e.g. "CBOT Maize" or "US Soyabean") to the canonical summary-table
+    name (e.g. "Maize CBOT" or "Soyabean US") via token-set matching.
     """
     paragraphs: list[str] = []
     buf: list[str] = []
@@ -206,6 +247,66 @@ def extract_commentary(text: str) -> list[dict]:
             buf.append(line)
     if buf:
         paragraphs.append(" ".join(s.strip() for s in buf))
+
+    # Token-set index of summary names for fuzzy matching
+    summary_index: dict[frozenset[str], str] = {}
+    if summary_rows:
+        for r in summary_rows:
+            key = frozenset(r["name"].lower().split())
+            summary_index[key] = r["name"]
+
+    # Commentary uses country adjectives ("Indian Rice"); summary uses the
+    # country noun ("Rice India"). Normalise so token-set matching works.
+    ADJ_TO_COUNTRY = {
+        "indian": "india", "vietnamese": "vietnam", "chinese": "china",
+        "russian": "russia", "ukrainian": "ukraine", "argentinian": "argentina",
+        "brazilian": "brazil", "canadian": "canada", "spanish": "spain",
+        "thai": "thailand", "australian": "australia", "norwegian": "norway",
+        "chilean": "chile", "polish": "poland", "german": "germany",
+        "french": "france", "italian": "italy", "dutch": "netherlands",
+        "british": "uk", "turkish": "turkey", "malagasy": "madagascar",
+        "malaysian": "malaysia", "indonesian": "indonesia",
+    }
+
+    def normalise_tokens(tokens: list[str]) -> list[str]:
+        return [ADJ_TO_COUNTRY.get(t, t) for t in tokens]
+
+    # Multi-word adjective → noun rewrites applied before tokenising
+    MULTI_ADJ = [
+        (r"\bsouth african\b", "south africa"),
+        (r"\bnew zealander\b", "new zealand"),
+    ]
+
+    def canonicalise(free_name: str) -> str | None:
+        if not summary_index:
+            return None
+        low = free_name.lower()
+        for pat, repl in MULTI_ADJ:
+            low = re.sub(pat, repl, low)
+        tokens = normalise_tokens(low.split())
+        free_set = set(tokens)
+
+        key = frozenset(tokens)
+        if key in summary_index:
+            return summary_index[key]
+        # The summary's token-set is a subset of the commentary's token-set.
+        # This handles cases like "spot ICE London #5 White Sugar futures" →
+        # "Sugar ICE #5 London".
+        best_match = None
+        best_overlap = 0
+        for row_tokens, row_name in summary_index.items():
+            if row_tokens.issubset(free_set) and len(row_tokens) > best_overlap:
+                best_match = row_name
+                best_overlap = len(row_tokens)
+        if best_match:
+            return best_match
+        # Substring containment as last resort
+        joined = " ".join(tokens)
+        for row_name in summary_index.values():
+            rn_low = row_name.lower()
+            if joined in rn_low or rn_low in joined:
+                return row_name
+        return None
 
     neg = {"decreased", "declined", "fell"}
     out: list[dict] = []
@@ -220,6 +321,7 @@ def extract_commentary(text: str) -> list[dict]:
             out.append(
                 {
                     "name": name,
+                    "canonical_name": canonicalise(name) or name,
                     "as_of": d["as_of"].strip(),
                     "mom_pct": float(d["mom"]) * (-1 if d["dir1"].lower() in neg else 1),
                     "yoy_pct": float(d["yoy"]) * (-1 if d["dir2"].lower() in neg else 1),
@@ -360,9 +462,14 @@ def main() -> None:
     outputs: dict[str, int | str] = {}
 
     if p["pdf"].exists():
+        # Summary table: full-page text works (each row fits on a single
+        # line with both columns' % pairs visible).
         text = pdf_to_text(p["pdf"])
         summary = extract_summary(text)
-        commentary = extract_commentary(text)
+        # Commentary: paragraphs span multiple lines and straddle the two
+        # columns — so we crop each column separately to avoid interleaving.
+        columns_text = pdf_columns_to_text(p["pdf"])
+        commentary = extract_commentary(columns_text, summary)
         (p["base"] / "commodities.json").write_text(
             json.dumps({"period": period_info, "rows": summary}, indent=2)
         )

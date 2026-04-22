@@ -164,11 +164,15 @@ def build(period: str) -> str:
     for r in commodities:
         by_cat[r["category"]].append(r)
 
-    # Price lookup (from commentary entries) keyed by lowercased commodity name
+    # Price lookup: commentary entries key by summary's canonical_name
+    # (populated by extract.py via token-set matching).
     price_lookup: dict[str, str] = {}
+    commentary_by_canonical: dict[str, dict] = {}
     for e in commentary:
+        canonical_key = (e.get("canonical_name") or e["name"]).lower()
         if e.get("price"):
-            price_lookup[e["name"].lower()] = e["price"]
+            price_lookup[canonical_key] = e["price"]
+        commentary_by_canonical[canonical_key] = e
 
     # Auto-compute KPIs from data (matches Sep 2025's 4-card layout)
     auto_kpis: list[dict] = []
@@ -271,6 +275,60 @@ def build(period: str) -> str:
         })
 
     forecast_js = json.dumps(forecast)
+
+    # Commodity detail lookup: one entry per summary row, keyed by
+    # lowercased canonical name. Enriched with commentary paragraph + price
+    # (when available) and the commodity's forward curve (when available).
+    #
+    # Forecast→summary matching uses a fixed code map because loose token
+    # overlap produces too many false positives (e.g. everything EU-based
+    # collapsing onto "Pork EU"). Extend this mapping when new Mintec codes
+    # are added to the forecast xlsx.
+    FORECAST_CODE_TO_SUMMARY_NAME = {
+        "COCL": "Cocoa Bean ICE London",
+        "COFN": "Arabica Coffee ICE New York",
+        "WHT2": "Wheat Euronext",
+        "CRNP": "Maize Euronext",
+        "RSOR": "Rapeseed Oil EU",
+        "SG11": "Sugar ICE #11 New York",
+        "BUTH": "Butter EU",
+        "MDC2": "Beef EU",
+        "BY18": "Chicken EU",
+        "BW19": "Pork EU",
+        "J114": "Gouda EU",
+        "ED24": "Milk EU",
+    }
+    forecast_by_name: dict[str, dict] = {}
+    for c in forecast["commodities"]:
+        target = FORECAST_CODE_TO_SUMMARY_NAME.get(c["code"])
+        if target:
+            forecast_by_name[target.lower()] = c
+
+    details = {}
+    for r in commodities:
+        key = r["name"].lower()
+        entry = {
+            "name": r["name"],
+            "category": r["category"],
+            "mom_pct": r.get("mom_pct"),
+            "yoy_pct": r.get("yoy_pct"),
+            "price": price_lookup.get(key),
+        }
+        c_entry = commentary_by_canonical.get(key)
+        if c_entry:
+            entry["paragraph"] = c_entry.get("paragraph")
+            entry["as_of"] = c_entry.get("as_of")
+        fc = forecast_by_name.get(key)
+        if fc:
+            entry["forecast"] = {
+                "description": fc["description"],
+                "unit": fc.get("unit", ""),
+                "start": fc["start"],
+                "end": fc["end"],
+                "points": fc["points"],
+            }
+        details[key] = entry
+    details_js = json.dumps(details)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -394,18 +452,31 @@ def build(period: str) -> str:
       </div>
     </section>
 
-    <!-- Forward-curve modal (matches Sep 2025's click-a-row behaviour). Hidden by default. -->
-    <div id="forecast-modal" class="modal-overlay" onclick="if(event.target===this)closeForecast()">
+    <!-- Commodity detail modal (matches Sep 2025's click-a-row behaviour). Hidden by default. -->
+    <div id="commodity-modal" class="modal-overlay" onclick="if(event.target===this)closeCommodity()">
       <div class="modal-content">
-        <div class="flex justify-between items-start mb-4">
-          <div>
-            <h3 id="forecast-title" class="text-xl font-bold text-dark-text"></h3>
-            <p id="forecast-subtitle" class="text-xs text-dark-muted"></p>
-          </div>
-          <button onclick="closeForecast()" class="text-dark-muted hover:text-white">✕</button>
+        <div class="flex justify-between items-start mb-6 pb-4 border-b border-gray-700">
+          <h3 id="cm-title" class="text-2xl font-bold text-dark-text"></h3>
+          <button onclick="closeCommodity()" class="text-dark-muted hover:text-white text-2xl leading-none">✕</button>
         </div>
-        <div class="h-80"><canvas id="forecastChart"></canvas></div>
-        <p class="text-xs text-dark-muted mt-4">Source: Expana (Mintec) Q1 2026 forward curve export.</p>
+
+        <!-- Info strip: Category / Price / MoM / YoY / Source -->
+        <div id="cm-info" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 p-4 bg-dark-bg/60 rounded-lg"></div>
+
+        <!-- Market commentary paragraph -->
+        <div id="cm-commentary-block" class="mb-6">
+          <h4 class="text-lg font-bold text-dark-text mb-2">Market Commentary</h4>
+          <p id="cm-paragraph" class="text-sm text-gray-300 leading-relaxed"></p>
+          <p class="text-xs text-dark-muted mt-3">Commentary extracted from the Expana (Mintec) Commodity Price Change Overview Report.</p>
+        </div>
+
+        <!-- Forward curve section (shown only when a curve exists for this commodity) -->
+        <div id="cm-forecast-block" class="hidden">
+          <h4 class="text-lg font-bold text-dark-text mb-2">Forward Curve</h4>
+          <p id="cm-forecast-subtitle" class="text-xs text-dark-muted mb-3"></p>
+          <div class="h-72"><canvas id="forecastChart"></canvas></div>
+          <p class="text-xs text-dark-muted mt-3">Source: Expana (Mintec) Q1 2026 forward curve export.</p>
+        </div>
       </div>
     </div>
 
@@ -506,64 +577,116 @@ def build(period: str) -> str:
     }}
   }});
 
-  // --- Forward-curve modal: opens when a commodity row is clicked (Sep 2025 behaviour) ---
-  const forecast = {forecast_js};
-  const forecastByName = {{}};
-  forecast.commodities.forEach(c => {{
-    // Build lookup keyed by lowercased commodity description (loose match)
-    forecastByName[c.description.toLowerCase()] = c;
-    forecastByName[c.code.toLowerCase()] = c;
-  }});
+  // --- Commodity detail modal (matches Sep 2025 click-a-row behaviour) ---
+  const DETAILS = {details_js};
   const fcCtx = document.getElementById('forecastChart');
   let fcChart;
-  function renderForecastModal(c) {{
-    document.getElementById('forecast-title').textContent = c.description;
-    document.getElementById('forecast-subtitle').textContent =
-      c.unit + ' · ' + c.points.length + ' daily points · ' + c.start + ' → ' + c.end;
-    if (fcChart) fcChart.destroy();
-    fcChart = new Chart(fcCtx, {{
-      type: 'line',
-      data: {{
-        labels: c.points.map(p => p.date),
-        datasets: [{{
-          label: c.description + ' (' + c.unit + ')',
-          data: c.points.map(p => p.value),
-          borderColor: '#60A5FA',
-          backgroundColor: 'rgba(96,165,250,0.15)',
-          fill: true, tension: 0.2, pointRadius: 0, borderWidth: 2
-        }}]
-      }},
-      options: {{
-        responsive: true, maintainAspectRatio: false,
-        plugins: {{ legend: {{ labels: {{ color: '#94A3B8' }} }} }},
-        scales: {{
-          x: {{ ticks: {{ color: '#94A3B8', maxTicksLimit: 12 }}, grid: {{ color: '#334155' }} }},
-          y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }}
-        }}
-      }}
-    }});
-    document.getElementById('forecast-modal').classList.add('open');
-  }}
-  function closeForecast() {{
-    document.getElementById('forecast-modal').classList.remove('open');
-  }}
-  window.closeForecast = closeForecast;
 
-  // Wire commodity rows: if a row's commodity name maps to a forward curve, show a glyph + click opens modal.
+  function fmtPct(v) {{
+    if (v === null || v === undefined) return '—';
+    return (v > 0 ? '+' : '') + v.toFixed(1) + '%';
+  }}
+  function tone(v) {{
+    if (v === null || v === undefined) return 'text-dark-muted';
+    return v > 0.5 ? 'text-secondary-red' : (v < -0.5 ? 'text-accent-green' : 'text-dark-muted');
+  }}
+
+  function openCommodityModal(slug) {{
+    const d = DETAILS[slug];
+    if (!d) return;
+
+    document.getElementById('cm-title').textContent = d.name + ' — Market Commentary';
+
+    // Info strip: Category / Latest Price / MoM / YoY
+    document.getElementById('cm-info').innerHTML = `
+      <div>
+        <p class="text-xs uppercase tracking-wider text-dark-muted font-semibold">Category</p>
+        <p class="text-base font-bold text-primary-blue mt-1">${{d.category || '—'}}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-wider text-dark-muted font-semibold">Latest Price</p>
+        <p class="text-base font-bold text-primary-blue mt-1">${{d.price || '—'}}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-wider text-dark-muted font-semibold">MoM</p>
+        <p class="text-base font-bold mt-1 ${{tone(d.mom_pct)}}">${{fmtPct(d.mom_pct)}}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-wider text-dark-muted font-semibold">YoY</p>
+        <p class="text-base font-bold mt-1 ${{tone(d.yoy_pct)}}">${{fmtPct(d.yoy_pct)}}</p>
+      </div>`;
+
+    // Commentary paragraph (when available)
+    const cblock = document.getElementById('cm-commentary-block');
+    if (d.paragraph) {{
+      document.getElementById('cm-paragraph').textContent = d.paragraph;
+      cblock.classList.remove('hidden');
+    }} else {{
+      document.getElementById('cm-paragraph').textContent =
+        'No narrative commentary was extracted from the PDF for this commodity — it appears in the summary table only.';
+      cblock.classList.remove('hidden');
+    }}
+
+    // Forward curve chart (when a matching Mintec curve exists)
+    const fblock = document.getElementById('cm-forecast-block');
+    if (d.forecast) {{
+      document.getElementById('cm-forecast-subtitle').textContent =
+        d.forecast.description + ' · ' + (d.forecast.unit || '') + ' · '
+        + d.forecast.points.length + ' daily points · '
+        + d.forecast.start + ' → ' + d.forecast.end;
+      if (fcChart) fcChart.destroy();
+      fcChart = new Chart(fcCtx, {{
+        type: 'line',
+        data: {{
+          labels: d.forecast.points.map(p => p.date),
+          datasets: [{{
+            label: d.forecast.description,
+            data: d.forecast.points.map(p => p.value),
+            borderColor: '#60A5FA',
+            backgroundColor: 'rgba(96,165,250,0.15)',
+            fill: true, tension: 0.2, pointRadius: 0, borderWidth: 2
+          }}]
+        }},
+        options: {{
+          responsive: true, maintainAspectRatio: false,
+          plugins: {{ legend: {{ labels: {{ color: '#94A3B8' }} }} }},
+          scales: {{
+            x: {{ ticks: {{ color: '#94A3B8', maxTicksLimit: 12 }}, grid: {{ color: '#334155' }} }},
+            y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }}
+          }}
+        }}
+      }});
+      fblock.classList.remove('hidden');
+    }} else {{
+      fblock.classList.add('hidden');
+      if (fcChart) {{ fcChart.destroy(); fcChart = null; }}
+    }}
+
+    document.getElementById('commodity-modal').classList.add('open');
+  }}
+  function closeCommodity() {{
+    document.getElementById('commodity-modal').classList.remove('open');
+  }}
+  window.closeCommodity = closeCommodity;
+
+  // Wire every commodity row to open the detail modal on click.
   document.querySelectorAll('#commodity-body tr').forEach(tr => {{
-    const name = tr.dataset.name;
-    // Try exact + token-based loose match against forecast descriptions
-    const match = forecastByName[name]
-      || Object.keys(forecastByName).find(k => k.includes(name) || name.includes(k.split(' ')[0]));
-    const c = match ? (forecastByName[match] || forecastByName[match.toLowerCase()]) : null;
-    if (c) {{
-      tr.classList.add('cursor-pointer');
-      tr.title = 'Click for forward curve forecast';
-      tr.addEventListener('click', () => renderForecastModal(c));
-      // Append chart glyph to Commodity cell
+    const slug = tr.dataset.name;
+    const d = DETAILS[slug];
+    if (!d) return;
+    tr.classList.add('cursor-pointer');
+    tr.title = 'Click for full market commentary';
+    tr.addEventListener('click', () => openCommodityModal(slug));
+    // Add a chart glyph if a forward curve is available for this row
+    if (d.forecast) {{
       const cell = tr.children[1];
       cell.insertAdjacentHTML('beforeend', ' <i data-lucide="line-chart" class="w-4 h-4 ml-1 inline text-accent-green"></i>');
     }}
+  }});
+
+  // ESC key closes the modal
+  document.addEventListener('keydown', e => {{
+    if (e.key === 'Escape') closeCommodity();
   }});
 
   // --- Explorer filter ---
