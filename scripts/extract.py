@@ -71,13 +71,25 @@ def parse_pct(s: str) -> float | None:
     return float(m.group(1)) if m else None
 
 
+def _load_canonical_categories() -> dict[str, str]:
+    """Canonical name -> category map, extracted from the Sep 2025 legacy
+    dashboard (which Gemini categorised manually). Used to fix the flaky
+    category detection from the two-column PDF layout."""
+    path = ROOT / "data" / "_canonical_categories.json"
+    if path.exists():
+        return json.loads(path.read_text())
+    return {}
+
+
 def extract_summary(text: str) -> list[dict]:
     """Parse the 4-page summary table into {category, name, mom, yoy} rows.
 
     Layout: two side-by-side columns. Each row ends with `...MoM%  YoY%`.
-    Category labels appear centered in a separate mini-column; we assign by
-    running through categories in the order they appear in the document.
+    Category labels appear centered in a separate mini-column. We detect
+    category via a canonical name lookup first (reliable) and only fall
+    back to positional detection when the name is new.
     """
+    canonical = _load_canonical_categories()
     lines = text.splitlines()
     rows: list[dict] = []
 
@@ -104,33 +116,52 @@ def extract_summary(text: str) -> list[dict]:
                     left_cat = cat
                 else:
                     right_cat = cat
-        # Find rows that end with two percentages
+        # Iterate the MoM/YoY pairs on this line. For each pair, the commodity
+        # name is the text BETWEEN the previous pair's end and this pair's
+        # start (or line start if it's the first pair). This avoids letting a
+        # right-column row absorb the left-column row's name + percentages.
+        prev_end = 0
         for m in ROW_2PCT.finditer(line):
-            end = m.end()
-            # The text preceding the match is the commodity name
-            start_of_match = m.start()
-            prefix = line[:start_of_match].rstrip()
-            # Column side based on match position
-            col = start_of_match
-            cat = left_cat if col < MID else right_cat
-            # Clean the commodity name: strip any category label, numeric noise
-            name = prefix
-            if cat and cat in name:
-                name = name.replace(cat, "")
-            # Collapse runs of whitespace; take trailing words (name is rightmost)
-            name = " ".join(name.split())
-            # Heuristic: commodity name is the trailing token group after the
-            # category column. Drop a leading category if still present.
+            segment = line[prev_end:m.start()]
+            prev_end = m.end()
+
+            name = segment
+            # Strip any category label that appears within the segment
             for c in CATEGORIES:
-                if name.startswith(c):
-                    name = name[len(c):].strip()
-            # Skip table header row
+                if c in name:
+                    name = name.replace(c, " ")
+            # Strip PDF page-footer / header noise that pdftotext occasionally
+            # pastes next to a commodity name ("2 Expana © 2026", etc.)
+            name = re.sub(r"\b\d+\s*Expana\s*©\s*\d{4}\b", "", name)
+            name = re.sub(r"\bExpana\s*©\s*\d{4}\b", "", name)
+            name = re.sub(r"\bContents\b", "", name)
+            name = " ".join(name.split())
+
+            # Decide which column we're on by the match's x position
+            col = m.start()
+            cat = left_cat if col < MID else right_cat
+
+            # Skip noise: empty name, header row, stray % markers
             if not name or name.lower().startswith("commodity"):
                 continue
+            if any(tok in name for tok in ("%", "CATEGORY", "Price changes")):
+                continue
+
+            # Prefer canonical category (name-based lookup) over positional
+            # detection. Falls back to positional cat if name is unseen.
+            canonical_cat = canonical.get(name.lower())
+            if not canonical_cat:
+                # Try a loose match (first 2-3 tokens) to catch rewordings like
+                # "NFDM - SMP US" vs "SMP US".
+                key = name.lower()
+                for canon_name, canon_cat in canonical.items():
+                    if canon_name in key or key in canon_name:
+                        canonical_cat = canon_cat
+                        break
             mom_s, yoy_s = m.group(1), m.group(2)
             rows.append(
                 {
-                    "category": cat or "Unknown",
+                    "category": canonical_cat or cat or "Unknown",
                     "name": name,
                     "mom_pct": parse_pct(mom_s),
                     "yoy_pct": parse_pct(yoy_s),

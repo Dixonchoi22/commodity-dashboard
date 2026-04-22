@@ -1,0 +1,58 @@
+{
+  "source": "Eurostat \u2014 prc_hicp_midx (CP01 Food & non-alcoholic beverages, EU27, base 2015=100)",
+  "url": "https://ec.europa.eu/eurostat/databrowser/view/teicp010/default/table?lang=en",
+  "unit": "Index (2015 = 100)",
+  "series": [
+    {
+      "month": "Jan 2025",
+      "index": 145.82
+    },
+    {
+      "month": "Feb 2025",
+      "index": 146.49
+    },
+    {
+      "month": "Mar 2025",
+      "index": 147.02
+    },
+    {
+      "month": "Apr 2025",
+      "index": 147.58
+    },
+    {
+      "month": "May 2025",
+      "index": 148.23
+    },
+    {
+      "month": "Jun 2025",
+      "index": 148.35
+    },
+    {
+      "month": "Jul 2025",
+      "index": 148.59
+    },
+    {
+      "month": "Aug 2025",
+      "index": 148.68
+    },
+    {
+      "month": "Sep 2025",
+      "index": 148.41
+    },
+    {
+      "month": "Oct 2025",
+      "index": 148.72
+    },
+    {
+      "month": "Nov 2025",
+      "index": 148.8
+    },
+    {
+      "month": "Dec 2025",
+      "index": 148.8
+    }
+  ],
+  "latest_month": "Dec 2025",
+  "latest_index": 148.8,
+  "yoy_pct_last_12": 2.04
+}

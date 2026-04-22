@@ -8,33 +8,7 @@
   "period_yoy": "March 2026 vs March 2025",
   "source": "Expana (Mintec) Commodity Price Change Overview Report",
   "output_html": "/reports/2026-04.html",
-  "trend_analysis": "EU Food HICP YoY inflation peaked at +3.4% mid-2025 and has since moderated to +2.5% by January 2026. The trend suggests the post-2024 inflation wave is cooling, though underlying volatility remains high in specific categories (dairy, eggs, fresh produce) that are driving the monthly price action.",
-  "kpis": [
-    {
-      "label": "EU HICP Food YoY (Jan 2026)",
-      "value": "+2.5%",
-      "caption": "EU aggregate, vs Jan 2025",
-      "tone": "red"
-    },
-    {
-      "label": "Highest MoM Price Hike",
-      "value": "Egg US +106.2%",
-      "caption": "Easter demand shock",
-      "tone": "red"
-    },
-    {
-      "label": "Biggest MoM Drop",
-      "value": "Milk EU -26.3%",
-      "caption": "Strong supply flows",
-      "tone": "green"
-    },
-    {
-      "label": "Largest YoY Deflation",
-      "value": "Potato processing EU -73.9%",
-      "caption": "Persistent oversupply",
-      "tone": "green"
-    }
-  ],
+  "trend_analysis": "The EU Food HICP index (CP01) continued to climb through 2025, reaching 148.80 by December (latest published by Eurostat). YoY inflation has moderated from +3.4% mid-2025 to roughly +2.0% by year-end. The cooling headline rate masks severe month-on-month spikes in specific categories — Egg US (+106.2% MoM, Easter demand shock), Tomato EU (+48.3% MoM, Spanish supply shortage), Lamb UK (+15.1% MoM, Easter & Ramadan).",
   "highlights": [
     {
       "tone": "red",

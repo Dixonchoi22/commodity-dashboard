@@ -19,12 +19,16 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def load(period: str) -> dict:
     p = ROOT / "data" / period
+    def maybe(name: str):
+        path = p / name
+        return json.loads(path.read_text()) if path.exists() else None
     return {
-        "meta": json.loads((p / "meta.json").read_text()),
-        "commodities": json.loads((p / "commodities.json").read_text()),
-        "hicp": json.loads((p / "hicp.json").read_text()),
-        "forecast": json.loads((p / "forecast.json").read_text()),
-        "commentary": json.loads((p / "commentary.json").read_text()),
+        "meta": maybe("meta.json") or {},
+        "commodities": maybe("commodities.json") or {"rows": []},
+        "hicp": maybe("hicp.json") or {"months": [], "series": []},
+        "forecast": maybe("forecast.json") or {"commodities": []},
+        "commentary": maybe("commentary.json") or {"entries": []},
+        "hicp_index": maybe("hicp_index.json"),
     }
 
 
@@ -119,7 +123,7 @@ def category_card(category: str, rows: list[dict]) -> str:
 </div>"""
 
 
-def commodity_row(r: dict) -> str:
+def commodity_row(r: dict, price_lookup: dict[str, str]) -> str:
     mom_tone = tone_for(r.get("mom_pct"))
     yoy_tone = tone_for(r.get("yoy_pct"))
     tone_cls = {
@@ -132,10 +136,12 @@ def commodity_row(r: dict) -> str:
         "green": "border-l-accent-green/50",
         "neutral": "border-l-gray-700",
     }[yoy_tone]
+    price = price_lookup.get(r["name"].lower(), "—")
     return f"""
 <tr class="hover:bg-dark-bg transition duration-150 border-l-4 {border_tone}" data-category="{_html.escape(r['category'])}" data-name="{_html.escape(r['name'].lower())}">
   <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-dark-muted">{_html.escape(r['category'])}</td>
   <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-dark-text">{_html.escape(r['name'])}</td>
+  <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">{_html.escape(price)}</td>
   <td class="px-4 py-3 whitespace-nowrap text-center text-sm">
     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border min-w-[70px] justify-center {tone_cls[mom_tone]}">{fmt_pct(r.get('mom_pct'))}</span>
   </td>
@@ -149,46 +155,120 @@ def build(period: str) -> str:
     bundle = load(period)
     meta = bundle["meta"]
     commodities = bundle["commodities"]["rows"]
-    hicp = bundle["hicp"]
     forecast = bundle["forecast"]
+    commentary = bundle["commentary"]["entries"]
+    hicp_index = bundle["hicp_index"]
 
     # Group commodities by category
     by_cat: dict[str, list[dict]] = defaultdict(list)
     for r in commodities:
         by_cat[r["category"]].append(r)
 
-    # HICP: EU aggregate series as line chart data
-    eu_series = next((s for s in hicp["series"] if s["geo"] == "European Union"), None)
+    # Price lookup (from commentary entries) keyed by lowercased commodity name
+    price_lookup: dict[str, str] = {}
+    for e in commentary:
+        if e.get("price"):
+            price_lookup[e["name"].lower()] = e["price"]
 
-    # Top risks / opportunities for Procurement Actions
-    risks = sorted(commodities, key=lambda r: r.get("yoy_pct") or 0, reverse=True)[:5]
-    opps = sorted(commodities, key=lambda r: r.get("yoy_pct") or 0)[:5]
+    # Auto-compute KPIs from data (matches Sep 2025's 4-card layout)
+    auto_kpis: list[dict] = []
+    if hicp_index:
+        latest = hicp_index["series"][-1]
+        first = hicp_index["series"][0]
+        yoy = (latest["index"] / first["index"] - 1) * 100
+        auto_kpis.append({
+            "label": f"HICP Food Index ({latest['month']})",
+            "value": f"{latest['index']:.2f}",
+            "caption": "Eurostat EU27 · 2015 = 100 base",
+            "tone": "blue",
+        })
+        auto_kpis.append({
+            "label": "YoY Overall Inflation",
+            "value": f"{yoy:+.1f}%",
+            "caption": f"vs. {first['month']} (HICP Food)",
+            "tone": "red" if yoy > 0 else "green",
+        })
+    # Highest MoM hike + biggest MoM drop from commodities
+    commodities_with_mom = [c for c in commodities if c.get("mom_pct") is not None]
+    if commodities_with_mom:
+        top_hike = max(commodities_with_mom, key=lambda c: c["mom_pct"])
+        top_drop = min(commodities_with_mom, key=lambda c: c["mom_pct"])
+        auto_kpis.append({
+            "label": "Highest MoM Price Hike",
+            "value": f"{top_hike['name']} ({fmt_pct(top_hike['mom_pct'])})",
+            "caption": "Immediate cost pressure",
+            "tone": "red",
+        })
+        auto_kpis.append({
+            "label": "Biggest MoM Drop",
+            "value": f"{top_drop['name']} ({fmt_pct(top_drop['mom_pct'])})",
+            "caption": "Procurement opportunity",
+            "tone": "green",
+        })
+    # If meta.kpis exists, use those instead (lets periods override)
+    kpis = meta.get("kpis") if meta.get("kpis") else auto_kpis
 
-    kpis_html = "\n".join(kpi_card(k) for k in meta["kpis"])
-    highlights_html = "\n".join(highlight_card(h) for h in meta["highlights"])
+    # Top risks / opportunities / balanced for Procurement Actions
+    risks = sorted(
+        (c for c in commodities if (c.get("yoy_pct") or 0) > 0),
+        key=lambda r: r.get("yoy_pct") or 0,
+        reverse=True,
+    )[:5]
+    opps = sorted(
+        (c for c in commodities if (c.get("yoy_pct") or 0) < 0),
+        key=lambda r: r.get("yoy_pct") or 0,
+    )[:5]
+    # Balanced: small absolute changes on both timeframes — moderate risk watch
+    balanced = sorted(
+        (
+            c for c in commodities
+            if c.get("yoy_pct") is not None and c.get("mom_pct") is not None
+            and abs(c["yoy_pct"]) < 3 and abs(c["mom_pct"]) < 2
+        ),
+        key=lambda r: abs(r.get("yoy_pct") or 0),
+    )[:5]
+
+    kpis_html = "\n".join(kpi_card(k) for k in kpis)
+    highlights_html = "\n".join(highlight_card(h) for h in meta.get("highlights", []))
     categories_html = "\n".join(
         category_card(cat, rows) for cat, rows in sorted(by_cat.items())
     )
-    rows_html = "\n".join(commodity_row(r) for r in commodities)
+    rows_html = "\n".join(commodity_row(r, price_lookup) for r in commodities)
 
-    risk_items = "".join(
-        f'<li class="flex items-start"><span class="mr-2 text-secondary-red font-bold leading-none mt-[-2px]">•</span><span><b>{_html.escape(r["name"])}</b> ({_html.escape(r["category"])}): YoY {fmt_pct(r.get("yoy_pct"))}, MoM {fmt_pct(r.get("mom_pct"))}.</span></li>'
-        for r in risks
-    )
-    opp_items = "".join(
-        f'<li class="flex items-start"><span class="mr-2 text-accent-green font-bold leading-none mt-[-2px]">•</span><span><b>{_html.escape(r["name"])}</b> ({_html.escape(r["category"])}): YoY {fmt_pct(r.get("yoy_pct"))}, MoM {fmt_pct(r.get("mom_pct"))}.</span></li>'
-        for r in opps
+    def bullet(r: dict, colour: str) -> str:
+        return (
+            f'<li class="flex items-start"><span class="mr-2 text-{colour} font-bold leading-none mt-[-2px]">•</span>'
+            f'<span><b>{_html.escape(r["name"])}</b> ({_html.escape(r["category"])}): '
+            f'YoY {fmt_pct(r.get("yoy_pct"))}, MoM {fmt_pct(r.get("mom_pct"))}.</span></li>'
+        )
+    risk_items = "".join(bullet(r, "secondary-red") for r in risks)
+    opp_items = "".join(bullet(r, "accent-green") for r in opps)
+    balanced_items = "".join(bullet(r, "primary-blue") for r in balanced) or (
+        '<li class="text-sm text-dark-muted">No commodities matched the balanced threshold.</li>'
     )
 
-    # HICP: match Sep 2025's single-line "12-Month EU Food HICP Trend" style.
-    # Our data is YoY % change by country (Eurostat HICP), so we plot the EU
-    # aggregate only and let the subtitle/axis make the unit clear.
-    eu_hicp_values = eu_series["values"] if eu_series else []
-    hicp_js = json.dumps({
-        "labels": hicp["months"],
-        "value": eu_hicp_values,
-        "unit": hicp["unit"],
-    })
+    # HICP chart data — prefer Eurostat index (matches Sep 2025 series type).
+    # Fallback to YoY % if index not fetched.
+    if hicp_index:
+        hicp_js = json.dumps({
+            "labels": [r["month"] for r in hicp_index["series"]],
+            "values": [r["index"] for r in hicp_index["series"]],
+            "unit": "Index (2015 = 100)",
+            "source_url": hicp_index.get("url", ""),
+            "source_label": hicp_index.get("source", ""),
+            "mode": "index",
+        })
+    else:
+        hicp = bundle["hicp"]
+        eu = next((s for s in hicp["series"] if s["geo"] == "European Union"), None)
+        hicp_js = json.dumps({
+            "labels": hicp["months"],
+            "values": eu["values"] if eu else [],
+            "unit": "YoY % change",
+            "source_url": "",
+            "source_label": "Eurostat HICP",
+            "mode": "yoy",
+        })
 
     forecast_js = json.dumps(forecast)
 
@@ -247,8 +327,8 @@ def build(period: str) -> str:
       <a href="#kpi-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Overview</a>
       <a href="#hicp-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">HICP Trend</a>
       <a href="#explorer-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Commodity Explorer</a>
-      <a href="#forecast-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Forward Curves</a>
       <a href="#strategy-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Strategy</a>
+      <a href="#references-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">References</a>
     </nav>
 
     <section id="kpi-section" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -258,7 +338,7 @@ def build(period: str) -> str:
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div id="hicp-section" class="lg:col-span-2 card chart-visible">
         <h2 class="text-2xl font-bold text-dark-text mb-1">12-Month EU Food Index (HICP) Trend</h2>
-        <p class="text-xs text-dark-muted mb-4">Source: <a href="https://ec.europa.eu/eurostat/databrowser/view/teicp010/default/table?lang=en" target="_blank" class="text-primary-blue hover:underline">Eurostat HICP Food and Beverages</a> &middot; {_html.escape(meta.get('period', ''))}</p>
+        <p class="text-xs text-dark-muted mb-4">Source: <a href="https://ec.europa.eu/eurostat/databrowser/view/teicp010/default/table?lang=en" target="_blank" class="text-primary-blue hover:underline">Eurostat HICP Food &amp; Non-Alcoholic Beverages</a> · Base 2015 = 100 · {_html.escape(meta.get('period', ''))}</p>
         <div class="h-80"><canvas id="hicpChart"></canvas></div>
 
         <!-- Trend Analysis Summary (matches Sep 2025 layout) -->
@@ -302,6 +382,7 @@ def build(period: str) -> str:
             <tr>
               <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Category</th>
               <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider cursor-pointer" data-sort="name">Commodity</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Latest Price</th>
               <th class="px-4 py-3 text-center text-xs font-medium text-dark-muted uppercase tracking-wider cursor-pointer" data-sort="mom">MoM</th>
               <th class="px-4 py-3 text-center text-xs font-medium text-dark-muted uppercase tracking-wider cursor-pointer" data-sort="yoy">YoY</th>
             </tr>
@@ -313,12 +394,20 @@ def build(period: str) -> str:
       </div>
     </section>
 
-    <section id="forecast-section" class="card mt-8">
-      <h2 class="text-2xl font-bold mb-4 text-dark-text">Forward Curves (Q2 2026+)</h2>
-      <p class="text-xs text-dark-muted mb-4">Source: Expana (Mintec) Q1 2026 forecast export</p>
-      <div class="flex flex-wrap gap-2 mb-4" id="forecast-buttons"></div>
-      <div class="h-96"><canvas id="forecastChart"></canvas></div>
-    </section>
+    <!-- Forward-curve modal (matches Sep 2025's click-a-row behaviour). Hidden by default. -->
+    <div id="forecast-modal" class="modal-overlay" onclick="if(event.target===this)closeForecast()">
+      <div class="modal-content">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h3 id="forecast-title" class="text-xl font-bold text-dark-text"></h3>
+            <p id="forecast-subtitle" class="text-xs text-dark-muted"></p>
+          </div>
+          <button onclick="closeForecast()" class="text-dark-muted hover:text-white">✕</button>
+        </div>
+        <div class="h-80"><canvas id="forecastChart"></canvas></div>
+        <p class="text-xs text-dark-muted mt-4">Source: Expana (Mintec) Q1 2026 forward curve export.</p>
+      </div>
+    </div>
 
     <section id="strategy-section" class="card mt-8">
       <h2 class="text-2xl font-bold mb-4 text-dark-text flex items-center">
@@ -327,18 +416,37 @@ def build(period: str) -> str:
       <div class="space-y-6">
         <div>
           <h3 class="text-xl font-bold text-secondary-red flex items-center mb-2">
-            <i data-lucide="triangle-alert" class="w-5 h-5 mr-2"></i> Top 5 YoY Risks
+            <i data-lucide="triangle-alert" class="w-5 h-5 mr-2"></i> High Risks
           </h3>
           <ul class="ml-2 space-y-2 text-sm text-gray-300">{risk_items}</ul>
         </div>
         <hr class="border-gray-700">
         <div>
           <h3 class="text-xl font-bold text-accent-green flex items-center mb-2">
-            <i data-lucide="trending-down" class="w-5 h-5 mr-2"></i> Top 5 YoY Opportunities
+            <i data-lucide="trending-up" class="w-5 h-5 mr-2"></i> Strategic Opportunities
           </h3>
           <ul class="ml-2 space-y-2 text-sm text-gray-300">{opp_items}</ul>
         </div>
+        <hr class="border-gray-700">
+        <div>
+          <h3 class="text-xl font-bold text-primary-blue flex items-center mb-2">
+            <i data-lucide="eye" class="w-5 h-5 mr-2"></i> Balanced / Monitoring
+          </h3>
+          <ul class="ml-2 space-y-2 text-sm text-gray-300">{balanced_items}</ul>
+        </div>
       </div>
+    </section>
+
+    <section id="references-section" class="card mt-8">
+      <h2 class="text-2xl font-bold mb-4 text-dark-text flex items-center">
+        <i data-lucide="book-open" class="w-5 h-5 text-primary-blue mr-2"></i> References &amp; Sources
+      </h2>
+      <ul class="space-y-2 text-sm text-gray-300">
+        <li class="flex items-start"><span class="mr-2 text-primary-blue">•</span><span><b>Eurostat HICP</b> — <a href="https://ec.europa.eu/eurostat/databrowser/view/teicp010/default/table?lang=en" target="_blank" class="text-primary-blue hover:underline">prc_hicp_midx / teicp010</a>, CP01 Food &amp; non-alcoholic beverages, EU27, base 2015 = 100.</span></li>
+        <li class="flex items-start"><span class="mr-2 text-primary-blue">•</span><span><b>Expana (Mintec)</b> — Commodity Price Change Overview Report for {_html.escape(meta.get('period', ''))}: MoM {_html.escape(meta.get('period_mom', ''))}, YoY {_html.escape(meta.get('period_yoy', ''))}.</span></li>
+        <li class="flex items-start"><span class="mr-2 text-primary-blue">•</span><span><b>Expana (Mintec) forward curves</b> — Q1 2026 export covering {len(forecast['commodities'])} commodities with daily forward prices.</span></li>
+        <li class="flex items-start"><span class="mr-2 text-primary-blue">•</span><span>Source files live under <code>data/{period}/raw/</code>; structured JSON under <code>data/{period}/</code>; regeneration via <code>python scripts/build_html.py {period}</code>.</span></li>
+      </ul>
     </section>
 
     <footer class="mt-12 text-xs text-dark-muted text-center pb-6">
@@ -347,15 +455,16 @@ def build(period: str) -> str:
   </div>
 
 <script>
-  // --- HICP Chart: single EU line, Sep 2025-style ---
+  // --- HICP Chart (matches Sep 2025: single EU line, index values 2015=100) ---
   const hicp = {hicp_js};
+  const hicpIsIndex = hicp.mode === 'index';
   new Chart(document.getElementById('hicpChart'), {{
     type: 'line',
     data: {{
       labels: hicp.labels,
       datasets: [{{
-        label: 'EU Food HICP (YoY %)',
-        data: hicp.value,
+        label: hicpIsIndex ? 'EU Food HICP Index (2015=100)' : 'EU Food HICP (YoY %)',
+        data: hicp.values,
         borderColor: '#60A5FA',
         backgroundColor: 'rgba(96,165,250,0.18)',
         fill: true,
@@ -373,27 +482,44 @@ def build(period: str) -> str:
         legend: {{ display: false }},
         tooltip: {{
           callbacks: {{
-            label: ctx => ' YoY change: ' + ctx.parsed.y.toFixed(1) + '%'
+            label: ctx => hicpIsIndex
+              ? ' Index: ' + ctx.parsed.y.toFixed(2)
+              : ' YoY change: ' + ctx.parsed.y.toFixed(1) + '%'
           }}
         }}
       }},
       scales: {{
         x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
         y: {{
-          ticks: {{ color: '#94A3B8', callback: v => v + '%' }},
+          ticks: {{
+            color: '#94A3B8',
+            callback: v => hicpIsIndex ? v.toFixed(1) : v + '%'
+          }},
           grid: {{ color: '#334155' }},
-          title: {{ display: true, text: 'YoY % change', color: '#94A3B8' }}
+          title: {{
+            display: true,
+            text: hicpIsIndex ? 'Index (2015 = 100)' : 'YoY % change',
+            color: '#94A3B8'
+          }}
         }}
       }}
     }}
   }});
 
-  // --- Forward curves ---
+  // --- Forward-curve modal: opens when a commodity row is clicked (Sep 2025 behaviour) ---
   const forecast = {forecast_js};
+  const forecastByName = {{}};
+  forecast.commodities.forEach(c => {{
+    // Build lookup keyed by lowercased commodity description (loose match)
+    forecastByName[c.description.toLowerCase()] = c;
+    forecastByName[c.code.toLowerCase()] = c;
+  }});
   const fcCtx = document.getElementById('forecastChart');
   let fcChart;
-  function renderForecast(idx) {{
-    const c = forecast.commodities[idx];
+  function renderForecastModal(c) {{
+    document.getElementById('forecast-title').textContent = c.description;
+    document.getElementById('forecast-subtitle').textContent =
+      c.unit + ' · ' + c.points.length + ' daily points · ' + c.start + ' → ' + c.end;
     if (fcChart) fcChart.destroy();
     fcChart = new Chart(fcCtx, {{
       type: 'line',
@@ -403,8 +529,8 @@ def build(period: str) -> str:
           label: c.description + ' (' + c.unit + ')',
           data: c.points.map(p => p.value),
           borderColor: '#60A5FA',
-          backgroundColor: 'rgba(96,165,250,0.1)',
-          fill: true, tension: 0.2, pointRadius: 0
+          backgroundColor: 'rgba(96,165,250,0.15)',
+          fill: true, tension: 0.2, pointRadius: 0, borderWidth: 2
         }}]
       }},
       options: {{
@@ -416,17 +542,29 @@ def build(period: str) -> str:
         }}
       }}
     }});
+    document.getElementById('forecast-modal').classList.add('open');
   }}
-  const btnRoot = document.getElementById('forecast-buttons');
-  forecast.commodities.forEach((c, i) => {{
-    const b = document.createElement('button');
-    b.textContent = c.code;
-    b.title = c.description;
-    b.className = 'px-3 py-1 text-xs font-semibold rounded-lg border border-primary-blue/30 text-primary-blue hover:bg-primary-blue/20 transition';
-    b.onclick = () => renderForecast(i);
-    btnRoot.appendChild(b);
+  function closeForecast() {{
+    document.getElementById('forecast-modal').classList.remove('open');
+  }}
+  window.closeForecast = closeForecast;
+
+  // Wire commodity rows: if a row's commodity name maps to a forward curve, show a glyph + click opens modal.
+  document.querySelectorAll('#commodity-body tr').forEach(tr => {{
+    const name = tr.dataset.name;
+    // Try exact + token-based loose match against forecast descriptions
+    const match = forecastByName[name]
+      || Object.keys(forecastByName).find(k => k.includes(name) || name.includes(k.split(' ')[0]));
+    const c = match ? (forecastByName[match] || forecastByName[match.toLowerCase()]) : null;
+    if (c) {{
+      tr.classList.add('cursor-pointer');
+      tr.title = 'Click for forward curve forecast';
+      tr.addEventListener('click', () => renderForecastModal(c));
+      // Append chart glyph to Commodity cell
+      const cell = tr.children[1];
+      cell.insertAdjacentHTML('beforeend', ' <i data-lucide="line-chart" class="w-4 h-4 ml-1 inline text-accent-green"></i>');
+    }}
   }});
-  renderForecast(0);
 
   // --- Explorer filter ---
   const search = document.getElementById('search');
@@ -443,7 +581,7 @@ def build(period: str) -> str:
   search.addEventListener('input', applyFilter);
   catSel.addEventListener('change', applyFilter);
 
-  // Category click → filter by category
+  // Category card click → filter the table by that category
   window.showCategory = function(cat) {{
     catSel.value = cat; applyFilter();
     document.getElementById('explorer-section').scrollIntoView({{ behavior:'smooth' }});
@@ -469,7 +607,8 @@ def build(period: str) -> str:
   }});
   function valueFor(tr, key) {{
     if (key === 'name') return tr.dataset.name;
-    const col = key === 'mom' ? 2 : 3;
+    // Columns: 0 Category, 1 Commodity, 2 Price, 3 MoM, 4 YoY
+    const col = key === 'mom' ? 3 : 4;
     const txt = tr.children[col].innerText.trim().replace('%','').replace('+','');
     const n = parseFloat(txt);
     return isNaN(n) ? null : n;
