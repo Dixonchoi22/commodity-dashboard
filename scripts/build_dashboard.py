@@ -44,10 +44,15 @@ def build() -> str:
     reports = sorted(manifest["reports"], key=lambda r: r["slug"], reverse=True)
     default = reports[0]["slug"]
 
-    # Bundle period info for the client-side switcher.
+    # Bundle period info for the client-side switcher. We inline the full HTML
+    # of each report into an iframe via srcdoc so that opening index.html via
+    # file:// still works — browsers block cross-file iframe src but allow
+    # srcdoc because it's not a separate resource load.
     periods_js = {}
     for r in reports:
         meta = load_meta(r["slug"])
+        html_path = ROOT / "public" / r["html"].lstrip("/")
+        srcdoc = html_path.read_text(encoding="utf-8") if html_path.exists() else ""
         periods_js[r["slug"]] = {
             "label": month_label(r["slug"]),
             "title": meta.get("title", r.get("title", "")),
@@ -55,9 +60,7 @@ def build() -> str:
             "period_mom": meta.get("period_mom", ""),
             "period_yoy": meta.get("period_yoy", ""),
             "region": meta.get("region", r.get("region", "")),
-            # index.html sits in public/reports/, so point at sibling files
-            # (works both under file:// and when served at /reports/).
-            "src": Path(r["html"]).name,
+            "srcdoc": srcdoc,
             "legacy": bool(meta.get("legacy")),
         }
 
@@ -274,8 +277,9 @@ def build() -> str:
       document.getElementById('v-meta').innerHTML = meta;
       document.getElementById('v-legacy').style.display = p.legacy ? '' : 'none';
 
-      // Report frame & URL
-      document.getElementById('report-frame').src = p.src;
+      // Report frame & URL — srcdoc lets the nested HTML load under file://
+      const frame = document.getElementById('report-frame');
+      frame.srcdoc = p.srcdoc;
       document.title = 'Commodity Dashboard — ' + p.period;
       history.replaceState(null, '', '?period=' + slug);
     }}
