@@ -180,17 +180,14 @@ def build(period: str) -> str:
         for r in opps
     )
 
+    # HICP: match Sep 2025's single-line "12-Month EU Food HICP Trend" style.
+    # Our data is YoY % change by country (Eurostat HICP), so we plot the EU
+    # aggregate only and let the subtitle/axis make the unit clear.
+    eu_hicp_values = eu_series["values"] if eu_series else []
     hicp_js = json.dumps({
         "labels": hicp["months"],
-        "datasets": [
-            {
-                "label": s["geo"],
-                "data": s["values"],
-                "hidden": s["geo"] not in {"European Union", "Germany", "Ireland", "Italy", "Netherlands"},
-            }
-            for s in hicp["series"]
-            if s["geo"] != "United Kingdom"
-        ],
+        "value": eu_hicp_values,
+        "unit": hicp["unit"],
     })
 
     forecast_js = json.dumps(forecast)
@@ -259,15 +256,26 @@ def build(period: str) -> str:
     </section>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div id="hicp-section" class="lg:col-span-2 card">
-        <h2 class="text-2xl font-bold text-dark-text mb-1">12-Month EU HICP Food Inflation Trend</h2>
-        <p class="text-xs text-dark-muted mb-4">YoY % change · Source: Eurostat HICP</p>
+      <div id="hicp-section" class="lg:col-span-2 card chart-visible">
+        <h2 class="text-2xl font-bold text-dark-text mb-1">12-Month EU Food Index (HICP) Trend</h2>
+        <p class="text-xs text-dark-muted mb-4">Source: <a href="https://ec.europa.eu/eurostat/databrowser/view/teicp010/default/table?lang=en" target="_blank" class="text-primary-blue hover:underline">Eurostat HICP Food and Beverages</a> &middot; {_html.escape(meta.get('period', ''))}</p>
         <div class="h-80"><canvas id="hicpChart"></canvas></div>
+
+        <!-- Trend Analysis Summary (matches Sep 2025 layout) -->
+        <div class="mt-6 pt-4 border-t border-gray-700">
+          <h3 class="text-xl font-bold text-dark-text mb-2 flex items-center">
+            <i data-lucide="info" class="w-5 h-5 text-primary-blue mr-2"></i>
+            Trend Analysis Summary
+          </h3>
+          <div class="text-gray-300 leading-relaxed text-sm border-l-4 border-primary-blue pl-3 py-1">
+            <p>{_html.escape(meta.get('trend_analysis', 'Trend analysis not provided for this period.'))}</p>
+          </div>
+        </div>
       </div>
 
       <div class="card">
         <h2 class="text-2xl font-bold mb-4 text-dark-text flex items-center">
-          <i data-lucide="bell" class="w-5 h-5 text-text-warning mr-2"></i> Executive Summary
+          <i data-lucide="bell" class="w-5 h-5 text-text-warning mr-2"></i> Executive Summary Highlights
         </h2>
         <div class="space-y-4 text-sm">
           {highlights_html}
@@ -339,24 +347,43 @@ def build(period: str) -> str:
   </div>
 
 <script>
-  // --- HICP Chart ---
+  // --- HICP Chart: single EU line, Sep 2025-style ---
   const hicp = {hicp_js};
-  const palette = ['#60A5FA','#F87171','#4ADE80','#FACC15','#A78BFA','#F472B6','#34D399','#FB923C','#818CF8','#F87171','#10B981'];
-  hicp.datasets.forEach((ds, i) => {{
-    ds.borderColor = palette[i % palette.length];
-    ds.backgroundColor = palette[i % palette.length] + '33';
-    ds.tension = 0.3;
-    ds.borderWidth = ds.label === 'European Union' ? 3 : 1.5;
-  }});
   new Chart(document.getElementById('hicpChart'), {{
     type: 'line',
-    data: hicp,
+    data: {{
+      labels: hicp.labels,
+      datasets: [{{
+        label: 'EU Food HICP (YoY %)',
+        data: hicp.value,
+        borderColor: '#60A5FA',
+        backgroundColor: 'rgba(96,165,250,0.18)',
+        fill: true,
+        tension: 0.3,
+        borderWidth: 3,
+        pointRadius: 4,
+        pointBackgroundColor: '#60A5FA',
+        pointBorderColor: '#0F172A',
+        pointBorderWidth: 2,
+      }}]
+    }},
     options: {{
       responsive: true, maintainAspectRatio: false,
-      plugins: {{ legend: {{ labels: {{ color: '#94A3B8' }} }} }},
+      plugins: {{
+        legend: {{ display: false }},
+        tooltip: {{
+          callbacks: {{
+            label: ctx => ' YoY change: ' + ctx.parsed.y.toFixed(1) + '%'
+          }}
+        }}
+      }},
       scales: {{
         x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
-        y: {{ ticks: {{ color: '#94A3B8', callback: v => v + '%' }}, grid: {{ color: '#334155' }} }}
+        y: {{
+          ticks: {{ color: '#94A3B8', callback: v => v + '%' }},
+          grid: {{ color: '#334155' }},
+          title: {{ display: true, text: 'YoY % change', color: '#94A3B8' }}
+        }}
       }}
     }}
   }});

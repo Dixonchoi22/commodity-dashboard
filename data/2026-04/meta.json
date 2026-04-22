@@ -8,6 +8,7 @@
   "period_yoy": "March 2026 vs March 2025",
   "source": "Expana (Mintec) Commodity Price Change Overview Report",
   "output_html": "/reports/2026-04.html",
+  "trend_analysis": "EU Food HICP YoY inflation peaked at +3.4% mid-2025 and has since moderated to +2.5% by January 2026. The trend suggests the post-2024 inflation wave is cooling, though underlying volatility remains high in specific categories (dairy, eggs, fresh produce) that are driving the monthly price action.",
   "kpis": [
     {
       "label": "EU HICP Food YoY (Jan 2026)",
