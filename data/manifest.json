@@ -5,7 +5,7 @@
       "title": "Commodity Intelligence: EU Outlook",
       "period": "April 2026",
       "region": "European Union",
-      "html": "/reports/eu-outlook-apr-2026.html",
+      "html": "/reports/2026-04.html",
       "meta": "/data/2026-04/meta.json"
     },
     {
@@ -13,8 +13,8 @@
       "title": "Commodity Intelligence: EU Outlook",
       "period": "September 2025",
       "region": "European Union",
-      "html": "/reports/eu-outlook-sep-2025.html",
-      "meta": null
+      "html": "/reports/2025-09.html",
+      "meta": "/data/2025-09/meta.json"
     }
   ]
 }

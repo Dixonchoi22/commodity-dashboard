@@ -1,6 +1,7 @@
 {
   "period": {
-    "reportMonth": "April 2026",
+    "slug": "2026-04",
+    "period": "April 2026",
     "mom": "March 2026 vs February 2026",
     "yoy": "March 2026 vs March 2025"
   },

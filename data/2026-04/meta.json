@@ -7,7 +7,7 @@
   "period_mom": "March 2026 vs February 2026",
   "period_yoy": "March 2026 vs March 2025",
   "source": "Expana (Mintec) Commodity Price Change Overview Report",
-  "output_html": "/reports/eu-outlook-apr-2026.html",
+  "output_html": "/reports/2026-04.html",
   "kpis": [
     {
       "label": "EU HICP Food YoY (Jan 2026)",

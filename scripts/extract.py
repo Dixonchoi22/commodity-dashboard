@@ -1,42 +1,42 @@
-"""Extract April 2026 report data into JSON.
+"""Extract report source files into JSON for a given period.
 
-Reads the three source files at the repo root:
-  - Commodity Price Change Overview Report April 2026.pdf
-  - HICP Data EU.xlsx
-  - Forecast Data Q1 26.xlsx
+Reads raw sources from data/{period}/raw/:
+  - overview.pdf      Expana monthly commodity price change report
+  - hicp.xlsx         Eurostat HICP food inflation by country
+  - forecast.xlsx     Mintec forward curves
 
-Writes JSON under data/april-2026/:
-  - commodities.json    Summary table (category, name, MoM, YoY) for all ~117 commodities
-  - commentary.json     Per-commodity price line + narrative paragraphs extracted from PDF
-  - hicp.json           EU and country-level HICP food inflation YoY by month
-  - forecast.json       Daily forward curves for 12 commodities (May 2026+)
+Writes JSON under data/{period}/:
+  - commodities.json  Summary table (category, name, MoM, YoY) for all commodities
+  - commentary.json   Per-commodity price line + narrative paragraphs
+  - hicp.json         EU and country-level HICP food inflation YoY by month
+  - forecast.json     Daily forward curves
 
-Re-run: python scripts/extract_april_2026.py
+Usage:
+  python scripts/extract.py 2026-04
 """
 from __future__ import annotations
 
 import json
 import re
 import subprocess
+import sys
 from datetime import date, datetime
 from pathlib import Path
 
 import openpyxl
 
 ROOT = Path(__file__).resolve().parent.parent
-PERIOD_DIR = ROOT / "data" / "2026-04"
-RAW = PERIOD_DIR / "raw"
-PDF = RAW / "overview.pdf"
-HICP_XLSX = RAW / "hicp.xlsx"
-FORECAST_XLSX = RAW / "forecast.xlsx"
-OUT = PERIOD_DIR
-OUT.mkdir(parents=True, exist_ok=True)
 
-PERIOD = {
-    "reportMonth": "April 2026",
-    "mom": "March 2026 vs February 2026",
-    "yoy": "March 2026 vs March 2025",
-}
+
+def paths_for(period: str) -> dict[str, Path]:
+    base = ROOT / "data" / period
+    return {
+        "base": base,
+        "raw": base / "raw",
+        "pdf": base / "raw" / "overview.pdf",
+        "hicp_xlsx": base / "raw" / "hicp.xlsx",
+        "forecast_xlsx": base / "raw" / "forecast.xlsx",
+    }
 
 CATEGORIES = [
     "Grains & Feed",
@@ -54,11 +54,10 @@ CATEGORIES = [
 ]
 
 
-def pdf_to_text() -> str:
-    out = subprocess.check_output(
-        ["pdftotext", "-layout", str(PDF), "-"], text=True, encoding="utf-8"
+def pdf_to_text(pdf_path: Path) -> str:
+    return subprocess.check_output(
+        ["pdftotext", "-layout", str(pdf_path), "-"], text=True, encoding="utf-8"
     )
-    return out
 
 
 # ---------- Summary table extraction ----------
@@ -202,8 +201,8 @@ def extract_commentary(text: str) -> list[dict]:
 
 # ---------- HICP ----------
 
-def extract_hicp() -> dict:
-    wb = openpyxl.load_workbook(HICP_XLSX, data_only=True)
+def extract_hicp(hicp_xlsx: Path) -> dict:
+    wb = openpyxl.load_workbook(hicp_xlsx, data_only=True)
     ws = wb["Sheet1"]
     rows = list(ws.iter_rows(values_only=True))
     # Header row: every 2nd column from index 1 has a YYYY-MM string
@@ -263,8 +262,8 @@ def _iter_data_sheet(ws) -> tuple[list[str], list[tuple]]:
     return header, data
 
 
-def extract_forecast() -> dict:
-    wb = openpyxl.load_workbook(FORECAST_XLSX, data_only=True)
+def extract_forecast(forecast_xlsx: Path) -> dict:
+    wb = openpyxl.load_workbook(forecast_xlsx, data_only=True)
     commodities: list[dict] = []
     for sheet_name in wb.sheetnames:
         header, rows = _iter_data_sheet(wb[sheet_name])
@@ -302,35 +301,61 @@ def extract_forecast() -> dict:
                 }
             )
     return {
-        "source": "Expana (Mintec) forward curves - Q1 2026 export",
+        "source": "Expana (Mintec) forward curves",
         "commodities": commodities,
     }
 
 
 def main() -> None:
-    text = pdf_to_text()
+    if len(sys.argv) < 2:
+        sys.exit("usage: python scripts/extract.py <period-slug>  (e.g. 2026-04)")
+    period = sys.argv[1]
+    p = paths_for(period)
+    if not p["raw"].exists():
+        sys.exit(f"No raw/ folder at {p['raw']}")
 
-    summary = extract_summary(text)
-    commentary = extract_commentary(text)
-    hicp = extract_hicp()
-    forecast = extract_forecast()
+    # Meta (for period descriptor). Optional — falls back to the period slug.
+    meta_path = p["base"] / "meta.json"
+    period_info = {"slug": period}
+    if meta_path.exists():
+        m = json.loads(meta_path.read_text())
+        period_info = {
+            "slug": period,
+            "period": m.get("period"),
+            "mom": m.get("period_mom"),
+            "yoy": m.get("period_yoy"),
+        }
 
-    (OUT / "commodities.json").write_text(
-        json.dumps({"period": PERIOD, "rows": summary}, indent=2)
-    )
-    (OUT / "commentary.json").write_text(
-        json.dumps({"period": PERIOD, "entries": commentary}, indent=2)
-    )
-    (OUT / "hicp.json").write_text(json.dumps(hicp, indent=2))
-    (OUT / "forecast.json").write_text(json.dumps(forecast, indent=2))
+    outputs: dict[str, int | str] = {}
 
-    print(f"commodities.json : {len(summary)} rows")
-    print(f"commentary.json  : {len(commentary)} entries")
-    print(f"hicp.json        : {len(hicp['series'])} series over {len(hicp['months'])} months")
-    print(
-        f"forecast.json    : {len(forecast['commodities'])} commodities; "
-        f"total points = {sum(len(c['points']) for c in forecast['commodities'])}"
-    )
+    if p["pdf"].exists():
+        text = pdf_to_text(p["pdf"])
+        summary = extract_summary(text)
+        commentary = extract_commentary(text)
+        (p["base"] / "commodities.json").write_text(
+            json.dumps({"period": period_info, "rows": summary}, indent=2)
+        )
+        (p["base"] / "commentary.json").write_text(
+            json.dumps({"period": period_info, "entries": commentary}, indent=2)
+        )
+        outputs["commodities"] = len(summary)
+        outputs["commentary"] = len(commentary)
+
+    if p["hicp_xlsx"].exists():
+        hicp = extract_hicp(p["hicp_xlsx"])
+        (p["base"] / "hicp.json").write_text(json.dumps(hicp, indent=2))
+        outputs["hicp"] = f"{len(hicp['series'])} series x {len(hicp['months'])} months"
+
+    if p["forecast_xlsx"].exists():
+        forecast = extract_forecast(p["forecast_xlsx"])
+        (p["base"] / "forecast.json").write_text(json.dumps(forecast, indent=2))
+        outputs["forecast"] = (
+            f"{len(forecast['commodities'])} commodities; "
+            f"{sum(len(c['points']) for c in forecast['commodities'])} points"
+        )
+
+    for k, v in outputs.items():
+        print(f"{k:<12} {v}")
 
 
 if __name__ == "__main__":
