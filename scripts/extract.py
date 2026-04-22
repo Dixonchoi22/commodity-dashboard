@@ -218,13 +218,123 @@ def extract_summary(text: str) -> list[dict]:
 
 # ---------- Per-commodity commentary extraction ----------
 
-PRICE_LINE = re.compile(
-    r"The average weekly price of (?P<name>[A-Z][^.]+?) as of (?P<as_of>[A-Za-z]+ \d+) "
-    r"(?P<dir1>increased|decreased|rose|declined|fell) by (?P<mom>\d+(?:\.\d+)?)% MOM "
-    r"and (?P<dir2>increased|decreased|rose|declined|fell) by (?P<yoy>\d+(?:\.\d+)?)% YOY "
-    r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
-    re.IGNORECASE,
-)
+PRICE_LINE_PATTERNS = [
+    # Standard: "The average weekly price of X as of March 25 increased by
+    # 2.2%\s*MOM and declined by 0.2%\s*YOY to €500.05/MT"
+    re.compile(
+        r"The average weekly(?:\s+spot)? price of (?P<name>[A-Z][^.]+?) as of (?P<as_of>[A-Za-z]+ \d+) "
+        r"(?P<dir1>increased|decreased|rose|declined|fell) by (?P<mom>\d+(?:\.\d+)?)%\s*MOM "
+        r"and (?P<dir2>increased|decreased|rose|declined|fell) by (?P<yoy>\d+(?:\.\d+)?)%\s*YOY "
+        r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
+        re.IGNORECASE,
+    ),
+    # Unchanged MOM: "The average weekly price of UK Butter as of March 25
+    # was unchanged MOM and declined by 40.0%\s*YOY to £3,750/MT"
+    re.compile(
+        r"The average weekly(?:\s+spot)? price of (?P<name>[A-Z][^.]+?) as of (?P<as_of>[A-Za-z]+ \d+) "
+        r"was unchanged MOM "
+        r"and (?P<dir2>increased|decreased|rose|declined|fell) by (?P<yoy>\d+(?:\.\d+)?)%\s*YOY "
+        r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
+        re.IGNORECASE,
+    ),
+    # "In February, the average price of Norwegian Haddock increased by..."
+    # Also matches looser modifiers like "the average 3m futures price of
+    # LME Aluminium..." via the optional modifier-words group.
+    re.compile(
+        r"In (?P<as_of>[A-Za-z]+), the average(?:\s+[a-zA-Z0-9 \-()]+?)? price of (?P<name>[A-Z][^.]+?) "
+        r"(?P<dir1>increased|decreased|rose|declined|fell) by (?P<mom>\d+(?:\.\d+)?)%\s*MOM "
+        r"and (?P<dir2>increased|decreased|rose|declined|fell) by (?P<yoy>\d+(?:\.\d+)?)%\s*YOY "
+        r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
+        re.IGNORECASE,
+    ),
+    # Chained second clause: "..., the average price of EU Cartonboard GT2
+    # was unchanged MOM and declined by 7.1% YOY to €785/MT"
+    re.compile(
+        r",\s*the average(?:\s+[a-zA-Z0-9 \-()]+?)? price of (?P<name>[A-Z][^.]+?) "
+        r"was unchanged MOM "
+        r"and (?P<dir2>increased|decreased|rose|declined|fell) by (?P<yoy>\d+(?:\.\d+)?)%\s*YOY "
+        r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
+        re.IGNORECASE,
+    ),
+    # Unchanged MOM + "In Month" variant
+    re.compile(
+        r"In (?P<as_of>[A-Za-z]+), the average(?:\s+weekly)? price of (?P<name>[A-Z][^.]+?) "
+        r"was unchanged MOM "
+        r"and (?P<dir2>increased|decreased|rose|declined|fell) by (?P<yoy>\d+(?:\.\d+)?)%\s*YOY "
+        r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
+        re.IGNORECASE,
+    ),
+    # Expana Benchmark (vanilla): "The Expana Benchmark Prices (EBP) of
+    # vanilla from Madagascar ... were unchanged MOM in March, down 37.8%
+    # YOY, at $28/kg..."
+    re.compile(
+        r"The Expana Benchmark Prices \(EBP\) of (?P<name>[^,.]+?),[^.]*?"
+        r"were unchanged MOM in (?P<as_of>[A-Za-z]+),?\s*"
+        r"(?P<dir2>down|up) (?P<yoy>\d+(?:\.\d+)?)%\s*YOY,?\s*"
+        r"at (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
+        re.IGNORECASE,
+    ),
+    # Nuts EBP: "The {Origin} {nut} EBP increased by 3.2% MOM in March to
+    # $3.21/lb, down 1.2% YOY." (cashew, hazelnut, brazil, apricot, sultana)
+    re.compile(
+        r"The (?P<name>[A-Z][^.]+? EBP(?: \([^)]+\))?) "
+        r"(?P<dir1>increased|decreased|rose|declined|fell) by (?P<mom>\d+(?:\.\d+)?)%\s*MOM "
+        r"in (?P<as_of>[A-Za-z]+) "
+        r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)"
+        r"(?:[,.]\s*(?:and\s+)?(?P<dir2>rose|declined|fell|increased|decreased|up|down)\s*(?:by\s*)?"
+        r"(?P<yoy>\d+(?:\.\d+)?)%\s*YOY)?",
+        re.IGNORECASE,
+    ),
+    # EBP with trailing price: "The Turkish sultana EBP (CIF NW Europe)
+    # fell by 3.3% MOM in March, down 16% YOY, to $2,647/MT"
+    re.compile(
+        r"The (?P<name>[A-Z][^.]+? EBP(?: \([^)]+\))?) "
+        r"(?P<dir1>increased|decreased|rose|declined|fell) by (?P<mom>\d+(?:\.\d+)?)%\s*MOM "
+        r"in (?P<as_of>[A-Za-z]+),?\s*"
+        r"(?P<dir2>up|down|rose|declined|fell|increased|decreased) (?:by\s*)?(?P<yoy>\d+(?:\.\d+)?)%\s*YOY,?\s*"
+        r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
+        re.IGNORECASE,
+    ),
+    # "The average price of EU steel HRC increased by 6.4% MOM and rose by
+    # 10.6% YOY to €705/MT" — no "as of {Month} {Day}" anchor, just "The
+    # average {mod} price of X ..."
+    re.compile(
+        r"The average(?:\s+[a-zA-Z0-9 \-()]+?)? price of (?P<name>[A-Z][^.]+?) "
+        r"(?P<dir1>increased|decreased|rose|declined|fell) by (?P<mom>\d+(?:\.\d+)?)%\s*MOM "
+        r"and (?P<dir2>increased|decreased|rose|declined|fell) by (?P<yoy>\d+(?:\.\d+)?)%\s*YOY "
+        r"to (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+)",
+        re.IGNORECASE,
+    ),
+    # Plural-prices "unchanged" form (apricots): "Turkish dried apricot
+    # prices were unchanged MOM in March at $9,250/MT, up 85% YOY"
+    re.compile(
+        r"(?P<name>[A-Z][a-zA-Z]+(?: [a-zA-Z]+){1,5}) prices were unchanged MOM "
+        r"(?:in (?P<as_of>[A-Za-z]+)\s*)?"
+        r"at (?P<price>[^/\s]+(?:[ ,][^/\s]+)?)/(?P<unit>[A-Za-z0-9]+),?\s*"
+        r"(?P<dir2>up|down) (?P<yoy>\d+(?:\.\d+)?)%\s*YOY",
+        re.IGNORECASE,
+    ),
+]
+
+
+def _parse_match(m, pattern_idx: int) -> dict:
+    d = m.groupdict()
+    neg = {"decreased", "declined", "fell", "down"}
+    mom_pct = 0.0 if "mom" not in d else (
+        float(d["mom"]) * (-1 if d["dir1"].lower() in neg else 1)
+    )
+    if "mom" not in d:
+        # "was unchanged MOM" patterns
+        mom_pct = 0.0
+    yoy_pct = float(d["yoy"]) * (-1 if d["dir2"].lower() in neg else 1)
+    as_of = (d.get("as_of") or "").strip()
+    return {
+        "name": d["name"].strip(),
+        "as_of": as_of,
+        "mom_pct": mom_pct,
+        "yoy_pct": yoy_pct,
+        "price": f"{d['price']}/{d['unit']}".strip(),
+    }
 
 
 def extract_commentary(text: str, summary_rows: list[dict] | None = None) -> list[dict]:
@@ -248,11 +358,26 @@ def extract_commentary(text: str, summary_rows: list[dict] | None = None) -> lis
     if buf:
         paragraphs.append(" ".join(s.strip() for s in buf))
 
+    def tokenise(s: str) -> list[str]:
+        """Lowercase + drop trailing '*' (used to flag alt-period data) +
+        strip trailing 's' so 'hazelnuts' and 'hazelnut' compare equal."""
+        out = []
+        for t in s.lower().split():
+            t = t.rstrip("*").rstrip(",").rstrip(".")
+            if not t:
+                continue
+            # Strip plural 's' but keep intentional abbreviations/codes
+            # (ICE, EBP, LME, US, EU, UK, etc. stay 2-3 char uppercase).
+            if len(t) > 3 and t.endswith("s") and not t.endswith("ss"):
+                t = t[:-1]
+            out.append(t)
+        return out
+
     # Token-set index of summary names for fuzzy matching
     summary_index: dict[frozenset[str], str] = {}
     if summary_rows:
         for r in summary_rows:
-            key = frozenset(r["name"].lower().split())
+            key = frozenset(tokenise(r["name"]))
             summary_index[key] = r["name"]
 
     # Commentary uses country adjectives ("Indian Rice"); summary uses the
@@ -283,21 +408,36 @@ def extract_commentary(text: str, summary_rows: list[dict] | None = None) -> lis
         low = free_name.lower()
         for pat, repl in MULTI_ADJ:
             low = re.sub(pat, repl, low)
-        tokens = normalise_tokens(low.split())
+        tokens = normalise_tokens(tokenise(low))
         free_set = set(tokens)
 
         key = frozenset(tokens)
         if key in summary_index:
             return summary_index[key]
-        # The summary's token-set is a subset of the commentary's token-set.
-        # This handles cases like "spot ICE London #5 White Sugar futures" →
-        # "Sugar ICE #5 London".
+        # Subset match: summary tokens ⊆ commentary tokens
+        # (handles "spot ICE London #5 White Sugar futures" → "Sugar ICE #5 London")
         best_match = None
-        best_overlap = 0
+        best_score = 0.0
         for row_tokens, row_name in summary_index.items():
-            if row_tokens.issubset(free_set) and len(row_tokens) > best_overlap:
+            if row_tokens.issubset(free_set) and len(row_tokens) > best_score:
                 best_match = row_name
-                best_overlap = len(row_tokens)
+                best_score = len(row_tokens)
+        if best_match:
+            return best_match
+        # Jaccard-style overlap: when neither is a subset, pick the summary
+        # row that shares the most tokens provided they share ≥ 2 meaningful
+        # tokens (handles "ICE London Cocoa futures" → "Cocoa Bean ICE London").
+        STOPS = {"the", "of", "and", "a", "an", "to", "in"}
+        best_match = None
+        best_score = 0.0
+        for row_tokens, row_name in summary_index.items():
+            shared = (row_tokens & free_set) - STOPS
+            if len(shared) < 2:
+                continue
+            score = len(shared) / max(len(row_tokens - STOPS), 1)
+            if score > best_score and score >= 0.5:
+                best_match = row_name
+                best_score = score
         if best_match:
             return best_match
         # Substring containment as last resort
@@ -312,23 +452,20 @@ def extract_commentary(text: str, summary_rows: list[dict] | None = None) -> lis
     out: list[dict] = []
     seen: set[str] = set()
     for p in paragraphs:
-        for m in PRICE_LINE.finditer(p):
-            d = m.groupdict()
-            name = d["name"].strip()
-            if name in seen:
-                continue
-            seen.add(name)
-            out.append(
-                {
-                    "name": name,
+        # Try every pattern; record each match once (keyed by name) — a
+        # commodity's narrative only belongs to one paragraph.
+        for idx, pat in enumerate(PRICE_LINE_PATTERNS):
+            for m in pat.finditer(p):
+                parsed = _parse_match(m, idx)
+                name = parsed["name"]
+                if name in seen:
+                    continue
+                seen.add(name)
+                out.append({
+                    **parsed,
                     "canonical_name": canonicalise(name) or name,
-                    "as_of": d["as_of"].strip(),
-                    "mom_pct": float(d["mom"]) * (-1 if d["dir1"].lower() in neg else 1),
-                    "yoy_pct": float(d["yoy"]) * (-1 if d["dir2"].lower() in neg else 1),
-                    "price": f"{d['price']}/{d['unit']}".strip(),
                     "paragraph": p.strip(),
-                }
-            )
+                })
     return out
 
 
