@@ -164,9 +164,11 @@ def extract_summary(text: str) -> list[dict]:
                 "Grains & Feed",
             ):
                 name = name.replace(frag, " ")
-            # Leading stray words left behind by wrapped categories
+            # Leading stray words left behind by wrapped categories.
+            # NB: do NOT strip "Dried" here — it's a legitimate descriptor
+            # in commodity names like "Dried Apricots Turkey".
             name = name.strip()
-            name = re.sub(r"^(Oils|Vegetable|Vegetables|Spices|Fruit|Eggs|Poultry|Seafood|Feed|Dried)\s+", "", name)
+            name = re.sub(r"^(Oils|Vegetable|Vegetables|Spices|Eggs|Poultry|Seafood|Feed)\s+", "", name)
             # Strip PDF page-footer / header noise that pdftotext occasionally
             # pastes next to a commodity name ("2 Expana © 2026", etc.)
             name = re.sub(r"\b\d+\s*Expana\s*©\s*\d{4}\b", "", name)
