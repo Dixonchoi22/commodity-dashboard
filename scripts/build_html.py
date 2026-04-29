@@ -384,6 +384,85 @@ def build(period: str) -> str:
 
         sub_table_rows = "\n".join(sub_row(s) for s in sub)
 
+        # ---------- Meat drill-down ----------
+        meat_section_html = ""
+        meat_chart_js = "null"
+        meat_drill = (germany.get("drilldowns") or {}).get("CP0112")
+        if meat_drill and meat_drill["items"]:
+            items = meat_drill["items"]
+            # Multi-line trend chart data
+            meat_chart_js = json.dumps({
+                "labels": [r["month"] for r in items[0]["series"]],
+                "datasets": [
+                    {
+                        "label": it["label"],
+                        "data": [r["index"] for r in it["series"]],
+                        "borderColor": it["colour"],
+                        "backgroundColor": it["colour"] + "22",
+                    }
+                    for it in items
+                ],
+            })
+
+            def meat_table_row(it):
+                yoy = it.get("yoy_pct") or 0
+                mom = it.get("mom_pct") or 0
+                yoy_tone = "text-secondary-red" if yoy > 0.5 else ("text-accent-green" if yoy < -0.5 else "text-dark-muted")
+                mom_tone = "text-secondary-red" if mom > 0.5 else ("text-accent-green" if mom < -0.5 else "text-dark-muted")
+                first = it["series"][0]
+                return f"""
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 text-sm">
+    <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:{it['colour']}"></span>
+    <span class="font-semibold text-dark-text">{_html.escape(it['label'])}</span>
+    <span class="text-xs text-dark-muted ml-1">({_html.escape(it['coicop'])})</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">{it['latest']['index']:.1f}</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">{_html.escape(first['month'])} → {_html.escape(it['latest']['month'])}</td>
+  <td class="px-4 py-3 text-right text-sm font-bold {mom_tone}">{mom:+.2f}%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold {yoy_tone}">{yoy:+.2f}%</td>
+</tr>"""
+
+            meat_rows_html = "\n".join(meat_table_row(it) for it in items)
+            meat_section_html = f"""
+      <div class="mt-10 pt-6 border-t border-gray-700">
+        <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
+          <i data-lucide="beef" class="w-5 h-5 text-secondary-red mr-2"></i>
+          Meat Detail — Germany
+        </h3>
+        <p class="text-xs text-dark-muted mb-4">
+          5-digit COICOP breakdown of CP0112 (Meat). Index values base 2015 = 100, source Eurostat <code>prc_hicp_midx</code>. All meat sub-types are running well above the all-food average — Beef &amp; veal is the strongest mover.
+        </p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h4 class="text-base font-semibold text-dark-text mb-1">12-Month Trend</h4>
+            <p class="text-xs text-dark-muted mb-2">Hover to compare specific months across types</p>
+            <div class="h-80"><canvas id="germanyMeatChart"></canvas></div>
+          </div>
+          <div>
+            <h4 class="text-base font-semibold text-dark-text mb-1">Latest Index &amp; Change</h4>
+            <p class="text-xs text-dark-muted mb-2">Sorted as fetched (COICOP order)</p>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-700">
+                <thead class="bg-dark-card border-b border-gray-700">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Type</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-dark-card divide-y divide-gray-700">
+                  {meat_rows_html}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+"""
+
         # Chart data: DE vs EU food index trend (12 months)
         germany_chart_js = json.dumps({
             "labels": [r["month"] for r in de["series"]],
@@ -422,6 +501,8 @@ def build(period: str) -> str:
           <div class="h-72"><canvas id="germanySubChart"></canvas></div>
         </div>
       </div>
+
+      {meat_section_html}
 
       <div class="overflow-x-auto">
         <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Sub-category Detail</h3>
@@ -464,6 +545,35 @@ def build(period: str) -> str:
       }}
     }}
   }});
+
+  // --- Germany Meat detail (multi-line index trend, 5-digit COICOP) ---
+  const M = {meat_chart_js};
+  if (M) {{
+    new Chart(document.getElementById('germanyMeatChart'), {{
+      type: 'line',
+      data: {{
+        labels: M.labels,
+        datasets: M.datasets.map(d => ({{
+          label: d.label,
+          data: d.data,
+          borderColor: d.borderColor,
+          backgroundColor: d.backgroundColor,
+          borderWidth: 2,
+          tension: 0.3,
+          pointRadius: 2,
+          fill: false,
+        }})),
+      }},
+      options: {{
+        responsive: true, maintainAspectRatio: false,
+        plugins: {{ legend: {{ position: 'bottom', labels: {{ color: '#94A3B8', boxWidth: 12 }} }} }},
+        scales: {{
+          x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
+          y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }}, title: {{ display: true, text: 'Index (2015 = 100)', color: '#94A3B8' }} }}
+        }}
+      }}
+    }});
+  }}
 
   // --- Germany sub-category YoY bars ---
   const SB = {sub_bar_js};

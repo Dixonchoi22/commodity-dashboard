@@ -896,5 +896,397 @@
       "label": "Non-alcoholic beverages",
       "icon": "cup-soda"
     }
-  ]
+  ],
+  "drilldowns": {
+    "CP0112": {
+      "parent_code": "CP0112",
+      "parent_label": "Meat",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 148.2
+            },
+            {
+              "month": "Feb 2025",
+              "index": 149.3
+            },
+            {
+              "month": "Mar 2025",
+              "index": 152.4
+            },
+            {
+              "month": "Apr 2025",
+              "index": 155.2
+            },
+            {
+              "month": "May 2025",
+              "index": 157.2
+            },
+            {
+              "month": "Jun 2025",
+              "index": 158.5
+            },
+            {
+              "month": "Jul 2025",
+              "index": 160.3
+            },
+            {
+              "month": "Aug 2025",
+              "index": 161.9
+            },
+            {
+              "month": "Sep 2025",
+              "index": 162.8
+            },
+            {
+              "month": "Oct 2025",
+              "index": 166.9
+            },
+            {
+              "month": "Nov 2025",
+              "index": 169.2
+            },
+            {
+              "month": "Dec 2025",
+              "index": 169.5
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 169.5
+          },
+          "yoy_pct": 14.37,
+          "mom_pct": 0.18,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01121",
+          "label": "Beef & veal",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 157.0
+            },
+            {
+              "month": "Feb 2025",
+              "index": 157.2
+            },
+            {
+              "month": "Mar 2025",
+              "index": 158.5
+            },
+            {
+              "month": "Apr 2025",
+              "index": 158.6
+            },
+            {
+              "month": "May 2025",
+              "index": 159.6
+            },
+            {
+              "month": "Jun 2025",
+              "index": 160.3
+            },
+            {
+              "month": "Jul 2025",
+              "index": 162.6
+            },
+            {
+              "month": "Aug 2025",
+              "index": 163.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 164.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 166.4
+            },
+            {
+              "month": "Nov 2025",
+              "index": 165.5
+            },
+            {
+              "month": "Dec 2025",
+              "index": 164.9
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 164.9
+          },
+          "yoy_pct": 5.03,
+          "mom_pct": -0.36,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01122",
+          "label": "Pork",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 145.4
+            },
+            {
+              "month": "Feb 2025",
+              "index": 145.1
+            },
+            {
+              "month": "Mar 2025",
+              "index": 146.9
+            },
+            {
+              "month": "Apr 2025",
+              "index": 146.7
+            },
+            {
+              "month": "May 2025",
+              "index": 147.8
+            },
+            {
+              "month": "Jun 2025",
+              "index": 150.2
+            },
+            {
+              "month": "Jul 2025",
+              "index": 151.6
+            },
+            {
+              "month": "Aug 2025",
+              "index": 152.6
+            },
+            {
+              "month": "Sep 2025",
+              "index": 153.9
+            },
+            {
+              "month": "Oct 2025",
+              "index": 155.7
+            },
+            {
+              "month": "Nov 2025",
+              "index": 156.1
+            },
+            {
+              "month": "Dec 2025",
+              "index": 158.4
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 158.4
+          },
+          "yoy_pct": 8.94,
+          "mom_pct": 1.47,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01123",
+          "label": "Lamb, mutton & goat",
+          "colour": "#A78BFA"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 150.1
+            },
+            {
+              "month": "Feb 2025",
+              "index": 151.9
+            },
+            {
+              "month": "Mar 2025",
+              "index": 152.9
+            },
+            {
+              "month": "Apr 2025",
+              "index": 152.6
+            },
+            {
+              "month": "May 2025",
+              "index": 155.3
+            },
+            {
+              "month": "Jun 2025",
+              "index": 157.1
+            },
+            {
+              "month": "Jul 2025",
+              "index": 158.7
+            },
+            {
+              "month": "Aug 2025",
+              "index": 157.1
+            },
+            {
+              "month": "Sep 2025",
+              "index": 159.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 160.6
+            },
+            {
+              "month": "Nov 2025",
+              "index": 161.2
+            },
+            {
+              "month": "Dec 2025",
+              "index": 161.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 161.0
+          },
+          "yoy_pct": 7.26,
+          "mom_pct": -0.12,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01124",
+          "label": "Poultry",
+          "colour": "#FACC15"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 135.3
+            },
+            {
+              "month": "Feb 2025",
+              "index": 138.2
+            },
+            {
+              "month": "Mar 2025",
+              "index": 137.1
+            },
+            {
+              "month": "Apr 2025",
+              "index": 137.4
+            },
+            {
+              "month": "May 2025",
+              "index": 137.1
+            },
+            {
+              "month": "Jun 2025",
+              "index": 139.3
+            },
+            {
+              "month": "Jul 2025",
+              "index": 139.6
+            },
+            {
+              "month": "Aug 2025",
+              "index": 140.1
+            },
+            {
+              "month": "Sep 2025",
+              "index": 140.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 144.2
+            },
+            {
+              "month": "Nov 2025",
+              "index": 142.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 145.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 145.0
+          },
+          "yoy_pct": 7.17,
+          "mom_pct": 1.68,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01125",
+          "label": "Other meats & offal",
+          "colour": "#34D399"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 131.6
+            },
+            {
+              "month": "Feb 2025",
+              "index": 131.5
+            },
+            {
+              "month": "Mar 2025",
+              "index": 134.0
+            },
+            {
+              "month": "Apr 2025",
+              "index": 135.1
+            },
+            {
+              "month": "May 2025",
+              "index": 136.6
+            },
+            {
+              "month": "Jun 2025",
+              "index": 136.9
+            },
+            {
+              "month": "Jul 2025",
+              "index": 137.9
+            },
+            {
+              "month": "Aug 2025",
+              "index": 138.4
+            },
+            {
+              "month": "Sep 2025",
+              "index": 139.1
+            },
+            {
+              "month": "Oct 2025",
+              "index": 140.1
+            },
+            {
+              "month": "Nov 2025",
+              "index": 140.2
+            },
+            {
+              "month": "Dec 2025",
+              "index": 140.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 140.7
+          },
+          "yoy_pct": 6.91,
+          "mom_pct": 0.36,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01126",
+          "label": "Delicatessen & prep",
+          "colour": "#60A5FA"
+        }
+      ]
+    }
+  }
 }

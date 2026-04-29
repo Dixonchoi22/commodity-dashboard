@@ -62,6 +62,23 @@ CATEGORIES = [
     ("CP012",  "Non-alcoholic beverages",         "cup-soda"),
 ]
 
+# Drill-downs — 5-digit COICOP. Each entry maps a parent category to a list
+# of (code, label, colour) tuples. Add new groups here to surface deeper
+# breakdowns in the dashboard (Bread/Dairy/Oils/Fruit etc.).
+DRILLDOWNS = {
+    "CP0112": (
+        "Meat",
+        [
+            ("CP01121", "Beef & veal",            "#F87171"),
+            ("CP01122", "Pork",                   "#FB923C"),
+            ("CP01123", "Lamb, mutton & goat",    "#A78BFA"),
+            ("CP01124", "Poultry",                "#FACC15"),
+            ("CP01125", "Other meats & offal",    "#34D399"),
+            ("CP01126", "Delicatessen & prep",    "#60A5FA"),
+        ],
+    ),
+}
+
 
 def fetch(url: str) -> tuple[list[dict], str]:
     with urllib.request.urlopen(url, timeout=20) as r:
@@ -159,6 +176,26 @@ def main() -> None:
         sub.append(item)
         print(f"  ✓ {coicop:<7} {label:<32} latest {item['latest']['month']} = {item['latest']['index']:<7}  YoY {item['yoy_pct']:+}%")
 
+    print("\nFetching deeper drill-downs...")
+    drilldowns = {}
+    for parent_code, (parent_label, items) in DRILLDOWNS.items():
+        children = []
+        for code, label, colour in items:
+            entry = fetch_subcategory("DE", code)
+            if not entry or "error" in (entry or {}):
+                print(f"  ! {code} {label}: skipped")
+                continue
+            entry["coicop"] = code
+            entry["label"] = label
+            entry["colour"] = colour
+            children.append(entry)
+            print(f"  ✓ {code:<8} {label:<24} latest {entry['latest']['month']} = {entry['latest']['index']:<7} YoY {entry['yoy_pct']:+}%")
+        drilldowns[parent_code] = {
+            "parent_code": parent_code,
+            "parent_label": parent_label,
+            "items": children,
+        }
+
     payload = {
         "source": "Eurostat (teicp010 short-term indicator + prc_hicp_midx by COICOP)",
         "geo_label": "Germany (DE)",
@@ -167,6 +204,7 @@ def main() -> None:
             "eu27": eu_top,
         },
         "subcategories": sub,
+        "drilldowns": drilldowns,
     }
     out_path.write_text(json.dumps(payload, indent=2))
     print(f"\nWrote {out_path.relative_to(ROOT)}")

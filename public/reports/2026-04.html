@@ -1687,6 +1687,116 @@
         </div>
       </div>
 
+      
+      <div class="mt-10 pt-6 border-t border-gray-700">
+        <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
+          <i data-lucide="beef" class="w-5 h-5 text-secondary-red mr-2"></i>
+          Meat Detail — Germany
+        </h3>
+        <p class="text-xs text-dark-muted mb-4">
+          5-digit COICOP breakdown of CP0112 (Meat). Index values base 2015 = 100, source Eurostat <code>prc_hicp_midx</code>. All meat sub-types are running well above the all-food average — Beef &amp; veal is the strongest mover.
+        </p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h4 class="text-base font-semibold text-dark-text mb-1">12-Month Trend</h4>
+            <p class="text-xs text-dark-muted mb-2">Hover to compare specific months across types</p>
+            <div class="h-80"><canvas id="germanyMeatChart"></canvas></div>
+          </div>
+          <div>
+            <h4 class="text-base font-semibold text-dark-text mb-1">Latest Index &amp; Change</h4>
+            <p class="text-xs text-dark-muted mb-2">Sorted as fetched (COICOP order)</p>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-700">
+                <thead class="bg-dark-card border-b border-gray-700">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Type</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-dark-card divide-y divide-gray-700">
+                  
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 text-sm">
+    <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:#F87171"></span>
+    <span class="font-semibold text-dark-text">Beef &amp; veal</span>
+    <span class="text-xs text-dark-muted ml-1">(CP01121)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">169.5</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Jan 2025 → Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.18%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+14.37%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 text-sm">
+    <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:#FB923C"></span>
+    <span class="font-semibold text-dark-text">Pork</span>
+    <span class="text-xs text-dark-muted ml-1">(CP01122)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">164.9</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Jan 2025 → Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.36%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+5.03%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 text-sm">
+    <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:#A78BFA"></span>
+    <span class="font-semibold text-dark-text">Lamb, mutton &amp; goat</span>
+    <span class="text-xs text-dark-muted ml-1">(CP01123)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">158.4</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Jan 2025 → Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.47%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+8.94%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 text-sm">
+    <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:#FACC15"></span>
+    <span class="font-semibold text-dark-text">Poultry</span>
+    <span class="text-xs text-dark-muted ml-1">(CP01124)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">161.0</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Jan 2025 → Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.12%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+7.26%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 text-sm">
+    <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:#34D399"></span>
+    <span class="font-semibold text-dark-text">Other meats &amp; offal</span>
+    <span class="text-xs text-dark-muted ml-1">(CP01125)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">145.0</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Jan 2025 → Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.68%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+7.17%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 text-sm">
+    <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:#60A5FA"></span>
+    <span class="font-semibold text-dark-text">Delicatessen &amp; prep</span>
+    <span class="text-xs text-dark-muted ml-1">(CP01126)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">140.7</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Jan 2025 → Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.36%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+6.91%</td>
+</tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <div class="overflow-x-auto">
         <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Sub-category Detail</h3>
         <table class="min-w-full divide-y divide-gray-700">
@@ -2100,6 +2210,35 @@
       }
     }
   });
+
+  // --- Germany Meat detail (multi-line index trend, 5-digit COICOP) ---
+  const M = {"labels": ["Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025"], "datasets": [{"label": "Beef & veal", "data": [148.2, 149.3, 152.4, 155.2, 157.2, 158.5, 160.3, 161.9, 162.8, 166.9, 169.2, 169.5], "borderColor": "#F87171", "backgroundColor": "#F8717122"}, {"label": "Pork", "data": [157.0, 157.2, 158.5, 158.6, 159.6, 160.3, 162.6, 163.8, 164.5, 166.4, 165.5, 164.9], "borderColor": "#FB923C", "backgroundColor": "#FB923C22"}, {"label": "Lamb, mutton & goat", "data": [145.4, 145.1, 146.9, 146.7, 147.8, 150.2, 151.6, 152.6, 153.9, 155.7, 156.1, 158.4], "borderColor": "#A78BFA", "backgroundColor": "#A78BFA22"}, {"label": "Poultry", "data": [150.1, 151.9, 152.9, 152.6, 155.3, 157.1, 158.7, 157.1, 159.5, 160.6, 161.2, 161.0], "borderColor": "#FACC15", "backgroundColor": "#FACC1522"}, {"label": "Other meats & offal", "data": [135.3, 138.2, 137.1, 137.4, 137.1, 139.3, 139.6, 140.1, 140.5, 144.2, 142.6, 145.0], "borderColor": "#34D399", "backgroundColor": "#34D39922"}, {"label": "Delicatessen & prep", "data": [131.6, 131.5, 134.0, 135.1, 136.6, 136.9, 137.9, 138.4, 139.1, 140.1, 140.2, 140.7], "borderColor": "#60A5FA", "backgroundColor": "#60A5FA22"}]};
+  if (M) {
+    new Chart(document.getElementById('germanyMeatChart'), {
+      type: 'line',
+      data: {
+        labels: M.labels,
+        datasets: M.datasets.map(d => ({
+          label: d.label,
+          data: d.data,
+          borderColor: d.borderColor,
+          backgroundColor: d.backgroundColor,
+          borderWidth: 2,
+          tension: 0.3,
+          pointRadius: 2,
+          fill: false,
+        })),
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { color: '#94A3B8', boxWidth: 12 } } },
+        scales: {
+          x: { ticks: { color: '#94A3B8' }, grid: { color: '#334155' } },
+          y: { ticks: { color: '#94A3B8' }, grid: { color: '#334155' }, title: { display: true, text: 'Index (2015 = 100)', color: '#94A3B8' } }
+        }
+      }
+    });
+  }
 
   // --- Germany sub-category YoY bars ---
   const SB = {"labels": ["Sugar & confectionery", "Non-alcoholic beverages", "Fruit", "Meat", "Fish & seafood", "Other food products", "Bread & cereals", "Vegetables", "Milk, cheese & eggs", "Oils & fats"], "yoy": [9.64, 6.78, 5.16, 4.75, 1.95, 0.94, 0.67, -1.74, -1.87, -17.06]};
