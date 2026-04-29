@@ -898,6 +898,524 @@
     }
   ],
   "drilldowns": {
+    "CP0111": {
+      "parent_code": "CP0111",
+      "parent_label": "Bread & cereals",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 151.9
+            },
+            {
+              "month": "Feb 2025",
+              "index": 151.6
+            },
+            {
+              "month": "Mar 2025",
+              "index": 152.2
+            },
+            {
+              "month": "Apr 2025",
+              "index": 152.0
+            },
+            {
+              "month": "May 2025",
+              "index": 153.5
+            },
+            {
+              "month": "Jun 2025",
+              "index": 153.5
+            },
+            {
+              "month": "Jul 2025",
+              "index": 153.2
+            },
+            {
+              "month": "Aug 2025",
+              "index": 153.7
+            },
+            {
+              "month": "Sep 2025",
+              "index": 154.0
+            },
+            {
+              "month": "Oct 2025",
+              "index": 153.8
+            },
+            {
+              "month": "Nov 2025",
+              "index": 153.0
+            },
+            {
+              "month": "Dec 2025",
+              "index": 153.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 153.0
+          },
+          "yoy_pct": 0.72,
+          "mom_pct": 0.0,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01111",
+          "label": "Rice",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 161.7
+            },
+            {
+              "month": "Feb 2025",
+              "index": 162.2
+            },
+            {
+              "month": "Mar 2025",
+              "index": 164.7
+            },
+            {
+              "month": "Apr 2025",
+              "index": 163.3
+            },
+            {
+              "month": "May 2025",
+              "index": 162.3
+            },
+            {
+              "month": "Jun 2025",
+              "index": 162.2
+            },
+            {
+              "month": "Jul 2025",
+              "index": 162.5
+            },
+            {
+              "month": "Aug 2025",
+              "index": 162.0
+            },
+            {
+              "month": "Sep 2025",
+              "index": 161.8
+            },
+            {
+              "month": "Oct 2025",
+              "index": 161.2
+            },
+            {
+              "month": "Nov 2025",
+              "index": 161.1
+            },
+            {
+              "month": "Dec 2025",
+              "index": 161.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 161.7
+          },
+          "yoy_pct": 0.0,
+          "mom_pct": 0.37,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01112",
+          "label": "Flours & cereals",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 150.9
+            },
+            {
+              "month": "Feb 2025",
+              "index": 151.3
+            },
+            {
+              "month": "Mar 2025",
+              "index": 151.7
+            },
+            {
+              "month": "Apr 2025",
+              "index": 151.7
+            },
+            {
+              "month": "May 2025",
+              "index": 152.3
+            },
+            {
+              "month": "Jun 2025",
+              "index": 151.6
+            },
+            {
+              "month": "Jul 2025",
+              "index": 152.4
+            },
+            {
+              "month": "Aug 2025",
+              "index": 152.5
+            },
+            {
+              "month": "Sep 2025",
+              "index": 152.8
+            },
+            {
+              "month": "Oct 2025",
+              "index": 153.1
+            },
+            {
+              "month": "Nov 2025",
+              "index": 152.9
+            },
+            {
+              "month": "Dec 2025",
+              "index": 153.2
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 153.2
+          },
+          "yoy_pct": 1.52,
+          "mom_pct": 0.2,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01113",
+          "label": "Bread",
+          "colour": "#FACC15"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 152.0
+            },
+            {
+              "month": "Feb 2025",
+              "index": 152.8
+            },
+            {
+              "month": "Mar 2025",
+              "index": 152.5
+            },
+            {
+              "month": "Apr 2025",
+              "index": 151.9
+            },
+            {
+              "month": "May 2025",
+              "index": 152.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 152.7
+            },
+            {
+              "month": "Jul 2025",
+              "index": 151.9
+            },
+            {
+              "month": "Aug 2025",
+              "index": 152.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 153.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 154.5
+            },
+            {
+              "month": "Nov 2025",
+              "index": 153.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 153.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 153.7
+          },
+          "yoy_pct": 1.12,
+          "mom_pct": 0.07,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01114",
+          "label": "Other bakery products",
+          "colour": "#34D399"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 134.1
+            },
+            {
+              "month": "Feb 2025",
+              "index": 133.4
+            },
+            {
+              "month": "Mar 2025",
+              "index": 132.9
+            },
+            {
+              "month": "Apr 2025",
+              "index": 133.5
+            },
+            {
+              "month": "May 2025",
+              "index": 132.7
+            },
+            {
+              "month": "Jun 2025",
+              "index": 132.5
+            },
+            {
+              "month": "Jul 2025",
+              "index": 131.6
+            },
+            {
+              "month": "Aug 2025",
+              "index": 130.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 132.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 130.2
+            },
+            {
+              "month": "Nov 2025",
+              "index": 131.8
+            },
+            {
+              "month": "Dec 2025",
+              "index": 130.6
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 130.6
+          },
+          "yoy_pct": -2.61,
+          "mom_pct": -0.91,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01115",
+          "label": "Pizza & quiche",
+          "colour": "#60A5FA"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 148.3
+            },
+            {
+              "month": "Feb 2025",
+              "index": 148.7
+            },
+            {
+              "month": "Mar 2025",
+              "index": 149.3
+            },
+            {
+              "month": "Apr 2025",
+              "index": 148.4
+            },
+            {
+              "month": "May 2025",
+              "index": 148.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 148.0
+            },
+            {
+              "month": "Jul 2025",
+              "index": 149.0
+            },
+            {
+              "month": "Aug 2025",
+              "index": 149.4
+            },
+            {
+              "month": "Sep 2025",
+              "index": 149.7
+            },
+            {
+              "month": "Oct 2025",
+              "index": 147.5
+            },
+            {
+              "month": "Nov 2025",
+              "index": 146.1
+            },
+            {
+              "month": "Dec 2025",
+              "index": 147.1
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 147.1
+          },
+          "yoy_pct": -0.81,
+          "mom_pct": 0.68,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01116",
+          "label": "Pasta & couscous",
+          "colour": "#A78BFA"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 136.5
+            },
+            {
+              "month": "Feb 2025",
+              "index": 136.0
+            },
+            {
+              "month": "Mar 2025",
+              "index": 136.8
+            },
+            {
+              "month": "Apr 2025",
+              "index": 133.1
+            },
+            {
+              "month": "May 2025",
+              "index": 131.8
+            },
+            {
+              "month": "Jun 2025",
+              "index": 131.3
+            },
+            {
+              "month": "Jul 2025",
+              "index": 132.9
+            },
+            {
+              "month": "Aug 2025",
+              "index": 133.2
+            },
+            {
+              "month": "Sep 2025",
+              "index": 133.6
+            },
+            {
+              "month": "Oct 2025",
+              "index": 132.5
+            },
+            {
+              "month": "Nov 2025",
+              "index": 131.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 132.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 132.0
+          },
+          "yoy_pct": -3.3,
+          "mom_pct": 0.23,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01117",
+          "label": "Breakfast cereals",
+          "colour": "#F472B6"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 112.0
+            },
+            {
+              "month": "Feb 2025",
+              "index": 112.8
+            },
+            {
+              "month": "Mar 2025",
+              "index": 114.4
+            },
+            {
+              "month": "Apr 2025",
+              "index": 113.6
+            },
+            {
+              "month": "May 2025",
+              "index": 113.1
+            },
+            {
+              "month": "Jun 2025",
+              "index": 114.4
+            },
+            {
+              "month": "Jul 2025",
+              "index": 115.3
+            },
+            {
+              "month": "Aug 2025",
+              "index": 115.6
+            },
+            {
+              "month": "Sep 2025",
+              "index": 116.1
+            },
+            {
+              "month": "Oct 2025",
+              "index": 115.6
+            },
+            {
+              "month": "Nov 2025",
+              "index": 114.9
+            },
+            {
+              "month": "Dec 2025",
+              "index": 114.8
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 114.8
+          },
+          "yoy_pct": 2.5,
+          "mom_pct": -0.09,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01118",
+          "label": "Other cereal products",
+          "colour": "#22D3EE"
+        }
+      ]
+    },
     "CP0112": {
       "parent_code": "CP0112",
       "parent_label": "Meat",
@@ -1092,7 +1610,7 @@
           "updated": "2026-02-06T23:00:00+0100",
           "coicop": "CP01123",
           "label": "Lamb, mutton & goat",
-          "colour": "#A78BFA"
+          "colour": "#FACC15"
         },
         {
           "series": [
@@ -1156,7 +1674,7 @@
           "updated": "2026-02-06T23:00:00+0100",
           "coicop": "CP01124",
           "label": "Poultry",
-          "colour": "#FACC15"
+          "colour": "#34D399"
         },
         {
           "series": [
@@ -1220,7 +1738,7 @@
           "updated": "2026-02-06T23:00:00+0100",
           "coicop": "CP01125",
           "label": "Other meats & offal",
-          "colour": "#34D399"
+          "colour": "#60A5FA"
         },
         {
           "series": [
@@ -1284,7 +1802,2487 @@
           "updated": "2026-02-06T23:00:00+0100",
           "coicop": "CP01126",
           "label": "Delicatessen & prep",
+          "colour": "#A78BFA"
+        }
+      ]
+    },
+    "CP0113": {
+      "parent_code": "CP0113",
+      "parent_label": "Fish & seafood",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 156.2
+            },
+            {
+              "month": "Feb 2025",
+              "index": 156.5
+            },
+            {
+              "month": "Mar 2025",
+              "index": 156.7
+            },
+            {
+              "month": "Apr 2025",
+              "index": 154.9
+            },
+            {
+              "month": "May 2025",
+              "index": 155.7
+            },
+            {
+              "month": "Jun 2025",
+              "index": 156.0
+            },
+            {
+              "month": "Jul 2025",
+              "index": 156.4
+            },
+            {
+              "month": "Aug 2025",
+              "index": 157.2
+            },
+            {
+              "month": "Sep 2025",
+              "index": 156.7
+            },
+            {
+              "month": "Oct 2025",
+              "index": 157.6
+            },
+            {
+              "month": "Nov 2025",
+              "index": 158.2
+            },
+            {
+              "month": "Dec 2025",
+              "index": 158.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 158.0
+          },
+          "yoy_pct": 1.15,
+          "mom_pct": -0.13,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01131",
+          "label": "Fresh / chilled fish",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 149.2
+            },
+            {
+              "month": "Feb 2025",
+              "index": 149.6
+            },
+            {
+              "month": "Mar 2025",
+              "index": 150.1
+            },
+            {
+              "month": "Apr 2025",
+              "index": 149.8
+            },
+            {
+              "month": "May 2025",
+              "index": 149.3
+            },
+            {
+              "month": "Jun 2025",
+              "index": 150.0
+            },
+            {
+              "month": "Jul 2025",
+              "index": 150.3
+            },
+            {
+              "month": "Aug 2025",
+              "index": 151.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 152.7
+            },
+            {
+              "month": "Oct 2025",
+              "index": 153.5
+            },
+            {
+              "month": "Nov 2025",
+              "index": 153.3
+            },
+            {
+              "month": "Dec 2025",
+              "index": 154.1
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 154.1
+          },
+          "yoy_pct": 3.28,
+          "mom_pct": 0.52,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01132",
+          "label": "Frozen fish",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 132.7
+            },
+            {
+              "month": "Feb 2025",
+              "index": 134.3
+            },
+            {
+              "month": "Mar 2025",
+              "index": 134.0
+            },
+            {
+              "month": "Apr 2025",
+              "index": 133.8
+            },
+            {
+              "month": "May 2025",
+              "index": 135.9
+            },
+            {
+              "month": "Jun 2025",
+              "index": 135.4
+            },
+            {
+              "month": "Jul 2025",
+              "index": 133.9
+            },
+            {
+              "month": "Aug 2025",
+              "index": 135.3
+            },
+            {
+              "month": "Sep 2025",
+              "index": 135.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 134.8
+            },
+            {
+              "month": "Nov 2025",
+              "index": 134.9
+            },
+            {
+              "month": "Dec 2025",
+              "index": 133.2
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 133.2
+          },
+          "yoy_pct": 0.38,
+          "mom_pct": -1.26,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01133",
+          "label": "Fresh / chilled seafood",
+          "colour": "#FACC15"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 114.2
+            },
+            {
+              "month": "Feb 2025",
+              "index": 114.4
+            },
+            {
+              "month": "Mar 2025",
+              "index": 114.2
+            },
+            {
+              "month": "Apr 2025",
+              "index": 114.3
+            },
+            {
+              "month": "May 2025",
+              "index": 114.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 114.1
+            },
+            {
+              "month": "Jul 2025",
+              "index": 115.2
+            },
+            {
+              "month": "Aug 2025",
+              "index": 115.6
+            },
+            {
+              "month": "Sep 2025",
+              "index": 115.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 115.5
+            },
+            {
+              "month": "Nov 2025",
+              "index": 115.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 115.4
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 115.4
+          },
+          "yoy_pct": 1.05,
+          "mom_pct": -0.26,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01134",
+          "label": "Frozen seafood",
+          "colour": "#34D399"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 141.9
+            },
+            {
+              "month": "Feb 2025",
+              "index": 143.3
+            },
+            {
+              "month": "Mar 2025",
+              "index": 143.5
+            },
+            {
+              "month": "Apr 2025",
+              "index": 143.1
+            },
+            {
+              "month": "May 2025",
+              "index": 142.1
+            },
+            {
+              "month": "Jun 2025",
+              "index": 144.1
+            },
+            {
+              "month": "Jul 2025",
+              "index": 144.0
+            },
+            {
+              "month": "Aug 2025",
+              "index": 143.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 144.1
+            },
+            {
+              "month": "Oct 2025",
+              "index": 145.4
+            },
+            {
+              "month": "Nov 2025",
+              "index": 144.9
+            },
+            {
+              "month": "Dec 2025",
+              "index": 139.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 139.7
+          },
+          "yoy_pct": -1.55,
+          "mom_pct": -3.59,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01135",
+          "label": "Dried / smoked / salted",
           "colour": "#60A5FA"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 156.1
+            },
+            {
+              "month": "Feb 2025",
+              "index": 156.9
+            },
+            {
+              "month": "Mar 2025",
+              "index": 156.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 157.1
+            },
+            {
+              "month": "May 2025",
+              "index": 158.6
+            },
+            {
+              "month": "Jun 2025",
+              "index": 159.4
+            },
+            {
+              "month": "Jul 2025",
+              "index": 158.0
+            },
+            {
+              "month": "Aug 2025",
+              "index": 159.1
+            },
+            {
+              "month": "Sep 2025",
+              "index": 159.1
+            },
+            {
+              "month": "Oct 2025",
+              "index": 159.0
+            },
+            {
+              "month": "Nov 2025",
+              "index": 159.9
+            },
+            {
+              "month": "Dec 2025",
+              "index": 160.4
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 160.4
+          },
+          "yoy_pct": 2.75,
+          "mom_pct": 0.31,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01136",
+          "label": "Other preserved fish",
+          "colour": "#A78BFA"
+        }
+      ]
+    },
+    "CP0114": {
+      "parent_code": "CP0114",
+      "parent_label": "Milk, cheese & eggs",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 162.9
+            },
+            {
+              "month": "Feb 2025",
+              "index": 164.9
+            },
+            {
+              "month": "Mar 2025",
+              "index": 165.0
+            },
+            {
+              "month": "Apr 2025",
+              "index": 165.5
+            },
+            {
+              "month": "May 2025",
+              "index": 166.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 166.6
+            },
+            {
+              "month": "Jul 2025",
+              "index": 168.5
+            },
+            {
+              "month": "Aug 2025",
+              "index": 168.2
+            },
+            {
+              "month": "Sep 2025",
+              "index": 168.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 168.7
+            },
+            {
+              "month": "Nov 2025",
+              "index": 167.2
+            },
+            {
+              "month": "Dec 2025",
+              "index": 158.4
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 158.4
+          },
+          "yoy_pct": -2.76,
+          "mom_pct": -5.26,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01141",
+          "label": "Whole milk",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 166.9
+            },
+            {
+              "month": "Feb 2025",
+              "index": 168.1
+            },
+            {
+              "month": "Mar 2025",
+              "index": 168.7
+            },
+            {
+              "month": "Apr 2025",
+              "index": 168.4
+            },
+            {
+              "month": "May 2025",
+              "index": 168.8
+            },
+            {
+              "month": "Jun 2025",
+              "index": 169.4
+            },
+            {
+              "month": "Jul 2025",
+              "index": 170.2
+            },
+            {
+              "month": "Aug 2025",
+              "index": 170.5
+            },
+            {
+              "month": "Sep 2025",
+              "index": 170.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 170.5
+            },
+            {
+              "month": "Nov 2025",
+              "index": 169.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 159.1
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 159.1
+          },
+          "yoy_pct": -4.67,
+          "mom_pct": -6.25,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01142",
+          "label": "Low-fat milk",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 197.1
+            },
+            {
+              "month": "Feb 2025",
+              "index": 197.1
+            },
+            {
+              "month": "Mar 2025",
+              "index": 197.5
+            },
+            {
+              "month": "Apr 2025",
+              "index": 191.5
+            },
+            {
+              "month": "May 2025",
+              "index": 193.7
+            },
+            {
+              "month": "Jun 2025",
+              "index": 193.5
+            },
+            {
+              "month": "Jul 2025",
+              "index": 193.1
+            },
+            {
+              "month": "Aug 2025",
+              "index": 193.0
+            },
+            {
+              "month": "Sep 2025",
+              "index": 196.0
+            },
+            {
+              "month": "Oct 2025",
+              "index": 197.1
+            },
+            {
+              "month": "Nov 2025",
+              "index": 196.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 189.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 189.7
+          },
+          "yoy_pct": -3.75,
+          "mom_pct": -3.56,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01143",
+          "label": "Preserved milk",
+          "colour": "#FACC15"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 143.0
+            },
+            {
+              "month": "Feb 2025",
+              "index": 142.3
+            },
+            {
+              "month": "Mar 2025",
+              "index": 143.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 143.9
+            },
+            {
+              "month": "May 2025",
+              "index": 143.6
+            },
+            {
+              "month": "Jun 2025",
+              "index": 140.3
+            },
+            {
+              "month": "Jul 2025",
+              "index": 143.3
+            },
+            {
+              "month": "Aug 2025",
+              "index": 142.9
+            },
+            {
+              "month": "Sep 2025",
+              "index": 143.2
+            },
+            {
+              "month": "Oct 2025",
+              "index": 142.3
+            },
+            {
+              "month": "Nov 2025",
+              "index": 144.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 144.4
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 144.4
+          },
+          "yoy_pct": 0.98,
+          "mom_pct": -0.21,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01144",
+          "label": "Yoghurt",
+          "colour": "#34D399"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 159.7
+            },
+            {
+              "month": "Feb 2025",
+              "index": 161.4
+            },
+            {
+              "month": "Mar 2025",
+              "index": 162.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 162.8
+            },
+            {
+              "month": "May 2025",
+              "index": 163.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 162.1
+            },
+            {
+              "month": "Jul 2025",
+              "index": 162.6
+            },
+            {
+              "month": "Aug 2025",
+              "index": 162.7
+            },
+            {
+              "month": "Sep 2025",
+              "index": 163.2
+            },
+            {
+              "month": "Oct 2025",
+              "index": 161.8
+            },
+            {
+              "month": "Nov 2025",
+              "index": 158.9
+            },
+            {
+              "month": "Dec 2025",
+              "index": 154.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 154.7
+          },
+          "yoy_pct": -3.13,
+          "mom_pct": -2.64,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01145",
+          "label": "Cheese & curd",
+          "colour": "#60A5FA"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 171.6
+            },
+            {
+              "month": "Feb 2025",
+              "index": 175.0
+            },
+            {
+              "month": "Mar 2025",
+              "index": 174.7
+            },
+            {
+              "month": "Apr 2025",
+              "index": 172.5
+            },
+            {
+              "month": "May 2025",
+              "index": 172.5
+            },
+            {
+              "month": "Jun 2025",
+              "index": 172.7
+            },
+            {
+              "month": "Jul 2025",
+              "index": 175.9
+            },
+            {
+              "month": "Aug 2025",
+              "index": 175.1
+            },
+            {
+              "month": "Sep 2025",
+              "index": 175.0
+            },
+            {
+              "month": "Oct 2025",
+              "index": 175.4
+            },
+            {
+              "month": "Nov 2025",
+              "index": 174.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 170.1
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 170.1
+          },
+          "yoy_pct": -0.87,
+          "mom_pct": -2.58,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01146",
+          "label": "Other milk products",
+          "colour": "#A78BFA"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 164.3
+            },
+            {
+              "month": "Feb 2025",
+              "index": 165.2
+            },
+            {
+              "month": "Mar 2025",
+              "index": 166.1
+            },
+            {
+              "month": "Apr 2025",
+              "index": 167.0
+            },
+            {
+              "month": "May 2025",
+              "index": 167.9
+            },
+            {
+              "month": "Jun 2025",
+              "index": 168.0
+            },
+            {
+              "month": "Jul 2025",
+              "index": 168.0
+            },
+            {
+              "month": "Aug 2025",
+              "index": 168.0
+            },
+            {
+              "month": "Sep 2025",
+              "index": 168.0
+            },
+            {
+              "month": "Oct 2025",
+              "index": 168.3
+            },
+            {
+              "month": "Nov 2025",
+              "index": 168.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 168.8
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 168.8
+          },
+          "yoy_pct": 2.74,
+          "mom_pct": 0.12,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01147",
+          "label": "Eggs",
+          "colour": "#F472B6"
+        }
+      ]
+    },
+    "CP0115": {
+      "parent_code": "CP0115",
+      "parent_label": "Oils & fats",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 232.7
+            },
+            {
+              "month": "Feb 2025",
+              "index": 225.4
+            },
+            {
+              "month": "Mar 2025",
+              "index": 217.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 210.4
+            },
+            {
+              "month": "May 2025",
+              "index": 214.3
+            },
+            {
+              "month": "Jun 2025",
+              "index": 213.0
+            },
+            {
+              "month": "Jul 2025",
+              "index": 211.0
+            },
+            {
+              "month": "Aug 2025",
+              "index": 212.1
+            },
+            {
+              "month": "Sep 2025",
+              "index": 211.6
+            },
+            {
+              "month": "Oct 2025",
+              "index": 190.6
+            },
+            {
+              "month": "Nov 2025",
+              "index": 181.8
+            },
+            {
+              "month": "Dec 2025",
+              "index": 159.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 159.0
+          },
+          "yoy_pct": -31.67,
+          "mom_pct": -12.54,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01151",
+          "label": "Butter",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 169.0
+            },
+            {
+              "month": "Feb 2025",
+              "index": 171.8
+            },
+            {
+              "month": "Mar 2025",
+              "index": 172.0
+            },
+            {
+              "month": "Apr 2025",
+              "index": 170.7
+            },
+            {
+              "month": "May 2025",
+              "index": 171.9
+            },
+            {
+              "month": "Jun 2025",
+              "index": 173.7
+            },
+            {
+              "month": "Jul 2025",
+              "index": 173.8
+            },
+            {
+              "month": "Aug 2025",
+              "index": 175.4
+            },
+            {
+              "month": "Sep 2025",
+              "index": 173.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 171.6
+            },
+            {
+              "month": "Nov 2025",
+              "index": 171.1
+            },
+            {
+              "month": "Dec 2025",
+              "index": 168.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 168.7
+          },
+          "yoy_pct": -0.18,
+          "mom_pct": -1.4,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01152",
+          "label": "Margarine & vegetable fats",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 206.2
+            },
+            {
+              "month": "Feb 2025",
+              "index": 201.9
+            },
+            {
+              "month": "Mar 2025",
+              "index": 201.3
+            },
+            {
+              "month": "Apr 2025",
+              "index": 193.6
+            },
+            {
+              "month": "May 2025",
+              "index": 189.0
+            },
+            {
+              "month": "Jun 2025",
+              "index": 181.8
+            },
+            {
+              "month": "Jul 2025",
+              "index": 182.7
+            },
+            {
+              "month": "Aug 2025",
+              "index": 182.0
+            },
+            {
+              "month": "Sep 2025",
+              "index": 179.7
+            },
+            {
+              "month": "Oct 2025",
+              "index": 180.7
+            },
+            {
+              "month": "Nov 2025",
+              "index": 179.1
+            },
+            {
+              "month": "Dec 2025",
+              "index": 178.4
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 178.4
+          },
+          "yoy_pct": -13.48,
+          "mom_pct": -0.39,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01153",
+          "label": "Olive oil",
+          "colour": "#FACC15"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 148.9
+            },
+            {
+              "month": "Feb 2025",
+              "index": 150.9
+            },
+            {
+              "month": "Mar 2025",
+              "index": 153.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 146.2
+            },
+            {
+              "month": "May 2025",
+              "index": 144.9
+            },
+            {
+              "month": "Jun 2025",
+              "index": 143.5
+            },
+            {
+              "month": "Jul 2025",
+              "index": 143.7
+            },
+            {
+              "month": "Aug 2025",
+              "index": 145.2
+            },
+            {
+              "month": "Sep 2025",
+              "index": 146.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 148.2
+            },
+            {
+              "month": "Nov 2025",
+              "index": 147.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 148.1
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 148.1
+          },
+          "yoy_pct": -0.54,
+          "mom_pct": 0.34,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01154",
+          "label": "Other edible oils",
+          "colour": "#34D399"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 187.8
+            },
+            {
+              "month": "Feb 2025",
+              "index": 188.2
+            },
+            {
+              "month": "Mar 2025",
+              "index": 188.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 186.0
+            },
+            {
+              "month": "May 2025",
+              "index": 190.2
+            },
+            {
+              "month": "Jun 2025",
+              "index": 191.2
+            },
+            {
+              "month": "Jul 2025",
+              "index": 192.2
+            },
+            {
+              "month": "Aug 2025",
+              "index": 192.1
+            },
+            {
+              "month": "Sep 2025",
+              "index": 191.8
+            },
+            {
+              "month": "Oct 2025",
+              "index": 191.7
+            },
+            {
+              "month": "Nov 2025",
+              "index": 190.2
+            },
+            {
+              "month": "Dec 2025",
+              "index": 189.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 189.0
+          },
+          "yoy_pct": 0.64,
+          "mom_pct": -0.63,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01155",
+          "label": "Other animal fats",
+          "colour": "#60A5FA"
+        }
+      ]
+    },
+    "CP0116": {
+      "parent_code": "CP0116",
+      "parent_label": "Fruit",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 135.7
+            },
+            {
+              "month": "Feb 2025",
+              "index": 140.1
+            },
+            {
+              "month": "Mar 2025",
+              "index": 141.1
+            },
+            {
+              "month": "Apr 2025",
+              "index": 141.7
+            },
+            {
+              "month": "May 2025",
+              "index": 143.2
+            },
+            {
+              "month": "Jun 2025",
+              "index": 142.0
+            },
+            {
+              "month": "Jul 2025",
+              "index": 140.8
+            },
+            {
+              "month": "Aug 2025",
+              "index": 141.0
+            },
+            {
+              "month": "Sep 2025",
+              "index": 140.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 138.3
+            },
+            {
+              "month": "Nov 2025",
+              "index": 137.9
+            },
+            {
+              "month": "Dec 2025",
+              "index": 139.6
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 139.6
+          },
+          "yoy_pct": 2.87,
+          "mom_pct": 1.23,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01161",
+          "label": "Fresh / chilled fruit",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 135.8
+            },
+            {
+              "month": "Feb 2025",
+              "index": 138.8
+            },
+            {
+              "month": "Mar 2025",
+              "index": 137.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 139.9
+            },
+            {
+              "month": "May 2025",
+              "index": 139.9
+            },
+            {
+              "month": "Jun 2025",
+              "index": 141.3
+            },
+            {
+              "month": "Jul 2025",
+              "index": 144.0
+            },
+            {
+              "month": "Aug 2025",
+              "index": 144.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 150.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 161.0
+            },
+            {
+              "month": "Nov 2025",
+              "index": 169.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 172.6
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 172.6
+          },
+          "yoy_pct": 27.1,
+          "mom_pct": 1.71,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01162",
+          "label": "Frozen fruit",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 136.3
+            },
+            {
+              "month": "Feb 2025",
+              "index": 136.0
+            },
+            {
+              "month": "Mar 2025",
+              "index": 137.0
+            },
+            {
+              "month": "Apr 2025",
+              "index": 136.1
+            },
+            {
+              "month": "May 2025",
+              "index": 137.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 136.6
+            },
+            {
+              "month": "Jul 2025",
+              "index": 137.6
+            },
+            {
+              "month": "Aug 2025",
+              "index": 136.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 138.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 141.0
+            },
+            {
+              "month": "Nov 2025",
+              "index": 144.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 144.9
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 144.9
+          },
+          "yoy_pct": 6.31,
+          "mom_pct": 0.21,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01163",
+          "label": "Dried fruit & nuts",
+          "colour": "#FACC15"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 169.7
+            },
+            {
+              "month": "Feb 2025",
+              "index": 170.5
+            },
+            {
+              "month": "Mar 2025",
+              "index": 171.0
+            },
+            {
+              "month": "Apr 2025",
+              "index": 172.8
+            },
+            {
+              "month": "May 2025",
+              "index": 174.6
+            },
+            {
+              "month": "Jun 2025",
+              "index": 173.4
+            },
+            {
+              "month": "Jul 2025",
+              "index": 173.8
+            },
+            {
+              "month": "Aug 2025",
+              "index": 186.5
+            },
+            {
+              "month": "Sep 2025",
+              "index": 198.4
+            },
+            {
+              "month": "Oct 2025",
+              "index": 210.2
+            },
+            {
+              "month": "Nov 2025",
+              "index": 214.2
+            },
+            {
+              "month": "Dec 2025",
+              "index": 216.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 216.7
+          },
+          "yoy_pct": 27.7,
+          "mom_pct": 1.17,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01164",
+          "label": "Preserved fruit",
+          "colour": "#34D399"
+        }
+      ]
+    },
+    "CP0117": {
+      "parent_code": "CP0117",
+      "parent_label": "Vegetables",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 147.7
+            },
+            {
+              "month": "Feb 2025",
+              "index": 152.7
+            },
+            {
+              "month": "Mar 2025",
+              "index": 148.9
+            },
+            {
+              "month": "Apr 2025",
+              "index": 154.0
+            },
+            {
+              "month": "May 2025",
+              "index": 137.9
+            },
+            {
+              "month": "Jun 2025",
+              "index": 131.5
+            },
+            {
+              "month": "Jul 2025",
+              "index": 130.4
+            },
+            {
+              "month": "Aug 2025",
+              "index": 131.1
+            },
+            {
+              "month": "Sep 2025",
+              "index": 131.6
+            },
+            {
+              "month": "Oct 2025",
+              "index": 132.7
+            },
+            {
+              "month": "Nov 2025",
+              "index": 137.5
+            },
+            {
+              "month": "Dec 2025",
+              "index": 145.2
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 145.2
+          },
+          "yoy_pct": -1.69,
+          "mom_pct": 5.6,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01171",
+          "label": "Fresh / chilled veg",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 156.2
+            },
+            {
+              "month": "Feb 2025",
+              "index": 156.4
+            },
+            {
+              "month": "Mar 2025",
+              "index": 156.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 159.2
+            },
+            {
+              "month": "May 2025",
+              "index": 158.7
+            },
+            {
+              "month": "Jun 2025",
+              "index": 158.8
+            },
+            {
+              "month": "Jul 2025",
+              "index": 159.5
+            },
+            {
+              "month": "Aug 2025",
+              "index": 161.5
+            },
+            {
+              "month": "Sep 2025",
+              "index": 163.0
+            },
+            {
+              "month": "Oct 2025",
+              "index": 163.6
+            },
+            {
+              "month": "Nov 2025",
+              "index": 163.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 163.5
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 163.5
+          },
+          "yoy_pct": 4.67,
+          "mom_pct": -0.06,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01172",
+          "label": "Frozen veg",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 147.4
+            },
+            {
+              "month": "Feb 2025",
+              "index": 147.0
+            },
+            {
+              "month": "Mar 2025",
+              "index": 147.1
+            },
+            {
+              "month": "Apr 2025",
+              "index": 148.0
+            },
+            {
+              "month": "May 2025",
+              "index": 148.6
+            },
+            {
+              "month": "Jun 2025",
+              "index": 148.2
+            },
+            {
+              "month": "Jul 2025",
+              "index": 148.2
+            },
+            {
+              "month": "Aug 2025",
+              "index": 148.4
+            },
+            {
+              "month": "Sep 2025",
+              "index": 148.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 148.8
+            },
+            {
+              "month": "Nov 2025",
+              "index": 149.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 149.9
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 149.9
+          },
+          "yoy_pct": 1.7,
+          "mom_pct": 0.13,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01173",
+          "label": "Dried & preserved veg",
+          "colour": "#FACC15"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 144.3
+            },
+            {
+              "month": "Feb 2025",
+              "index": 156.5
+            },
+            {
+              "month": "Mar 2025",
+              "index": 160.4
+            },
+            {
+              "month": "Apr 2025",
+              "index": 160.8
+            },
+            {
+              "month": "May 2025",
+              "index": 165.2
+            },
+            {
+              "month": "Jun 2025",
+              "index": 169.7
+            },
+            {
+              "month": "Jul 2025",
+              "index": 164.5
+            },
+            {
+              "month": "Aug 2025",
+              "index": 150.4
+            },
+            {
+              "month": "Sep 2025",
+              "index": 140.2
+            },
+            {
+              "month": "Oct 2025",
+              "index": 135.0
+            },
+            {
+              "month": "Nov 2025",
+              "index": 132.1
+            },
+            {
+              "month": "Dec 2025",
+              "index": 131.7
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 131.7
+          },
+          "yoy_pct": -8.73,
+          "mom_pct": -0.3,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01174",
+          "label": "Potatoes",
+          "colour": "#34D399"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 139.1
+            },
+            {
+              "month": "Feb 2025",
+              "index": 139.5
+            },
+            {
+              "month": "Mar 2025",
+              "index": 140.5
+            },
+            {
+              "month": "Apr 2025",
+              "index": 139.1
+            },
+            {
+              "month": "May 2025",
+              "index": 138.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 136.9
+            },
+            {
+              "month": "Jul 2025",
+              "index": 136.6
+            },
+            {
+              "month": "Aug 2025",
+              "index": 139.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 135.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 136.9
+            },
+            {
+              "month": "Nov 2025",
+              "index": 138.5
+            },
+            {
+              "month": "Dec 2025",
+              "index": 138.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 138.0
+          },
+          "yoy_pct": -0.79,
+          "mom_pct": -0.36,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01175",
+          "label": "Crisps & potato products",
+          "colour": "#60A5FA"
+        }
+      ]
+    },
+    "CP0118": {
+      "parent_code": "CP0118",
+      "parent_label": "Sugar & confectionery",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 143.4
+            },
+            {
+              "month": "Feb 2025",
+              "index": 142.6
+            },
+            {
+              "month": "Mar 2025",
+              "index": 141.7
+            },
+            {
+              "month": "Apr 2025",
+              "index": 137.7
+            },
+            {
+              "month": "May 2025",
+              "index": 138.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 137.5
+            },
+            {
+              "month": "Jul 2025",
+              "index": 135.7
+            },
+            {
+              "month": "Aug 2025",
+              "index": 136.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 135.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 138.0
+            },
+            {
+              "month": "Nov 2025",
+              "index": 140.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 142.1
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 142.1
+          },
+          "yoy_pct": -0.91,
+          "mom_pct": 1.0,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01181",
+          "label": "Sugar",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 127.6
+            },
+            {
+              "month": "Feb 2025",
+              "index": 127.8
+            },
+            {
+              "month": "Mar 2025",
+              "index": 127.9
+            },
+            {
+              "month": "Apr 2025",
+              "index": 126.2
+            },
+            {
+              "month": "May 2025",
+              "index": 127.1
+            },
+            {
+              "month": "Jun 2025",
+              "index": 127.2
+            },
+            {
+              "month": "Jul 2025",
+              "index": 126.5
+            },
+            {
+              "month": "Aug 2025",
+              "index": 126.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 126.0
+            },
+            {
+              "month": "Oct 2025",
+              "index": 126.3
+            },
+            {
+              "month": "Nov 2025",
+              "index": 128.4
+            },
+            {
+              "month": "Dec 2025",
+              "index": 129.5
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 129.5
+          },
+          "yoy_pct": 1.49,
+          "mom_pct": 0.86,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01182",
+          "label": "Jams, marmalades & honey",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 147.8
+            },
+            {
+              "month": "Feb 2025",
+              "index": 158.7
+            },
+            {
+              "month": "Mar 2025",
+              "index": 164.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 166.4
+            },
+            {
+              "month": "May 2025",
+              "index": 174.9
+            },
+            {
+              "month": "Jun 2025",
+              "index": 173.1
+            },
+            {
+              "month": "Jul 2025",
+              "index": 173.9
+            },
+            {
+              "month": "Aug 2025",
+              "index": 176.4
+            },
+            {
+              "month": "Sep 2025",
+              "index": 179.3
+            },
+            {
+              "month": "Oct 2025",
+              "index": 180.5
+            },
+            {
+              "month": "Nov 2025",
+              "index": 177.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 176.8
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 176.8
+          },
+          "yoy_pct": 19.62,
+          "mom_pct": -0.45,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01183",
+          "label": "Confectionery & chocolate",
+          "colour": "#FACC15"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 130.1
+            },
+            {
+              "month": "Feb 2025",
+              "index": 129.3
+            },
+            {
+              "month": "Mar 2025",
+              "index": 131.1
+            },
+            {
+              "month": "Apr 2025",
+              "index": 131.2
+            },
+            {
+              "month": "May 2025",
+              "index": 132.6
+            },
+            {
+              "month": "Jun 2025",
+              "index": 135.4
+            },
+            {
+              "month": "Jul 2025",
+              "index": 135.3
+            },
+            {
+              "month": "Aug 2025",
+              "index": 137.9
+            },
+            {
+              "month": "Sep 2025",
+              "index": 137.9
+            },
+            {
+              "month": "Oct 2025",
+              "index": 138.2
+            },
+            {
+              "month": "Nov 2025",
+              "index": 139.7
+            },
+            {
+              "month": "Dec 2025",
+              "index": 139.0
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 139.0
+          },
+          "yoy_pct": 6.84,
+          "mom_pct": -0.5,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01184",
+          "label": "Edible ices & ice cream",
+          "colour": "#34D399"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 130.2
+            },
+            {
+              "month": "Feb 2025",
+              "index": 131.9
+            },
+            {
+              "month": "Mar 2025",
+              "index": 132.6
+            },
+            {
+              "month": "Apr 2025",
+              "index": 134.0
+            },
+            {
+              "month": "May 2025",
+              "index": 134.1
+            },
+            {
+              "month": "Jun 2025",
+              "index": 131.8
+            },
+            {
+              "month": "Jul 2025",
+              "index": 132.4
+            },
+            {
+              "month": "Aug 2025",
+              "index": 131.7
+            },
+            {
+              "month": "Sep 2025",
+              "index": 132.5
+            },
+            {
+              "month": "Oct 2025",
+              "index": 133.2
+            },
+            {
+              "month": "Nov 2025",
+              "index": 133.5
+            },
+            {
+              "month": "Dec 2025",
+              "index": 131.4
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 131.4
+          },
+          "yoy_pct": 0.92,
+          "mom_pct": -1.57,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01185",
+          "label": "Other confectionery",
+          "colour": "#60A5FA"
+        }
+      ]
+    },
+    "CP0121": {
+      "parent_code": "CP0121",
+      "parent_label": "Coffee, tea & cocoa",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 122.0
+            },
+            {
+              "month": "Feb 2025",
+              "index": 124.2
+            },
+            {
+              "month": "Mar 2025",
+              "index": 129.9
+            },
+            {
+              "month": "Apr 2025",
+              "index": 130.7
+            },
+            {
+              "month": "May 2025",
+              "index": 135.2
+            },
+            {
+              "month": "Jun 2025",
+              "index": 137.6
+            },
+            {
+              "month": "Jul 2025",
+              "index": 141.3
+            },
+            {
+              "month": "Aug 2025",
+              "index": 145.7
+            },
+            {
+              "month": "Sep 2025",
+              "index": 146.8
+            },
+            {
+              "month": "Oct 2025",
+              "index": 148.2
+            },
+            {
+              "month": "Nov 2025",
+              "index": 147.4
+            },
+            {
+              "month": "Dec 2025",
+              "index": 145.8
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 145.8
+          },
+          "yoy_pct": 19.51,
+          "mom_pct": -1.09,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01211",
+          "label": "Coffee",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 118.6
+            },
+            {
+              "month": "Feb 2025",
+              "index": 119.8
+            },
+            {
+              "month": "Mar 2025",
+              "index": 120.2
+            },
+            {
+              "month": "Apr 2025",
+              "index": 120.7
+            },
+            {
+              "month": "May 2025",
+              "index": 123.2
+            },
+            {
+              "month": "Jun 2025",
+              "index": 122.3
+            },
+            {
+              "month": "Jul 2025",
+              "index": 123.7
+            },
+            {
+              "month": "Aug 2025",
+              "index": 124.3
+            },
+            {
+              "month": "Sep 2025",
+              "index": 123.6
+            },
+            {
+              "month": "Oct 2025",
+              "index": 123.3
+            },
+            {
+              "month": "Nov 2025",
+              "index": 123.0
+            },
+            {
+              "month": "Dec 2025",
+              "index": 122.5
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 122.5
+          },
+          "yoy_pct": 3.29,
+          "mom_pct": -0.41,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01212",
+          "label": "Tea",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 161.1
+            },
+            {
+              "month": "Feb 2025",
+              "index": 165.2
+            },
+            {
+              "month": "Mar 2025",
+              "index": 168.8
+            },
+            {
+              "month": "Apr 2025",
+              "index": 184.2
+            },
+            {
+              "month": "May 2025",
+              "index": 186.7
+            },
+            {
+              "month": "Jun 2025",
+              "index": 186.8
+            },
+            {
+              "month": "Jul 2025",
+              "index": 189.7
+            },
+            {
+              "month": "Aug 2025",
+              "index": 190.8
+            },
+            {
+              "month": "Sep 2025",
+              "index": 193.7
+            },
+            {
+              "month": "Oct 2025",
+              "index": 195.1
+            },
+            {
+              "month": "Nov 2025",
+              "index": 194.9
+            },
+            {
+              "month": "Dec 2025",
+              "index": 193.8
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 193.8
+          },
+          "yoy_pct": 20.3,
+          "mom_pct": -0.56,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01213",
+          "label": "Cocoa & powdered chocolate",
+          "colour": "#FACC15"
+        }
+      ]
+    },
+    "CP0122": {
+      "parent_code": "CP0122",
+      "parent_label": "Waters, soft drinks & juices",
+      "items": [
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 136.8
+            },
+            {
+              "month": "Feb 2025",
+              "index": 137.3
+            },
+            {
+              "month": "Mar 2025",
+              "index": 137.9
+            },
+            {
+              "month": "Apr 2025",
+              "index": 137.7
+            },
+            {
+              "month": "May 2025",
+              "index": 138.6
+            },
+            {
+              "month": "Jun 2025",
+              "index": 137.9
+            },
+            {
+              "month": "Jul 2025",
+              "index": 138.2
+            },
+            {
+              "month": "Aug 2025",
+              "index": 139.2
+            },
+            {
+              "month": "Sep 2025",
+              "index": 139.0
+            },
+            {
+              "month": "Oct 2025",
+              "index": 140.3
+            },
+            {
+              "month": "Nov 2025",
+              "index": 139.6
+            },
+            {
+              "month": "Dec 2025",
+              "index": 139.9
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 139.9
+          },
+          "yoy_pct": 2.27,
+          "mom_pct": 0.21,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01221",
+          "label": "Mineral / spring waters",
+          "colour": "#F87171"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 147.6
+            },
+            {
+              "month": "Feb 2025",
+              "index": 148.5
+            },
+            {
+              "month": "Mar 2025",
+              "index": 148.4
+            },
+            {
+              "month": "Apr 2025",
+              "index": 146.6
+            },
+            {
+              "month": "May 2025",
+              "index": 149.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 148.9
+            },
+            {
+              "month": "Jul 2025",
+              "index": 148.4
+            },
+            {
+              "month": "Aug 2025",
+              "index": 150.6
+            },
+            {
+              "month": "Sep 2025",
+              "index": 151.6
+            },
+            {
+              "month": "Oct 2025",
+              "index": 150.5
+            },
+            {
+              "month": "Nov 2025",
+              "index": 150.2
+            },
+            {
+              "month": "Dec 2025",
+              "index": 151.4
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 151.4
+          },
+          "yoy_pct": 2.57,
+          "mom_pct": 0.8,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01222",
+          "label": "Soft drinks",
+          "colour": "#FB923C"
+        },
+        {
+          "series": [
+            {
+              "month": "Jan 2025",
+              "index": 164.9
+            },
+            {
+              "month": "Feb 2025",
+              "index": 169.7
+            },
+            {
+              "month": "Mar 2025",
+              "index": 170.8
+            },
+            {
+              "month": "Apr 2025",
+              "index": 174.5
+            },
+            {
+              "month": "May 2025",
+              "index": 173.4
+            },
+            {
+              "month": "Jun 2025",
+              "index": 173.9
+            },
+            {
+              "month": "Jul 2025",
+              "index": 174.9
+            },
+            {
+              "month": "Aug 2025",
+              "index": 176.0
+            },
+            {
+              "month": "Sep 2025",
+              "index": 174.1
+            },
+            {
+              "month": "Oct 2025",
+              "index": 174.0
+            },
+            {
+              "month": "Nov 2025",
+              "index": 173.5
+            },
+            {
+              "month": "Dec 2025",
+              "index": 170.2
+            }
+          ],
+          "latest": {
+            "month": "Dec 2025",
+            "index": 170.2
+          },
+          "yoy_pct": 3.21,
+          "mom_pct": -1.9,
+          "base": "2015 = 100",
+          "dataset": "prc_hicp_midx",
+          "updated": "2026-02-06T23:00:00+0100",
+          "coicop": "CP01223",
+          "label": "Fruit & vegetable juices",
+          "colour": "#FACC15"
         }
       ]
     }

@@ -64,20 +64,120 @@ CATEGORIES = [
 
 # Drill-downs — 5-digit COICOP. Each entry maps a parent category to a list
 # of (code, label, colour) tuples. Add new groups here to surface deeper
-# breakdowns in the dashboard (Bread/Dairy/Oils/Fruit etc.).
+# breakdowns in the dashboard.
+PALETTE = [
+    "#F87171", "#FB923C", "#FACC15", "#34D399", "#60A5FA",
+    "#A78BFA", "#F472B6", "#22D3EE", "#FB7185", "#84CC16",
+]
+
 DRILLDOWNS = {
+    "CP0111": (
+        "Bread & cereals",
+        [
+            ("CP01111", "Rice"),
+            ("CP01112", "Flours & cereals"),
+            ("CP01113", "Bread"),
+            ("CP01114", "Other bakery products"),
+            ("CP01115", "Pizza & quiche"),
+            ("CP01116", "Pasta & couscous"),
+            ("CP01117", "Breakfast cereals"),
+            ("CP01118", "Other cereal products"),
+        ],
+    ),
     "CP0112": (
         "Meat",
         [
-            ("CP01121", "Beef & veal",            "#F87171"),
-            ("CP01122", "Pork",                   "#FB923C"),
-            ("CP01123", "Lamb, mutton & goat",    "#A78BFA"),
-            ("CP01124", "Poultry",                "#FACC15"),
-            ("CP01125", "Other meats & offal",    "#34D399"),
-            ("CP01126", "Delicatessen & prep",    "#60A5FA"),
+            ("CP01121", "Beef & veal"),
+            ("CP01122", "Pork"),
+            ("CP01123", "Lamb, mutton & goat"),
+            ("CP01124", "Poultry"),
+            ("CP01125", "Other meats & offal"),
+            ("CP01126", "Delicatessen & prep"),
+        ],
+    ),
+    "CP0113": (
+        "Fish & seafood",
+        [
+            ("CP01131", "Fresh / chilled fish"),
+            ("CP01132", "Frozen fish"),
+            ("CP01133", "Fresh / chilled seafood"),
+            ("CP01134", "Frozen seafood"),
+            ("CP01135", "Dried / smoked / salted"),
+            ("CP01136", "Other preserved fish"),
+        ],
+    ),
+    "CP0114": (
+        "Milk, cheese & eggs",
+        [
+            ("CP01141", "Whole milk"),
+            ("CP01142", "Low-fat milk"),
+            ("CP01143", "Preserved milk"),
+            ("CP01144", "Yoghurt"),
+            ("CP01145", "Cheese & curd"),
+            ("CP01146", "Other milk products"),
+            ("CP01147", "Eggs"),
+        ],
+    ),
+    "CP0115": (
+        "Oils & fats",
+        [
+            ("CP01151", "Butter"),
+            ("CP01152", "Margarine & vegetable fats"),
+            ("CP01153", "Olive oil"),
+            ("CP01154", "Other edible oils"),
+            ("CP01155", "Other animal fats"),
+        ],
+    ),
+    "CP0116": (
+        "Fruit",
+        [
+            ("CP01161", "Fresh / chilled fruit"),
+            ("CP01162", "Frozen fruit"),
+            ("CP01163", "Dried fruit & nuts"),
+            ("CP01164", "Preserved fruit"),
+        ],
+    ),
+    "CP0117": (
+        "Vegetables",
+        [
+            ("CP01171", "Fresh / chilled veg"),
+            ("CP01172", "Frozen veg"),
+            ("CP01173", "Dried & preserved veg"),
+            ("CP01174", "Potatoes"),
+            ("CP01175", "Crisps & potato products"),
+        ],
+    ),
+    "CP0118": (
+        "Sugar & confectionery",
+        [
+            ("CP01181", "Sugar"),
+            ("CP01182", "Jams, marmalades & honey"),
+            ("CP01183", "Confectionery & chocolate"),
+            ("CP01184", "Edible ices & ice cream"),
+            ("CP01185", "Other confectionery"),
+        ],
+    ),
+    "CP0121": (
+        "Coffee, tea & cocoa",
+        [
+            ("CP01211", "Coffee"),
+            ("CP01212", "Tea"),
+            ("CP01213", "Cocoa & powdered chocolate"),
+        ],
+    ),
+    "CP0122": (
+        "Waters, soft drinks & juices",
+        [
+            ("CP01221", "Mineral / spring waters"),
+            ("CP01222", "Soft drinks"),
+            ("CP01223", "Fruit & vegetable juices"),
         ],
     ),
 }
+
+
+def colour_for(idx: int) -> str:
+    return PALETTE[idx % len(PALETTE)]
 
 
 def fetch(url: str) -> tuple[list[dict], str]:
@@ -179,22 +279,24 @@ def main() -> None:
     print("\nFetching deeper drill-downs...")
     drilldowns = {}
     for parent_code, (parent_label, items) in DRILLDOWNS.items():
+        print(f"  -- {parent_code} {parent_label} --")
         children = []
-        for code, label, colour in items:
+        for idx, (code, label) in enumerate(items):
             entry = fetch_subcategory("DE", code)
             if not entry or "error" in (entry or {}):
-                print(f"  ! {code} {label}: skipped")
+                print(f"    ! {code} {label}: skipped")
                 continue
             entry["coicop"] = code
             entry["label"] = label
-            entry["colour"] = colour
+            entry["colour"] = colour_for(idx)
             children.append(entry)
-            print(f"  ✓ {code:<8} {label:<24} latest {entry['latest']['month']} = {entry['latest']['index']:<7} YoY {entry['yoy_pct']:+}%")
-        drilldowns[parent_code] = {
-            "parent_code": parent_code,
-            "parent_label": parent_label,
-            "items": children,
-        }
+            print(f"    ✓ {code:<8} {label:<28} {entry['latest']['index']:<7} YoY {entry['yoy_pct']:+}%")
+        if children:
+            drilldowns[parent_code] = {
+                "parent_code": parent_code,
+                "parent_label": parent_label,
+                "items": children,
+            }
 
     payload = {
         "source": "Eurostat (teicp010 short-term indicator + prc_hicp_midx by COICOP)",

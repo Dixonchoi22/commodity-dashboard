@@ -384,33 +384,28 @@ def build(period: str) -> str:
 
         sub_table_rows = "\n".join(sub_row(s) for s in sub)
 
-        # ---------- Meat drill-down ----------
-        meat_section_html = ""
-        meat_chart_js = "null"
-        meat_drill = (germany.get("drilldowns") or {}).get("CP0112")
-        if meat_drill and meat_drill["items"]:
-            items = meat_drill["items"]
-            # Multi-line trend chart data
-            meat_chart_js = json.dumps({
-                "labels": [r["month"] for r in items[0]["series"]],
-                "datasets": [
-                    {
-                        "label": it["label"],
-                        "data": [r["index"] for r in it["series"]],
-                        "borderColor": it["colour"],
-                        "backgroundColor": it["colour"] + "22",
-                    }
-                    for it in items
-                ],
-            })
+        # ---------- Generic drill-down renderer (one panel per parent COICOP) ----------
+        # parent_icon picks a Lucide icon per parent category; falls back to "circle-dot"
+        PARENT_ICON = {
+            "CP0111": "wheat",
+            "CP0112": "beef",
+            "CP0113": "fish",
+            "CP0114": "milk",
+            "CP0115": "droplet",
+            "CP0116": "apple",
+            "CP0117": "leaf",
+            "CP0118": "candy",
+            "CP0121": "coffee",
+            "CP0122": "cup-soda",
+        }
 
-            def meat_table_row(it):
-                yoy = it.get("yoy_pct") or 0
-                mom = it.get("mom_pct") or 0
-                yoy_tone = "text-secondary-red" if yoy > 0.5 else ("text-accent-green" if yoy < -0.5 else "text-dark-muted")
-                mom_tone = "text-secondary-red" if mom > 0.5 else ("text-accent-green" if mom < -0.5 else "text-dark-muted")
-                first = it["series"][0]
-                return f"""
+        def drilldown_table_row(it):
+            yoy = it.get("yoy_pct") or 0
+            mom = it.get("mom_pct") or 0
+            yoy_tone = "text-secondary-red" if yoy > 0.5 else ("text-accent-green" if yoy < -0.5 else "text-dark-muted")
+            mom_tone = "text-secondary-red" if mom > 0.5 else ("text-accent-green" if mom < -0.5 else "text-dark-muted")
+            first = it["series"][0]
+            return f"""
 <tr class="hover:bg-dark-bg transition">
   <td class="px-4 py-3 text-sm">
     <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:{it['colour']}"></span>
@@ -423,25 +418,43 @@ def build(period: str) -> str:
   <td class="px-4 py-3 text-right text-sm font-bold {yoy_tone}">{yoy:+.2f}%</td>
 </tr>"""
 
-            meat_rows_html = "\n".join(meat_table_row(it) for it in items)
-            meat_section_html = f"""
+        drilldown_panels = []
+        drilldown_chart_data = {}
+        for parent_code, group in (germany.get("drilldowns") or {}).items():
+            items = group.get("items") or []
+            if not items:
+                continue
+            chart_id = f"drilldown_{parent_code}"
+            drilldown_chart_data[chart_id] = {
+                "labels": [r["month"] for r in items[0]["series"]],
+                "datasets": [
+                    {
+                        "label": it["label"],
+                        "data": [r["index"] for r in it["series"]],
+                        "borderColor": it["colour"],
+                        "backgroundColor": it["colour"] + "22",
+                    }
+                    for it in items
+                ],
+            }
+            rows_html = "\n".join(drilldown_table_row(it) for it in items)
+            icon = PARENT_ICON.get(parent_code, "circle-dot")
+            drilldown_panels.append(f"""
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
-          <i data-lucide="beef" class="w-5 h-5 text-secondary-red mr-2"></i>
-          Meat Detail — Germany
+          <i data-lucide="{icon}" class="w-5 h-5 text-primary-blue mr-2"></i>
+          {_html.escape(group['parent_label'])} — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
-          5-digit COICOP breakdown of CP0112 (Meat). Index values base 2015 = 100, source Eurostat <code>prc_hicp_midx</code>. All meat sub-types are running well above the all-food average — Beef &amp; veal is the strongest mover.
+          5-digit COICOP breakdown of {_html.escape(parent_code)}. Index values base 2015 = 100, source Eurostat <code>prc_hicp_midx</code>.
         </p>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div>
             <h4 class="text-base font-semibold text-dark-text mb-1">12-Month Trend</h4>
-            <p class="text-xs text-dark-muted mb-2">Hover to compare specific months across types</p>
-            <div class="h-80"><canvas id="germanyMeatChart"></canvas></div>
+            <div class="h-80"><canvas id="{chart_id}"></canvas></div>
           </div>
           <div>
             <h4 class="text-base font-semibold text-dark-text mb-1">Latest Index &amp; Change</h4>
-            <p class="text-xs text-dark-muted mb-2">Sorted as fetched (COICOP order)</p>
             <div class="overflow-x-auto">
               <table class="min-w-full divide-y divide-gray-700">
                 <thead class="bg-dark-card border-b border-gray-700">
@@ -454,14 +467,17 @@ def build(period: str) -> str:
                   </tr>
                 </thead>
                 <tbody class="bg-dark-card divide-y divide-gray-700">
-                  {meat_rows_html}
+                  {rows_html}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-"""
+""")
+        meat_section_html = "\n".join(drilldown_panels)
+        # JS payload for charts (a dict mapping canvas id -> chart data)
+        meat_chart_js = json.dumps(drilldown_chart_data)
 
         # Chart data: DE vs EU food index trend (12 months)
         germany_chart_js = json.dumps({
@@ -546,14 +562,17 @@ def build(period: str) -> str:
     }}
   }});
 
-  // --- Germany Meat detail (multi-line index trend, 5-digit COICOP) ---
-  const M = {meat_chart_js};
-  if (M) {{
-    new Chart(document.getElementById('germanyMeatChart'), {{
+  // --- Germany drill-down panels (multi-line index trend, 5-digit COICOP) ---
+  const DRILLDOWNS = {meat_chart_js};
+  Object.keys(DRILLDOWNS).forEach(canvasId => {{
+    const D = DRILLDOWNS[canvasId];
+    const el = document.getElementById(canvasId);
+    if (!el) return;
+    new Chart(el, {{
       type: 'line',
       data: {{
-        labels: M.labels,
-        datasets: M.datasets.map(d => ({{
+        labels: D.labels,
+        datasets: D.datasets.map(d => ({{
           label: d.label,
           data: d.data,
           borderColor: d.borderColor,
@@ -573,7 +592,7 @@ def build(period: str) -> str:
         }}
       }}
     }});
-  }}
+  }});
 
   // --- Germany sub-category YoY bars ---
   const SB = {sub_bar_js};
