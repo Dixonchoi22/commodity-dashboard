@@ -29,6 +29,7 @@ def load(period: str) -> dict:
         "forecast": maybe("forecast.json") or {"commodities": []},
         "commentary": maybe("commentary.json") or {"entries": []},
         "hicp_index": maybe("hicp_index.json"),
+        "germany": maybe("germany.json"),
     }
 
 
@@ -158,6 +159,7 @@ def build(period: str) -> str:
     forecast = bundle["forecast"]
     commentary = bundle["commentary"]["entries"]
     hicp_index = bundle["hicp_index"]
+    germany = bundle["germany"]
 
     # Group commodities by category
     by_cat: dict[str, list[dict]] = defaultdict(list)
@@ -330,6 +332,167 @@ def build(period: str) -> str:
         details[key] = entry
     details_js = json.dumps(details)
 
+    # ---------- Germany Food Market section ----------
+    if germany:
+        de = germany["headline"]["germany"]
+        eu = germany["headline"]["eu27"]
+        sub = germany["subcategories"]
+        # Sort sub-categories by absolute YoY for visual emphasis (skip top-level CP01/CP011 which we show as headline)
+        sub_movers = [s for s in sub if s["coicop"] not in {"CP01", "CP011"}]
+        sub_movers.sort(key=lambda s: s.get("yoy_pct") or 0, reverse=True)
+
+        de_kpis_html = f"""
+<div class="card text-center ring-2 ring-primary-blue/30 hover:shadow-xl-dark">
+  <p class="text-sm font-medium text-dark-muted uppercase">DE Food Index ({_html.escape(de['latest']['month'])})</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-primary-blue">{de['latest']['index']:.2f}</p>
+  <p class="text-xs text-gray-400 mt-1">Eurostat teicp010 · 2025 = 100 base</p>
+</div>
+<div class="card text-center ring-2 ring-{('secondary-red' if (de['yoy_pct'] or 0) > 0 else 'accent-green')}/30">
+  <p class="text-sm font-medium text-dark-muted uppercase">DE Food YoY</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-{('secondary-red' if (de['yoy_pct'] or 0) > 0 else 'accent-green')}">{de['yoy_pct']:+.2f}%</p>
+  <p class="text-xs text-gray-400 mt-1">vs. {_html.escape(de['series'][0]['month'])}</p>
+</div>
+<div class="card text-center ring-2 ring-{('secondary-red' if (de['mom_pct'] or 0) > 0 else 'accent-green')}/30">
+  <p class="text-sm font-medium text-dark-muted uppercase">DE Food MoM</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-{('secondary-red' if (de['mom_pct'] or 0) > 0 else 'accent-green')}">{de['mom_pct']:+.2f}%</p>
+  <p class="text-xs text-gray-400 mt-1">vs. {_html.escape(de['series'][-2]['month'])}</p>
+</div>
+<div class="card text-center ring-2 ring-text-warning/30">
+  <p class="text-sm font-medium text-dark-muted uppercase">DE vs. EU YoY gap</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-text-warning">{(de['yoy_pct'] - eu['yoy_pct']):+.2f}pp</p>
+  <p class="text-xs text-gray-400 mt-1">DE {de['yoy_pct']:+.1f}% vs EU {eu['yoy_pct']:+.1f}%</p>
+</div>"""
+
+        # Sub-category bar table — every food group's MoM/YoY at a glance
+        def sub_row(s):
+            yoy = s.get("yoy_pct")
+            mom = s.get("mom_pct")
+            yoy_tone = "text-secondary-red" if (yoy or 0) > 0.5 else ("text-accent-green" if (yoy or 0) < -0.5 else "text-dark-muted")
+            mom_tone = "text-secondary-red" if (mom or 0) > 0.5 else ("text-accent-green" if (mom or 0) < -0.5 else "text-dark-muted")
+            return f"""
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="{s.get('icon','dot')}" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">{_html.escape(s['label'])}</span>
+    <span class="text-xs text-dark-muted ml-1">({_html.escape(s['coicop'])})</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">{s['latest']['index']:.2f}</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">{_html.escape(s['latest']['month'])}</td>
+  <td class="px-4 py-3 text-right text-sm font-bold {mom_tone}">{(mom if mom is not None else 0):+.2f}%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold {yoy_tone}">{(yoy if yoy is not None else 0):+.2f}%</td>
+</tr>"""
+
+        sub_table_rows = "\n".join(sub_row(s) for s in sub)
+
+        # Chart data: DE vs EU food index trend (12 months)
+        germany_chart_js = json.dumps({
+            "labels": [r["month"] for r in de["series"]],
+            "de":     [r["index"] for r in de["series"]],
+            "eu":     [r["index"] for r in eu["series"]],
+        })
+        # Sub-category YoY bar chart data (excluding top-level CP01/CP011)
+        sub_bar_js = json.dumps({
+            "labels": [s["label"] for s in sub_movers],
+            "yoy":    [s.get("yoy_pct") or 0 for s in sub_movers],
+        })
+
+        germany_section = f"""
+    <section id="germany-section" class="card mt-8">
+      <h2 class="text-2xl font-bold mb-1 text-dark-text flex items-center">
+        <span class="text-2xl mr-3">🇩🇪</span> Germany Food Market
+      </h2>
+      <p class="text-xs text-dark-muted mb-6">
+        Headline index from Eurostat <code>teicp010</code> (HICP food, base 2025 = 100, latest update {_html.escape(de.get('updated','')[:10])}).
+        Sub-category breakdown from <code>prc_hicp_midx</code> (base 2015 = 100, longer publication lag).
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        {de_kpis_html}
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div>
+          <h3 class="text-lg font-bold text-dark-text mb-1">12-Month Trend: Germany vs EU27</h3>
+          <p class="text-xs text-dark-muted mb-3">HICP Food index, base 2025 = 100</p>
+          <div class="h-72"><canvas id="germanyTrendChart"></canvas></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-dark-text mb-1">Germany Food Sub-categories — YoY % change</h3>
+          <p class="text-xs text-dark-muted mb-3">Sorted by inflation rate, latest available month</p>
+          <div class="h-72"><canvas id="germanySubChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Sub-category Detail</h3>
+        <table class="min-w-full divide-y divide-gray-700">
+          <thead class="bg-dark-card border-b border-gray-700">
+            <tr>
+              <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Sub-category</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Latest Index</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">As of</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
+            </tr>
+          </thead>
+          <tbody class="bg-dark-card divide-y divide-gray-700">
+            {sub_table_rows}
+          </tbody>
+        </table>
+      </div>
+    </section>
+"""
+
+        germany_chart_script = f"""
+  // --- Germany trend chart (DE vs EU27) ---
+  const G = {germany_chart_js};
+  new Chart(document.getElementById('germanyTrendChart'), {{
+    type: 'line',
+    data: {{
+      labels: G.labels,
+      datasets: [
+        {{ label: 'Germany', data: G.de, borderColor: '#FACC15', backgroundColor: 'rgba(250,204,21,0.18)', borderWidth: 3, tension: 0.3, pointRadius: 3, fill: false }},
+        {{ label: 'EU27',    data: G.eu, borderColor: '#60A5FA', backgroundColor: 'rgba(96,165,250,0.10)', borderWidth: 2, tension: 0.3, pointRadius: 2, fill: false, borderDash: [4,4] }},
+      ]
+    }},
+    options: {{
+      responsive: true, maintainAspectRatio: false,
+      plugins: {{ legend: {{ labels: {{ color: '#94A3B8' }} }} }},
+      scales: {{
+        x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
+        y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }}, title: {{ display: true, text: 'Index (2025 = 100)', color: '#94A3B8' }} }}
+      }}
+    }}
+  }});
+
+  // --- Germany sub-category YoY bars ---
+  const SB = {sub_bar_js};
+  new Chart(document.getElementById('germanySubChart'), {{
+    type: 'bar',
+    data: {{
+      labels: SB.labels,
+      datasets: [{{
+        label: 'YoY %',
+        data: SB.yoy,
+        backgroundColor: SB.yoy.map(v => v > 0 ? 'rgba(248,113,113,0.7)' : 'rgba(74,222,128,0.7)'),
+        borderColor:     SB.yoy.map(v => v > 0 ? '#F87171' : '#4ADE80'),
+        borderWidth: 1,
+      }}]
+    }},
+    options: {{
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {{ legend: {{ display: false }} }},
+      scales: {{
+        x: {{ ticks: {{ color: '#94A3B8', callback: v => v + '%' }}, grid: {{ color: '#334155' }} }},
+        y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ display: false }} }}
+      }}
+    }}
+  }});
+"""
+    else:
+        germany_section = ""
+        germany_chart_script = ""
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -386,6 +549,7 @@ def build(period: str) -> str:
       <a href="#hicp-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">HICP Trend</a>
       <a href="#explorer-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Commodity Explorer</a>
       <a href="#strategy-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Strategy</a>
+      <a href="#germany-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">🇩🇪 Germany</a>
       <a href="#references-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">References</a>
     </nav>
 
@@ -507,6 +671,8 @@ def build(period: str) -> str:
         </div>
       </div>
     </section>
+
+    {germany_section}
 
     <section id="references-section" class="card mt-8">
       <h2 class="text-2xl font-bold mb-4 text-dark-text flex items-center">
@@ -736,6 +902,8 @@ def build(period: str) -> str:
     const n = parseFloat(txt);
     return isNaN(n) ? null : n;
   }}
+
+  {germany_chart_script}
 
   lucide.createIcons();
 </script>

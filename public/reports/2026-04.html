@@ -54,21 +54,22 @@
       <a href="#hicp-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">HICP Trend</a>
       <a href="#explorer-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Commodity Explorer</a>
       <a href="#strategy-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Strategy</a>
+      <a href="#germany-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">🇩🇪 Germany</a>
       <a href="#references-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">References</a>
     </nav>
 
     <section id="kpi-section" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
       
 <div class="card text-center ring-2 ring-primary-blue/30 hover:shadow-xl-dark">
-  <p class="text-sm font-medium text-dark-muted uppercase">HICP Food Index (Dec 2025)</p>
-  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-primary-blue">148.80</p>
+  <p class="text-sm font-medium text-dark-muted uppercase">HICP Food Index (Mar 2026)</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-primary-blue">101.71</p>
   <p class="text-xs text-gray-400 mt-1">Eurostat EU27 · 2015 = 100 base</p>
 </div>
 
 <div class="card text-center ring-2 ring-secondary-red/30 hover:shadow-xl-dark">
   <p class="text-sm font-medium text-dark-muted uppercase">YoY Overall Inflation</p>
   <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-secondary-red">+2.0%</p>
-  <p class="text-xs text-gray-400 mt-1">vs. Jan 2025 (HICP Food)</p>
+  <p class="text-xs text-gray-400 mt-1">vs. Apr 2025 (HICP Food)</p>
 </div>
 
 <div class="card text-center ring-2 ring-secondary-red/30 hover:shadow-xl-dark">
@@ -1639,6 +1640,216 @@
       </div>
     </section>
 
+    
+    <section id="germany-section" class="card mt-8">
+      <h2 class="text-2xl font-bold mb-1 text-dark-text flex items-center">
+        <span class="text-2xl mr-3">🇩🇪</span> Germany Food Market
+      </h2>
+      <p class="text-xs text-dark-muted mb-6">
+        Headline index from Eurostat <code>teicp010</code> (HICP food, base 2025 = 100, latest update 2026-04-16).
+        Sub-category breakdown from <code>prc_hicp_midx</code> (base 2015 = 100, longer publication lag).
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        
+<div class="card text-center ring-2 ring-primary-blue/30 hover:shadow-xl-dark">
+  <p class="text-sm font-medium text-dark-muted uppercase">DE Food Index (Mar 2026)</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-primary-blue">101.52</p>
+  <p class="text-xs text-gray-400 mt-1">Eurostat teicp010 · 2025 = 100 base</p>
+</div>
+<div class="card text-center ring-2 ring-secondary-red/30">
+  <p class="text-sm font-medium text-dark-muted uppercase">DE Food YoY</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-secondary-red">+1.25%</p>
+  <p class="text-xs text-gray-400 mt-1">vs. Apr 2025</p>
+</div>
+<div class="card text-center ring-2 ring-secondary-red/30">
+  <p class="text-sm font-medium text-dark-muted uppercase">DE Food MoM</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-secondary-red">+0.05%</p>
+  <p class="text-xs text-gray-400 mt-1">vs. Feb 2026</p>
+</div>
+<div class="card text-center ring-2 ring-text-warning/30">
+  <p class="text-sm font-medium text-dark-muted uppercase">DE vs. EU YoY gap</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-text-warning">-0.74pp</p>
+  <p class="text-xs text-gray-400 mt-1">DE +1.2% vs EU +2.0%</p>
+</div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div>
+          <h3 class="text-lg font-bold text-dark-text mb-1">12-Month Trend: Germany vs EU27</h3>
+          <p class="text-xs text-dark-muted mb-3">HICP Food index, base 2025 = 100</p>
+          <div class="h-72"><canvas id="germanyTrendChart"></canvas></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-dark-text mb-1">Germany Food Sub-categories — YoY % change</h3>
+          <p class="text-xs text-dark-muted mb-3">Sorted by inflation rate, latest available month</p>
+          <div class="h-72"><canvas id="germanySubChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Sub-category Detail</h3>
+        <table class="min-w-full divide-y divide-gray-700">
+          <thead class="bg-dark-card border-b border-gray-700">
+            <tr>
+              <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Sub-category</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Latest Index</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">As of</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
+            </tr>
+          </thead>
+          <tbody class="bg-dark-card divide-y divide-gray-700">
+            
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="shopping-bag" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Food &amp; non-alcoholic beverages</span>
+    <span class="text-xs text-dark-muted ml-1">(CP01)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">151.50</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.13%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.02%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="utensils" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Food</span>
+    <span class="text-xs text-dark-muted ml-1">(CP011)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">151.80</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.07%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.40%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="wheat" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Bread &amp; cereals</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0111)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">149.20</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.07%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.67%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="beef" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Meat</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0112)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">154.40</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.00%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+4.75%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="fish" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Fish &amp; seafood</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0113)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">151.30</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.26%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.95%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="milk" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Milk, cheese &amp; eggs</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0114)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">157.50</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-2.60%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.87%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="droplet" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Oils &amp; fats</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0115)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">174.10</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-5.79%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-17.06%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="apple" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Fruit</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0116)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">144.80</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.05%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+5.16%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="leaf" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Vegetables</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0117)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">146.40</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.68%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.74%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="candy" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Sugar &amp; confectionery</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0118)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">150.10</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.33%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+9.64%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="package" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Other food products</span>
+    <span class="text-xs text-dark-muted ml-1">(CP0119)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">140.20</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.21%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.94%</td>
+</tr>
+
+<tr class="hover:bg-dark-bg transition">
+  <td class="px-4 py-3 whitespace-nowrap text-sm">
+    <i data-lucide="cup-soda" class="w-4 h-4 inline text-primary-blue mr-2"></i>
+    <span class="font-semibold text-dark-text">Non-alcoholic beverages</span>
+    <span class="text-xs text-dark-muted ml-1">(CP012)</span>
+  </td>
+  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">149.70</td>
+  <td class="px-4 py-3 text-right text-sm text-dark-muted">Dec 2025</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.40%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+6.78%</td>
+</tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
     <section id="references-section" class="card mt-8">
       <h2 class="text-2xl font-bold mb-4 text-dark-text flex items-center">
         <i data-lucide="book-open" class="w-5 h-5 text-primary-blue mr-2"></i> References &amp; Sources
@@ -1658,7 +1869,7 @@
 
 <script>
   // --- HICP Chart (matches Sep 2025: single EU line, index values 2015=100) ---
-  const hicp = {"labels": ["Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025"], "values": [145.82, 146.49, 147.02, 147.58, 148.23, 148.35, 148.59, 148.68, 148.41, 148.72, 148.8, 148.8], "unit": "Index (2015 = 100)", "source_url": "https://ec.europa.eu/eurostat/databrowser/view/teicp010/default/table?lang=en", "source_label": "Eurostat \u2014 prc_hicp_midx (CP01 Food & non-alcoholic beverages, EU27, base 2015=100)", "mode": "index"};
+  const hicp = {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026"], "values": [99.73, 100.17, 100.26, 100.43, 100.49, 100.32, 100.52, 100.57, 100.58, 101.39, 101.64, 101.71], "unit": "Index (2015 = 100)", "source_url": "https://ec.europa.eu/eurostat/databrowser/view/teicp010/default/table?lang=en", "source_label": "Eurostat \u2014 teicp010 (HICP - Food, Short-Term Indicator), base 2025 = 100", "mode": "index"};
   const hicpIsIndex = hicp.mode === 'index';
   new Chart(document.getElementById('hicpChart'), {
     type: 'line',
@@ -1867,6 +2078,53 @@
     const n = parseFloat(txt);
     return isNaN(n) ? null : n;
   }
+
+  
+  // --- Germany trend chart (DE vs EU27) ---
+  const G = {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026"], "de": [100.27, 100.14, 99.64, 99.9, 100.23, 100.43, 100.44, 100.48, 100.41, 101.32, 101.47, 101.52], "eu": [99.73, 100.17, 100.26, 100.43, 100.49, 100.32, 100.52, 100.57, 100.58, 101.39, 101.64, 101.71]};
+  new Chart(document.getElementById('germanyTrendChart'), {
+    type: 'line',
+    data: {
+      labels: G.labels,
+      datasets: [
+        { label: 'Germany', data: G.de, borderColor: '#FACC15', backgroundColor: 'rgba(250,204,21,0.18)', borderWidth: 3, tension: 0.3, pointRadius: 3, fill: false },
+        { label: 'EU27',    data: G.eu, borderColor: '#60A5FA', backgroundColor: 'rgba(96,165,250,0.10)', borderWidth: 2, tension: 0.3, pointRadius: 2, fill: false, borderDash: [4,4] },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#94A3B8' } } },
+      scales: {
+        x: { ticks: { color: '#94A3B8' }, grid: { color: '#334155' } },
+        y: { ticks: { color: '#94A3B8' }, grid: { color: '#334155' }, title: { display: true, text: 'Index (2025 = 100)', color: '#94A3B8' } }
+      }
+    }
+  });
+
+  // --- Germany sub-category YoY bars ---
+  const SB = {"labels": ["Sugar & confectionery", "Non-alcoholic beverages", "Fruit", "Meat", "Fish & seafood", "Other food products", "Bread & cereals", "Vegetables", "Milk, cheese & eggs", "Oils & fats"], "yoy": [9.64, 6.78, 5.16, 4.75, 1.95, 0.94, 0.67, -1.74, -1.87, -17.06]};
+  new Chart(document.getElementById('germanySubChart'), {
+    type: 'bar',
+    data: {
+      labels: SB.labels,
+      datasets: [{
+        label: 'YoY %',
+        data: SB.yoy,
+        backgroundColor: SB.yoy.map(v => v > 0 ? 'rgba(248,113,113,0.7)' : 'rgba(74,222,128,0.7)'),
+        borderColor:     SB.yoy.map(v => v > 0 ? '#F87171' : '#4ADE80'),
+        borderWidth: 1,
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#94A3B8', callback: v => v + '%' }, grid: { color: '#334155' } },
+        y: { ticks: { color: '#94A3B8' }, grid: { display: false } }
+      }
+    }
+  });
+
 
   lucide.createIcons();
 </script>
