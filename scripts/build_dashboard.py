@@ -44,16 +44,17 @@ def build() -> str:
     reports = sorted(manifest["reports"], key=lambda r: r["slug"], reverse=True)
     default = reports[0]["slug"]
 
-    # Bundle period info for the client-side switcher. The iframe loads the
-    # report HTML via plain `src=<filename>` (relative to public/reports/).
-    # This is reliable on any HTTP server (incl. GitHub Pages) and keeps
-    # index.html small. To open this dashboard from disk via file://, run a
-    # quick local server:  cd public/reports && python -m http.server 8000
+    # Bundle period info for the client-side switcher. We embed each report
+    # as a srcdoc string so opening index.html from file:// (no local server)
+    # works — and we also include the bare filename as `src` so a server
+    # deploy (e.g. GitHub Pages) can load the iframe without inlining the
+    # full HTML. The JS picks src= when window.location.protocol is http(s)
+    # and srcdoc when it's file://, getting the best of both.
     periods_js = {}
     for r in reports:
         meta = load_meta(r["slug"])
-        # The manifest html path looks like "/reports/2026-04.html"; index.html
-        # already lives in public/reports/ so the sibling filename is enough.
+        html_path = ROOT / "public" / r["html"].lstrip("/")
+        srcdoc = html_path.read_text(encoding="utf-8") if html_path.exists() else ""
         src = Path(r["html"]).name
         periods_js[r["slug"]] = {
             "label": month_label(r["slug"]),
@@ -63,6 +64,7 @@ def build() -> str:
             "period_yoy": meta.get("period_yoy", ""),
             "region": meta.get("region", r.get("region", "")),
             "src": src,
+            "srcdoc": srcdoc,
             "legacy": bool(meta.get("legacy")),
         }
 
@@ -292,11 +294,26 @@ def build() -> str:
       document.getElementById('v-meta').innerHTML = meta;
       document.getElementById('v-legacy').style.display = p.legacy ? '' : 'none';
 
-      // Load the selected period as a sibling file in public/reports/.
-      const frame = document.getElementById('report-frame');
-      if (frame.getAttribute('src') !== p.src) {{
-        frame.setAttribute('src', p.src);
+      // Hard-reset the iframe each time. We replace the element (rather than
+      // mutating srcdoc/src on the existing one) because Edge / Chrome have
+      // been observed to keep the previous render painted on top of the new
+      // one when swapping a large srcdoc, producing a "duplicated header"
+      // ghost. A brand-new iframe is guaranteed to be a clean canvas.
+      const main = document.querySelector('main');
+      const oldFrame = document.getElementById('report-frame');
+      if (oldFrame) oldFrame.remove();
+      const frame = document.createElement('iframe');
+      frame.id = 'report-frame';
+      frame.title = 'Report';
+      // src= is reliable over http(s); file:// blocks sibling iframe loads
+      // as cross-origin, so fall back to srcdoc there.
+      const useSrc = window.location.protocol !== 'file:';
+      if (useSrc) {{
+        frame.src = p.src;
+      }} else {{
+        frame.srcdoc = p.srcdoc;
       }}
+      main.appendChild(frame);
       document.title = 'Commodity Dashboard — ' + p.period;
       history.replaceState(null, '', '?period=' + slug);
     }}
