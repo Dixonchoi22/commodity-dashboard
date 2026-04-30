@@ -8,7 +8,7 @@
   "period_yoy": "March 2026 vs March 2025",
   "source": "Expana (Mintec) Commodity Price Change Overview Report",
   "output_html": "/reports/2026-04.html",
-  "trend_analysis": "The EU Food HICP index (CP01) continued to climb through 2025, reaching 148.80 by December (latest published by Eurostat). YoY inflation has moderated from +3.4% mid-2025 to roughly +2.0% by year-end. The cooling headline rate masks severe month-on-month spikes in specific categories — Egg US (+106.2% MoM, Easter demand shock), Tomato EU (+48.3% MoM, Spanish supply shortage), Lamb UK (+15.1% MoM, Easter & Ramadan).",
+  "trend_analysis": "The EU Food HICP index (Eurostat teicp010) reached 101.71 in March 2026 (base 2025 = 100), with YoY food inflation easing to +1.99% — the lowest reading since early 2024 and well below the +3.4% mid-2025 peak. The cooling headline rate masks severe month-on-month spikes in specific categories: Egg US (+106.2% MoM, Easter demand shock), Tomato EU (+48.3% MoM, Spanish supply shortage), Lamb UK (+15.1% MoM, Easter & Ramadan).",
   "highlights": [
     {
       "tone": "red",
