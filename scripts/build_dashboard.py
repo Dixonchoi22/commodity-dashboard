@@ -44,15 +44,17 @@ def build() -> str:
     reports = sorted(manifest["reports"], key=lambda r: r["slug"], reverse=True)
     default = reports[0]["slug"]
 
-    # Bundle period info for the client-side switcher. We inline the full HTML
-    # of each report into an iframe via srcdoc so that opening index.html via
-    # file:// still works — browsers block cross-file iframe src but allow
-    # srcdoc because it's not a separate resource load.
+    # Bundle period info for the client-side switcher. The iframe loads the
+    # report HTML via plain `src=<filename>` (relative to public/reports/).
+    # This is reliable on any HTTP server (incl. GitHub Pages) and keeps
+    # index.html small. To open this dashboard from disk via file://, run a
+    # quick local server:  cd public/reports && python -m http.server 8000
     periods_js = {}
     for r in reports:
         meta = load_meta(r["slug"])
-        html_path = ROOT / "public" / r["html"].lstrip("/")
-        srcdoc = html_path.read_text(encoding="utf-8") if html_path.exists() else ""
+        # The manifest html path looks like "/reports/2026-04.html"; index.html
+        # already lives in public/reports/ so the sibling filename is enough.
+        src = Path(r["html"]).name
         periods_js[r["slug"]] = {
             "label": month_label(r["slug"]),
             "title": meta.get("title", r.get("title", "")),
@@ -60,7 +62,7 @@ def build() -> str:
             "period_mom": meta.get("period_mom", ""),
             "period_yoy": meta.get("period_yoy", ""),
             "region": meta.get("region", r.get("region", "")),
-            "srcdoc": srcdoc,
+            "src": src,
             "legacy": bool(meta.get("legacy")),
         }
 
@@ -290,9 +292,11 @@ def build() -> str:
       document.getElementById('v-meta').innerHTML = meta;
       document.getElementById('v-legacy').style.display = p.legacy ? '' : 'none';
 
-      // Report frame & URL — srcdoc lets the nested HTML load under file://
+      // Load the selected period as a sibling file in public/reports/.
       const frame = document.getElementById('report-frame');
-      frame.srcdoc = p.srcdoc;
+      if (frame.getAttribute('src') !== p.src) {{
+        frame.setAttribute('src', p.src);
+      }}
       document.title = 'Commodity Dashboard — ' + p.period;
       history.replaceState(null, '', '?period=' + slug);
     }}
