@@ -1258,10 +1258,43 @@ def build(period: str) -> tuple[str, str | None]:
         germany_html = build_germany_page(
             meta, period, germany_section, germany_chart_script
         )
+        # Embed the Germany page inline as a fallback so a single-file
+        # download (index.html or <period>.html) can still navigate to
+        # Germany without the sibling file present. On http(s) the link
+        # behaves normally; on file:// we intercept the click and open
+        # the Germany content via a Blob URL.
+        main_html = inject_germany_fallback(main_html, germany_html)
     else:
         germany_html = None
 
     return main_html, germany_html
+
+
+def inject_germany_fallback(main_html: str, germany_html: str) -> str:
+    """Embed the Germany HTML inline so the Germany button works on
+    file:// even when the sibling file isn't downloaded."""
+    payload_json = json.dumps(germany_html).replace("</", "<\\/")
+    fallback_block = f"""
+<script id="cd-germany-payload" type="application/json">{payload_json}</script>
+<script>
+(function() {{
+  if (window.location.protocol !== 'file:') return;
+  // On file:// the sibling 2026-04-germany.html may not be next to the
+  // file the user downloaded. Intercept the Germany link and load the
+  // inlined content via a Blob URL instead — works for single-file
+  // downloads.
+  var link = document.querySelector('a[href$="-germany.html"]');
+  if (!link) return;
+  link.addEventListener('click', function(e) {{
+    e.preventDefault();
+    var html = JSON.parse(document.getElementById('cd-germany-payload').textContent);
+    var blob = new Blob([html], {{type: 'text/html;charset=utf-8'}});
+    window.location.href = URL.createObjectURL(blob);
+  }});
+}})();
+</script>
+"""
+    return main_html.replace("</body>", fallback_block + "</body>", 1)
 
 
 def build_germany_page(
@@ -1323,7 +1356,7 @@ def build_germany_page(
     </header>
 
     <nav class="mb-10 flex flex-wrap gap-3 p-4 bg-dark-card rounded-xl shadow-xl-dark justify-center">
-      <a href="{main_filename}" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">&larr; Back to EU Outlook</a>
+      <a id="cd-back-link" href="{main_filename}" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">&larr; Back to EU Outlook</a>
     </nav>
 
     {germany_section}
@@ -1331,6 +1364,20 @@ def build_germany_page(
   </div>
 <script>
   {germany_chart_script}
+
+  // If the user arrived here via a Blob URL (from file:// single-file
+  // download), the sibling main file isn't reachable via relative href.
+  // Use history.back() instead so the back link returns to where they
+  // came from.
+  (function() {{
+    if (window.location.protocol !== 'blob:') return;
+    var back = document.getElementById('cd-back-link');
+    if (!back) return;
+    back.addEventListener('click', function(e) {{
+      e.preventDefault();
+      history.back();
+    }});
+  }})();
 
   lucide.createIcons();
 </script>

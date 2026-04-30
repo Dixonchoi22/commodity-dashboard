@@ -159,7 +159,7 @@
     </header>
 
     <nav class="mb-10 flex flex-wrap gap-3 p-4 bg-dark-card rounded-xl shadow-xl-dark justify-center">
-      <a href="2026-04.html" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">&larr; Back to EU Outlook</a>
+      <a id="cd-back-link" href="2026-04.html" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">&larr; Back to EU Outlook</a>
     </nav>
 
     
@@ -1443,6 +1443,20 @@
     }
   });
 
+
+  // If the user arrived here via a Blob URL (from file:// single-file
+  // download), the sibling main file isn't reachable via relative href.
+  // Use history.back() instead so the back link returns to where they
+  // came from.
+  (function() {
+    if (window.location.protocol !== 'blob:') return;
+    var back = document.getElementById('cd-back-link');
+    if (!back) return;
+    back.addEventListener('click', function(e) {
+      e.preventDefault();
+      history.back();
+    });
+  })();
 
   lucide.createIcons();
 </script>
