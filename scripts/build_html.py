@@ -30,8 +30,166 @@ def load(period: str) -> dict:
         "commentary": maybe("commentary.json") or {"entries": []},
         "hicp_index": maybe("hicp_index.json"),
         "germany": maybe("germany.json"),
+        "destatis": maybe("destatis.json"),
         "world_bank": maybe("world_bank.json"),
     }
+
+
+# Curated sub-category list shown in the Germany panel. Order matters —
+# this is the order rows appear in the table and bars on the chart.
+GERMANY_SUB_DISPLAY = [
+    ("CP01",   "Food & non-alcoholic beverages", "shopping-bag"),
+    ("CP011",  "Food",                            "utensils"),
+    ("CP0111", "Bread & cereals",                 "wheat"),
+    ("CP0112", "Meat",                            "beef"),
+    ("CP0113", "Fish & seafood",                  "fish"),
+    ("CP0114", "Milk, cheese & eggs",             "milk"),
+    ("CP0115", "Oils & fats",                     "droplet"),
+    ("CP0116", "Fruit",                           "apple"),
+    ("CP0117", "Vegetables",                      "leaf"),
+    ("CP0118", "Sugar & confectionery",           "candy"),
+    ("CP0119", "Other food products",             "package"),
+    ("CP012",  "Non-alcoholic beverages",         "cup-soda"),
+]
+
+# Drill-down children to surface for each parent COICOP, in display order.
+GERMANY_DRILLDOWN_DISPLAY = {
+    "CP0111": ("Bread & cereals", [
+        ("CP01111", "Rice"),
+        ("CP01112", "Flours & cereals"),
+        ("CP01113", "Bread"),
+        ("CP01114", "Other bakery products"),
+        ("CP01115", "Pizza & quiche"),
+        ("CP01116", "Pasta & couscous"),
+        ("CP01117", "Breakfast cereals"),
+        ("CP01118", "Other cereal products"),
+    ]),
+    "CP0112": ("Meat", [
+        ("CP01121", "Beef & veal"),
+        ("CP01122", "Pork"),
+        ("CP01123", "Lamb, mutton & goat"),
+        ("CP01124", "Poultry"),
+        ("CP01125", "Other meats & offal"),
+        ("CP01126", "Delicatessen & prep"),
+    ]),
+    "CP0113": ("Fish & seafood", [
+        ("CP01131", "Fresh / chilled fish"),
+        ("CP01132", "Frozen fish"),
+        ("CP01133", "Fresh / chilled seafood"),
+        ("CP01134", "Frozen seafood"),
+        ("CP01135", "Dried / smoked / salted"),
+        ("CP01136", "Other preserved fish"),
+    ]),
+    "CP0114": ("Milk, cheese & eggs", [
+        ("CP01141", "Whole milk"),
+        ("CP01142", "Low-fat milk"),
+        ("CP01143", "Preserved milk"),
+        ("CP01144", "Yoghurt"),
+        ("CP01145", "Cheese & curd"),
+        ("CP01146", "Other milk products"),
+        ("CP01147", "Eggs"),
+    ]),
+    "CP0115": ("Oils & fats", [
+        ("CP01151", "Butter"),
+        ("CP01152", "Margarine & vegetable fats"),
+        ("CP01153", "Olive oil"),
+        ("CP01154", "Other edible oils"),
+        ("CP01155", "Other animal fats"),
+    ]),
+    "CP0116": ("Fruit", [
+        ("CP01161", "Fresh / chilled fruit"),
+        ("CP01162", "Frozen fruit"),
+        ("CP01163", "Dried fruit & nuts"),
+        ("CP01164", "Preserved fruit"),
+    ]),
+    "CP0117": ("Vegetables", [
+        ("CP01171", "Fresh / chilled veg"),
+        ("CP01172", "Frozen veg"),
+        ("CP01173", "Dried & preserved veg"),
+        ("CP01174", "Potatoes"),
+        ("CP01175", "Crisps & potato products"),
+    ]),
+    "CP0118": ("Sugar & confectionery", [
+        ("CP01181", "Sugar"),
+        ("CP01182", "Jams, marmalades & honey"),
+        ("CP01183", "Confectionery & chocolate"),
+        ("CP01184", "Edible ices & ice cream"),
+        ("CP01185", "Other confectionery"),
+    ]),
+    "CP0121": ("Coffee, tea & cocoa", [
+        ("CP01211", "Coffee"),
+        ("CP01212", "Tea"),
+        ("CP01213", "Cocoa & powdered chocolate"),
+    ]),
+    "CP0122": ("Waters, soft drinks & juices", [
+        ("CP01221", "Mineral / spring waters"),
+        ("CP01222", "Soft drinks"),
+        ("CP01223", "Fruit & vegetable juices"),
+    ]),
+}
+
+PALETTE = [
+    "#F87171", "#FB923C", "#FACC15", "#34D399", "#60A5FA",
+    "#A78BFA", "#F472B6", "#22D3EE", "#FB7185", "#84CC16",
+]
+
+
+def _destatis_index(destatis: dict | None) -> dict[str, dict]:
+    """Map Destatis COICOP code → series record, for fast lookup."""
+    if not destatis:
+        return {}
+    return {s["coicop"]: s for s in destatis.get("series", [])}
+
+
+def _germany_sub_from_destatis(destatis: dict) -> list[dict]:
+    """Build the Germany sub-category list (12 rows) from Destatis data,
+    matching the shape the renderer expects."""
+    idx = _destatis_index(destatis)
+    out = []
+    for coicop, label, icon in GERMANY_SUB_DISPLAY:
+        s = idx.get(coicop)
+        if not s:
+            continue
+        out.append({
+            "coicop": coicop,
+            "label": label,
+            "icon": icon,
+            "series": s["series"],
+            "latest": s["latest"],
+            "yoy_pct": s["yoy_pct"],
+            "mom_pct": s["mom_pct"],
+            "base": destatis.get("base_year", "2020 = 100"),
+        })
+    return out
+
+
+def _germany_drilldowns_from_destatis(destatis: dict) -> dict[str, dict]:
+    """Build per-parent drill-down groups from Destatis data, applying our
+    fixed display order + colour palette."""
+    idx = _destatis_index(destatis)
+    out = {}
+    for parent_code, (parent_label, items) in GERMANY_DRILLDOWN_DISPLAY.items():
+        children = []
+        for i, (code, label) in enumerate(items):
+            s = idx.get(code)
+            if not s:
+                continue
+            children.append({
+                "coicop": code,
+                "label": label,
+                "colour": PALETTE[i % len(PALETTE)],
+                "series": s["series"],
+                "latest": s["latest"],
+                "yoy_pct": s["yoy_pct"],
+                "mom_pct": s["mom_pct"],
+            })
+        if children:
+            out[parent_code] = {
+                "parent_code": parent_code,
+                "parent_label": parent_label,
+                "items": children,
+            }
+    return out
 
 
 def fmt_pct(v: float | None) -> str:
@@ -334,11 +492,31 @@ def build(period: str) -> str:
     details_js = json.dumps(details)
 
     # ---------- Germany Food Market section ----------
+    destatis = bundle.get("destatis")
     if germany:
         de = germany["headline"]["germany"]
         eu = germany["headline"]["eu27"]
-        sub = germany["subcategories"]
-        # Sort sub-categories by absolute YoY for visual emphasis (skip top-level CP01/CP011 which we show as headline)
+        # Prefer Destatis for the sub-category breakdown when available
+        # (German national CPI is published ~3 months earlier than Eurostat
+        # prc_hicp_midx, and its 5-digit COICOP coverage is more complete).
+        if destatis:
+            sub = _germany_sub_from_destatis(destatis)
+            germany_drill = _germany_drilldowns_from_destatis(destatis)
+            sub_base_label = destatis.get("base_year", "2020 = 100")
+            sub_source_label = (
+                f"Destatis Genesis Online table 61111-0004, base "
+                f"{sub_base_label}, latest "
+                f"{(sub[0]['latest']['month'] if sub else '—')}"
+            )
+        else:
+            sub = germany["subcategories"]
+            germany_drill = germany.get("drilldowns") or {}
+            sub_base_label = "2015 = 100"
+            sub_source_label = (
+                f"Eurostat prc_hicp_midx, base {sub_base_label} (publication "
+                f"lag ≈ 3-4 months — drop a Destatis 61111-0004 export under "
+                f"raw/ for fresher data)"
+            )
         sub_movers = [s for s in sub if s["coicop"] not in {"CP01", "CP011"}]
         sub_movers.sort(key=lambda s: s.get("yoy_pct") or 0, reverse=True)
 
@@ -436,7 +614,7 @@ def build(period: str) -> str:
 
         drilldown_panels = []
         drilldown_chart_data = {}
-        for parent_code, group in (germany.get("drilldowns") or {}).items():
+        for parent_code, group in germany_drill.items():
             items = group.get("items") or []
             if not items:
                 continue
@@ -462,7 +640,7 @@ def build(period: str) -> str:
           {_html.escape(group['parent_label'])} — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
-          5-digit COICOP breakdown of {_html.escape(parent_code)}. Index values base 2015 = 100, source Eurostat <code>prc_hicp_midx</code>.
+          5-digit COICOP breakdown of {_html.escape(parent_code)}. {sub_source_label}.
         </p>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div>
@@ -518,8 +696,8 @@ def build(period: str) -> str:
         <span class="text-2xl mr-3">🇩🇪</span> Germany Food Market
       </h2>
       <p class="text-xs text-dark-muted mb-6">
-        Headline index from Eurostat <code>teicp010</code> (HICP food, base 2025 = 100, latest update {_html.escape(de.get('updated','')[:10])}).
-        Sub-category breakdown from <code>prc_hicp_midx</code> (base 2015 = 100, longer publication lag).
+        Headline trend: Eurostat <code>teicp010</code> · base 2025 = 100 · DE/EU27 last update {_html.escape(de.get('updated','')[:10])}.
+        <br>Sub-category detail: {sub_source_label}.
       </p>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -534,7 +712,7 @@ def build(period: str) -> str:
         </div>
         <div>
           <h3 class="text-lg font-bold text-dark-text mb-1">Germany Food Sub-categories — Latest Index Level</h3>
-          <p class="text-xs text-dark-muted mb-3">Base 2015 = 100 · sorted high → low · hover for MoM / YoY</p>
+          <p class="text-xs text-dark-muted mb-3">Base {sub_base_label} · sorted high → low · hover for MoM / YoY</p>
           <div class="h-72"><canvas id="germanySubChart"></canvas></div>
         </div>
       </div>
@@ -609,7 +787,7 @@ def build(period: str) -> str:
         plugins: {{ legend: {{ position: 'bottom', labels: {{ color: '#94A3B8', boxWidth: 12 }} }} }},
         scales: {{
           x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
-          y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }}, title: {{ display: true, text: 'Index (2015 = 100)', color: '#94A3B8' }} }}
+          y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }}, title: {{ display: true, text: 'Index ({sub_base_label})', color: '#94A3B8' }} }}
         }}
       }}
     }});
@@ -622,7 +800,7 @@ def build(period: str) -> str:
     data: {{
       labels: SB.labels,
       datasets: [{{
-        label: 'Index (2015 = 100)',
+        label: 'Index ({sub_base_label})',
         data: SB.indices,
         backgroundColor: SB.yoy.map(v => v > 0 ? 'rgba(248,113,113,0.7)' : 'rgba(74,222,128,0.7)'),
         borderColor:     SB.yoy.map(v => v > 0 ? '#F87171' : '#4ADE80'),
@@ -648,7 +826,7 @@ def build(period: str) -> str:
       scales: {{
         x: {{
           ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }},
-          title: {{ display: true, text: 'Index (2015 = 100)', color: '#94A3B8' }},
+          title: {{ display: true, text: 'Index ({sub_base_label})', color: '#94A3B8' }},
         }},
         y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ display: false }} }}
       }}
