@@ -103,9 +103,12 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
 <div {SWITCHER_MARKER} class="cd-shell">
   <style>
     .cd-shell {{
-      position: sticky; top: 0; z-index: 9999;
       font-family: Inter, system-ui, sans-serif;
       color: #F8FAFC;
+      margin: -1rem -1rem 1.5rem;
+    }}
+    @media (min-width: 640px) {{
+      .cd-shell {{ margin: -2rem -2rem 2rem; }}
     }}
     .cd-shell * {{ box-sizing: border-box; }}
     .cd-shell-header {{
