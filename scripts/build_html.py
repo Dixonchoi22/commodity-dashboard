@@ -379,12 +379,22 @@ def build(period: str) -> tuple[str, str | None]:
     # If meta.kpis exists, use those instead (lets periods override)
     kpis = meta.get("kpis") if meta.get("kpis") else auto_kpis
 
-    # Top risks / opportunities / balanced for Procurement Actions
+    # Top risks / opportunities / balanced for Procurement Actions.
+    #
+    # Risks are ordered by month-on-month spike rather than year-on-year
+    # change so the section mirrors the Executive Summary "Extreme price
+    # risk" Highlights, which call out short-term shocks (e.g. Egg US
+    # +106% MoM on Easter). YoY captures structural trends; for a
+    # procurement action list, what matters is "what just moved against
+    # us this month?" — that's MoM.
     risks = sorted(
-        (c for c in commodities if (c.get("yoy_pct") or 0) > 0),
-        key=lambda r: r.get("yoy_pct") or 0,
+        (c for c in commodities if (c.get("mom_pct") or 0) > 0),
+        key=lambda r: r.get("mom_pct") or 0,
         reverse=True,
     )[:5]
+    # Opportunities stay YoY-driven — the use case is locking in
+    # multi-month forward contracts on commodities that have re-priced
+    # structurally lower vs last year.
     opps = sorted(
         (c for c in commodities if (c.get("yoy_pct") or 0) < 0),
         key=lambda r: r.get("yoy_pct") or 0,
