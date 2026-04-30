@@ -388,6 +388,15 @@ def build_all_in_one(reports: list[dict], originals: dict[str, str], default_slu
     const params = new URLSearchParams(window.location.search);
     const initial = params.get('period') && CD_BANNER[params.get('period')]
       ? params.get('period') : CD_DEFAULT;
+
+    // Defensive: if anything (browser quirk, cached state, extension) ends
+    // up rendering the master shell more than once at the top level, drop
+    // every copy past the first so the user only sees one bar.
+    function cdDedupShells() {{
+      const shells = document.body.querySelectorAll(':scope > [{SWITCHER_MARKER}]');
+      for (let i = 1; i < shells.length; i++) shells[i].remove();
+    }}
+    cdDedupShells();
     cdSelectPeriod(initial);
   </script>
 </body>
