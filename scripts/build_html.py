@@ -311,7 +311,13 @@ def commodity_row(r: dict, price_lookup: dict[str, str]) -> str:
 </tr>"""
 
 
-def build(period: str) -> str:
+def build(period: str) -> tuple[str, str | None]:
+    """Render the period's HTML output.
+
+    Returns (main_html, germany_html) — main_html is the EU dashboard
+    (no embedded Germany section), and germany_html is a standalone
+    Germany Food Market page or None if the period has no Germany data.
+    """
     bundle = load(period)
     meta = bundle["meta"]
     commodities = bundle["commodities"]["rows"]
@@ -837,7 +843,7 @@ def build(period: str) -> str:
         germany_section = ""
         germany_chart_script = ""
 
-    return f"""<!DOCTYPE html>
+    main_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -893,7 +899,7 @@ def build(period: str) -> str:
       <a href="#hicp-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">HICP Trend</a>
       <a href="#explorer-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Commodity Explorer</a>
       <a href="#strategy-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">Strategy</a>
-      <a href="#germany-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">🇩🇪 Germany</a>
+      <a href="{period}-germany.html" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">🇩🇪 Germany &rarr;</a>
       <a href="#references-section" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">References</a>
     </nav>
 
@@ -1015,8 +1021,6 @@ def build(period: str) -> str:
         </div>
       </div>
     </section>
-
-    {germany_section}
 
     <section id="references-section" class="card mt-8">
       <h2 class="text-2xl font-bold mb-4 text-dark-text flex items-center">
@@ -1247,6 +1251,88 @@ def build(period: str) -> str:
     return isNaN(n) ? null : n;
   }}
 
+  lucide.createIcons();
+</script>
+</body>
+</html>
+"""
+
+    if germany_section:
+        germany_html = build_germany_page(
+            meta, period, germany_section, germany_chart_script
+        )
+    else:
+        germany_html = None
+
+    return main_html, germany_html
+
+
+def build_germany_page(
+    meta: dict,
+    period: str,
+    germany_section: str,
+    germany_chart_script: str,
+) -> str:
+    """Standalone Germany Food Market page. Reuses the same theme +
+    Tailwind CDN + Chart.js as the main dashboard so visuals match."""
+    main_filename = Path(meta["output_html"]).name
+    period_label = _html.escape(meta.get("period", period))
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🇩🇪 Germany Food Market — {period_label}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {{
+      theme: {{ extend: {{
+        fontFamily: {{ sans: ['Inter', 'sans-serif'] }},
+        colors: {{
+          'primary-blue': '#60A5FA',
+          'secondary-red': '#F87171',
+          'accent-green': '#4ADE80',
+          'text-warning': '#FACC15',
+          'soft-red-bg': 'rgba(248,113,113,0.15)',
+          'soft-green-bg': 'rgba(74,222,128,0.15)',
+          'dark-bg': '#0F172A',
+          'dark-card': '#1E293B',
+          'dark-text': '#F8FAFC',
+          'dark-muted': '#94A3B8'
+        }},
+        boxShadow: {{
+          '3xl': '0 35px 60px -15px rgba(0,0,0,0.5)',
+          'xl-dark': '0 20px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3)'
+        }}
+      }}}}
+    }};
+  </script>
+  <style>
+    body {{ background:#0F172A; font-family:Inter,sans-serif; color:#F8FAFC; }}
+    .card {{ background:#1E293B; border-radius:0.75rem; padding:1.5rem; box-shadow:0 10px 15px -3px rgba(0,0,0,0.4); transition:all .2s; }}
+  </style>
+</head>
+<body class="p-4 sm:p-8">
+  <div class="max-w-7xl mx-auto">
+
+    <header class="mb-5">
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary-blue to-blue-300">
+        🇩🇪 Germany Food Market
+      </h1>
+      <p class="text-xl text-dark-muted mt-2">{period_label} — German food sector deep-dive</p>
+      <p class="text-xs text-dark-muted mt-2">Source: Eurostat HICP (teicp010) + Destatis Genesis Online (61111-0004)</p>
+    </header>
+
+    <nav class="mb-10 flex flex-wrap gap-3 p-4 bg-dark-card rounded-xl shadow-xl-dark justify-center">
+      <a href="{main_filename}" class="px-4 py-2 text-sm font-semibold text-primary-blue hover:text-white bg-dark-bg/50 rounded-lg hover:bg-primary-blue/80 transition border border-primary-blue/30">&larr; Back to EU Outlook</a>
+    </nav>
+
+    {germany_section}
+
+  </div>
+<script>
   {germany_chart_script}
 
   lucide.createIcons();
@@ -1259,11 +1345,17 @@ def build(period: str) -> str:
 def main() -> None:
     period = sys.argv[1] if len(sys.argv) > 1 else "2026-04"
     meta = json.loads((ROOT / "data" / period / "meta.json").read_text())
-    html = build(period)
+    main_html, germany_html = build(period)
+
     out_path = ROOT / "public" / meta["output_html"].lstrip("/")
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(html)
-    print(f"Wrote {out_path.relative_to(ROOT)} ({len(html):,} chars)")
+    out_path.write_text(main_html)
+    print(f"Wrote {out_path.relative_to(ROOT)} ({len(main_html):,} chars)")
+
+    if germany_html:
+        germany_path = out_path.parent / f"{period}-germany.html"
+        germany_path.write_text(germany_html)
+        print(f"Wrote {germany_path.relative_to(ROOT)} ({len(germany_html):,} chars)")
 
 
 if __name__ == "__main__":

@@ -254,11 +254,20 @@ def main() -> None:
         if not html_path.exists():
             print(f"  skip {slug} (file missing: {html_path})")
             continue
-        original = html_path.read_text(encoding="utf-8")
         banner = shell_html(reports, active_slug=slug, default_slug=default_slug)
-        updated = inject_shell(original, banner)
-        html_path.write_text(updated, encoding="utf-8")
+
+        # Main period file.
+        original = html_path.read_text(encoding="utf-8")
+        html_path.write_text(inject_shell(original, banner), encoding="utf-8")
         print(f"  patched {html_path.relative_to(ROOT)}")
+
+        # Companion Germany page (e.g. 2026-04-germany.html), if present —
+        # gets the same shell so the dashboard chrome stays consistent.
+        germany_path = REPORTS_DIR / f"{slug}-germany.html"
+        if germany_path.exists():
+            g_original = germany_path.read_text(encoding="utf-8")
+            germany_path.write_text(inject_shell(g_original, banner), encoding="utf-8")
+            print(f"  patched {germany_path.relative_to(ROOT)}")
 
     # index.html is a verbatim copy of the latest period file. No
     # redirect flash, no iframe, no all-in-one bundling — single-file
