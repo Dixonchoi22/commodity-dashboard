@@ -46,6 +46,9 @@
       font-family: Inter, system-ui, sans-serif;
       color: #F8FAFC;
     }
+    @media (min-width: 640px) {
+      [data-cd-switcher].cd-shell { margin: -2rem -2rem 2rem !important; }
+    }
     .cd-shell * { box-sizing: border-box; }
     .cd-shell-header {
       background: #1E293B;
@@ -126,20 +129,14 @@
       font-size: 0.625rem; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    
-    @media (min-width: 640px) {
-      [data-cd-switcher].cd-shell { margin: -2rem -2rem 2rem !important; }
-    }
   </style>
   <div class="cd-shell-header">
     <div class="cd-header-inner">
       <div class="cd-title-block">
         <h1>Commodity Dashboard</h1>
-        <p class="cd-subtitle">Monthly intelligence · 2 report(s) available</p>
+        <p class="cd-subtitle">Monthly intelligence</p>
       </div>
-      <div class="cd-period-bar" role="tablist" aria-label="Select report period">
-        <a class="period-btn active" href="2026-04.html" data-slug="2026-04" aria-current="page"><span class="period-btn-month">April 2026</span><span class="period-btn-hint">latest</span></a><a class="period-btn" href="2025-09.html" data-slug="2025-09" aria-current="false"><span class="period-btn-month">September 2025</span><span class="period-btn-hint"></span></a>
-      </div>
+      
     </div>
   </div>
   <div class="cd-viewing-banner">
