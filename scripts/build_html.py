@@ -437,7 +437,7 @@ def build(period: str) -> str:
                     for it in items
                 ],
             }
-            rows_html = "\n".join(drilldown_table_row(it) for it in items)
+            dd_rows_html = "\n".join(drilldown_table_row(it) for it in items)
             icon = PARENT_ICON.get(parent_code, "circle-dot")
             drilldown_panels.append(f"""
       <div class="mt-10 pt-6 border-t border-gray-700">
@@ -467,7 +467,7 @@ def build(period: str) -> str:
                   </tr>
                 </thead>
                 <tbody class="bg-dark-card divide-y divide-gray-700">
-                  {rows_html}
+                  {dd_rows_html}
                 </tbody>
               </table>
             </div>
