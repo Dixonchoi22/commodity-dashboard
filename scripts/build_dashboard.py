@@ -24,7 +24,6 @@ Usage:
 """
 from __future__ import annotations
 
-import datetime as _dt
 import html as _html
 import json
 import re
@@ -239,42 +238,6 @@ def inject_shell(period_html: str, banner: str) -> str:
     return new_html
 
 
-def build_index(reports: list[dict], default_slug: str) -> str:
-    """Tiny landing page that redirects to the latest period."""
-    default_href = Path(
-        next(r["html"] for r in reports if r["slug"] == default_slug)
-    ).name
-    build_ts = _dt.datetime.now().strftime("%Y-%m-%d %H:%M UTC")
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- build: {build_ts} -->
-  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="expires" content="0">
-  <meta http-equiv="refresh" content="0; url={_html.escape(default_href)}">
-  <title>Commodity Dashboard</title>
-  <link rel="canonical" href="{_html.escape(default_href)}">
-  <style>
-    body {{
-      margin: 0; height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      background: #0F172A; color: #94A3B8;
-      font-family: Inter, system-ui, sans-serif;
-    }}
-    a {{ color: #60A5FA; }}
-  </style>
-</head>
-<body>
-  <p>Loading latest report&hellip; <a href="{_html.escape(default_href)}">Click here if not redirected.</a></p>
-  <script>window.location.replace({json.dumps(default_href)});</script>
-</body>
-</html>
-"""
-
-
 def main() -> None:
     manifest = json.loads(MANIFEST.read_text())
     reports = sorted(manifest["reports"], key=lambda r: r["slug"], reverse=True)
@@ -292,9 +255,17 @@ def main() -> None:
         html_path.write_text(updated, encoding="utf-8")
         print(f"  patched {html_path.relative_to(ROOT)}")
 
+    # index.html mirrors the latest period file so /reports/ lands directly
+    # on the full dashboard (master shell + April 2026 content) instead of
+    # a redirect page. The shell's period buttons still point to the
+    # canonical sibling files (2026-04.html, 2025-09.html), so clicking
+    # them navigates away from index.html cleanly.
     INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
-    INDEX_OUT.write_text(build_index(reports, default_slug))
-    print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (redirect → {Path(reports[0]['html']).name})")
+    latest_path = REPORTS_DIR / Path(
+        next(r["html"] for r in reports if r["slug"] == default_slug)
+    ).name
+    INDEX_OUT.write_text(latest_path.read_text(encoding="utf-8"), encoding="utf-8")
+    print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (mirror of {latest_path.name})")
 
 
 if __name__ == "__main__":
