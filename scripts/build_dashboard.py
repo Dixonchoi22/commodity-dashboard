@@ -238,6 +238,7 @@ def build() -> str:
     }}
 
     main {{ flex: 1; min-height: 0; display: flex; }}
+    #frame-host {{ flex: 1; min-height: 0; display: flex; background: var(--bg); }}
     iframe {{ flex: 1; width: 100%; height: 100%; border: 0; background: var(--bg); }}
   </style>
 </head>
@@ -267,7 +268,7 @@ def build() -> str:
   </div>
 
   <main>
-    <iframe id="report-frame" title="Report" src=""></iframe>
+    <div id="frame-host"></div>
   </main>
 
   <script>
@@ -294,26 +295,34 @@ def build() -> str:
       document.getElementById('v-meta').innerHTML = meta;
       document.getElementById('v-legacy').style.display = p.legacy ? '' : 'none';
 
-      // Hard-reset the iframe each time. We replace the element (rather than
-      // mutating srcdoc/src on the existing one) because Edge / Chrome have
-      // been observed to keep the previous render painted on top of the new
-      // one when swapping a large srcdoc, producing a "duplicated header"
-      // ghost. A brand-new iframe is guaranteed to be a clean canvas.
-      const main = document.querySelector('main');
-      const oldFrame = document.getElementById('report-frame');
-      if (oldFrame) oldFrame.remove();
+      // Hard-reset by nuking the host container's children (clears any
+      // ghosted compositor frames left by a previous large iframe), forcing
+      // a synchronous reflow, then mounting a brand-new iframe.
+      // On file://, srcdoc has hit a Chromium/Edge bug where the previous
+      // render stays painted under the new one ("duplicated header"); using
+      // a Blob URL routes the iframe through the regular navigation path
+      // and avoids that quirk entirely. On http(s), src= to the sibling
+      // file is fastest and most reliable.
+      const host = document.getElementById('frame-host');
+      if (window.__lastBlobUrl) {{
+        URL.revokeObjectURL(window.__lastBlobUrl);
+        window.__lastBlobUrl = null;
+      }}
+      host.innerHTML = '';
+      void host.offsetHeight;
       const frame = document.createElement('iframe');
       frame.id = 'report-frame';
       frame.title = 'Report';
-      // src= is reliable over http(s); file:// blocks sibling iframe loads
-      // as cross-origin, so fall back to srcdoc there.
       const useSrc = window.location.protocol !== 'file:';
       if (useSrc) {{
         frame.src = p.src;
       }} else {{
-        frame.srcdoc = p.srcdoc;
+        const blob = new Blob([p.srcdoc], {{type: 'text/html'}});
+        const url = URL.createObjectURL(blob);
+        window.__lastBlobUrl = url;
+        frame.src = url;
       }}
-      main.appendChild(frame);
+      host.appendChild(frame);
       document.title = 'Commodity Dashboard — ' + p.period;
       history.replaceState(null, '', '?period=' + slug);
     }}
