@@ -40,15 +40,11 @@
 </head>
 <body class="p-4 sm:p-8">
 
-<div data-cd-switcher class="cd-shell">
+<div data-cd-switcher class="cd-shell" style="margin: -1rem -1rem 1.5rem">
   <style>
     .cd-shell {
       font-family: Inter, system-ui, sans-serif;
       color: #F8FAFC;
-      margin: -1rem -1rem 1.5rem;
-    }
-    @media (min-width: 640px) {
-      .cd-shell { margin: -2rem -2rem 2rem; }
     }
     .cd-shell * { box-sizing: border-box; }
     .cd-shell-header {
@@ -91,9 +87,7 @@
       box-shadow: 0 4px 14px rgba(96,165,250,0.45);
       transform: translateY(-1px);
     }
-    .cd-shell .period-btn-month {
-      font-size: 0.95rem; letter-spacing: -0.01em;
-    }
+    .cd-shell .period-btn-month { font-size: 0.95rem; letter-spacing: -0.01em; }
     .cd-shell .period-btn-hint {
       font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.08em;
       opacity: 0.75; margin-top: 2px; min-height: 0.75rem;
@@ -131,6 +125,10 @@
       padding: 0.2rem 0.5rem; border-radius: 0.25rem;
       font-size: 0.625rem; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase;
+    }
+    
+    @media (min-width: 640px) {
+      [data-cd-switcher].cd-shell { margin: -2rem -2rem 2rem !important; }
     }
   </style>
   <div class="cd-shell-header">
