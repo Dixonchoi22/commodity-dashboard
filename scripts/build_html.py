@@ -30,6 +30,7 @@ def load(period: str) -> dict:
         "commentary": maybe("commentary.json") or {"entries": []},
         "hicp_index": maybe("hicp_index.json"),
         "germany": maybe("germany.json"),
+        "world_bank": maybe("world_bank.json"),
     }
 
 
@@ -363,12 +364,20 @@ def build(period: str) -> str:
   <p class="text-xs text-gray-400 mt-1">DE {de['yoy_pct']:+.1f}% vs EU {eu['yoy_pct']:+.1f}%</p>
 </div>"""
 
-        # Sub-category bar table — every food group's MoM/YoY at a glance
+        # Sub-category table — INDEX-FIRST layout (Latest Index is the
+        # primary metric, MoM/YoY are supporting). The series mini-bar lets
+        # you see the 12-month range under each row at a glance.
         def sub_row(s):
             yoy = s.get("yoy_pct")
             mom = s.get("mom_pct")
+            idx = s["latest"]["index"]
             yoy_tone = "text-secondary-red" if (yoy or 0) > 0.5 else ("text-accent-green" if (yoy or 0) < -0.5 else "text-dark-muted")
             mom_tone = "text-secondary-red" if (mom or 0) > 0.5 else ("text-accent-green" if (mom or 0) < -0.5 else "text-dark-muted")
+            # Min/max of the 12-month window so the user can see if today's
+            # index is at the top, bottom, or middle of the recent range.
+            vals = [r["index"] for r in s["series"]]
+            v_lo, v_hi = min(vals), max(vals)
+            position = (idx - v_lo) / (v_hi - v_lo) * 100 if v_hi > v_lo else 50
             return f"""
 <tr class="hover:bg-dark-bg transition">
   <td class="px-4 py-3 whitespace-nowrap text-sm">
@@ -376,10 +385,17 @@ def build(period: str) -> str:
     <span class="font-semibold text-dark-text">{_html.escape(s['label'])}</span>
     <span class="text-xs text-dark-muted ml-1">({_html.escape(s['coicop'])})</span>
   </td>
-  <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">{s['latest']['index']:.2f}</td>
-  <td class="px-4 py-3 text-right text-sm text-dark-muted">{_html.escape(s['latest']['month'])}</td>
-  <td class="px-4 py-3 text-right text-sm font-bold {mom_tone}">{(mom if mom is not None else 0):+.2f}%</td>
-  <td class="px-4 py-3 text-right text-sm font-bold {yoy_tone}">{(yoy if yoy is not None else 0):+.2f}%</td>
+  <td class="px-4 py-3 text-right text-base font-bold font-mono text-primary-blue">{idx:.2f}</td>
+  <td class="px-4 py-3 text-sm text-dark-muted whitespace-nowrap">
+    <span class="font-mono">{v_lo:.1f}</span>
+    <span class="inline-block w-20 mx-1 align-middle relative" style="height:4px;background:#334155;border-radius:2px">
+      <span class="absolute top-0 left-0 h-full" style="width:{position:.1f}%;background:linear-gradient(to right,#4ADE80,#FACC15,#F87171);border-radius:2px"></span>
+    </span>
+    <span class="font-mono">{v_hi:.1f}</span>
+  </td>
+  <td class="px-4 py-3 text-right text-xs text-dark-muted">{_html.escape(s['latest']['month'])}</td>
+  <td class="px-4 py-3 text-right text-sm font-semibold {mom_tone}">{(mom if mom is not None else 0):+.2f}%</td>
+  <td class="px-4 py-3 text-right text-sm font-semibold {yoy_tone}">{(yoy if yoy is not None else 0):+.2f}%</td>
 </tr>"""
 
         sub_table_rows = "\n".join(sub_row(s) for s in sub)
@@ -485,10 +501,15 @@ def build(period: str) -> str:
             "de":     [r["index"] for r in de["series"]],
             "eu":     [r["index"] for r in eu["series"]],
         })
-        # Sub-category YoY bar chart data (excluding top-level CP01/CP011)
+        # Sub-category bar charts — INDEX-FIRST so a food buyer can compare
+        # absolute price levels at a glance; YoY % change available on hover.
+        sub_by_index = sorted(sub_movers, key=lambda s: s["latest"]["index"], reverse=True)
         sub_bar_js = json.dumps({
-            "labels": [s["label"] for s in sub_movers],
-            "yoy":    [s.get("yoy_pct") or 0 for s in sub_movers],
+            "labels":  [s["label"] for s in sub_by_index],
+            "indices": [s["latest"]["index"] for s in sub_by_index],
+            "yoy":     [s.get("yoy_pct") or 0 for s in sub_by_index],
+            "mom":     [s.get("mom_pct") or 0 for s in sub_by_index],
+            "month":   sub_by_index[0]["latest"]["month"] if sub_by_index else "",
         })
 
         germany_section = f"""
@@ -512,8 +533,8 @@ def build(period: str) -> str:
           <div class="h-72"><canvas id="germanyTrendChart"></canvas></div>
         </div>
         <div>
-          <h3 class="text-lg font-bold text-dark-text mb-1">Germany Food Sub-categories — YoY % change</h3>
-          <p class="text-xs text-dark-muted mb-3">Sorted by inflation rate, latest available month</p>
+          <h3 class="text-lg font-bold text-dark-text mb-1">Germany Food Sub-categories — Latest Index Level</h3>
+          <p class="text-xs text-dark-muted mb-3">Base 2015 = 100 · sorted high → low · hover for MoM / YoY</p>
           <div class="h-72"><canvas id="germanySubChart"></canvas></div>
         </div>
       </div>
@@ -594,15 +615,15 @@ def build(period: str) -> str:
     }});
   }});
 
-  // --- Germany sub-category YoY bars ---
+  // --- Germany sub-category INDEX-LEVEL bars (index-first; rate of change in tooltip) ---
   const SB = {sub_bar_js};
   new Chart(document.getElementById('germanySubChart'), {{
     type: 'bar',
     data: {{
       labels: SB.labels,
       datasets: [{{
-        label: 'YoY %',
-        data: SB.yoy,
+        label: 'Index (2015 = 100)',
+        data: SB.indices,
         backgroundColor: SB.yoy.map(v => v > 0 ? 'rgba(248,113,113,0.7)' : 'rgba(74,222,128,0.7)'),
         borderColor:     SB.yoy.map(v => v > 0 ? '#F87171' : '#4ADE80'),
         borderWidth: 1,
@@ -610,9 +631,25 @@ def build(period: str) -> str:
     }},
     options: {{
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: {{ legend: {{ display: false }} }},
+      plugins: {{
+        legend: {{ display: false }},
+        tooltip: {{
+          callbacks: {{
+            label: (ctx) => {{
+              const i = ctx.dataIndex;
+              const idx = SB.indices[i].toFixed(1);
+              const yoy = (SB.yoy[i] >= 0 ? '+' : '') + SB.yoy[i].toFixed(1) + '%';
+              const mom = (SB.mom[i] >= 0 ? '+' : '') + SB.mom[i].toFixed(2) + '%';
+              return [`Index: ${{idx}} (` + SB.month + `)`, `YoY: ${{yoy}}`, `MoM: ${{mom}}`];
+            }}
+          }}
+        }}
+      }},
       scales: {{
-        x: {{ ticks: {{ color: '#94A3B8', callback: v => v + '%' }}, grid: {{ color: '#334155' }} }},
+        x: {{
+          ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }},
+          title: {{ display: true, text: 'Index (2015 = 100)', color: '#94A3B8' }},
+        }},
         y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ display: false }} }}
       }}
     }}

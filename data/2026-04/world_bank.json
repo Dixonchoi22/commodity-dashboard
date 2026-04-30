@@ -1,0 +1,374 @@
+{
+  "source": "World Bank Pink Sheet (Commodity Markets) \u2014 Monthly Indices",
+  "url": "https://www.worldbank.org/en/research/commodity-markets",
+  "base_year": "2010 = 100",
+  "updated": "Updated on April 02, 2026",
+  "series": [
+    {
+      "key": "agriculture",
+      "label": "Agriculture",
+      "colour": "#84CC16",
+      "series": [
+        {
+          "month": "Apr 2025",
+          "index": 117.49358988725
+        },
+        {
+          "month": "May 2025",
+          "index": 117.77403298279
+        },
+        {
+          "month": "Jun 2025",
+          "index": 114.43634379242
+        },
+        {
+          "month": "Jul 2025",
+          "index": 112.30785388882
+        },
+        {
+          "month": "Aug 2025",
+          "index": 113.5147986359
+        },
+        {
+          "month": "Sep 2025",
+          "index": 113.78080922613
+        },
+        {
+          "month": "Oct 2025",
+          "index": 111.55001335533
+        },
+        {
+          "month": "Nov 2025",
+          "index": 112.509986939
+        },
+        {
+          "month": "Dec 2025",
+          "index": 112.14366196011
+        },
+        {
+          "month": "Jan 2026",
+          "index": 111.64933649757
+        },
+        {
+          "month": "Feb 2026",
+          "index": 109.94606922831
+        },
+        {
+          "month": "Mar 2026",
+          "index": 111.58934411603
+        }
+      ],
+      "latest": {
+        "month": "Mar 2026",
+        "index": 111.58934411603
+      },
+      "yoy_pct": -5.03,
+      "mom_pct": 1.49
+    },
+    {
+      "key": "food",
+      "label": "Food",
+      "colour": "#60A5FA",
+      "series": [
+        {
+          "month": "Apr 2025",
+          "index": 110.3263979888
+        },
+        {
+          "month": "May 2025",
+          "index": 108.29887913867
+        },
+        {
+          "month": "Jun 2025",
+          "index": 106.74071125819
+        },
+        {
+          "month": "Jul 2025",
+          "index": 107.81793417947
+        },
+        {
+          "month": "Aug 2025",
+          "index": 106.78057208626
+        },
+        {
+          "month": "Sep 2025",
+          "index": 107.15791163952
+        },
+        {
+          "month": "Oct 2025",
+          "index": 106.30416910316
+        },
+        {
+          "month": "Nov 2025",
+          "index": 108.96763035186
+        },
+        {
+          "month": "Dec 2025",
+          "index": 109.4404919556
+        },
+        {
+          "month": "Jan 2026",
+          "index": 110.96701128383
+        },
+        {
+          "month": "Feb 2026",
+          "index": 113.45870419955
+        },
+        {
+          "month": "Mar 2026",
+          "index": 116.56505318071
+        }
+      ],
+      "latest": {
+        "month": "Mar 2026",
+        "index": 116.56505318071
+      },
+      "yoy_pct": 5.65,
+      "mom_pct": 2.74
+    },
+    {
+      "key": "oils_meals",
+      "label": "Oils & Meals",
+      "colour": "#FACC15",
+      "series": [
+        {
+          "month": "Apr 2025",
+          "index": 103.7156709034
+        },
+        {
+          "month": "May 2025",
+          "index": 101.87350360437
+        },
+        {
+          "month": "Jun 2025",
+          "index": 102.56706972153
+        },
+        {
+          "month": "Jul 2025",
+          "index": 104.5192630448
+        },
+        {
+          "month": "Aug 2025",
+          "index": 106.03018684822
+        },
+        {
+          "month": "Sep 2025",
+          "index": 104.79384188992
+        },
+        {
+          "month": "Oct 2025",
+          "index": 104.27553702163
+        },
+        {
+          "month": "Nov 2025",
+          "index": 108.22157995797
+        },
+        {
+          "month": "Dec 2025",
+          "index": 106.37218274458
+        },
+        {
+          "month": "Jan 2026",
+          "index": 105.82415204616
+        },
+        {
+          "month": "Feb 2026",
+          "index": 111.17524836519
+        },
+        {
+          "month": "Mar 2026",
+          "index": 117.48120628829
+        }
+      ],
+      "latest": {
+        "month": "Mar 2026",
+        "index": 117.48120628829
+      },
+      "yoy_pct": 13.27,
+      "mom_pct": 5.67
+    },
+    {
+      "key": "grains",
+      "label": "Grains",
+      "colour": "#FB923C",
+      "series": [
+        {
+          "month": "Apr 2025",
+          "index": 105.12344984542
+        },
+        {
+          "month": "May 2025",
+          "index": 102.22196930767
+        },
+        {
+          "month": "Jun 2025",
+          "index": 100.08193999058
+        },
+        {
+          "month": "Jul 2025",
+          "index": 96.91255595823
+        },
+        {
+          "month": "Aug 2025",
+          "index": 93.96647956269
+        },
+        {
+          "month": "Sep 2025",
+          "index": 96.79191089917
+        },
+        {
+          "month": "Oct 2025",
+          "index": 95.49059860852
+        },
+        {
+          "month": "Nov 2025",
+          "index": 98.77249757745
+        },
+        {
+          "month": "Dec 2025",
+          "index": 102.68216704131
+        },
+        {
+          "month": "Jan 2026",
+          "index": 102.21768271684
+        },
+        {
+          "month": "Feb 2026",
+          "index": 104.25662651469
+        },
+        {
+          "month": "Mar 2026",
+          "index": 105.27571282904
+        }
+      ],
+      "latest": {
+        "month": "Mar 2026",
+        "index": 105.27571282904
+      },
+      "yoy_pct": 0.14,
+      "mom_pct": 0.98
+    },
+    {
+      "key": "other_food",
+      "label": "Other Food",
+      "colour": "#A78BFA",
+      "series": [
+        {
+          "month": "Apr 2025",
+          "index": 123.73285814673
+        },
+        {
+          "month": "May 2025",
+          "index": 122.25255389598
+        },
+        {
+          "month": "Jun 2025",
+          "index": 118.25868578477
+        },
+        {
+          "month": "Jul 2025",
+          "index": 122.02859765286
+        },
+        {
+          "month": "Aug 2025",
+          "index": 119.36638755998
+        },
+        {
+          "month": "Sep 2025",
+          "index": 119.65080364726
+        },
+        {
+          "month": "Oct 2025",
+          "index": 118.76087665933
+        },
+        {
+          "month": "Nov 2025",
+          "index": 119.17720442605
+        },
+        {
+          "month": "Dec 2025",
+          "index": 119.59440766073
+        },
+        {
+          "month": "Jan 2026",
+          "index": 125.65234107989
+        },
+        {
+          "month": "Feb 2026",
+          "index": 124.79202175638
+        },
+        {
+          "month": "Mar 2026",
+          "index": 125.57825778404
+        }
+      ],
+      "latest": {
+        "month": "Mar 2026",
+        "index": 125.57825778404
+      },
+      "yoy_pct": 1.49,
+      "mom_pct": 0.63
+    },
+    {
+      "key": "beverages",
+      "label": "Beverages (incl. coffee/cocoa)",
+      "colour": "#F472B6",
+      "series": [
+        {
+          "month": "Apr 2025",
+          "index": 215.97017176735
+        },
+        {
+          "month": "May 2025",
+          "index": 226.60073748358
+        },
+        {
+          "month": "Jun 2025",
+          "index": 207.9472471981
+        },
+        {
+          "month": "Jul 2025",
+          "index": 185.53305160797
+        },
+        {
+          "month": "Aug 2025",
+          "index": 199.79402889718
+        },
+        {
+          "month": "Sep 2025",
+          "index": 200.16719414086
+        },
+        {
+          "month": "Oct 2025",
+          "index": 189.04093028285
+        },
+        {
+          "month": "Nov 2025",
+          "index": 186.10461103975
+        },
+        {
+          "month": "Dec 2025",
+          "index": 179.03335938934
+        },
+        {
+          "month": "Jan 2026",
+          "index": 165.67930416602
+        },
+        {
+          "month": "Feb 2026",
+          "index": 139.840118152
+        },
+        {
+          "month": "Mar 2026",
+          "index": 137.71233050816
+        }
+      ],
+      "latest": {
+        "month": "Mar 2026",
+        "index": 137.71233050816
+      },
+      "yoy_pct": -36.24,
+      "mom_pct": -1.52
+    }
+  ]
+}
