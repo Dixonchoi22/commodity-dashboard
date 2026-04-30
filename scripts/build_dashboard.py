@@ -81,11 +81,18 @@ def build() -> str:
     # strings and JS unescapes it back to "</".
     periods_json = json.dumps(periods_js).replace("</", "<\\/")
 
+    import datetime as _dt
+    build_ts = _dt.datetime.now().strftime("%Y-%m-%d %H:%M UTC")
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- build: {build_ts} -->
+  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="expires" content="0">
   <title>Commodity Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
