@@ -559,19 +559,13 @@ def build(period: str) -> tuple[str, str | None]:
 </div>"""
 
         # Sub-category table — INDEX-FIRST layout (Latest Index is the
-        # primary metric, MoM/YoY are supporting). The series mini-bar lets
-        # you see the 12-month range under each row at a glance.
+        # primary metric, MoM/YoY are supporting).
         def sub_row(s):
             yoy = s.get("yoy_pct")
             mom = s.get("mom_pct")
             idx = s["latest"]["index"]
             yoy_tone = "text-secondary-red" if (yoy or 0) > 0.5 else ("text-accent-green" if (yoy or 0) < -0.5 else "text-dark-muted")
             mom_tone = "text-secondary-red" if (mom or 0) > 0.5 else ("text-accent-green" if (mom or 0) < -0.5 else "text-dark-muted")
-            # Min/max of the 12-month window so the user can see if today's
-            # index is at the top, bottom, or middle of the recent range.
-            vals = [r["index"] for r in s["series"]]
-            v_lo, v_hi = min(vals), max(vals)
-            position = (idx - v_lo) / (v_hi - v_lo) * 100 if v_hi > v_lo else 50
             return f"""
 <tr class="hover:bg-dark-bg transition">
   <td class="px-4 py-3 whitespace-nowrap text-sm">
@@ -580,13 +574,6 @@ def build(period: str) -> tuple[str, str | None]:
     <span class="text-xs text-dark-muted ml-1">({_html.escape(s['coicop'])})</span>
   </td>
   <td class="px-4 py-3 text-right text-base font-bold font-mono text-primary-blue">{idx:.2f}</td>
-  <td class="px-4 py-3 text-sm text-dark-muted whitespace-nowrap">
-    <span class="font-mono">{v_lo:.1f}</span>
-    <span class="inline-block w-20 mx-1 align-middle relative" style="height:4px;background:#334155;border-radius:2px">
-      <span class="absolute top-0 left-0 h-full" style="width:{position:.1f}%;background:linear-gradient(to right,#4ADE80,#FACC15,#F87171);border-radius:2px"></span>
-    </span>
-    <span class="font-mono">{v_hi:.1f}</span>
-  </td>
   <td class="px-4 py-3 text-right text-xs text-dark-muted">{_html.escape(s['latest']['month'])}</td>
   <td class="px-4 py-3 text-right text-sm font-semibold {mom_tone}">{(mom if mom is not None else 0):+.2f}%</td>
   <td class="px-4 py-3 text-right text-sm font-semibold {yoy_tone}">{(yoy if yoy is not None else 0):+.2f}%</td>
