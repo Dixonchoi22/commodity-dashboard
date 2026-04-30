@@ -39,7 +39,62 @@
   </style>
 </head>
 <body class="p-4 sm:p-8">
-  <div class="max-w-7xl mx-auto">
+
+<div data-cd-switcher class="cd-switcher">
+  <style>
+    .cd-switcher {
+      position: sticky; top: 0; z-index: 9999;
+      background: rgba(15,23,42,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(96,165,250,0.25);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      padding: 0.5rem 1rem;
+      font-family: Inter, system-ui, sans-serif;
+    }
+    .cd-switcher-inner {
+      max-width: 80rem; margin: 0 auto;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .cd-switcher-label {
+      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #60A5FA;
+      background: rgba(96,165,250,0.18);
+      padding: 0.2rem 0.5rem; border-radius: 0.25rem;
+      display: inline-flex; align-items: center; gap: 0.375rem;
+    }
+    .cd-switcher-label::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: #4ADE80;
+      box-shadow: 0 0 0 3px rgba(74,222,128,0.25);
+    }
+    .cd-switcher-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .cd-pill {
+      display: inline-flex; flex-direction: column; align-items: center;
+      min-width: 110px; padding: 0.35rem 0.75rem;
+      border-radius: 0.4rem; border: 1px solid rgba(96,165,250,0.3);
+      background: rgba(15,23,42,0.5); color: #60A5FA;
+      font-size: 0.8rem; font-weight: 600; text-decoration: none;
+      transition: background .15s, transform .15s;
+    }
+    .cd-pill:hover { background: rgba(96,165,250,0.2); }
+    .cd-pill-active {
+      background: #60A5FA; color: #0F172A; border-color: #60A5FA;
+      box-shadow: 0 4px 12px rgba(96,165,250,0.4);
+    }
+    .cd-pill-month { font-size: 0.85rem; letter-spacing: -0.01em; }
+    .cd-pill-hint {
+      font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; opacity: 0.85; margin-top: 1px;
+    }
+  </style>
+  <div class="cd-switcher-inner">
+    <span class="cd-switcher-label">Commodity Dashboard</span>
+    <div class="cd-switcher-pills"><a class="cd-pill cd-pill-active" href="2026-04.html" aria-current="page"><span class="cd-pill-month">April 2026</span><span class="cd-pill-hint">LATEST</span></a><a class="cd-pill" href="2025-09.html" aria-current="false"><span class="cd-pill-month">September 2025</span><span class="cd-pill-hint">LEGACY</span></a></div>
+  </div>
+</div><!--/cd-switcher-->
+
+<div class="max-w-7xl mx-auto">
 
     <header class="mb-5">
       <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary-blue to-blue-300">

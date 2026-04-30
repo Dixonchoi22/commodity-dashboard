@@ -1,23 +1,43 @@
-"""Build a master dashboard HTML that wraps all period reports with a top
-period switcher bar. Reads data/manifest.json and each period's meta.json
-so the current period (and its MoM / YoY comparison windows) are always
-clearly labeled.
+"""Build the master dashboard wiring across period reports.
 
-Each report HTML stays self-contained — the master shell just orchestrates
-them via an iframe.
+Drops the previous iframe-based shell entirely (which kept hitting browser
+compositor / sibling-load bugs that produced "duplicated header" stacks
+across both file:// and http(s) hosts).
+
+New approach — no iframes, no srcdoc, no Blob URLs:
+
+  * Each period HTML (e.g. public/reports/2026-04.html) gets a small
+    sticky "period switcher" banner injected at the top of <body>. The
+    banner is just <a href> links to the sibling period files plus a
+    "Now viewing" label. Clicking a link is a normal full-page navigation,
+    so the browser starts from a clean canvas every time — no ghost
+    renders, no nested iframes.
+
+  * public/reports/index.html becomes a tiny landing page that auto-
+    redirects (meta refresh + JS) to the latest period file. Anyone who
+    bookmarked /reports/index.html still ends up on the right report.
+
+The injection is idempotent: an existing
+<div data-cd-switcher> at the top of <body> is replaced on each rebuild,
+so re-running build_html.py followed by build_dashboard.py is safe.
 
 Usage:
   python scripts/build_dashboard.py
 """
 from __future__ import annotations
 
+import datetime as _dt
 import html as _html
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / "data" / "manifest.json"
-OUT = ROOT / "public" / "reports" / "index.html"
+REPORTS_DIR = ROOT / "public" / "reports"
+INDEX_OUT = REPORTS_DIR / "index.html"
+
+SWITCHER_MARKER = "data-cd-switcher"
 
 
 def month_label(slug: str) -> str:
@@ -39,55 +59,124 @@ def load_meta(slug: str) -> dict:
     return {}
 
 
-def build() -> str:
-    manifest = json.loads(MANIFEST.read_text())
-    reports = sorted(manifest["reports"], key=lambda r: r["slug"], reverse=True)
-    default = reports[0]["slug"]
-
-    # Bundle period info for the client-side switcher. We embed each report
-    # as a srcdoc string so opening index.html from file:// (no local server)
-    # works — and we also include the bare filename as `src` so a server
-    # deploy (e.g. GitHub Pages) can load the iframe without inlining the
-    # full HTML. The JS picks src= when window.location.protocol is http(s)
-    # and srcdoc when it's file://, getting the best of both.
-    periods_js = {}
+def switcher_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
+    """Render the sticky period-switcher banner that goes at the top of every
+    period HTML. Links navigate the whole window — no iframe involved."""
+    pills = []
     for r in reports:
-        meta = load_meta(r["slug"])
-        html_path = ROOT / "public" / r["html"].lstrip("/")
-        srcdoc = html_path.read_text(encoding="utf-8") if html_path.exists() else ""
-        src = Path(r["html"]).name
-        periods_js[r["slug"]] = {
-            "label": month_label(r["slug"]),
-            "title": meta.get("title", r.get("title", "")),
-            "period": meta.get("period", month_label(r["slug"])),
-            "period_mom": meta.get("period_mom", ""),
-            "period_yoy": meta.get("period_yoy", ""),
-            "region": meta.get("region", r.get("region", "")),
-            "src": src,
-            "srcdoc": srcdoc,
-            "legacy": bool(meta.get("legacy")),
-        }
+        slug = r["slug"]
+        href = Path(r["html"]).name  # sibling file, e.g. "2026-04.html"
+        is_active = slug == active_slug
+        is_latest = slug == default_slug
+        meta = load_meta(slug)
+        legacy = bool(meta.get("legacy"))
+        active_cls = " cd-pill-active" if is_active else ""
+        hint = "LATEST" if is_latest else ("LEGACY" if legacy else "")
+        hint_html = (
+            f'<span class="cd-pill-hint">{_html.escape(hint)}</span>' if hint else ""
+        )
+        pills.append(
+            f'<a class="cd-pill{active_cls}" href="{_html.escape(href)}" '
+            f'aria-current="{"page" if is_active else "false"}">'
+            f'<span class="cd-pill-month">{_html.escape(month_label(slug))}</span>'
+            f"{hint_html}"
+            f"</a>"
+        )
 
-    buttons = "\n".join(
-        f"""
-        <button data-slug="{_html.escape(r['slug'])}"
-                class="period-btn"
-                onclick="selectPeriod('{_html.escape(r['slug'])}')">
-          <span class="period-btn-month">{_html.escape(month_label(r['slug']))}</span>
-          <span class="period-btn-hint">{"latest" if r["slug"] == default else ""}</span>
-        </button>"""
-        for r in reports
+    pills_html = "".join(pills)
+
+    return f"""
+<div {SWITCHER_MARKER} class="cd-switcher">
+  <style>
+    .cd-switcher {{
+      position: sticky; top: 0; z-index: 9999;
+      background: rgba(15,23,42,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(96,165,250,0.25);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      padding: 0.5rem 1rem;
+      font-family: Inter, system-ui, sans-serif;
+    }}
+    .cd-switcher-inner {{
+      max-width: 80rem; margin: 0 auto;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }}
+    .cd-switcher-label {{
+      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #60A5FA;
+      background: rgba(96,165,250,0.18);
+      padding: 0.2rem 0.5rem; border-radius: 0.25rem;
+      display: inline-flex; align-items: center; gap: 0.375rem;
+    }}
+    .cd-switcher-label::before {{
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: #4ADE80;
+      box-shadow: 0 0 0 3px rgba(74,222,128,0.25);
+    }}
+    .cd-switcher-pills {{ display: flex; gap: 0.4rem; flex-wrap: wrap; }}
+    .cd-pill {{
+      display: inline-flex; flex-direction: column; align-items: center;
+      min-width: 110px; padding: 0.35rem 0.75rem;
+      border-radius: 0.4rem; border: 1px solid rgba(96,165,250,0.3);
+      background: rgba(15,23,42,0.5); color: #60A5FA;
+      font-size: 0.8rem; font-weight: 600; text-decoration: none;
+      transition: background .15s, transform .15s;
+    }}
+    .cd-pill:hover {{ background: rgba(96,165,250,0.2); }}
+    .cd-pill-active {{
+      background: #60A5FA; color: #0F172A; border-color: #60A5FA;
+      box-shadow: 0 4px 12px rgba(96,165,250,0.4);
+    }}
+    .cd-pill-month {{ font-size: 0.85rem; letter-spacing: -0.01em; }}
+    .cd-pill-hint {{
+      font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; opacity: 0.85; margin-top: 1px;
+    }}
+  </style>
+  <div class="cd-switcher-inner">
+    <span class="cd-switcher-label">Commodity Dashboard</span>
+    <div class="cd-switcher-pills">{pills_html}</div>
+  </div>
+</div><!--/cd-switcher-->
+"""
+
+
+def inject_switcher(period_html: str, banner: str) -> str:
+    """Insert (or replace) the switcher banner immediately after <body...>.
+
+    Idempotent: if a previous switcher (marked with SWITCHER_MARKER) already
+    exists, it gets stripped first so we don't accumulate copies on re-run.
+    """
+    # Strip any existing switcher block from a previous run. We bracket the
+    # injected block with a <!--/cd-switcher--> end marker so the regex
+    # can match the full block regardless of how many nested <div>s it
+    # contains.
+    period_html = re.sub(
+        r"\s*<div [^>]*" + re.escape(SWITCHER_MARKER) + r".*?<!--/cd-switcher-->\s*",
+        "",
+        period_html,
+        count=1,
+        flags=re.DOTALL,
     )
 
-    # Escape "</" in the JSON blob so the browser's HTML parser doesn't
-    # mistake an inlined </script> (e.g. inside a legacy report's srcdoc)
-    # for the end of our outer <script> tag. "<\/" is legal inside JSON
-    # strings and JS unescapes it back to "</".
-    periods_json = json.dumps(periods_js).replace("</", "<\\/")
+    # Insert right after the opening <body ...> tag.
+    def _insert(match: re.Match) -> str:
+        return match.group(0) + "\n" + banner + "\n"
 
-    import datetime as _dt
+    new_html, n = re.subn(r"<body[^>]*>", _insert, period_html, count=1)
+    if n == 0:
+        # No <body> tag found — fall back to prepending.
+        return banner + period_html
+    return new_html
+
+
+def build_index(reports: list[dict], default_slug: str) -> str:
+    """Tiny landing page that redirects to the latest period."""
+    default_href = Path(
+        next(r["html"] for r in reports if r["slug"] == default_slug)
+    ).name
     build_ts = _dt.datetime.now().strftime("%Y-%m-%d %H:%M UTC")
-
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,252 +186,50 @@ def build() -> str:
   <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="expires" content="0">
+  <meta http-equiv="refresh" content="0; url={_html.escape(default_href)}">
   <title>Commodity Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="canonical" href="{_html.escape(default_href)}">
   <style>
-    :root {{
-      --bg: #0F172A;
-      --card: #1E293B;
-      --card-2: #273449;
-      --text: #F8FAFC;
-      --muted: #94A3B8;
-      --primary: #60A5FA;
-      --accent: #4ADE80;
-      --warn: #FACC15;
-      --border: rgba(96,165,250,0.3);
-    }}
-    * {{ box-sizing: border-box; }}
-    html, body {{
-      margin: 0; padding: 0; height: 100%;
-      background: var(--bg); color: var(--text);
+    body {{
+      margin: 0; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: #0F172A; color: #94A3B8;
       font-family: Inter, system-ui, sans-serif;
     }}
-    body {{ display: flex; flex-direction: column; }}
-
-    header {{
-      background: var(--card);
-      border-bottom: 1px solid #334155;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      flex-shrink: 0;
-    }}
-    .header-inner {{
-      max-width: 80rem;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem 2rem;
-      align-items: center;
-      justify-content: space-between;
-    }}
-    .title-block h1 {{
-      font-size: 1.125rem;
-      font-weight: 800;
-      margin: 0;
-      background: linear-gradient(to right, var(--primary), #93c5fd);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.025em;
-    }}
-    .title-block .subtitle {{ color: var(--muted); font-size: 0.75rem; margin-top: 2px; }}
-
-    /* Period switcher */
-    .period-bar {{ display: flex; gap: 0.5rem; flex-wrap: wrap; }}
-    .period-btn {{
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      min-width: 130px;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      border: 1px solid var(--border);
-      background: rgba(15,23,42,0.5);
-      color: var(--primary);
-      font-family: inherit;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-    }}
-    .period-btn:hover {{ background: rgba(96,165,250,0.2); }}
-    .period-btn.active {{
-      background: var(--primary);
-      color: #0F172A;
-      border-color: var(--primary);
-      box-shadow: 0 4px 14px rgba(96,165,250,0.45);
-      transform: translateY(-1px);
-    }}
-    .period-btn-month {{ font-size: 0.95rem; letter-spacing: -0.01em; }}
-    .period-btn-hint {{
-      font-size: 0.625rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.75;
-      margin-top: 2px;
-      min-height: 0.75rem;
-    }}
-    .period-btn.active .period-btn-hint {{ opacity: 1; }}
-
-    /* Currently-viewing banner: keeps the active period impossible to miss */
-    .viewing-banner {{
-      background: linear-gradient(to right, rgba(96,165,250,0.12), rgba(96,165,250,0.02));
-      border-top: 1px solid rgba(96,165,250,0.25);
-      border-bottom: 1px solid rgba(96,165,250,0.25);
-      padding: 0.75rem 1.5rem;
-      flex-shrink: 0;
-    }}
-    .viewing-inner {{
-      max-width: 80rem;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }}
-    .viewing-tag {{
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-size: 0.625rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--primary);
-      background: rgba(96,165,250,0.18);
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-    }}
-    .viewing-tag::before {{
-      content: '';
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(74,222,128,0.25);
-    }}
-    .viewing-title {{ font-size: 1rem; font-weight: 700; color: var(--text); }}
-    .viewing-period {{
-      font-size: 1.5rem; font-weight: 800; color: var(--primary);
-      letter-spacing: -0.02em;
-    }}
-    .viewing-meta {{ font-size: 0.75rem; color: var(--muted); }}
-    .viewing-meta b {{ color: var(--text); font-weight: 600; }}
-    .viewing-legacy {{
-      display: inline-flex; align-items: center; gap: 0.375rem;
-      background: rgba(250,204,21,0.15);
-      color: var(--warn);
-      border: 1px solid rgba(250,204,21,0.4);
-      padding: 0.2rem 0.5rem;
-      border-radius: 0.25rem;
-      font-size: 0.625rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }}
-
-    main {{ flex: 1; min-height: 0; display: flex; }}
-    #frame-host {{ flex: 1; min-height: 0; display: flex; background: var(--bg); }}
-    iframe {{ flex: 1; width: 100%; height: 100%; border: 0; background: var(--bg); }}
+    a {{ color: #60A5FA; }}
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="header-inner">
-      <div class="title-block">
-        <h1>Commodity Dashboard</h1>
-        <p class="subtitle">Monthly intelligence · {len(reports)} report(s) available</p>
-      </div>
-      <div class="period-bar" role="tablist" aria-label="Select report period">
-        {buttons}
-      </div>
-    </div>
-  </header>
-
-  <!-- Currently viewing banner: big, obvious, tells the reader exactly which period is on screen -->
-  <div class="viewing-banner">
-    <div class="viewing-inner">
-      <span class="viewing-tag">Now viewing</span>
-      <span class="viewing-title" id="v-title"></span>
-      <span class="viewing-period" id="v-period"></span>
-      <span class="viewing-meta" id="v-meta"></span>
-      <span class="viewing-legacy" id="v-legacy" style="display:none">Legacy snapshot</span>
-    </div>
-  </div>
-
-  <main>
-    <div id="frame-host"></div>
-  </main>
-
-  <script>
-    const PERIODS = {periods_json};
-    const DEFAULT = {json.dumps(default)};
-
-    function selectPeriod(slug) {{
-      const p = PERIODS[slug];
-      if (!p) return;
-
-      // Button state
-      document.querySelectorAll('.period-btn').forEach(b => {{
-        b.classList.toggle('active', b.dataset.slug === slug);
-        b.setAttribute('aria-selected', b.dataset.slug === slug ? 'true' : 'false');
-      }});
-
-      // Banner
-      document.getElementById('v-title').textContent = p.title || 'Report';
-      document.getElementById('v-period').textContent = p.period;
-      let meta = '';
-      if (p.region) meta += p.region;
-      if (p.period_mom) meta += (meta ? ' · ' : '') + 'MoM: ' + p.period_mom;
-      if (p.period_yoy) meta += (meta ? ' · ' : '') + 'YoY: ' + p.period_yoy;
-      document.getElementById('v-meta').innerHTML = meta;
-      document.getElementById('v-legacy').style.display = p.legacy ? '' : 'none';
-
-      // Hard-reset by nuking the host container's children (clears any
-      // ghosted compositor frames left by a previous large iframe), forcing
-      // a synchronous reflow, then mounting a brand-new iframe.
-      // On file://, srcdoc has hit a Chromium/Edge bug where the previous
-      // render stays painted under the new one ("duplicated header"); using
-      // a Blob URL routes the iframe through the regular navigation path
-      // and avoids that quirk entirely. On http(s), src= to the sibling
-      // file is fastest and most reliable.
-      const host = document.getElementById('frame-host');
-      if (window.__lastBlobUrl) {{
-        URL.revokeObjectURL(window.__lastBlobUrl);
-        window.__lastBlobUrl = null;
-      }}
-      host.innerHTML = '';
-      void host.offsetHeight;
-      const frame = document.createElement('iframe');
-      frame.id = 'report-frame';
-      frame.title = 'Report';
-      const useSrc = window.location.protocol !== 'file:';
-      if (useSrc) {{
-        frame.src = p.src;
-      }} else {{
-        const blob = new Blob([p.srcdoc], {{type: 'text/html'}});
-        const url = URL.createObjectURL(blob);
-        window.__lastBlobUrl = url;
-        frame.src = url;
-      }}
-      host.appendChild(frame);
-      document.title = 'Commodity Dashboard — ' + p.period;
-      history.replaceState(null, '', '?period=' + slug);
-    }}
-
-    const params = new URLSearchParams(window.location.search);
-    const initial = params.get('period') && PERIODS[params.get('period')]
-      ? params.get('period')
-      : DEFAULT;
-    selectPeriod(initial);
-  </script>
-
+  <p>Loading latest report&hellip; <a href="{_html.escape(default_href)}">Click here if not redirected.</a></p>
+  <script>window.location.replace({json.dumps(default_href)});</script>
 </body>
 </html>
 """
 
 
 def main() -> None:
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(build())
-    print(f"Wrote {OUT.relative_to(ROOT)}")
+    manifest = json.loads(MANIFEST.read_text())
+    reports = sorted(manifest["reports"], key=lambda r: r["slug"], reverse=True)
+    default_slug = reports[0]["slug"]
+
+    # Inject the sticky switcher banner into every period HTML so each
+    # report carries its own period switcher — no iframe orchestration.
+    for r in reports:
+        slug = r["slug"]
+        html_path = REPORTS_DIR / Path(r["html"]).name
+        if not html_path.exists():
+            print(f"  skip {slug} (file missing: {html_path})")
+            continue
+        original = html_path.read_text(encoding="utf-8")
+        banner = switcher_html(reports, active_slug=slug, default_slug=default_slug)
+        updated = inject_switcher(original, banner)
+        html_path.write_text(updated, encoding="utf-8")
+        print(f"  patched {html_path.relative_to(ROOT)}")
+
+    # Landing page: just redirect to the latest period.
+    INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
+    INDEX_OUT.write_text(build_index(reports, default_slug))
+    print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (redirect → {Path(reports[0]['html']).name})")
 
 
 if __name__ == "__main__":
