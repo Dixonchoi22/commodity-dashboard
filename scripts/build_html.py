@@ -165,16 +165,30 @@ def _germany_sub_from_destatis(destatis: dict) -> list[dict]:
 
 def _germany_drilldowns_from_destatis(destatis: dict) -> dict[str, dict]:
     """Build per-parent drill-down groups from Destatis data, applying our
-    fixed display order + colour palette."""
+    fixed display order + colour palette. The parent COICOP series is
+    prepended to each group so it shows alongside its children on the
+    trend chart and in the table."""
     idx = _destatis_index(destatis)
     out = {}
     for parent_code, (parent_label, items) in GERMANY_DRILLDOWN_DISPLAY.items():
-        children = []
+        rows = []
+        parent_s = idx.get(parent_code)
+        if parent_s:
+            rows.append({
+                "coicop": parent_code,
+                "label": parent_label,
+                "colour": "#F8FAFC",
+                "is_parent": True,
+                "series": parent_s["series"],
+                "latest": parent_s["latest"],
+                "yoy_pct": parent_s["yoy_pct"],
+                "mom_pct": parent_s["mom_pct"],
+            })
         for i, (code, label) in enumerate(items):
             s = idx.get(code)
             if not s:
                 continue
-            children.append({
+            rows.append({
                 "coicop": code,
                 "label": label,
                 "colour": PALETTE[i % len(PALETTE)],
@@ -183,11 +197,11 @@ def _germany_drilldowns_from_destatis(destatis: dict) -> dict[str, dict]:
                 "yoy_pct": s["yoy_pct"],
                 "mom_pct": s["mom_pct"],
             })
-        if children:
+        if rows:
             out[parent_code] = {
                 "parent_code": parent_code,
                 "parent_label": parent_label,
-                "items": children,
+                "items": rows,
             }
     return out
 
@@ -611,8 +625,11 @@ def build(period: str) -> tuple[str, str | None]:
                 qoq_tone = "text-secondary-red" if qoq > 0.5 else ("text-accent-green" if qoq < -0.5 else "text-dark-muted")
                 qoq_text = f"{qoq:+.2f}%"
             first = series[0]
+            row_cls = "hover:bg-dark-bg transition"
+            if it.get("is_parent"):
+                row_cls += " bg-dark-bg/40"
             return f"""
-<tr class="hover:bg-dark-bg transition">
+<tr class="{row_cls}">
   <td class="px-4 py-3 text-sm">
     <span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:{it['colour']}"></span>
     <span class="font-semibold text-dark-text">{_html.escape(it['label'])}</span>
@@ -636,10 +653,12 @@ def build(period: str) -> tuple[str, str | None]:
                 "labels": [r["month"] for r in items[0]["series"]],
                 "datasets": [
                     {
-                        "label": it["label"],
+                        "label": it["label"] + (f" ({it['coicop']})" if it.get("is_parent") else ""),
                         "data": [r["index"] for r in it["series"]],
                         "borderColor": it["colour"],
                         "backgroundColor": it["colour"] + "22",
+                        "borderDash": [6, 4] if it.get("is_parent") else [],
+                        "borderWidth": 3 if it.get("is_parent") else 2,
                     }
                     for it in items
                 ],
