@@ -529,6 +529,12 @@ def build(period: str) -> tuple[str, str | None]:
         # Prefer Destatis for the sub-category breakdown when available
         # (German national CPI is published ~3 months earlier than Eurostat
         # prc_hicp_midx, and its 5-digit COICOP coverage is more complete).
+        headline_source_label = (
+            f"Eurostat teicp010 · base 2025 = 100 · DE/EU27 last update "
+            f"{_html.escape(de.get('updated','')[:10])}"
+        )
+        headline_base_label = "2025 = 100"
+        headline_kpi_caption = "Eurostat teicp010 · 2025 = 100 base"
         if destatis:
             sub = _germany_sub_from_destatis(destatis)
             germany_drill = _germany_drilldowns_from_destatis(destatis)
@@ -538,6 +544,29 @@ def build(period: str) -> tuple[str, str | None]:
                 f"{sub_base_label}, latest "
                 f"{(sub[0]['latest']['month'] if sub else '—')}"
             )
+            # Override the headline DE figures with the Destatis CP01 series
+            # so all Germany data on the page comes from one consistent source
+            # (Destatis 61111-0004, base 2020 = 100, freshest publication).
+            cp01 = next((s for s in sub if s["coicop"] == "CP01"), None)
+            if cp01:
+                de = {
+                    **de,
+                    "series": cp01["series"],
+                    "latest": cp01["latest"],
+                    "yoy_pct": cp01["yoy_pct"],
+                    "mom_pct": cp01["mom_pct"],
+                    "base": sub_base_label,
+                    "dataset": "Destatis 61111-0004 (CP01)",
+                }
+                headline_source_label = (
+                    f"Destatis Genesis Online table 61111-0004 · CP01 Food &amp; "
+                    f"non-alcoholic beverages · base {sub_base_label} · latest "
+                    f"{_html.escape(de['latest']['month'])}"
+                )
+                headline_base_label = sub_base_label
+                headline_kpi_caption = (
+                    f"Destatis 61111-0004 · CP01 · {sub_base_label} base"
+                )
         else:
             sub = germany["subcategories"]
             germany_drill = germany.get("drilldowns") or {}
@@ -554,7 +583,7 @@ def build(period: str) -> tuple[str, str | None]:
 <div class="card text-center ring-2 ring-primary-blue/30 hover:shadow-xl-dark">
   <p class="text-sm font-medium text-dark-muted uppercase">DE Food Index ({_html.escape(de['latest']['month'])})</p>
   <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-primary-blue">{de['latest']['index']:.2f}</p>
-  <p class="text-xs text-gray-400 mt-1">Eurostat teicp010 · 2025 = 100 base</p>
+  <p class="text-xs text-gray-400 mt-1">{headline_kpi_caption}</p>
 </div>
 <div class="card text-center ring-2 ring-{('secondary-red' if (de['yoy_pct'] or 0) > 0 else 'accent-green')}/30">
   <p class="text-sm font-medium text-dark-muted uppercase">DE Food YoY</p>
@@ -567,9 +596,9 @@ def build(period: str) -> tuple[str, str | None]:
   <p class="text-xs text-gray-400 mt-1">vs. {_html.escape(de['series'][-2]['month'])}</p>
 </div>
 <div class="card text-center ring-2 ring-text-warning/30">
-  <p class="text-sm font-medium text-dark-muted uppercase">DE vs. EU YoY gap</p>
-  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-text-warning">{(de['yoy_pct'] - eu['yoy_pct']):+.2f}pp</p>
-  <p class="text-xs text-gray-400 mt-1">DE {de['yoy_pct']:+.1f}% vs EU {eu['yoy_pct']:+.1f}%</p>
+  <p class="text-sm font-medium text-dark-muted uppercase">DE Food QoQ</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-text-warning">{((de['series'][-1]['index'] / de['series'][-4]['index'] - 1) * 100) if len(de['series']) >= 4 and de['series'][-4]['index'] else 0:+.2f}%</p>
+  <p class="text-xs text-gray-400 mt-1">vs. {_html.escape(de['series'][-4]['month']) if len(de['series']) >= 4 else '—'}</p>
 </div>"""
 
         # Sub-category table — INDEX-FIRST layout (Latest Index is the
@@ -706,11 +735,10 @@ def build(period: str) -> tuple[str, str | None]:
         # JS payload for charts (a dict mapping canvas id -> chart data)
         meat_chart_js = json.dumps(drilldown_chart_data)
 
-        # Chart data: DE vs EU food index trend (12 months)
+        # Chart data: Germany food index trend (12 months) — single source.
         germany_chart_js = json.dumps({
             "labels": [r["month"] for r in de["series"]],
             "de":     [r["index"] for r in de["series"]],
-            "eu":     [r["index"] for r in eu["series"]],
         })
         # Sub-category bar charts — INDEX-FIRST so a food buyer can compare
         # absolute price levels at a glance; YoY % change available on hover.
@@ -729,7 +757,7 @@ def build(period: str) -> tuple[str, str | None]:
         <span class="text-2xl mr-3">🇩🇪</span> Germany Food Market
       </h2>
       <p class="text-xs text-dark-muted mb-6">
-        Headline trend: Eurostat <code>teicp010</code> · base 2025 = 100 · DE/EU27 last update {_html.escape(de.get('updated','')[:10])}.
+        Headline trend: {headline_source_label}.
         <br>Sub-category detail: {sub_source_label}.
       </p>
 
@@ -739,8 +767,8 @@ def build(period: str) -> tuple[str, str | None]:
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div>
-          <h3 class="text-lg font-bold text-dark-text mb-1">12-Month Trend: Germany vs EU27</h3>
-          <p class="text-xs text-dark-muted mb-3">Food &amp; non-alcoholic beverages (CP01)</p>
+          <h3 class="text-lg font-bold text-dark-text mb-1">12-Month Trend: Germany Food</h3>
+          <p class="text-xs text-dark-muted mb-3">Destatis 61111-0004 · CP01 Food &amp; non-alcoholic beverages · base {headline_base_label}</p>
           <div class="h-72"><canvas id="germanyTrendChart"></canvas></div>
         </div>
         <div>
@@ -773,15 +801,14 @@ def build(period: str) -> tuple[str, str | None]:
 """
 
         germany_chart_script = f"""
-  // --- Germany trend chart (DE vs EU27) ---
+  // --- Germany trend chart (Destatis CP01) ---
   const G = {germany_chart_js};
   new Chart(document.getElementById('germanyTrendChart'), {{
     type: 'line',
     data: {{
       labels: G.labels,
       datasets: [
-        {{ label: 'Germany', data: G.de, borderColor: '#FACC15', backgroundColor: 'rgba(250,204,21,0.18)', borderWidth: 3, tension: 0.3, pointRadius: 3, fill: false }},
-        {{ label: 'EU27',    data: G.eu, borderColor: '#60A5FA', backgroundColor: 'rgba(96,165,250,0.10)', borderWidth: 2, tension: 0.3, pointRadius: 2, fill: false, borderDash: [4,4] }},
+        {{ label: 'Germany — Food & non-alcoholic beverages (CP01)', data: G.de, borderColor: '#FACC15', backgroundColor: 'rgba(250,204,21,0.18)', borderWidth: 3, tension: 0.3, pointRadius: 3, fill: false }},
       ]
     }},
     options: {{
@@ -789,7 +816,7 @@ def build(period: str) -> tuple[str, str | None]:
       plugins: {{ legend: {{ labels: {{ color: '#94A3B8' }} }} }},
       scales: {{
         x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
-        y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }}, title: {{ display: true, text: 'Index (2025 = 100)', color: '#94A3B8' }} }}
+        y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }}, title: {{ display: true, text: 'Index ({headline_base_label})', color: '#94A3B8' }} }}
       }}
     }}
   }});
@@ -809,7 +836,8 @@ def build(period: str) -> tuple[str, str | None]:
           data: d.data,
           borderColor: d.borderColor,
           backgroundColor: d.backgroundColor,
-          borderWidth: 2,
+          borderWidth: d.borderWidth || 2,
+          borderDash: d.borderDash || [],
           tension: 0.3,
           pointRadius: 2,
           fill: false,

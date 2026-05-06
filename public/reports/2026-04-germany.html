@@ -56,7 +56,7 @@
         <span class="text-2xl mr-3">🇩🇪</span> Germany Food Market
       </h2>
       <p class="text-xs text-dark-muted mb-6">
-        Headline trend: Eurostat <code>teicp010</code> · base 2025 = 100 · DE/EU27 last update 2026-04-16.
+        Headline trend: Destatis Genesis Online table 61111-0004 · CP01 Food &amp; non-alcoholic beverages · base 2020 = 100 · latest Mar 2026.
         <br>Sub-category detail: Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
       </p>
 
@@ -64,30 +64,30 @@
         
 <div class="card text-center ring-2 ring-primary-blue/30 hover:shadow-xl-dark">
   <p class="text-sm font-medium text-dark-muted uppercase">DE Food Index (Mar 2026)</p>
-  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-primary-blue">101.52</p>
-  <p class="text-xs text-gray-400 mt-1">Eurostat teicp010 · 2025 = 100 base</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-primary-blue">138.00</p>
+  <p class="text-xs text-gray-400 mt-1">Destatis 61111-0004 · CP01 · 2020 = 100 base</p>
 </div>
 <div class="card text-center ring-2 ring-secondary-red/30">
   <p class="text-sm font-medium text-dark-muted uppercase">DE Food YoY</p>
-  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-secondary-red">+1.25%</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-secondary-red">+1.10%</p>
   <p class="text-xs text-gray-400 mt-1">vs. Apr 2025</p>
 </div>
 <div class="card text-center ring-2 ring-secondary-red/30">
   <p class="text-sm font-medium text-dark-muted uppercase">DE Food MoM</p>
-  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-secondary-red">+0.05%</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-secondary-red">+0.15%</p>
   <p class="text-xs text-gray-400 mt-1">vs. Feb 2026</p>
 </div>
 <div class="card text-center ring-2 ring-text-warning/30">
-  <p class="text-sm font-medium text-dark-muted uppercase">DE vs. EU YoY gap</p>
-  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-text-warning">-0.74pp</p>
-  <p class="text-xs text-gray-400 mt-1">DE +1.2% vs EU +2.0%</p>
+  <p class="text-sm font-medium text-dark-muted uppercase">DE Food QoQ</p>
+  <p class="text-2xl sm:text-3xl font-extrabold mt-1 text-text-warning">+1.10%</p>
+  <p class="text-xs text-gray-400 mt-1">vs. Dec 2025</p>
 </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div>
-          <h3 class="text-lg font-bold text-dark-text mb-1">12-Month Trend: Germany vs EU27</h3>
-          <p class="text-xs text-dark-muted mb-3">Food &amp; non-alcoholic beverages (CP01)</p>
+          <h3 class="text-lg font-bold text-dark-text mb-1">12-Month Trend: Germany Food</h3>
+          <p class="text-xs text-dark-muted mb-3">Destatis 61111-0004 · CP01 Food &amp; non-alcoholic beverages · base 2020 = 100</p>
           <div class="h-72"><canvas id="germanyTrendChart"></canvas></div>
         </div>
         <div>
@@ -1430,15 +1430,14 @@
   </div>
 <script>
   
-  // --- Germany trend chart (DE vs EU27) ---
-  const G = {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026"], "de": [100.27, 100.14, 99.64, 99.9, 100.23, 100.43, 100.44, 100.48, 100.41, 101.32, 101.47, 101.52], "eu": [99.73, 100.17, 100.26, 100.43, 100.49, 100.32, 100.52, 100.57, 100.58, 101.39, 101.64, 101.71]};
+  // --- Germany trend chart (Destatis CP01) ---
+  const G = {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026"], "de": [136.5, 136.5, 135.9, 136.2, 136.6, 136.8, 136.8, 136.8, 136.5, 137.7, 137.8, 138.0]};
   new Chart(document.getElementById('germanyTrendChart'), {
     type: 'line',
     data: {
       labels: G.labels,
       datasets: [
-        { label: 'Germany', data: G.de, borderColor: '#FACC15', backgroundColor: 'rgba(250,204,21,0.18)', borderWidth: 3, tension: 0.3, pointRadius: 3, fill: false },
-        { label: 'EU27',    data: G.eu, borderColor: '#60A5FA', backgroundColor: 'rgba(96,165,250,0.10)', borderWidth: 2, tension: 0.3, pointRadius: 2, fill: false, borderDash: [4,4] },
+        { label: 'Germany — Food & non-alcoholic beverages (CP01)', data: G.de, borderColor: '#FACC15', backgroundColor: 'rgba(250,204,21,0.18)', borderWidth: 3, tension: 0.3, pointRadius: 3, fill: false },
       ]
     },
     options: {
@@ -1446,7 +1445,7 @@
       plugins: { legend: { labels: { color: '#94A3B8' } } },
       scales: {
         x: { ticks: { color: '#94A3B8' }, grid: { color: '#334155' } },
-        y: { ticks: { color: '#94A3B8' }, grid: { color: '#334155' }, title: { display: true, text: 'Index (2025 = 100)', color: '#94A3B8' } }
+        y: { ticks: { color: '#94A3B8' }, grid: { color: '#334155' }, title: { display: true, text: 'Index (2020 = 100)', color: '#94A3B8' } }
       }
     }
   });
@@ -1466,7 +1465,8 @@
           data: d.data,
           borderColor: d.borderColor,
           backgroundColor: d.backgroundColor,
-          borderWidth: 2,
+          borderWidth: d.borderWidth || 2,
+          borderDash: d.borderDash || [],
           tension: 0.3,
           pointRadius: 2,
           fill: false,
