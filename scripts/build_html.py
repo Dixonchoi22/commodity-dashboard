@@ -779,24 +779,6 @@ def build(period: str) -> tuple[str, str | None]:
       </div>
 
       {meat_section_html}
-
-      <div class="overflow-x-auto">
-        <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Category Detail</h3>
-        <table class="min-w-full divide-y divide-gray-700">
-          <thead class="bg-dark-card border-b border-gray-700">
-            <tr>
-              <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Category</th>
-              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Latest Index</th>
-              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">As of</th>
-              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
-              <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
-            </tr>
-          </thead>
-          <tbody class="bg-dark-card divide-y divide-gray-700">
-            {sub_table_rows}
-          </tbody>
-        </table>
-      </div>
     </section>
 """
 
