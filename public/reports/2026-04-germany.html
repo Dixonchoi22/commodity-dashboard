@@ -36,118 +36,6 @@
   </style>
 </head>
 <body class="p-4 sm:p-8">
-
-<div data-cd-switcher class="cd-shell" style="margin: -1rem -1rem 1.5rem">
-  <style>
-    .cd-shell {
-      font-family: Inter, system-ui, sans-serif;
-      color: #F8FAFC;
-    }
-    @media (min-width: 640px) {
-      [data-cd-switcher].cd-shell { margin: -2rem -2rem 2rem !important; }
-    }
-    .cd-shell * { box-sizing: border-box; }
-    .cd-shell-header {
-      background: #1E293B;
-      border-bottom: 1px solid #334155;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .cd-header-inner {
-      max-width: 80rem; margin: 0 auto;
-      padding: 1rem 1.5rem;
-      display: flex; flex-wrap: wrap;
-      gap: 1rem 2rem;
-      align-items: center; justify-content: space-between;
-    }
-    .cd-title-block h1 {
-      font-size: 1.125rem; font-weight: 800; margin: 0;
-      background: linear-gradient(to right, #60A5FA, #93c5fd);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-      letter-spacing: -0.025em;
-    }
-    .cd-title-block .cd-subtitle {
-      color: #94A3B8; font-size: 0.75rem; margin: 2px 0 0;
-    }
-    .cd-period-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .cd-shell .period-btn {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      min-width: 130px;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      border: 1px solid rgba(96,165,250,0.3);
-      background: rgba(15,23,42,0.5);
-      color: #60A5FA;
-      font-family: inherit; font-size: 0.875rem; font-weight: 600;
-      cursor: pointer; text-decoration: none;
-      transition: all 0.15s;
-    }
-    .cd-shell .period-btn:hover { background: rgba(96,165,250,0.2); }
-    .cd-shell .period-btn.active {
-      background: #60A5FA; color: #0F172A; border-color: #60A5FA;
-      box-shadow: 0 4px 14px rgba(96,165,250,0.45);
-      transform: translateY(-1px);
-    }
-    .cd-shell .period-btn-month { font-size: 0.95rem; letter-spacing: -0.01em; }
-    .cd-shell .period-btn-hint {
-      font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.08em;
-      opacity: 0.75; margin-top: 2px; min-height: 0.75rem;
-    }
-    .cd-shell .period-btn.active .period-btn-hint { opacity: 1; }
-    .cd-viewing-banner {
-      background: linear-gradient(to right, rgba(96,165,250,0.12), rgba(96,165,250,0.02));
-      border-bottom: 1px solid rgba(96,165,250,0.25);
-      padding: 0.75rem 1.5rem;
-    }
-    .cd-viewing-inner {
-      max-width: 80rem; margin: 0 auto;
-      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-    }
-    .cd-viewing-tag {
-      display: inline-flex; align-items: center; gap: 0.375rem;
-      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #60A5FA;
-      background: rgba(96,165,250,0.18);
-      padding: 0.25rem 0.5rem; border-radius: 0.25rem;
-    }
-    .cd-viewing-tag::before {
-      content: ""; width: 6px; height: 6px; border-radius: 50%;
-      background: #4ADE80; box-shadow: 0 0 0 3px rgba(74,222,128,0.25);
-    }
-    .cd-viewing-title { font-size: 1rem; font-weight: 700; color: #F8FAFC; }
-    .cd-viewing-period {
-      font-size: 1.5rem; font-weight: 800; color: #60A5FA; letter-spacing: -0.02em;
-    }
-    .cd-viewing-meta { font-size: 0.75rem; color: #94A3B8; }
-    .cd-viewing-legacy {
-      display: inline-flex; align-items: center; gap: 0.375rem;
-      background: rgba(250,204,21,0.15); color: #FACC15;
-      border: 1px solid rgba(250,204,21,0.4);
-      padding: 0.2rem 0.5rem; border-radius: 0.25rem;
-      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-  </style>
-  <div class="cd-shell-header">
-    <div class="cd-header-inner">
-      <div class="cd-title-block">
-        <h1>Commodity Dashboard</h1>
-        <p class="cd-subtitle">Monthly intelligence</p>
-      </div>
-      
-    </div>
-  </div>
-  <div class="cd-viewing-banner">
-    <div class="cd-viewing-inner">
-      <span class="cd-viewing-tag">Now viewing</span>
-      <span class="cd-viewing-title">Commodity Intelligence: EU Outlook</span>
-      <span class="cd-viewing-period">April 2026</span>
-      <span class="cd-viewing-meta">European Union · MoM: March 2026 vs February 2026 · YoY: March 2026 vs March 2025</span>
-      
-    </div>
-  </div>
-</div><!--/cd-switcher-->
-
-
   <div class="max-w-7xl mx-auto">
 
     <header class="mb-5">
@@ -199,7 +87,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div>
           <h3 class="text-lg font-bold text-dark-text mb-1">12-Month Trend: Germany vs EU27</h3>
-          <p class="text-xs text-dark-muted mb-3">HICP Food index, base 2025 = 100</p>
+          <p class="text-xs text-dark-muted mb-3">Food &amp; non-alcoholic beverages (CP01)</p>
           <div class="h-72"><canvas id="germanyTrendChart"></canvas></div>
         </div>
         <div>
@@ -213,7 +101,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="wheat" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Bread &amp; cereals — Germany detail
+          Bread &amp; cereals (CP0111) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0111. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -233,6 +121,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -247,6 +136,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">130.6</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.53%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-6.85%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-6.18%</td>
 </tr>
 
@@ -259,6 +149,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">147.2</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.20%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.48%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.41%</td>
 </tr>
 
@@ -271,6 +162,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">140.2</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.29%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.86%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.82%</td>
 </tr>
 
@@ -282,6 +174,7 @@
   </td>
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">147.1</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.75%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.75%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.80%</td>
 </tr>
@@ -295,6 +188,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">134.1</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.51%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.28%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.89%</td>
 </tr>
 
@@ -307,6 +201,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">146.6</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.34%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.76%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.00%</td>
 </tr>
 
@@ -319,6 +214,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">131.3</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.31%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.96%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.06%</td>
 </tr>
 
@@ -331,6 +227,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">119.6</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.00%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.42%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.42%</td>
 </tr>
                 </tbody>
@@ -344,7 +241,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="beef" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Meat — Germany detail
+          Meat (CP0112) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0112. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -364,6 +261,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -378,6 +276,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">157.8</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.19%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.83%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+10.20%</td>
 </tr>
 
@@ -390,6 +289,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">136.6</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.29%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.44%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.63%</td>
 </tr>
 
@@ -402,6 +302,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">137.3</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.96%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.25%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+9.32%</td>
 </tr>
 
@@ -414,6 +315,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">152.0</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.33%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.81%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+7.34%</td>
 </tr>
 
@@ -426,6 +328,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">132.9</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.15%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.14%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+6.83%</td>
 </tr>
 
@@ -438,6 +341,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">127.8</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.71%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.27%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+5.53%</td>
 </tr>
                 </tbody>
@@ -451,7 +355,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="fish" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Fish &amp; seafood — Germany detail
+          Fish &amp; seafood (CP0113) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0113. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -471,6 +375,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -485,6 +390,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">137.9</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.03%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.06%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+5.11%</td>
 </tr>
 
@@ -497,6 +403,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">131.9</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.08%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.38%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.49%</td>
 </tr>
 
@@ -509,6 +416,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">116.2</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.00%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.43%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.85%</td>
 </tr>
 
@@ -521,6 +429,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">108.5</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.37%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.31%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.26%</td>
 </tr>
 
@@ -533,6 +442,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">130.4</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.11%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+5.16%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.60%</td>
 </tr>
 
@@ -545,6 +455,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">139.2</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.16%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.80%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.11%</td>
 </tr>
                 </tbody>
@@ -558,7 +469,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="milk" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Milk, cheese &amp; eggs — Germany detail
+          Milk, cheese &amp; eggs (CP0114) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0114. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -578,6 +489,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -592,6 +504,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">129.7</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.23%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.44%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-5.67%</td>
 </tr>
 
@@ -604,6 +517,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">131.1</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.46%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-2.02%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-7.42%</td>
 </tr>
 
@@ -616,6 +530,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">162.5</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.00%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.79%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.75%</td>
 </tr>
 
@@ -628,6 +543,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">135.5</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.74%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.44%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.74%</td>
 </tr>
 
@@ -640,6 +556,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">142.3</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.14%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.77%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-6.50%</td>
 </tr>
 
@@ -652,6 +569,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">136.3</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.44%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.30%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-3.40%</td>
 </tr>
 
@@ -664,6 +582,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">162.5</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.87%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+12.77%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+14.28%</td>
 </tr>
                 </tbody>
@@ -677,7 +596,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="droplet" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Oils &amp; fats — Germany detail
+          Oils &amp; fats (CP0115) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0115. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -697,6 +616,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -711,6 +631,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">109.8</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.95%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-3.00%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-26.70%</td>
 </tr>
 
@@ -723,6 +644,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">158.9</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.49%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.12%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+4.20%</td>
 </tr>
 
@@ -735,6 +657,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">157.0</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.77%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.51%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-8.29%</td>
 </tr>
 
@@ -747,6 +670,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">158.7</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.13%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.50%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.76%</td>
 </tr>
 
@@ -759,6 +683,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">150.0</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.40%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.83%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.27%</td>
 </tr>
                 </tbody>
@@ -772,7 +697,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="apple" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Fruit — Germany detail
+          Fruit (CP0116) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0116. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -792,6 +717,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -806,6 +732,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">124.8</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.30%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.14%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.96%</td>
 </tr>
 
@@ -818,6 +745,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">160.2</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.82%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.84%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+25.65%</td>
 </tr>
 
@@ -830,6 +758,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">134.9</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.45%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.22%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+6.22%</td>
 </tr>
 
@@ -842,6 +771,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">183.8</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.33%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.82%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+26.24%</td>
 </tr>
                 </tbody>
@@ -855,7 +785,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="leaf" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Vegetables — Germany detail
+          Vegetables (CP0117) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0117. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -875,6 +805,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -889,6 +820,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">137.0</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-2.84%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+6.61%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.29%</td>
 </tr>
 
@@ -901,6 +833,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">155.1</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.11%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.17%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.88%</td>
 </tr>
 
@@ -913,6 +846,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">148.2</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.13%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.20%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.37%</td>
 </tr>
 
@@ -925,6 +859,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">112.6</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.59%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.49%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-17.08%</td>
 </tr>
 
@@ -937,6 +872,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">143.8</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.93%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.51%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-2.38%</td>
 </tr>
                 </tbody>
@@ -950,7 +886,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="candy" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Sugar &amp; confectionery — Germany detail
+          Sugar &amp; confectionery (CP0118) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0118. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -970,6 +906,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -984,6 +921,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">132.4</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.97%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.41%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.77%</td>
 </tr>
 
@@ -996,6 +934,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">130.9</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.69%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.87%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+5.74%</td>
 </tr>
 
@@ -1008,6 +947,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">173.9</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.00%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.87%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+8.21%</td>
 </tr>
 
@@ -1020,6 +960,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">138.5</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.29%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.07%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+5.73%</td>
 </tr>
 
@@ -1032,6 +973,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">130.8</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.08%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.79%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.15%</td>
 </tr>
                 </tbody>
@@ -1045,7 +987,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="coffee" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Coffee, tea &amp; cocoa — Germany detail
+          Coffee, tea &amp; cocoa (CP0121) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0121. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -1065,6 +1007,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -1079,6 +1022,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">154.4</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-0.58%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.58%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+13.28%</td>
 </tr>
 
@@ -1091,6 +1035,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">121.7</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.16%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.25%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.79%</td>
 </tr>
 
@@ -1103,6 +1048,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">176.6</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">-0.23%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+1.26%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+6.51%</td>
 </tr>
                 </tbody>
@@ -1116,7 +1062,7 @@
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="cup-soda" class="w-5 h-5 text-primary-blue mr-2"></i>
-          Waters, soft drinks &amp; juices — Germany detail
+          Waters, soft drinks &amp; juices (CP0122) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of CP0122. Destatis Genesis Online table 61111-0004, base 2020 = 100, latest Mar 2026.
@@ -1136,6 +1082,7 @@
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -1150,6 +1097,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">133.5</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.23%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+0.75%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.38%</td>
 </tr>
 
@@ -1162,6 +1110,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">134.9</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+2.04%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.30%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-secondary-red">+3.61%</td>
 </tr>
 
@@ -1174,6 +1123,7 @@
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">151.8</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">Apr 2025 → Mar 2026</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-dark-muted">+0.20%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-1.11%</td>
   <td class="px-4 py-3 text-right text-sm font-bold text-accent-green">-3.56%</td>
 </tr>
                 </tbody>
@@ -1185,11 +1135,11 @@
 
 
       <div class="overflow-x-auto">
-        <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Sub-category Detail</h3>
+        <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Category Detail</h3>
         <table class="min-w-full divide-y divide-gray-700">
           <thead class="bg-dark-card border-b border-gray-700">
             <tr>
-              <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Sub-category</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Category</th>
               <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Latest Index</th>
               <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">As of</th>
               <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>

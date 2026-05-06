@@ -599,9 +599,18 @@ def build(period: str) -> tuple[str, str | None]:
         def drilldown_table_row(it):
             yoy = it.get("yoy_pct") or 0
             mom = it.get("mom_pct") or 0
+            series = it["series"]
+            qoq = None
+            if len(series) >= 4 and series[-4]["index"]:
+                qoq = (series[-1]["index"] / series[-4]["index"] - 1) * 100
             yoy_tone = "text-secondary-red" if yoy > 0.5 else ("text-accent-green" if yoy < -0.5 else "text-dark-muted")
             mom_tone = "text-secondary-red" if mom > 0.5 else ("text-accent-green" if mom < -0.5 else "text-dark-muted")
-            first = it["series"][0]
+            qoq_tone = "text-dark-muted"
+            qoq_text = "—"
+            if qoq is not None:
+                qoq_tone = "text-secondary-red" if qoq > 0.5 else ("text-accent-green" if qoq < -0.5 else "text-dark-muted")
+                qoq_text = f"{qoq:+.2f}%"
+            first = series[0]
             return f"""
 <tr class="hover:bg-dark-bg transition">
   <td class="px-4 py-3 text-sm">
@@ -612,6 +621,7 @@ def build(period: str) -> tuple[str, str | None]:
   <td class="px-4 py-3 text-right text-sm font-mono text-dark-text">{it['latest']['index']:.1f}</td>
   <td class="px-4 py-3 text-right text-sm text-dark-muted">{_html.escape(first['month'])} → {_html.escape(it['latest']['month'])}</td>
   <td class="px-4 py-3 text-right text-sm font-bold {mom_tone}">{mom:+.2f}%</td>
+  <td class="px-4 py-3 text-right text-sm font-bold {qoq_tone}">{qoq_text}</td>
   <td class="px-4 py-3 text-right text-sm font-bold {yoy_tone}">{yoy:+.2f}%</td>
 </tr>"""
 
@@ -640,7 +650,7 @@ def build(period: str) -> tuple[str, str | None]:
       <div class="mt-10 pt-6 border-t border-gray-700">
         <h3 class="text-xl font-bold text-dark-text mb-1 flex items-center">
           <i data-lucide="{icon}" class="w-5 h-5 text-primary-blue mr-2"></i>
-          {_html.escape(group['parent_label'])} — Germany detail
+          {_html.escape(group['parent_label'])} ({_html.escape(parent_code)}) — Germany detail
         </h3>
         <p class="text-xs text-dark-muted mb-4">
           5-digit COICOP breakdown of {_html.escape(parent_code)}. {sub_source_label}.
@@ -660,6 +670,7 @@ def build(period: str) -> tuple[str, str | None]:
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Index</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Range</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">QoQ</th>
                     <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">YoY</th>
                   </tr>
                 </thead>
@@ -710,7 +721,7 @@ def build(period: str) -> tuple[str, str | None]:
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div>
           <h3 class="text-lg font-bold text-dark-text mb-1">12-Month Trend: Germany vs EU27</h3>
-          <p class="text-xs text-dark-muted mb-3">HICP Food index, base 2025 = 100</p>
+          <p class="text-xs text-dark-muted mb-3">Food &amp; non-alcoholic beverages (CP01)</p>
           <div class="h-72"><canvas id="germanyTrendChart"></canvas></div>
         </div>
         <div>
@@ -723,11 +734,11 @@ def build(period: str) -> tuple[str, str | None]:
       {meat_section_html}
 
       <div class="overflow-x-auto">
-        <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Sub-category Detail</h3>
+        <h3 class="text-lg font-bold text-dark-text mb-3">Germany Food: Category Detail</h3>
         <table class="min-w-full divide-y divide-gray-700">
           <thead class="bg-dark-card border-b border-gray-700">
             <tr>
-              <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Sub-category</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-dark-muted uppercase tracking-wider">Category</th>
               <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">Latest Index</th>
               <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">As of</th>
               <th class="px-4 py-3 text-right text-xs font-medium text-dark-muted uppercase tracking-wider">MoM</th>
