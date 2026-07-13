@@ -581,17 +581,28 @@ def main() -> None:
             germany_path.write_text(inject_shell(g_original, banner), encoding="utf-8")
             print(f"  patched {germany_path.relative_to(ROOT)}")
 
-    # 2 · Build the standalone quarter-picker landing menu.
-    INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
-    INDEX_OUT.write_text(build_index(reports, default_slug), encoding="utf-8")
-    print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (quarter-picker menu, {len(reports)} card(s))")
-
-    # 3 · Regenerate the redesigned SPA's data blob (app.html reads it).
+    # 2 · Regenerate the redesigned SPA's data blob (app.html reads it).
     try:
         import build_app_data
         build_app_data.main()
     except Exception as exc:  # pragma: no cover - keep menu build resilient
         print(f"  (skipped app-data build: {exc})")
+
+    # 3 · The redesigned SPA is the site landing: index.html mirrors app.html
+    #     (GitHub Pages serves public/reports/ as the site root).
+    INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
+    app_path = REPORTS_DIR / "app.html"
+    if app_path.exists():
+        INDEX_OUT.write_text(app_path.read_text(encoding="utf-8"), encoding="utf-8")
+        print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (mirror of app.html — redesigned landing)")
+    else:
+        INDEX_OUT.write_text(build_index(reports, default_slug), encoding="utf-8")
+        print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (quarter-picker menu fallback)")
+
+    # Classic card menu retained for reference (not the landing).
+    (REPORTS_DIR / "menu-classic.html").write_text(
+        build_index(reports, default_slug), encoding="utf-8")
+    print("Wrote public/reports/menu-classic.html (legacy card menu)")
 
 
 if __name__ == "__main__":

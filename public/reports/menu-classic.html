@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commodity Dashboard — Quarterly Reports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F172A; --card: #1E293B; --border: #334155;
+      --text: #F8FAFC; --muted: #94A3B8; --blue: #60A5FA;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 80rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    header.page-head { margin-bottom: 2.5rem; }
+    .page-head h1 {
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin: 0;
+      letter-spacing: -0.03em;
+      background: linear-gradient(to right, var(--blue), #93c5fd);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .page-head p { color: var(--muted); font-size: 1.05rem; margin: 0.6rem 0 0; }
+    .page-head .count {
+      display: inline-block; margin-top: 1rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--blue);
+      background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.3);
+      padding: 0.3rem 0.7rem; border-radius: 0.4rem;
+    }
+    .year-block { margin-bottom: 2.5rem; }
+    .year-heading {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 0 0 1rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-grid {
+      display: grid; gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+    .card {
+      display: flex; flex-direction: column; gap: 0.75rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 1rem; padding: 1.5rem; text-decoration: none;
+      color: inherit; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .card:hover {
+      transform: translateY(-3px); border-color: rgba(96,165,250,0.6);
+      box-shadow: 0 24px 34px -8px rgba(0,0,0,0.45);
+    }
+    .card-top { display: flex; align-items: center; gap: 0.5rem; }
+    .card-quarter {
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      color: #0F172A; background: var(--blue);
+      padding: 0.25rem 0.6rem; border-radius: 0.4rem;
+    }
+    .card-latest {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #4ADE80;
+      background: rgba(74,222,128,0.15); border: 1px solid rgba(74,222,128,0.4);
+      padding: 0.2rem 0.45rem; border-radius: 0.3rem;
+    }
+    .card-legacy {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #FACC15;
+      background: rgba(250,204,21,0.15); border: 1px solid rgba(250,204,21,0.4);
+      padding: 0.2rem 0.45rem; border-radius: 0.3rem;
+    }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin: 0; }
+    .card-sub { display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; align-items: baseline; }
+    .card-period { font-size: 0.95rem; font-weight: 700; color: var(--blue); }
+    .card-region { font-size: 0.8rem; color: var(--muted); }
+    .card-glance {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      padding: 0.7rem 0.85rem; border-radius: 0.6rem;
+      background: rgba(15,23,42,0.55); border: 1px solid var(--border);
+    }
+    .g-item { display: flex; flex-direction: column; gap: 0.15rem; flex: 1 1 45%; min-width: 130px; }
+    .g-k {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .g-hint { font-weight: 600; letter-spacing: 0.02em; opacity: 0.7; }
+    .g-v { font-size: 1.05rem; font-weight: 800; color: var(--text); display: flex; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }
+    .g-delta { font-size: 0.8rem; font-weight: 700; font-style: normal; }
+    .g-delta.up { color: #F87171; }     /* price up = risk (warm) */
+    .g-delta.down { color: #4ADE80; }   /* price down = opportunity (cool) */
+    .g-sep { color: var(--muted); font-weight: 400; }
+    .card-trend {
+      font-size: 0.85rem; line-height: 1.5; color: #CBD5E1; margin: 0;
+    }
+    .card-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .chip {
+      font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem;
+      border-radius: 0.3rem; border: 1px solid transparent;
+    }
+    .card-cta {
+      margin-top: auto; padding-top: 0.4rem;
+      font-size: 0.85rem; font-weight: 700; color: var(--blue);
+    }
+    footer.page-foot {
+      margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Procurement PMO - Europe</h1>
+      <p>Strategic Procurement &amp; Logistics &middot; Commodity Dashboard</p>
+      <span class="count">2 quarter(s) available</span>
+    </header>
+    <section class="year-block"><h2 class="year-heading">2026</h2><div class="card-grid">
+      <a class="card" href="2026-07.html">
+        <div class="card-top">
+          <span class="card-quarter">Q3 2026</span>
+          <span class="card-latest">Latest</span>
+        </div>
+        <h2 class="card-title">Commodity Intelligence: EU Outlook</h2>
+        <div class="card-sub">
+          <span class="card-period">July 2026</span>
+          <span class="card-region">European Union</span>
+        </div>
+        <div class="card-glance"><div class="g-item"><span class="g-k">EU Food HICP</span><span class="g-v">101.7 <em class="g-delta up">▲ +1.5% YoY</em></span></div><div class="g-item"><span class="g-k">Risks / Opportunities <span class="g-hint">(YoY &plusmn;25%)</span></span><span class="g-v"><em class="g-delta up">&#9650; 17 risk</em><span class="g-sep">&middot;</span><em class="g-delta down">&#9660; 21 opp</em></span></div></div>
+        <p class="card-trend">The EU Food HICP index (Eurostat teicp010) sat at 101.74 in May 2026 (base 2025 = 100), with YoY food inflation easing further to +1.48% — down from +1.99% in the April report and comfortably below the mid-2025 peak. The calm headline ma…</p>
+        <div class="card-chips"><span class="chip" style="color:#F87171;background:rgba(248,113,113,0.15);border-color:#F8717155">Extreme price risk</span><span class="chip" style="color:#4ADE80;background:rgba(74,222,128,0.15);border-color:#4ADE8055">Major opportunity</span><span class="chip" style="color:#60A5FA;background:rgba(96,165,250,0.15);border-color:#60A5FA55">Grains &amp; seafood softening</span></div>
+        <span class="card-cta">Open full report &rarr;</span>
+      </a>
+      <a class="card" href="2026-04.html">
+        <div class="card-top">
+          <span class="card-quarter">Q2 2026</span>
+          
+        </div>
+        <h2 class="card-title">Commodity Intelligence: EU Outlook</h2>
+        <div class="card-sub">
+          <span class="card-period">April 2026</span>
+          <span class="card-region">European Union</span>
+        </div>
+        <div class="card-glance"><div class="g-item"><span class="g-k">EU Food HICP</span><span class="g-v">101.7 <em class="g-delta up">▲ +2.0% YoY</em></span></div><div class="g-item"><span class="g-k">Risks / Opportunities <span class="g-hint">(YoY &plusmn;25%)</span></span><span class="g-v"><em class="g-delta up">&#9650; 15 risk</em><span class="g-sep">&middot;</span><em class="g-delta down">&#9660; 17 opp</em></span></div></div>
+        <p class="card-trend">The EU Food HICP index (Eurostat teicp010) reached 101.71 in March 2026 (base 2025 = 100), with YoY food inflation easing to +1.99% — the lowest reading since early 2024 and well below the +3.4% mid-2025 peak. The cooling headline rate m…</p>
+        <div class="card-chips"><span class="chip" style="color:#F87171;background:rgba(248,113,113,0.15);border-color:#F8717155">Extreme price risk</span><span class="chip" style="color:#4ADE80;background:rgba(74,222,128,0.15);border-color:#4ADE8055">Major opportunity</span><span class="chip" style="color:#60A5FA;background:rgba(96,165,250,0.15);border-color:#60A5FA55">Energy spillover</span></div>
+        <span class="card-cta">Open full report &rarr;</span>
+      </a></div></section>
+    <footer class="page-foot">
+      Pick a quarter above to open its full report. Data source: Expana
+      (Mintec) Commodity Price Change Overview Report, Eurostat &amp; Destatis.
+    </footer>
+  </div>
+</body>
+</html>
