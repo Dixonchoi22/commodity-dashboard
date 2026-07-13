@@ -72,6 +72,36 @@ def load_meta(slug: str) -> dict:
     return {}
 
 
+def _load_json(slug: str, name: str):
+    path = ROOT / "data" / slug / name
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
+    return None
+
+
+def glance_stats(slug: str) -> dict:
+    """Compact 'at a glance' numbers for a quarter card: EU Food HICP level
+    + YoY, and how many commodities are big risks (YoY >= +25%) vs
+    opportunities (YoY <= -25%)."""
+    hicp = _load_json(slug, "hicp_index.json") or {}
+    commodities = _load_json(slug, "commodities.json") or {}
+    rows = commodities.get("rows", []) if isinstance(commodities, dict) else []
+
+    def _num(v):
+        return v if isinstance(v, (int, float)) else None
+
+    risks = sum(1 for r in rows if (_num(r.get("yoy_pct")) or 0) >= 25)
+    opps = sum(1 for r in rows if (_num(r.get("yoy_pct")) or 0) <= -25)
+    return {
+        "hicp_level": hicp.get("latest_index"),
+        "hicp_month": hicp.get("latest_month"),
+        "hicp_yoy": hicp.get("yoy_pct_last_12"),
+        "risks": risks,
+        "opps": opps,
+        "n": len(rows),
+    }
+
+
 # --------------------------------------------------------------------------- #
 # In-report switcher shell
 # --------------------------------------------------------------------------- #
@@ -322,6 +352,35 @@ def _card_html(r: dict, is_latest: bool) -> str:
         f'<span class="card-region">{_html.escape(region)}</span>' if region else ""
     )
 
+    # --- "At a glance" strip: HICP level + YoY (diverging: up=risk warm,
+    # down=opportunity cool) and a risk/opportunity commodity count. ---
+    g = glance_stats(slug)
+    glance_html = ""
+    if not legacy and (g["hicp_level"] is not None or g["n"]):
+        items = []
+        if g["hicp_level"] is not None:
+            yoy = g["hicp_yoy"]
+            if isinstance(yoy, (int, float)):
+                up = yoy >= 0
+                arrow = "▲" if up else "▼"
+                cls = "up" if up else "down"
+                yoy_html = f'<em class="g-delta {cls}">{arrow} {yoy:+.1f}% YoY</em>'
+            else:
+                yoy_html = ""
+            items.append(
+                f'<div class="g-item"><span class="g-k">EU Food HICP</span>'
+                f'<span class="g-v">{g["hicp_level"]:.1f} {yoy_html}</span></div>'
+            )
+        if g["n"]:
+            items.append(
+                f'<div class="g-item"><span class="g-k">Risks / Opportunities '
+                f'<span class="g-hint">(YoY &plusmn;25%)</span></span>'
+                f'<span class="g-v"><em class="g-delta up">&#9650; {g["risks"]} risk</em>'
+                f'<span class="g-sep">&middot;</span>'
+                f'<em class="g-delta down">&#9660; {g["opps"]} opp</em></span></div>'
+            )
+        glance_html = f'<div class="card-glance">{"".join(items)}</div>'
+
     return f"""
       <a class="card" href="{_html.escape(href)}">
         <div class="card-top">
@@ -333,6 +392,7 @@ def _card_html(r: dict, is_latest: bool) -> str:
           <span class="card-period">{_html.escape(period)}</span>
           {region_html}
         </div>
+        {glance_html}
         {trend_html}
         {chips_html}
         <span class="card-cta">Open full report &rarr;</span>
@@ -442,6 +502,22 @@ def build_index(reports: list[dict], default_slug: str) -> str:
     .card-sub {{ display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; align-items: baseline; }}
     .card-period {{ font-size: 0.95rem; font-weight: 700; color: var(--blue); }}
     .card-region {{ font-size: 0.8rem; color: var(--muted); }}
+    .card-glance {{
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      padding: 0.7rem 0.85rem; border-radius: 0.6rem;
+      background: rgba(15,23,42,0.55); border: 1px solid var(--border);
+    }}
+    .g-item {{ display: flex; flex-direction: column; gap: 0.15rem; flex: 1 1 45%; min-width: 130px; }}
+    .g-k {{
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted);
+    }}
+    .g-hint {{ font-weight: 600; letter-spacing: 0.02em; opacity: 0.7; }}
+    .g-v {{ font-size: 1.05rem; font-weight: 800; color: var(--text); display: flex; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }}
+    .g-delta {{ font-size: 0.8rem; font-weight: 700; font-style: normal; }}
+    .g-delta.up {{ color: #F87171; }}     /* price up = risk (warm) */
+    .g-delta.down {{ color: #4ADE80; }}   /* price down = opportunity (cool) */
+    .g-sep {{ color: var(--muted); font-weight: 400; }}
     .card-trend {{
       font-size: 0.85rem; line-height: 1.5; color: #CBD5E1; margin: 0;
     }}
