@@ -72,40 +72,43 @@ def mean(vals):
 
 
 # ------------------------------------------------------------------ forecast
-_STOP = {"the", "of", "and", "ice", "cme", "cbot", "eu", "us", "uk", "usd",
-         "eur", "gbp", "mt", "l", "n", "per", "kg", "tonne", "index"}
+# Curated forecast code -> exact commodity name (mirrors build_html.py's
+# FORECAST_CODE_TO_SUMMARY_NAME). Loose token matching produced wrong curves
+# (e.g. Cocoa Bean ICE New York -> London curve, Rapeseed Oil Canada ->
+# Rotterdam curve), so we map by the Mintec code, not by name similarity.
+# Extend this when new codes appear in forecast.xlsx.
+FORECAST_CODE_TO_NAME = {
+    "COCL": "Cocoa Bean ICE London",
+    "COFN": "Arabica Coffee ICE New York",
+    "WHT2": "Wheat Euronext",
+    "CRNP": "Maize Euronext",
+    "RSOR": "Rapeseed Oil EU",
+    "SG11": "Sugar ICE #11 New York",
+    "BUTH": "Butter EU",
+    "MDC2": "Beef EU",
+    "BY18": "Chicken EU",
+    "BW19": "Pork EU",
+    "J114": "Gouda EU",
+    "ED24": "Milk EU",
+}
 
 
-def _tokens(s: str) -> set[str]:
-    return {t for t in re.findall(r"[a-z]+", s.lower()) if t not in _STOP and len(t) > 2}
-
-
-def build_forecast_index(forecast: dict) -> list[dict]:
-    out = []
+def build_forecast_by_name(forecast: dict) -> dict:
+    """Map lowercased commodity name -> downsampled forward curve, using the
+    curated code map (no fuzzy matching)."""
+    out = {}
     for c in (forecast or {}).get("commodities", []):
-        desc = c.get("description") or c.get("label") or ""
+        target = FORECAST_CODE_TO_NAME.get(c.get("code"))
+        if not target:
+            continue
         pts = c.get("points", [])
-        # downsample to ~50 points to keep the payload small
-        step = max(1, len(pts) // 50)
-        thin = [{"d": p["date"], "v": p["value"]} for p in pts[::step]]
-        out.append({"tokens": _tokens(desc), "desc": desc,
-                    "unit": c.get("unit", ""), "points": thin})
+        step = max(1, len(pts) // 50)  # ~50 points keeps the payload small
+        out[target.lower()] = {
+            "desc": c.get("description") or c.get("label") or target,
+            "unit": c.get("unit", ""),
+            "points": [{"d": p["date"], "v": p["value"]} for p in pts[::step]],
+        }
     return out
-
-
-def match_forecast(name: str, fidx: list[dict]):
-    nt = _tokens(name)
-    if not nt:
-        return None
-    best, best_score = None, 0
-    for f in fidx:
-        score = len(nt & f["tokens"])
-        if score > best_score:
-            best, best_score = f, score
-    # require a solid overlap so we don't attach a wrong curve
-    if best and best_score >= 2:
-        return {"desc": best["desc"], "unit": best["unit"], "points": best["points"]}
-    return None
 
 
 # ------------------------------------------------------------------ germany
@@ -177,7 +180,7 @@ def build_report(slug: str) -> dict:
     commentary = (load(slug, "commentary.json") or {}).get("entries", [])
     destatis = load(slug, "destatis.json")
     forecast = load(slug, "forecast.json")
-    fidx = build_forecast_index(forecast)
+    fmap = build_forecast_by_name(forecast)
 
     # commentary lookup by canonical name (fall back to raw name)
     cmap = {}
@@ -190,7 +193,7 @@ def build_report(slug: str) -> dict:
     for r in commodities:
         name = r.get("name", "")
         c = cmap.get(name)
-        fc = match_forecast(name, fidx)
+        fc = fmap.get(name.lower())
         rows.append({
             "category": r.get("category", "Other"),
             "name": name,
