@@ -1,18 +1,21 @@
-"""Build the master dashboard wiring across period reports.
+"""Build the master dashboard: a quarter-picker landing menu + in-report switcher.
 
-For each period HTML under public/reports/, inject the master shell
-(Commodity Dashboard header + period switcher + "Now viewing" banner)
-right after <body>. The shell's period buttons are <a href> sibling
-links, so clicking is a normal full-page navigation — no iframes, no
-srcdoc, no compositor "duplicated header" ghost bugs.
+Two things get produced:
 
-When there is only ONE period in the manifest, the switcher buttons
-collapse to nothing (just the title + viewing banner), keeping the
-page clean.
+1. **In-report switcher shell** — injected right after ``<body>`` of every
+   period HTML under ``public/reports/``. It shows the "Commodity Dashboard"
+   header, an "All quarters" link back to the menu, a row of quarter buttons
+   (sibling ``<a href>`` links, normal full-page navigation — no iframes),
+   and a "Now viewing" banner. With only one quarter the button row collapses.
 
-public/reports/index.html is a verbatim copy of the latest period
-file (with shell already injected) so /reports/ lands directly on the
-full dashboard with no redirect flash and no iframe orchestration.
+2. **Landing menu** — ``public/reports/index.html`` is a standalone page that
+   lists every registered quarter as a card (quarter badge, title, region,
+   trend snippet, highlight chips, "Open full report"). This is the page the
+   GitHub Pages root URL lands on, so users pick a quarter first.
+
+Reports are keyed by a ``YYYY-MM`` slug (the cover month of the Expana PDF).
+The month maps to a calendar quarter: Jan–Mar → Q1, Apr–Jun → Q2,
+Jul–Sep → Q3, Oct–Dec → Q4.
 
 Usage:
   python scripts/build_dashboard.py
@@ -31,34 +34,53 @@ INDEX_OUT = REPORTS_DIR / "index.html"
 
 SWITCHER_MARKER = "data-cd-switcher"
 
+_MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+]
+
 
 def month_label(slug: str) -> str:
-    months = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December",
-    ]
     try:
         y, m = slug.split("-")
-        return f"{months[int(m) - 1]} {y}"
+        return f"{_MONTHS[int(m) - 1]} {y}"
     except Exception:
         return slug
+
+
+def quarter_of(slug: str) -> tuple[int, int]:
+    """Return (year, quarter) for a YYYY-MM slug. Falls back to (0, 0)."""
+    try:
+        y, m = slug.split("-")
+        return int(y), (int(m) - 1) // 3 + 1
+    except Exception:
+        return 0, 0
+
+
+def quarter_label(slug: str) -> str:
+    """'2026-04' -> 'Q2 2026'. Falls back to the raw slug."""
+    y, q = quarter_of(slug)
+    if not y:
+        return slug
+    return f"Q{q} {y}"
 
 
 def load_meta(slug: str) -> dict:
     path = ROOT / "data" / slug / "meta.json"
     if path.exists():
-        return json.loads(path.read_text())
+        return json.loads(path.read_text(encoding="utf-8"))
     return {}
 
 
+# --------------------------------------------------------------------------- #
+# In-report switcher shell
+# --------------------------------------------------------------------------- #
 def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
-    """Render the master shell (header + viewing banner) for the given
+    """Master shell (header + quarter switcher + viewing banner) for one
     active period. Sibling-file <a href> buttons — full-page navigation."""
     active_meta = load_meta(active_slug)
     n = len(reports)
 
-    # Period switcher — collapse entirely when there's only one report,
-    # since there's nothing to switch to.
     if n > 1:
         btns = []
         for r in reports:
@@ -72,13 +94,13 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
                 f'<a class="period-btn{active_cls}" href="{_html.escape(href)}" '
                 f'data-slug="{_html.escape(slug)}" '
                 f'aria-current="{"page" if is_active else "false"}">'
-                f'<span class="period-btn-month">{_html.escape(month_label(slug))}</span>'
+                f'<span class="period-btn-month">{_html.escape(quarter_label(slug))}</span>'
                 f'<span class="period-btn-hint">{_html.escape(hint)}</span>'
                 f"</a>"
             )
         period_bar_html = (
             f'<div class="cd-period-bar" role="tablist" '
-            f'aria-label="Select report period">{"".join(btns)}</div>'
+            f'aria-label="Select report quarter">{"".join(btns)}</div>'
         )
     else:
         period_bar_html = ""
@@ -98,9 +120,10 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
         '<span class="cd-viewing-legacy">Legacy snapshot</span>' if legacy else ""
     )
     subtitle = (
-        f"Monthly intelligence · {n} report(s) available" if n > 1
-        else "Monthly intelligence"
+        f"Quarterly intelligence · {n} report(s) available" if n > 1
+        else "Quarterly intelligence"
     )
+    quarter_badge = quarter_label(active_slug)
 
     return f"""
 <div {SWITCHER_MARKER} class="cd-shell" style="margin: -1rem -1rem 1.5rem">
@@ -125,6 +148,15 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
       gap: 1rem 2rem;
       align-items: center; justify-content: space-between;
     }}
+    .cd-title-block {{ display: flex; align-items: center; gap: 1rem; }}
+    .cd-home-link {{
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.75rem; font-weight: 600; text-decoration: none;
+      color: #60A5FA; border: 1px solid rgba(96,165,250,0.3);
+      background: rgba(15,23,42,0.5); padding: 0.4rem 0.7rem;
+      border-radius: 0.5rem; transition: all 0.15s; white-space: nowrap;
+    }}
+    .cd-home-link:hover {{ background: rgba(96,165,250,0.2); }}
     .cd-title-block h1 {{
       font-size: 1.125rem; font-weight: 800; margin: 0;
       background: linear-gradient(to right, #60A5FA, #93c5fd);
@@ -137,7 +169,7 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
     .cd-period-bar {{ display: flex; gap: 0.5rem; flex-wrap: wrap; }}
     .cd-shell .period-btn {{
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      min-width: 130px;
+      min-width: 120px;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
       border: 1px solid rgba(96,165,250,0.3);
@@ -179,6 +211,11 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
       content: ""; width: 6px; height: 6px; border-radius: 50%;
       background: #4ADE80; box-shadow: 0 0 0 3px rgba(74,222,128,0.25);
     }}
+    .cd-viewing-quarter {{
+      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #0F172A; background: #60A5FA;
+      padding: 0.25rem 0.5rem; border-radius: 0.25rem;
+    }}
     .cd-viewing-title {{ font-size: 1rem; font-weight: 700; color: #F8FAFC; }}
     .cd-viewing-period {{
       font-size: 1.5rem; font-weight: 800; color: #60A5FA; letter-spacing: -0.02em;
@@ -196,8 +233,11 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
   <div class="cd-shell-header">
     <div class="cd-header-inner">
       <div class="cd-title-block">
-        <h1>Commodity Dashboard</h1>
-        <p class="cd-subtitle">{subtitle}</p>
+        <a class="cd-home-link" href="index.html" title="Back to all quarters">&larr; All quarters</a>
+        <div>
+          <h1>Procurement PMO - Europe</h1>
+          <p class="cd-subtitle">Strategic Procurement &amp; Logistics &middot; {subtitle}</p>
+        </div>
       </div>
       {period_bar_html}
     </div>
@@ -205,6 +245,7 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
   <div class="cd-viewing-banner">
     <div class="cd-viewing-inner">
       <span class="cd-viewing-tag">Now viewing</span>
+      <span class="cd-viewing-quarter">{_html.escape(quarter_badge)}</span>
       <span class="cd-viewing-title">{_html.escape(title)}</span>
       <span class="cd-viewing-period">{_html.escape(period)}</span>
       <span class="cd-viewing-meta">{meta_str}</span>
@@ -240,14 +281,212 @@ def inject_shell(period_html: str, banner: str) -> str:
     return new_html
 
 
+# --------------------------------------------------------------------------- #
+# Landing menu (index.html)
+# --------------------------------------------------------------------------- #
+_HL_TONES = {
+    "red":   ("#F87171", "rgba(248,113,113,0.15)"),
+    "green": ("#4ADE80", "rgba(74,222,128,0.15)"),
+    "blue":  ("#60A5FA", "rgba(96,165,250,0.15)"),
+}
+
+
+def _card_html(r: dict, is_latest: bool) -> str:
+    slug = r["slug"]
+    href = Path(r["html"]).name
+    meta = load_meta(slug)
+    title = meta.get("title", r.get("title", "Commodity Intelligence"))
+    period = meta.get("period", r.get("period", month_label(slug)))
+    region = meta.get("region", r.get("region", ""))
+    qlabel = quarter_label(slug)
+    legacy = bool(meta.get("legacy"))
+    trend = (meta.get("trend_analysis") or "").strip()
+    if len(trend) > 240:
+        trend = trend[:237].rstrip() + "…"
+
+    latest_ribbon = '<span class="card-latest">Latest</span>' if is_latest else ""
+    legacy_ribbon = '<span class="card-legacy">Legacy</span>' if legacy else ""
+
+    chips = []
+    for h in meta.get("highlights", [])[:3]:
+        colour, bg = _HL_TONES.get(h.get("tone", "blue"), _HL_TONES["blue"])
+        label = _html.escape(h.get("label", ""))
+        chips.append(
+            f'<span class="chip" style="color:{colour};background:{bg};'
+            f'border-color:{colour}55">{label}</span>'
+        )
+    chips_html = f'<div class="card-chips">{"".join(chips)}</div>' if chips else ""
+
+    trend_html = f'<p class="card-trend">{_html.escape(trend)}</p>' if trend else ""
+    region_html = (
+        f'<span class="card-region">{_html.escape(region)}</span>' if region else ""
+    )
+
+    return f"""
+      <a class="card" href="{_html.escape(href)}">
+        <div class="card-top">
+          <span class="card-quarter">{_html.escape(qlabel)}</span>
+          {latest_ribbon}{legacy_ribbon}
+        </div>
+        <h2 class="card-title">{_html.escape(title)}</h2>
+        <div class="card-sub">
+          <span class="card-period">{_html.escape(period)}</span>
+          {region_html}
+        </div>
+        {trend_html}
+        {chips_html}
+        <span class="card-cta">Open full report &rarr;</span>
+      </a>"""
+
+
+def build_index(reports: list[dict], default_slug: str) -> str:
+    """Standalone quarter-picker landing page."""
+    # Group cards by year (descending), quarters descending within a year.
+    by_year: dict[int, list[dict]] = {}
+    for r in reports:
+        y, _ = quarter_of(r["slug"])
+        by_year.setdefault(y, []).append(r)
+
+    sections = []
+    for year in sorted(by_year, reverse=True):
+        cards = "".join(
+            _card_html(r, is_latest=(r["slug"] == default_slug))
+            for r in by_year[year]
+        )
+        heading = str(year) if year else "Other"
+        sections.append(
+            f'<section class="year-block">'
+            f'<h2 class="year-heading">{_html.escape(heading)}</h2>'
+            f'<div class="card-grid">{cards}</div>'
+            f"</section>"
+        )
+    sections_html = "\n".join(sections)
+    count = len(reports)
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commodity Dashboard — Quarterly Reports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {{
+      --bg: #0F172A; --card: #1E293B; --border: #334155;
+      --text: #F8FAFC; --muted: #94A3B8; --blue: #60A5FA;
+    }}
+    * {{ box-sizing: border-box; }}
+    body {{
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }}
+    .wrap {{ max-width: 80rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }}
+    header.page-head {{ margin-bottom: 2.5rem; }}
+    .page-head h1 {{
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin: 0;
+      letter-spacing: -0.03em;
+      background: linear-gradient(to right, var(--blue), #93c5fd);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }}
+    .page-head p {{ color: var(--muted); font-size: 1.05rem; margin: 0.6rem 0 0; }}
+    .page-head .count {{
+      display: inline-block; margin-top: 1rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--blue);
+      background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.3);
+      padding: 0.3rem 0.7rem; border-radius: 0.4rem;
+    }}
+    .year-block {{ margin-bottom: 2.5rem; }}
+    .year-heading {{
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 0 0 1rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }}
+    .card-grid {{
+      display: grid; gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }}
+    .card {{
+      display: flex; flex-direction: column; gap: 0.75rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 1rem; padding: 1.5rem; text-decoration: none;
+      color: inherit; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }}
+    .card:hover {{
+      transform: translateY(-3px); border-color: rgba(96,165,250,0.6);
+      box-shadow: 0 24px 34px -8px rgba(0,0,0,0.45);
+    }}
+    .card-top {{ display: flex; align-items: center; gap: 0.5rem; }}
+    .card-quarter {{
+      font-size: 0.9rem; font-weight: 800; letter-spacing: 0.02em;
+      color: #0F172A; background: var(--blue);
+      padding: 0.25rem 0.6rem; border-radius: 0.4rem;
+    }}
+    .card-latest {{
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #4ADE80;
+      background: rgba(74,222,128,0.15); border: 1px solid rgba(74,222,128,0.4);
+      padding: 0.2rem 0.45rem; border-radius: 0.3rem;
+    }}
+    .card-legacy {{
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #FACC15;
+      background: rgba(250,204,21,0.15); border: 1px solid rgba(250,204,21,0.4);
+      padding: 0.2rem 0.45rem; border-radius: 0.3rem;
+    }}
+    .card-title {{ font-size: 1.15rem; font-weight: 700; margin: 0; }}
+    .card-sub {{ display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; align-items: baseline; }}
+    .card-period {{ font-size: 0.95rem; font-weight: 700; color: var(--blue); }}
+    .card-region {{ font-size: 0.8rem; color: var(--muted); }}
+    .card-trend {{
+      font-size: 0.85rem; line-height: 1.5; color: #CBD5E1; margin: 0;
+    }}
+    .card-chips {{ display: flex; flex-wrap: wrap; gap: 0.4rem; }}
+    .chip {{
+      font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem;
+      border-radius: 0.3rem; border: 1px solid transparent;
+    }}
+    .card-cta {{
+      margin-top: auto; padding-top: 0.4rem;
+      font-size: 0.85rem; font-weight: 700; color: var(--blue);
+    }}
+    footer.page-foot {{
+      margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted);
+    }}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Procurement PMO - Europe</h1>
+      <p>Strategic Procurement &amp; Logistics &middot; Commodity Dashboard</p>
+      <span class="count">{count} quarter(s) available</span>
+    </header>
+    {sections_html}
+    <footer class="page-foot">
+      Pick a quarter above to open its full report. Data source: Expana
+      (Mintec) Commodity Price Change Overview Report, Eurostat &amp; Destatis.
+    </footer>
+  </div>
+</body>
+</html>
+"""
+
+
 def main() -> None:
-    manifest = json.loads(MANIFEST.read_text())
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     reports = sorted(manifest["reports"], key=lambda r: r["slug"], reverse=True)
     if not reports:
         print("No reports in manifest — nothing to build.")
         return
     default_slug = reports[0]["slug"]
 
+    # 1 · Inject the switcher shell into every period report.
     for r in reports:
         slug = r["slug"]
         html_path = REPORTS_DIR / Path(r["html"]).name
@@ -256,28 +495,20 @@ def main() -> None:
             continue
         banner = shell_html(reports, active_slug=slug, default_slug=default_slug)
 
-        # Main period file.
         original = html_path.read_text(encoding="utf-8")
         html_path.write_text(inject_shell(original, banner), encoding="utf-8")
         print(f"  patched {html_path.relative_to(ROOT)}")
 
-        # Companion Germany page (e.g. 2026-04-germany.html), if present —
-        # gets the same shell so the dashboard chrome stays consistent.
         germany_path = REPORTS_DIR / f"{slug}-germany.html"
         if germany_path.exists():
             g_original = germany_path.read_text(encoding="utf-8")
             germany_path.write_text(inject_shell(g_original, banner), encoding="utf-8")
             print(f"  patched {germany_path.relative_to(ROOT)}")
 
-    # index.html is a verbatim copy of the latest period file. No
-    # redirect flash, no iframe, no all-in-one bundling — single-file
-    # download just shows the latest report.
+    # 2 · Build the standalone quarter-picker landing menu.
     INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
-    latest_path = REPORTS_DIR / Path(
-        next(r["html"] for r in reports if r["slug"] == default_slug)
-    ).name
-    INDEX_OUT.write_text(latest_path.read_text(encoding="utf-8"), encoding="utf-8")
-    print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (mirror of {latest_path.name})")
+    INDEX_OUT.write_text(build_index(reports, default_slug), encoding="utf-8")
+    print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (quarter-picker menu, {len(reports)} card(s))")
 
 
 if __name__ == "__main__":
