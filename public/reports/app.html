@@ -499,7 +499,7 @@ function lineChart(id,labels,values,color){
   var grad=ctx.createLinearGradient(0,0,0,260); grad.addColorStop(0,color+'55'); grad.addColorStop(1,color+'05');
   _charts.push(new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{data:values,borderColor:color,backgroundColor:grad,borderWidth:2,fill:true,tension:.32,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:color}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#0F172A',borderColor:'#334155',borderWidth:1,titleColor:'#F8FAFC',bodyColor:'#CBD5E1',padding:10}},
-    scales:{x:{grid:{color:'#1E293B'},ticks:{color:'#64748B',font:{size:10},maxRotation:0,autoSkip:true,maxTicksLimit:8}},y:{grid:{color:'#1E293B'},ticks:{color:'#64748B',font:{size:10}}}}}}));
+    scales:{x:{grid:{color:'#1E293B'},ticks:{color:'#64748B',font:{size:10},maxRotation:0,autoSkip:false,callback:function(v,i){var L=this.chart.data.labels;return (L.length-1-i)%2===0?L[i]:'';}}},y:{grid:{color:'#1E293B'},ticks:{color:'#64748B',font:{size:10}}}}}}));
 }
 function drawForecast(fc){
   var el=document.getElementById('fcChart'); if(!el||!window.Chart) return;
