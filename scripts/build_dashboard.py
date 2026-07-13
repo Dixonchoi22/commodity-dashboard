@@ -586,6 +586,13 @@ def main() -> None:
     INDEX_OUT.write_text(build_index(reports, default_slug), encoding="utf-8")
     print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (quarter-picker menu, {len(reports)} card(s))")
 
+    # 3 · Regenerate the redesigned SPA's data blob (app.html reads it).
+    try:
+        import build_app_data
+        build_app_data.main()
+    except Exception as exc:  # pragma: no cover - keep menu build resilient
+        print(f"  (skipped app-data build: {exc})")
+
 
 if __name__ == "__main__":
     main()
