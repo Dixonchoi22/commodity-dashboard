@@ -1,0 +1,1690 @@
+{
+  "period": {
+    "slug": "2026-07"
+  },
+  "entries": [
+    {
+      "name": "CBOT Maize",
+      "as_of": "June 24",
+      "mom_pct": -10.3,
+      "yoy_pct": -1.7,
+      "price": "$161.93/MT",
+      "canonical_name": "Maize CBOT",
+      "paragraph": "The average weekly price of CBOT Maize as of June 24 decreased by 10.3% MOM and declined by 1.7% YOY to $161.93/MT. According to market participants, recent rainfall in June across the western US Corn Belt has boosted soil moisture levels and improved crop conditions. While the weather during July will remain critical for determining yield potential, current conditions are viewed as less threatening than earlier in the season. According to the end of June USDA Crop Progress report, 68% of the US maize crop was rated good-to-excellent condition, reinforcing expectations for a solid harvest if favourable weather continues through the key summer development period."
+    },
+    {
+      "name": "CBOT Maize as of June 24",
+      "as_of": "",
+      "mom_pct": -10.3,
+      "yoy_pct": -1.7,
+      "price": "$161.93/MT",
+      "canonical_name": "Maize CBOT",
+      "paragraph": "The average weekly price of CBOT Maize as of June 24 decreased by 10.3% MOM and declined by 1.7% YOY to $161.93/MT. According to market participants, recent rainfall in June across the western US Corn Belt has boosted soil moisture levels and improved crop conditions. While the weather during July will remain critical for determining yield potential, current conditions are viewed as less threatening than earlier in the season. According to the end of June USDA Crop Progress report, 68% of the US maize crop was rated good-to-excellent condition, reinforcing expectations for a solid harvest if favourable weather continues through the key summer development period."
+    },
+    {
+      "name": "CBOT Wheat",
+      "as_of": "June 24",
+      "mom_pct": -6.9,
+      "yoy_pct": 8.8,
+      "price": "$218.23/MT",
+      "canonical_name": "Wheat CBOT",
+      "paragraph": "The average weekly price of CBOT Wheat as of June 24 decreased by 6.9% MOM and rose by 8.8% YOY to $218.23/MT. Overall, the month-on-month decline reflected the market's transition from old-crop to new-crop supplies, with approaching harvest availability adding seasonal pressure to prices. However, poor US crop conditions provided some underlying support during June. According to the latest USDA Crop Progress report, only 27% of winter wheat was rated good-to-excellent, compared with 52% at the same point last year. Meanwhile, harvest progress reached 25%, well ahead of last year's 9%. Market participants noted that the accelerated harvest pace could indicate weaker yield potential, particularly following prolonged drought stress."
+    },
+    {
+      "name": "CBOT Wheat as of June 24",
+      "as_of": "",
+      "mom_pct": -6.9,
+      "yoy_pct": 8.8,
+      "price": "$218.23/MT",
+      "canonical_name": "Wheat CBOT",
+      "paragraph": "The average weekly price of CBOT Wheat as of June 24 decreased by 6.9% MOM and rose by 8.8% YOY to $218.23/MT. Overall, the month-on-month decline reflected the market's transition from old-crop to new-crop supplies, with approaching harvest availability adding seasonal pressure to prices. However, poor US crop conditions provided some underlying support during June. According to the latest USDA Crop Progress report, only 27% of winter wheat was rated good-to-excellent, compared with 52% at the same point last year. Meanwhile, harvest progress reached 25%, well ahead of last year's 9%. Market participants noted that the accelerated harvest pace could indicate weaker yield potential, particularly following prolonged drought stress."
+    },
+    {
+      "name": "Indian Rice",
+      "as_of": "June 17",
+      "mom_pct": 1.5,
+      "yoy_pct": -9.3,
+      "price": "$340/MT",
+      "canonical_name": "Rice India",
+      "paragraph": "The average weekly price of Indian Rice as of June 17 increased by 1.5% MOM and declined by 9.3% YOY to $340/MT. Sources said that Indian rice prices were pressured by ample stocks, sluggish demand, and a weaker rupee. Reports show that export prices have dipped amid these conditions, and government data shows record stocks as of June 01."
+    },
+    {
+      "name": "Indian Rice as of June 17",
+      "as_of": "",
+      "mom_pct": 1.5,
+      "yoy_pct": -9.3,
+      "price": "$340/MT",
+      "canonical_name": "Rice India",
+      "paragraph": "The average weekly price of Indian Rice as of June 17 increased by 1.5% MOM and declined by 9.3% YOY to $340/MT. Sources said that Indian rice prices were pressured by ample stocks, sluggish demand, and a weaker rupee. Reports show that export prices have dipped amid these conditions, and government data shows record stocks as of June 01."
+    },
+    {
+      "name": "Vietnamese Rice",
+      "as_of": "June 24",
+      "mom_pct": 2.8,
+      "yoy_pct": 4.6,
+      "price": "$393.25/MT",
+      "canonical_name": "Rice Vietnam",
+      "paragraph": "The average weekly price of Vietnamese Rice as of June 24 increased by 2.8% MOM and rose by 4.6% YOY to $393.25/MT. Vietnamese prices rose in early June on concerns that El Ni\u00f1o could affect crops, and late-June reporting still showed buyers considering stockpiling because of weather risk. Vietnam\u2019s export pace was also firm: May exports were reported up 19% year-on-year."
+    },
+    {
+      "name": "Vietnamese Rice as of June 24",
+      "as_of": "",
+      "mom_pct": 2.8,
+      "yoy_pct": 4.6,
+      "price": "$393.25/MT",
+      "canonical_name": "Rice Vietnam",
+      "paragraph": "The average weekly price of Vietnamese Rice as of June 24 increased by 2.8% MOM and rose by 4.6% YOY to $393.25/MT. Vietnamese prices rose in early June on concerns that El Ni\u00f1o could affect crops, and late-June reporting still showed buyers considering stockpiling because of weather risk. Vietnam\u2019s export pace was also firm: May exports were reported up 19% year-on-year."
+    },
+    {
+      "name": "EU Rapeseed",
+      "as_of": "June 24",
+      "mom_pct": -2.5,
+      "yoy_pct": 3.4,
+      "price": "\u20ac510.35/MT",
+      "canonical_name": "Rapeseed EU",
+      "paragraph": "The average weekly price of EU Rapeseed as of June 24 decreased by 2.5% MOM and rose by 3.4% YOY to \u20ac510.35/MT. Market players said sentiment into July remains broadly firm, but the tone is being driven more by unresolved supply risk than by any settled conviction over where the EU crop will finally land. Sources said the market still lacks clarity on whether the EU crop stabilizes near current official assumptions or continues to move lower toward the latest JRC MARS yield path, and that uncertainty is keeping buyers, crushers and short-covering participants active even at harvest. Several market players said the market still looks potentially tight overall, particularly because a lower EU crop could immediately reopen the import question at a time when external seed cover still looks less straightforward than the official balance suggests."
+    },
+    {
+      "name": "EU Rapeseed as of June 24",
+      "as_of": "",
+      "mom_pct": -2.5,
+      "yoy_pct": 3.4,
+      "price": "\u20ac510.35/MT",
+      "canonical_name": "Rapeseed EU",
+      "paragraph": "The average weekly price of EU Rapeseed as of June 24 decreased by 2.5% MOM and rose by 3.4% YOY to \u20ac510.35/MT. Market players said sentiment into July remains broadly firm, but the tone is being driven more by unresolved supply risk than by any settled conviction over where the EU crop will finally land. Sources said the market still lacks clarity on whether the EU crop stabilizes near current official assumptions or continues to move lower toward the latest JRC MARS yield path, and that uncertainty is keeping buyers, crushers and short-covering participants active even at harvest. Several market players said the market still looks potentially tight overall, particularly because a lower EU crop could immediately reopen the import question at a time when external seed cover still looks less straightforward than the official balance suggests."
+    },
+    {
+      "name": "EU Rapeseed Oil",
+      "as_of": "June 24",
+      "mom_pct": 1.5,
+      "yoy_pct": 16.5,
+      "price": "\u20ac1,269.50/MT",
+      "canonical_name": "Rapeseed Oil EU",
+      "paragraph": "The average weekly price of EU Rapeseed Oil as of June 24 increased by 1.5% MOM and rose by 16.5% YOY to \u20ac1,269.50/MT. Sources said the lower EU yield path is reviving the import question, as even a modest retreat in production would leave the bloc more dependent on imported seed than the current official balance implies, especially if June heat and dryness prevent confidence from stabilising ahead of harvest. This could have been a leading cause for higher average prices this month."
+    },
+    {
+      "name": "EU Rapeseed Oil as of June 24",
+      "as_of": "",
+      "mom_pct": 1.5,
+      "yoy_pct": 16.5,
+      "price": "\u20ac1,269.50/MT",
+      "canonical_name": "Rapeseed Oil EU",
+      "paragraph": "The average weekly price of EU Rapeseed Oil as of June 24 increased by 1.5% MOM and rose by 16.5% YOY to \u20ac1,269.50/MT. Sources said the lower EU yield path is reviving the import question, as even a modest retreat in production would leave the bloc more dependent on imported seed than the current official balance implies, especially if June heat and dryness prevent confidence from stabilising ahead of harvest. This could have been a leading cause for higher average prices this month."
+    },
+    {
+      "name": "Ukrainian Sunflower Seed",
+      "as_of": "June 24",
+      "mom_pct": 2.3,
+      "yoy_pct": 34.9,
+      "price": "UAH 31,700/MT",
+      "canonical_name": "Sunflower Seed Ukraine",
+      "paragraph": "The average weekly price of Ukrainian Sunflower Seed as of June 24 increased by 2.3% MOM and rose by 34.9% YOY to UAH 31,700/MT. Ukrainian sunflower sowing reached only 86.8% of the forecast area as of June 2, with 4,341.9k ha planted against a target of 5,000.4k ha, while a deep farmer-crusher standoff left an estimated 3.5-3.7 million tonnes for June in farm storage moving at minimal pace toward processing, with sources saying crusher forward coverage of just 0.4-0.6 million tonnes and deeply negative crush margins have created conditions where material is not flowing through the supply chain in a manner consistent with seasonal norms. There is a chance that this lent support to prices throughout June."
+    },
+    {
+      "name": "Ukrainian Sunflower Seed as of June 24",
+      "as_of": "",
+      "mom_pct": 2.3,
+      "yoy_pct": 34.9,
+      "price": "UAH 31,700/MT",
+      "canonical_name": "Sunflower Seed Ukraine",
+      "paragraph": "The average weekly price of Ukrainian Sunflower Seed as of June 24 increased by 2.3% MOM and rose by 34.9% YOY to UAH 31,700/MT. Ukrainian sunflower sowing reached only 86.8% of the forecast area as of June 2, with 4,341.9k ha planted against a target of 5,000.4k ha, while a deep farmer-crusher standoff left an estimated 3.5-3.7 million tonnes for June in farm storage moving at minimal pace toward processing, with sources saying crusher forward coverage of just 0.4-0.6 million tonnes and deeply negative crush margins have created conditions where material is not flowing through the supply chain in a manner consistent with seasonal norms. There is a chance that this lent support to prices throughout June."
+    },
+    {
+      "name": "Ukrainian Sunflower Oil",
+      "as_of": "June 24",
+      "mom_pct": 2.1,
+      "yoy_pct": 30.5,
+      "price": "UAH 61,965.32/MT",
+      "canonical_name": "Sunflower Oil Ukraine",
+      "paragraph": "The average weekly price of Ukrainian Sunflower Oil as of June 24 increased by 2.1% MOM and rose by 30.5% YOY to UAH 61,965.32/MT. Market players commented that low availability of sun seed due to constrained inventories has been supportive of sunflower oil prices. Hot and dry weather conditions have also added a layer of sensitivity to the matter."
+    },
+    {
+      "name": "Ukrainian Sunflower Oil as of June 24",
+      "as_of": "",
+      "mom_pct": 2.1,
+      "yoy_pct": 30.5,
+      "price": "UAH 61,965.32/MT",
+      "canonical_name": "Sunflower Oil Ukraine",
+      "paragraph": "The average weekly price of Ukrainian Sunflower Oil as of June 24 increased by 2.1% MOM and rose by 30.5% YOY to UAH 61,965.32/MT. Market players commented that low availability of sun seed due to constrained inventories has been supportive of sunflower oil prices. Hot and dry weather conditions have also added a layer of sensitivity to the matter."
+    },
+    {
+      "name": "US Soyabean",
+      "as_of": "June 24",
+      "mom_pct": -6.3,
+      "yoy_pct": 6.3,
+      "price": "$410.08/MT",
+      "canonical_name": "Soyabean US",
+      "paragraph": "The average weekly price of US Soyabean as of June 24 decreased by 6.3% MOM and rose by 6.3% YOY to $410.08/MT. Soybean prices have been weighed down by strong production across the three largest exporters, and stiff price competition as a result. Looking forward, the market is paying close attention to potential developments regarding China's soybean demand and import behavior."
+    },
+    {
+      "name": "US Soyabean as of June 24",
+      "as_of": "",
+      "mom_pct": -6.3,
+      "yoy_pct": 6.3,
+      "price": "$410.08/MT",
+      "canonical_name": "Soyabean US",
+      "paragraph": "The average weekly price of US Soyabean as of June 24 decreased by 6.3% MOM and rose by 6.3% YOY to $410.08/MT. Soybean prices have been weighed down by strong production across the three largest exporters, and stiff price competition as a result. Looking forward, the market is paying close attention to potential developments regarding China's soybean demand and import behavior."
+    },
+    {
+      "name": "EU Sunflower Oil",
+      "as_of": "June 24",
+      "mom_pct": 2.5,
+      "yoy_pct": 26.0,
+      "price": "\u20ac1,312.72/MT",
+      "canonical_name": "Sunflower Oil EU",
+      "paragraph": "The average weekly price of EU Sunflower Oil as of June 24 increased by 2.5% MOM and rose by 26.0% YOY to \u20ac1,312.72/MT. Market players have largely attributed tighter raw material availability towards higher EU sunflower oil prices. As well as this, there is a clear divergence between market players and official forecasts regarding crop development, which has added a layer of uncertainty to the market."
+    },
+    {
+      "name": "EU Sunflower Oil as of June 24",
+      "as_of": "",
+      "mom_pct": 2.5,
+      "yoy_pct": 26.0,
+      "price": "\u20ac1,312.72/MT",
+      "canonical_name": "Sunflower Oil EU",
+      "paragraph": "The average weekly price of EU Sunflower Oil as of June 24 increased by 2.5% MOM and rose by 26.0% YOY to \u20ac1,312.72/MT. Market players have largely attributed tighter raw material availability towards higher EU sunflower oil prices. As well as this, there is a clear divergence between market players and official forecasts regarding crop development, which has added a layer of uncertainty to the market."
+    },
+    {
+      "name": "EU Palm Oil",
+      "as_of": "June 24",
+      "mom_pct": 9.2,
+      "yoy_pct": 30.4,
+      "price": "\u20ac1,308.40/MT",
+      "canonical_name": "Palm Oil EU",
+      "paragraph": "The average weekly price of EU Palm Oil as of June 24 increased by 9.2% MOM and rose by 30.4% YOY to \u20ac1,308.40/MT. Renewed U.S. strikes on Iran over the weekend of the 27th of June are expected to lend mild support to crude oil prices, while El Ni\u00f1o risk remains part of the broader forward-looking backdrop and optimism around Indonesia\u2019s biodiesel expansion continues to underpin sentiment in parts of the market. At the same time, players said elevated Malaysian inventories and improving June production continue to keep the nearby balance from looking structurally tight, meaning July may open with prices supported by external and forward-looking factors more than by any clear improvement in underlying consumption, sources said"
+    },
+    {
+      "name": "EU Palm Oil as of June 24",
+      "as_of": "",
+      "mom_pct": 9.2,
+      "yoy_pct": 30.4,
+      "price": "\u20ac1,308.40/MT",
+      "canonical_name": "Palm Oil EU",
+      "paragraph": "The average weekly price of EU Palm Oil as of June 24 increased by 9.2% MOM and rose by 30.4% YOY to \u20ac1,308.40/MT. Renewed U.S. strikes on Iran over the weekend of the 27th of June are expected to lend mild support to crude oil prices, while El Ni\u00f1o risk remains part of the broader forward-looking backdrop and optimism around Indonesia\u2019s biodiesel expansion continues to underpin sentiment in parts of the market. At the same time, players said elevated Malaysian inventories and improving June production continue to keep the nearby balance from looking structurally tight, meaning July may open with prices supported by external and forward-looking factors more than by any clear improvement in underlying consumption, sources said"
+    },
+    {
+      "name": "EU Pork",
+      "as_of": "June 24",
+      "mom_pct": -1.9,
+      "yoy_pct": -25.4,
+      "price": "\u20ac1,590/MT",
+      "canonical_name": "Pork EU",
+      "paragraph": "The average weekly price of EU Pork as of June 24 decreased by 1.9% MOM and declined by 25.4% YOY to \u20ac1,590/MT. EU pork prices decreased during June, driven by a combination of ample supply meeting shallow demand on the spot market. While fresh production was steady, elevated cold storage levels continued to weigh on the supply side, as market sources noted little additional storage capacity. The buy side noted little activity, as short-term demand remains well covered."
+    },
+    {
+      "name": "EU Pork as of June 24",
+      "as_of": "",
+      "mom_pct": -1.9,
+      "yoy_pct": -25.4,
+      "price": "\u20ac1,590/MT",
+      "canonical_name": "Pork EU",
+      "paragraph": "The average weekly price of EU Pork as of June 24 decreased by 1.9% MOM and declined by 25.4% YOY to \u20ac1,590/MT. EU pork prices decreased during June, driven by a combination of ample supply meeting shallow demand on the spot market. While fresh production was steady, elevated cold storage levels continued to weigh on the supply side, as market sources noted little additional storage capacity. The buy side noted little activity, as short-term demand remains well covered."
+    },
+    {
+      "name": "UK Pork",
+      "as_of": "June 24",
+      "mom_pct": -1.3,
+      "yoy_pct": -14.2,
+      "price": "\u00a31,749.60/MT",
+      "canonical_name": "Pork UK",
+      "paragraph": "The average weekly price of UK Pork as of June 24 decreased by 1.3% MOM and declined by 14.2% YOY to \u00a31,749.60/MT. Pork prices across the UK market were steady to weak during June, linked to soft demand contrasted with ample supply across the European market, with strong EU supply also weighing on the UK pork complex. Buyers noted they were well covered for the near term, as consumer demand has been thin and not met the expectations of market players thus far."
+    },
+    {
+      "name": "UK Pork as of June 24",
+      "as_of": "",
+      "mom_pct": -1.3,
+      "yoy_pct": -14.2,
+      "price": "\u00a31,749.60/MT",
+      "canonical_name": "Pork UK",
+      "paragraph": "The average weekly price of UK Pork as of June 24 decreased by 1.3% MOM and declined by 14.2% YOY to \u00a31,749.60/MT. Pork prices across the UK market were steady to weak during June, linked to soft demand contrasted with ample supply across the European market, with strong EU supply also weighing on the UK pork complex. Buyers noted they were well covered for the near term, as consumer demand has been thin and not met the expectations of market players thus far."
+    },
+    {
+      "name": "UK Beef",
+      "as_of": "June 24",
+      "mom_pct": 0.4,
+      "yoy_pct": -6.7,
+      "price": "\u00a35,845/MT",
+      "canonical_name": "Beef UK",
+      "paragraph": "The average weekly price of UK Beef as of June 24 increased by 0.4% MOM and declined by 6.7% YOY to \u00a35,845/MT. Despite increase in cattle prices due to decline in slaughter rate, beef prices in UK decline MOM. Prices declined across most cuts, with the notable exception of steak cuts excluding sirloin, which also registered a fall. Market participants attribute the broad weakness to an oversupply of New Zealand and Australian beef, which has been weighing heavily on UK and Irish prices over the past several weeks."
+    },
+    {
+      "name": "UK Beef as of June 24",
+      "as_of": "",
+      "mom_pct": 0.4,
+      "yoy_pct": -6.7,
+      "price": "\u00a35,845/MT",
+      "canonical_name": "Beef UK",
+      "paragraph": "The average weekly price of UK Beef as of June 24 increased by 0.4% MOM and declined by 6.7% YOY to \u00a35,845/MT. Despite increase in cattle prices due to decline in slaughter rate, beef prices in UK decline MOM. Prices declined across most cuts, with the notable exception of steak cuts excluding sirloin, which also registered a fall. Market participants attribute the broad weakness to an oversupply of New Zealand and Australian beef, which has been weighing heavily on UK and Irish prices over the past several weeks."
+    },
+    {
+      "name": "EU Lamb",
+      "as_of": "June 17",
+      "mom_pct": -4.1,
+      "yoy_pct": 8.9,
+      "price": "\u20ac9,591.90/MT",
+      "canonical_name": "Lamb EU",
+      "paragraph": "The average weekly price of EU Lamb as of June 17 decreased by 4.1% MOM and rose by 8.9% YOY to \u20ac9,591.90/MT. Prices continued to soften in June as increased seasonal availability of spring lambs weighed on the market. Sources commented that despite the monthly decline, values remained well above year-ago levels, supported by constrained production, ongoing disease-related supply pressures in parts of Europe, and steady underlying demand."
+    },
+    {
+      "name": "EU Lamb as of June 17",
+      "as_of": "",
+      "mom_pct": -4.1,
+      "yoy_pct": 8.9,
+      "price": "\u20ac9,591.90/MT",
+      "canonical_name": "Lamb EU",
+      "paragraph": "The average weekly price of EU Lamb as of June 17 decreased by 4.1% MOM and rose by 8.9% YOY to \u20ac9,591.90/MT. Prices continued to soften in June as increased seasonal availability of spring lambs weighed on the market. Sources commented that despite the monthly decline, values remained well above year-ago levels, supported by constrained production, ongoing disease-related supply pressures in parts of Europe, and steady underlying demand."
+    },
+    {
+      "name": "UK Lamb",
+      "as_of": "June 24",
+      "mom_pct": -7.8,
+      "yoy_pct": 16.2,
+      "price": "\u00a38,692/MT",
+      "canonical_name": "Lamb UK",
+      "paragraph": "The average weekly price of UK Lamb as of June 24 decreased by 7.8% MOM and rose by 16.2% YOY to \u00a38,692/MT. Prices retreated in June as increased seasonal marketing improved availability following the spring rally. Even so, values remained significantly above last year, with reduced breeding flock numbers and expectations for lower 2026 sheep meat production continuing to provide longer-term support, players commented."
+    },
+    {
+      "name": "UK Lamb as of June 24",
+      "as_of": "",
+      "mom_pct": -7.8,
+      "yoy_pct": 16.2,
+      "price": "\u00a38,692/MT",
+      "canonical_name": "Lamb UK",
+      "paragraph": "The average weekly price of UK Lamb as of June 24 decreased by 7.8% MOM and rose by 16.2% YOY to \u00a38,692/MT. Prices retreated in June as increased seasonal marketing improved availability following the spring rally. Even so, values remained significantly above last year, with reduced breeding flock numbers and expectations for lower 2026 sheep meat production continuing to provide longer-term support, players commented."
+    },
+    {
+      "name": "EU Chicken",
+      "as_of": "June 24",
+      "mom_pct": 1.3,
+      "yoy_pct": -1.5,
+      "price": "\u20ac3,017.50/MT",
+      "canonical_name": "Chicken EU",
+      "paragraph": "The average weekly price of EU Chicken as of June 24 increased by 1.3% MOM and declined by 1.5% YOY to \u20ac3,017.50/MT. The price increase was driven by stronger seasonal demand for specific chicken cuts, supported by sustained consumer preference for poultry. Demand remained resilient as persistently high prices for competing proteins, particularly beef and lamb, encouraged consumers to switch to poultry as a more affordable alternative. In addition, robust demand across the EU supported increased import volumes, as buyers sought to supplement domestic supply and meet ongoing consumption requirements. Despite higher imports, market fundamentals remained firm, reflecting the strength of underlying demand."
+    },
+    {
+      "name": "EU Chicken as of June 24",
+      "as_of": "",
+      "mom_pct": 1.3,
+      "yoy_pct": -1.5,
+      "price": "\u20ac3,017.50/MT",
+      "canonical_name": "Chicken EU",
+      "paragraph": "The average weekly price of EU Chicken as of June 24 increased by 1.3% MOM and declined by 1.5% YOY to \u20ac3,017.50/MT. The price increase was driven by stronger seasonal demand for specific chicken cuts, supported by sustained consumer preference for poultry. Demand remained resilient as persistently high prices for competing proteins, particularly beef and lamb, encouraged consumers to switch to poultry as a more affordable alternative. In addition, robust demand across the EU supported increased import volumes, as buyers sought to supplement domestic supply and meet ongoing consumption requirements. Despite higher imports, market fundamentals remained firm, reflecting the strength of underlying demand."
+    },
+    {
+      "name": "EU Milk",
+      "as_of": "June 24",
+      "mom_pct": 7.7,
+      "yoy_pct": -48.1,
+      "price": "\u20ac280/MT",
+      "canonical_name": "Milk EU",
+      "paragraph": "The average weekly price of EU Milk as of June 24 increased by 7.7% MOM and declined by 48.1% YOY to \u20ac280/MT. EU milk prices increased during June, driven by tightening supply. Hot temperatures across the EU throughout the month led to a notable drop in milk intakes, according to multiple sources, as heat stress impacted both the volume and quality of milk produced. While fresh supply dropped, demand across processors remained persistent, supporting the upward price movement further."
+    },
+    {
+      "name": "EU Milk as of June 24",
+      "as_of": "",
+      "mom_pct": 7.7,
+      "yoy_pct": -48.1,
+      "price": "\u20ac280/MT",
+      "canonical_name": "Milk EU",
+      "paragraph": "The average weekly price of EU Milk as of June 24 increased by 7.7% MOM and declined by 48.1% YOY to \u20ac280/MT. EU milk prices increased during June, driven by tightening supply. Hot temperatures across the EU throughout the month led to a notable drop in milk intakes, according to multiple sources, as heat stress impacted both the volume and quality of milk produced. While fresh supply dropped, demand across processors remained persistent, supporting the upward price movement further."
+    },
+    {
+      "name": "UK Milk",
+      "as_of": "June 24",
+      "mom_pct": 40.9,
+      "yoy_pct": -3.1,
+      "price": "GBp 31/L",
+      "canonical_name": "Milk UK",
+      "paragraph": "The average weekly price of UK Milk as of June 24 increased by 40.9% MOM and declined by 3.1% YOY to GBp 31/L. Price rise in June reflected the sharp tightening in spot milk availability during the second half of the month. The recent heatwave reduced milk collections across the UK, with several market participants reporting volumes below those recorded in the same period last year, supporting a rapid increase in spot prices. Despite the strong monthly gain, prices remained 3.1% lower YOY, highlighting that the market is still trading below the elevated levels seen in 2025."
+    },
+    {
+      "name": "UK Milk as of June 24",
+      "as_of": "",
+      "mom_pct": 40.9,
+      "yoy_pct": -3.1,
+      "price": "GBp 31/L",
+      "canonical_name": "Milk UK",
+      "paragraph": "The average weekly price of UK Milk as of June 24 increased by 40.9% MOM and declined by 3.1% YOY to GBp 31/L. Price rise in June reflected the sharp tightening in spot milk availability during the second half of the month. The recent heatwave reduced milk collections across the UK, with several market participants reporting volumes below those recorded in the same period last year, supporting a rapid increase in spot prices. Despite the strong monthly gain, prices remained 3.1% lower YOY, highlighting that the market is still trading below the elevated levels seen in 2025."
+    },
+    {
+      "name": "EU WMP",
+      "as_of": "June 24",
+      "mom_pct": -0.2,
+      "yoy_pct": -23.9,
+      "price": "\u20ac3,195/MT",
+      "canonical_name": "WMP EU",
+      "paragraph": "The average weekly price of EU WMP as of June 24 decreased by 0.2% MOM and declined by 23.9% YOY to \u20ac3,195/MT. The EU whole milk powder (WMP) market was steady to weak during June. Domestic European supply and demand were broadly balanced during the month. Overall soft demand across the international WMP market supported a weak undertone across the EU segment."
+    },
+    {
+      "name": "EU WMP as of June 24",
+      "as_of": "",
+      "mom_pct": -0.2,
+      "yoy_pct": -23.9,
+      "price": "\u20ac3,195/MT",
+      "canonical_name": "WMP EU",
+      "paragraph": "The average weekly price of EU WMP as of June 24 decreased by 0.2% MOM and declined by 23.9% YOY to \u20ac3,195/MT. The EU whole milk powder (WMP) market was steady to weak during June. Domestic European supply and demand were broadly balanced during the month. Overall soft demand across the international WMP market supported a weak undertone across the EU segment."
+    },
+    {
+      "name": "EU SMP",
+      "as_of": "June 24",
+      "mom_pct": -12.9,
+      "yoy_pct": 8.0,
+      "price": "\u20ac2,525/MT",
+      "canonical_name": "SMP EU",
+      "paragraph": "The average weekly price of EU SMP as of June 24 decreased by 12.9% MOM and rose by 8.0% YOY to \u20ac2,525/MT. Prices across the EU SMP complex decreased strongly during June, driven by limited demand meeting ample supply. While international buying interest from northern Africa increased during the month, this was offset by weak buying from APAC and the domestic European market. Strong fresh supply added further downward price pressure to the EU SMP market."
+    },
+    {
+      "name": "EU SMP as of June 24",
+      "as_of": "",
+      "mom_pct": -12.9,
+      "yoy_pct": 8.0,
+      "price": "\u20ac2,525/MT",
+      "canonical_name": "SMP EU",
+      "paragraph": "The average weekly price of EU SMP as of June 24 decreased by 12.9% MOM and rose by 8.0% YOY to \u20ac2,525/MT. Prices across the EU SMP complex decreased strongly during June, driven by limited demand meeting ample supply. While international buying interest from northern Africa increased during the month, this was offset by weak buying from APAC and the domestic European market. Strong fresh supply added further downward price pressure to the EU SMP market."
+    },
+    {
+      "name": "US NFDM - SMP",
+      "as_of": "June 24",
+      "mom_pct": -8.3,
+      "yoy_pct": 52.2,
+      "price": "$4,209.96/MT",
+      "canonical_name": "NFDM - SMP US",
+      "paragraph": "The average weekly price of US NFDM - SMP as of June 24 decreased by 8.3% MOM and rose by 52.2% YOY to $4,209.96/MT. Nonfat dry milk (NFDM) prices continued their downward trajectory through June, extending the weakness observed in late May as rising inventory levels and steady to strong domestic production kept supply ahead of demand requirements."
+    },
+    {
+      "name": "US NFDM - SMP as of June 24",
+      "as_of": "",
+      "mom_pct": -8.3,
+      "yoy_pct": 52.2,
+      "price": "$4,209.96/MT",
+      "canonical_name": "NFDM - SMP US",
+      "paragraph": "The average weekly price of US NFDM - SMP as of June 24 decreased by 8.3% MOM and rose by 52.2% YOY to $4,209.96/MT. Nonfat dry milk (NFDM) prices continued their downward trajectory through June, extending the weakness observed in late May as rising inventory levels and steady to strong domestic production kept supply ahead of demand requirements."
+    },
+    {
+      "name": "EU Butter",
+      "as_of": "June 24",
+      "mom_pct": -7.2,
+      "yoy_pct": -51.4,
+      "price": "\u20ac3,572.50/MT",
+      "canonical_name": "Butter EU",
+      "paragraph": "The average weekly price of EU Butter as of June 24 decreased by 7.2% MOM and declined by 51.4% YOY to \u20ac3,572.50/MT. The EU butter market was weak during June, driven by a combination of ample supply and weak demand. The supply side was supported by stable fresh production as well as multiple reports of elevated old stock of butter across the EU market. The buy side indicated little demand, as short-term buying is largely covered ahead of the summer holiday period."
+    },
+    {
+      "name": "EU Butter as of June 24",
+      "as_of": "",
+      "mom_pct": -7.2,
+      "yoy_pct": -51.4,
+      "price": "\u20ac3,572.50/MT",
+      "canonical_name": "Butter EU",
+      "paragraph": "The average weekly price of EU Butter as of June 24 decreased by 7.2% MOM and declined by 51.4% YOY to \u20ac3,572.50/MT. The EU butter market was weak during June, driven by a combination of ample supply and weak demand. The supply side was supported by stable fresh production as well as multiple reports of elevated old stock of butter across the EU market. The buy side indicated little demand, as short-term buying is largely covered ahead of the summer holiday period."
+    },
+    {
+      "name": "US Butter",
+      "as_of": "June 24",
+      "mom_pct": 0.4,
+      "yoy_pct": -34.3,
+      "price": "$1.65/Lb",
+      "canonical_name": "Butter US",
+      "paragraph": "The average weekly price of US Butter as of June 24 increased by 0.4% MOM and declined by 34.3% YOY to $1.65/Lb. Butter prices edged higher over the course of the month, though prices remained notably depressed relative to year-ago values. Strong interest in the international market from regions like MENA and Canada has kept butter exports elevated, balancing inventory levels and giving prices some upward support."
+    },
+    {
+      "name": "US Butter as of June 24",
+      "as_of": "",
+      "mom_pct": 0.4,
+      "yoy_pct": -34.3,
+      "price": "$1.65/Lb",
+      "canonical_name": "Butter US",
+      "paragraph": "The average weekly price of US Butter as of June 24 increased by 0.4% MOM and declined by 34.3% YOY to $1.65/Lb. Butter prices edged higher over the course of the month, though prices remained notably depressed relative to year-ago values. Strong interest in the international market from regions like MENA and Canada has kept butter exports elevated, balancing inventory levels and giving prices some upward support."
+    },
+    {
+      "name": "EU Gouda",
+      "as_of": "June 24",
+      "mom_pct": -13.2,
+      "yoy_pct": -28.6,
+      "price": "\u20ac2,995/MT",
+      "canonical_name": "Gouda EU",
+      "paragraph": "The average weekly price of EU Gouda as of June 24 decreased by 13.2% MOM and declined by 28.6% YOY to \u20ac2,995/MT. Gouda prices extended their decline for a fourth consecutive week in June as bearish market sentiment persisted. Weak demand and rising inventories continued to pressure the market, prompting sellers to lower prices to clear volumes. With prices now approaching key support levels, some market participants expect buying interest to improve if values soften further."
+    },
+    {
+      "name": "EU Gouda as of June 24",
+      "as_of": "",
+      "mom_pct": -13.2,
+      "yoy_pct": -28.6,
+      "price": "\u20ac2,995/MT",
+      "canonical_name": "Gouda EU",
+      "paragraph": "The average weekly price of EU Gouda as of June 24 decreased by 13.2% MOM and declined by 28.6% YOY to \u20ac2,995/MT. Gouda prices extended their decline for a fourth consecutive week in June as bearish market sentiment persisted. Weak demand and rising inventories continued to pressure the market, prompting sellers to lower prices to clear volumes. With prices now approaching key support levels, some market participants expect buying interest to improve if values soften further."
+    },
+    {
+      "name": "US Cheddar",
+      "as_of": "June 24",
+      "mom_pct": -5.3,
+      "yoy_pct": -18.2,
+      "price": "$1.57/Lb",
+      "canonical_name": "Cheddar US",
+      "paragraph": "The average weekly price of US Cheddar as of June 24 decreased by 5.3% MOM and declined by 18.2% YOY to $1.57/Lb. Nearby cheese futures continued their downward trajectory through June, extending the weakness that had characterized much of the preceding period. The decline reflected a market fundamentally out of balance: robust cheese production, driven by both new manufacturing capacity coming online and expanded throughput at existing facilities, collided with a domestic demand environment that remained steady at best and weak at worst."
+    },
+    {
+      "name": "US Cheddar as of June 24",
+      "as_of": "",
+      "mom_pct": -5.3,
+      "yoy_pct": -18.2,
+      "price": "$1.57/Lb",
+      "canonical_name": "Cheddar US",
+      "paragraph": "The average weekly price of US Cheddar as of June 24 decreased by 5.3% MOM and declined by 18.2% YOY to $1.57/Lb. Nearby cheese futures continued their downward trajectory through June, extending the weakness that had characterized much of the preceding period. The decline reflected a market fundamentally out of balance: robust cheese production, driven by both new manufacturing capacity coming online and expanded throughput at existing facilities, collided with a domestic demand environment that remained steady at best and weak at worst."
+    },
+    {
+      "name": "EU Egg",
+      "as_of": "June 24",
+      "mom_pct": -6.9,
+      "yoy_pct": -1.2,
+      "price": "\u20ac2,538.70/MT",
+      "canonical_name": "Egg EU",
+      "paragraph": "The average weekly price of EU Egg as of June 24 decreased by 6.9% MOM and declined by 1.2% YOY to \u20ac2,538.70/MT. As supply conditions continued to loosen, buyers became less aggressive in their procurement, focusing primarily on covering near-term requirements. This more measured purchasing approach, together with ample product availability, reinforced the downward trend in wholesale prices throughout the month. Demand remained broadly in line with seasonal expectations, but without sufficient momentum to absorb the growing supply. As a result, sellers faced increased competition, putting additional downward pressure on prices."
+    },
+    {
+      "name": "EU Egg as of June 24",
+      "as_of": "",
+      "mom_pct": -6.9,
+      "yoy_pct": -1.2,
+      "price": "\u20ac2,538.70/MT",
+      "canonical_name": "Egg EU",
+      "paragraph": "The average weekly price of EU Egg as of June 24 decreased by 6.9% MOM and declined by 1.2% YOY to \u20ac2,538.70/MT. As supply conditions continued to loosen, buyers became less aggressive in their procurement, focusing primarily on covering near-term requirements. This more measured purchasing approach, together with ample product availability, reinforced the downward trend in wholesale prices throughout the month. Demand remained broadly in line with seasonal expectations, but without sufficient momentum to absorb the growing supply. As a result, sellers faced increased competition, putting additional downward pressure on prices."
+    },
+    {
+      "name": "Norway Cod",
+      "as_of": "June 24",
+      "mom_pct": -2.7,
+      "yoy_pct": 30.9,
+      "price": "NOK 97.15/kg",
+      "canonical_name": "Cod Norway",
+      "paragraph": "The average weekly price of Norway Cod as of June 24 decreased by 2.7% MOM and rose by 30.9% YOY to NOK 97.15/kg. Market participants continued to report limited availability of Atlantic cod in the market, which supported the MOM increase in frozen fillet prices, despite the slight reduction in raw material costs. According to the Directorate of Fisheries, accumulated landings through May reached 96,581 MT, a 19.4% YTD decrease."
+    },
+    {
+      "name": "Norway Cod as of June 24",
+      "as_of": "",
+      "mom_pct": -2.7,
+      "yoy_pct": 30.9,
+      "price": "NOK 97.15/kg",
+      "canonical_name": "Cod Norway",
+      "paragraph": "The average weekly price of Norway Cod as of June 24 decreased by 2.7% MOM and rose by 30.9% YOY to NOK 97.15/kg. Market participants continued to report limited availability of Atlantic cod in the market, which supported the MOM increase in frozen fillet prices, despite the slight reduction in raw material costs. According to the Directorate of Fisheries, accumulated landings through May reached 96,581 MT, a 19.4% YTD decrease."
+    },
+    {
+      "name": "Russian Alaska Pollock",
+      "as_of": "June 24",
+      "mom_pct": 5.3,
+      "yoy_pct": 48.7,
+      "price": "$4,797.81/MT",
+      "canonical_name": "Alaska Pollock Russia",
+      "paragraph": "The average weekly price of Russian Alaska Pollock as of June 24 increased by 5.3% MOM and rose by 48.7% YOY to $4,797.81/MT. Pollock prices for Russia and the U.S. remained firm in June, as availability in Europe declined YOY while internal demand in both markets increased. This has coincided with broader upward pressure on white fish prices in Europe. Together, these factors have added upward pressure on prices for PBO single frozen, deep skin and mince for Russian and U.S. products."
+    },
+    {
+      "name": "Russian Alaska Pollock as of June 24",
+      "as_of": "",
+      "mom_pct": 5.3,
+      "yoy_pct": 48.7,
+      "price": "$4,797.81/MT",
+      "canonical_name": "Alaska Pollock Russia",
+      "paragraph": "The average weekly price of Russian Alaska Pollock as of June 24 increased by 5.3% MOM and rose by 48.7% YOY to $4,797.81/MT. Pollock prices for Russia and the U.S. remained firm in June, as availability in Europe declined YOY while internal demand in both markets increased. This has coincided with broader upward pressure on white fish prices in Europe. Together, these factors have added upward pressure on prices for PBO single frozen, deep skin and mince for Russian and U.S. products."
+    },
+    {
+      "name": "Norway Salmon",
+      "as_of": "June 24",
+      "mom_pct": -13.6,
+      "yoy_pct": 2.6,
+      "price": "NOK 5.90/kg",
+      "canonical_name": "Salmon Norway",
+      "paragraph": "The average weekly price of Norway Salmon as of June 24 decreased by 13.6% MOM and rose by 2.6% YOY to NOK 5.90/kg. Norwegian Atlantic salmon prices continued to show downward pressure, a trend observed since March. According to market participants, the price decline was supported by moderate demand across Europe, which has not been strong enough to sustain prices given fully adequate supply. According to Statistics Norway, harvest increased 10.6% MOM in May 2026 and 1.7% YTD."
+    },
+    {
+      "name": "Norway Salmon as of June 24",
+      "as_of": "",
+      "mom_pct": -13.6,
+      "yoy_pct": 2.6,
+      "price": "NOK 5.90/kg",
+      "canonical_name": "Salmon Norway",
+      "paragraph": "The average weekly price of Norway Salmon as of June 24 decreased by 13.6% MOM and rose by 2.6% YOY to NOK 5.90/kg. Norwegian Atlantic salmon prices continued to show downward pressure, a trend observed since March. According to market participants, the price decline was supported by moderate demand across Europe, which has not been strong enough to sustain prices given fully adequate supply. According to Statistics Norway, harvest increased 10.6% MOM in May 2026 and 1.7% YTD."
+    },
+    {
+      "name": "Thai Tuna",
+      "as_of": "June",
+      "mom_pct": -9.1,
+      "yoy_pct": 16.7,
+      "price": "$1,750/MT",
+      "canonical_name": "Tuna Thailand",
+      "paragraph": "In June, the average price of Thai Tuna decreased by 9.1% MOM and rose by 16.7% YOY to $1,750/MT. A slowdown in purchasing activities was observed in June, as market participants indicated that inventory levels were adequate at the canneries. Despite the recent decrease in price, the capture of skipjack tuna in the Western Central Pacific Ocean (WCPO) and Eastern Pacific Ocean (EPO) has been challenging in 2026, leading to higher YOY prices."
+    },
+    {
+      "name": "Chinese Apple",
+      "as_of": "June 24",
+      "mom_pct": -2.1,
+      "yoy_pct": -0.6,
+      "price": "$1.35/kg",
+      "canonical_name": "Apple China",
+      "paragraph": "The average weekly price of Chinese Apple as of June 24 decreased by 2.1% MOM and declined by 0.6% YOY to $1.35/kg. China\u2019s apple market outlook has become more mixed. Investment in Xinjiang\u2019s Aksu region is supporting better fruit quality, stronger branding, e-commerce growth, and value-added processing. However, adverse weather is raising concerns over national supply, with frosts in Shandong and Hebei and drought in Shaanxi pointing to lower yields and weaker fruit quality. This could tighten apple availability and support firmer apple juice prices, with China\u2019s concentrate market closely watching the size of the coming harvest."
+    },
+    {
+      "name": "Chinese Apple as of June 24",
+      "as_of": "",
+      "mom_pct": -2.1,
+      "yoy_pct": -0.6,
+      "price": "$1.35/kg",
+      "canonical_name": "Apple China",
+      "paragraph": "The average weekly price of Chinese Apple as of June 24 decreased by 2.1% MOM and declined by 0.6% YOY to $1.35/kg. China\u2019s apple market outlook has become more mixed. Investment in Xinjiang\u2019s Aksu region is supporting better fruit quality, stronger branding, e-commerce growth, and value-added processing. However, adverse weather is raising concerns over national supply, with frosts in Shandong and Hebei and drought in Shaanxi pointing to lower yields and weaker fruit quality. This could tighten apple availability and support firmer apple juice prices, with China\u2019s concentrate market closely watching the size of the coming harvest."
+    },
+    {
+      "name": "Spanish Pear",
+      "as_of": "June 17",
+      "mom_pct": -1.5,
+      "yoy_pct": -5.9,
+      "price": "\u20ac1,920/MT",
+      "canonical_name": "Pear Spain",
+      "paragraph": "The average weekly price of Spanish Pear as of June 17 decreased by 1.5% MOM and declined by 5.9% YOY to \u20ac1,920/MT. Spain\u2019s pear market is set for a sharp downturn, with Lleida production forecast 15\u201320% below 2024 levels and 50\u201360% under a normal crop due to poor fruit set, fire blight, hail, drought, and temperature swings. Similar issues in other Spanish regions and key European suppliers like Italy, the Netherlands, and Belgium could further tighten availability. Export programs and retail supply may be affected, while growers expect higher pear prices to offset lower volumes and rising costs."
+    },
+    {
+      "name": "Spanish Pear as of June 17",
+      "as_of": "",
+      "mom_pct": -1.5,
+      "yoy_pct": -5.9,
+      "price": "\u20ac1,920/MT",
+      "canonical_name": "Pear Spain",
+      "paragraph": "The average weekly price of Spanish Pear as of June 17 decreased by 1.5% MOM and declined by 5.9% YOY to \u20ac1,920/MT. Spain\u2019s pear market is set for a sharp downturn, with Lleida production forecast 15\u201320% below 2024 levels and 50\u201360% under a normal crop due to poor fruit set, fire blight, hail, drought, and temperature swings. Similar issues in other Spanish regions and key European suppliers like Italy, the Netherlands, and Belgium could further tighten availability. Export programs and retail supply may be affected, while growers expect higher pear prices to offset lower volumes and rising costs."
+    },
+    {
+      "name": "Argentinian Pear",
+      "as_of": "June 24",
+      "mom_pct": -0.3,
+      "yoy_pct": 4.6,
+      "price": "ARS 1,501.59/kg",
+      "canonical_name": "Pear Argentina",
+      "paragraph": "The average weekly price of Argentinian Pear as of June 24 decreased by 0.3% MOM and rose by 4.6% YOY to ARS 1,501.59/kg. Market sources report that US demand for Argentinian pears has been subdued in 2026, owing to stronger domestic supply. Favorable growing conditions in the US supported crop volumes and extended the growing season, which, combined with lower volumes in Argentina, led to a reduction in Argentinian imports of 25-25% YOY, according to market participants."
+    },
+    {
+      "name": "Argentinian Pear as of June 24",
+      "as_of": "",
+      "mom_pct": -0.3,
+      "yoy_pct": 4.6,
+      "price": "ARS 1,501.59/kg",
+      "canonical_name": "Pear Argentina",
+      "paragraph": "The average weekly price of Argentinian Pear as of June 24 decreased by 0.3% MOM and rose by 4.6% YOY to ARS 1,501.59/kg. Market sources report that US demand for Argentinian pears has been subdued in 2026, owing to stronger domestic supply. Favorable growing conditions in the US supported crop volumes and extended the growing season, which, combined with lower volumes in Argentina, led to a reduction in Argentinian imports of 25-25% YOY, according to market participants."
+    },
+    {
+      "name": "South African Orange",
+      "as_of": "June 24",
+      "mom_pct": -37.0,
+      "yoy_pct": -52.8,
+      "price": "ZAR 2,542.97/MT",
+      "canonical_name": "Orange South Africa",
+      "paragraph": "The average weekly price of South African Orange as of June 24 decreased by 37.0% MOM and declined by 52.8% YOY to ZAR 2,542.97/MT. The South African citrus market continues to face several challenges this season, including a reduction in export volumes, weather-induced disruptions to harvesting and intensifying overseas competition, according to sources. Exports to the Middle East fell notably YOY, as turmoil in the Gulf region has inhibited market access."
+    },
+    {
+      "name": "South African Orange as of June 24",
+      "as_of": "",
+      "mom_pct": -37.0,
+      "yoy_pct": -52.8,
+      "price": "ZAR 2,542.97/MT",
+      "canonical_name": "Orange South Africa",
+      "paragraph": "The average weekly price of South African Orange as of June 24 decreased by 37.0% MOM and declined by 52.8% YOY to ZAR 2,542.97/MT. The South African citrus market continues to face several challenges this season, including a reduction in export volumes, weather-induced disruptions to harvesting and intensifying overseas competition, according to sources. Exports to the Middle East fell notably YOY, as turmoil in the Gulf region has inhibited market access."
+    },
+    {
+      "name": "EU Banana",
+      "as_of": "June 24",
+      "mom_pct": -0.5,
+      "yoy_pct": 2.1,
+      "price": "\u20ac1,149.18/MT",
+      "canonical_name": "Banana EU",
+      "paragraph": "The average weekly price of EU Banana as of June 24 decreased by 0.5% MOM and rose by 2.1% YOY to \u20ac1,149.18/MT. Costa Rican banana producers are reportedly under pressure from increasing input costs as well as a strengthening col\u00f3n against the dollar, which is hitting margins as revenue is generated in US dollars. In addition, disease and climate challenges are of increasing concern. Major producer Fresh Del Monte recently scaled back its Costa Rican operations, in response to the challenges. Despite the ongoing difficulties, prices were steady in June."
+    },
+    {
+      "name": "EU Banana as of June 24",
+      "as_of": "",
+      "mom_pct": -0.5,
+      "yoy_pct": 2.1,
+      "price": "\u20ac1,149.18/MT",
+      "canonical_name": "Banana EU",
+      "paragraph": "The average weekly price of EU Banana as of June 24 decreased by 0.5% MOM and rose by 2.1% YOY to \u20ac1,149.18/MT. Costa Rican banana producers are reportedly under pressure from increasing input costs as well as a strengthening col\u00f3n against the dollar, which is hitting margins as revenue is generated in US dollars. In addition, disease and climate challenges are of increasing concern. Major producer Fresh Del Monte recently scaled back its Costa Rican operations, in response to the challenges. Despite the ongoing difficulties, prices were steady in June."
+    },
+    {
+      "name": "Indian Onion",
+      "as_of": "June 24",
+      "mom_pct": 9.0,
+      "yoy_pct": -0.6,
+      "price": "INR 21,458.60/MT",
+      "canonical_name": "Onion India",
+      "paragraph": "The average weekly price of Indian Onion as of June 24 increased by 9.0% MOM and declined by 0.6% YOY to INR 21,458.60/MT. Market sources report that the uptick in pricing compared with the low levels recorded in recent months stems from firming demand and an increase in exports. Growers are reportedly receiving more favorable offers than earlier this year, when pricing reportedly stood below cost price. In addition, the open market is offering more attractive pricing than government procurement programs, according to sources."
+    },
+    {
+      "name": "Indian Onion as of June 24",
+      "as_of": "",
+      "mom_pct": 9.0,
+      "yoy_pct": -0.6,
+      "price": "INR 21,458.60/MT",
+      "canonical_name": "Onion India",
+      "paragraph": "The average weekly price of Indian Onion as of June 24 increased by 9.0% MOM and declined by 0.6% YOY to INR 21,458.60/MT. Market sources report that the uptick in pricing compared with the low levels recorded in recent months stems from firming demand and an increase in exports. Growers are reportedly receiving more favorable offers than earlier this year, when pricing reportedly stood below cost price. In addition, the open market is offering more attractive pricing than government procurement programs, according to sources."
+    },
+    {
+      "name": "EU Tomato",
+      "as_of": "June 17",
+      "mom_pct": -15.8,
+      "yoy_pct": -28.9,
+      "price": "\u20ac3,370/MT",
+      "canonical_name": "Tomato EU",
+      "paragraph": "The average weekly price of EU Tomato as of June 17 decreased by 15.8% MOM and declined by 28.9% YOY to \u20ac3,370/MT. Market sources suggest that prices returned to seasonal norms in June following elevated levels in recent months, owing to supply tightness stemming from adverse weather events. This convergence of multiple supply sources into the European market in early summer is the most common structural driver of June price weakness in Spanish tomatoes, according to market reports."
+    },
+    {
+      "name": "EU Tomato as of June 17",
+      "as_of": "",
+      "mom_pct": -15.8,
+      "yoy_pct": -28.9,
+      "price": "\u20ac3,370/MT",
+      "canonical_name": "Tomato EU",
+      "paragraph": "The average weekly price of EU Tomato as of June 17 decreased by 15.8% MOM and declined by 28.9% YOY to \u20ac3,370/MT. Market sources suggest that prices returned to seasonal norms in June following elevated levels in recent months, owing to supply tightness stemming from adverse weather events. This convergence of multiple supply sources into the European market in early summer is the most common structural driver of June price weakness in Spanish tomatoes, according to market reports."
+    },
+    {
+      "name": "Brazilian Orange Juice",
+      "as_of": "June",
+      "mom_pct": -4.5,
+      "yoy_pct": -31.7,
+      "price": "$2.64/kg",
+      "canonical_name": "Orange Juice Brazil",
+      "paragraph": "In June, the average price of Brazilian Orange Juice decreased by 4.5% MOM and declined by 31.7% YOY to $2.64/kg. Brazil is set to record a drop in orange production for the 2026/27 season of about 13% YOY, according to Fundecitrus. The crop update comes against the backdrop of sluggish demand in the orange juice markets. Despite the expected reduction in crop volumes, prices continue to decline, as the low demand environment weighs upon market sentiment."
+    },
+    {
+      "name": "Chinese Apple Juice",
+      "as_of": "",
+      "mom_pct": 0.0,
+      "yoy_pct": -10.7,
+      "price": "$1,375/MT",
+      "canonical_name": "Apple Juice China",
+      "paragraph": "In June, the average price of Chinese Apple Juice was unchanged MOM and declined by 10.7% YOY to $1,375/MT. Reports suggest that Chinese orchards have been hit by adverse weather events in recent weeks, but sources state that damage is minimal. Sources anticipate average crop volumes for China\u2019s 2026/27 apple season. China is yet to see a pick-up in demand, according to sources. US demand is reportedly moderate."
+    },
+    {
+      "name": "ICE #11 Raw Sugar futures",
+      "as_of": "June 24",
+      "mom_pct": -7.7,
+      "yoy_pct": -15.5,
+      "price": "USc 13.47/Lb",
+      "canonical_name": "Sugar ICE #11 New York",
+      "paragraph": "The average weekly spot price of ICE #11 Raw Sugar futures as of June 24 decreased by 7.7% MOM and decreased by 15.5% YOY to USc 13.47/Lb. The average weekly price of spot ICE London #5 White Sugar futures as of June 24 increased by 0.7% MOM and decreased by 6.7% YOY to $442.48/MT. The Middle East conflict remained a key driver of the sugar market in June. Signs of progress toward a peace agreement, along with increased commercial shipping through the Strait of Hormuz, contributed to periods of downward pressure on sugar prices during the month. Toward the end of June, however, prices found support as the rainfall outlook in India deteriorated and a heatwave spread across Europe."
+    },
+    {
+      "name": "spot ICE London #5 White Sugar futures",
+      "as_of": "June 24",
+      "mom_pct": 0.7,
+      "yoy_pct": -6.7,
+      "price": "$442.48/MT",
+      "canonical_name": "Sugar ICE #5 London",
+      "paragraph": "The average weekly spot price of ICE #11 Raw Sugar futures as of June 24 decreased by 7.7% MOM and decreased by 15.5% YOY to USc 13.47/Lb. The average weekly price of spot ICE London #5 White Sugar futures as of June 24 increased by 0.7% MOM and decreased by 6.7% YOY to $442.48/MT. The Middle East conflict remained a key driver of the sugar market in June. Signs of progress toward a peace agreement, along with increased commercial shipping through the Strait of Hormuz, contributed to periods of downward pressure on sugar prices during the month. Toward the end of June, however, prices found support as the rainfall outlook in India deteriorated and a heatwave spread across Europe."
+    },
+    {
+      "name": "ICE #11 Raw Sugar futures as of June 24",
+      "as_of": "",
+      "mom_pct": -7.7,
+      "yoy_pct": -15.5,
+      "price": "USc 13.47/Lb",
+      "canonical_name": "Sugar ICE #11 New York",
+      "paragraph": "The average weekly spot price of ICE #11 Raw Sugar futures as of June 24 decreased by 7.7% MOM and decreased by 15.5% YOY to USc 13.47/Lb. The average weekly price of spot ICE London #5 White Sugar futures as of June 24 increased by 0.7% MOM and decreased by 6.7% YOY to $442.48/MT. The Middle East conflict remained a key driver of the sugar market in June. Signs of progress toward a peace agreement, along with increased commercial shipping through the Strait of Hormuz, contributed to periods of downward pressure on sugar prices during the month. Toward the end of June, however, prices found support as the rainfall outlook in India deteriorated and a heatwave spread across Europe."
+    },
+    {
+      "name": "spot ICE London #5 White Sugar futures as of June 24",
+      "as_of": "",
+      "mom_pct": 0.7,
+      "yoy_pct": -6.7,
+      "price": "$442.48/MT",
+      "canonical_name": "Sugar ICE #5 London",
+      "paragraph": "The average weekly spot price of ICE #11 Raw Sugar futures as of June 24 decreased by 7.7% MOM and decreased by 15.5% YOY to USc 13.47/Lb. The average weekly price of spot ICE London #5 White Sugar futures as of June 24 increased by 0.7% MOM and decreased by 6.7% YOY to $442.48/MT. The Middle East conflict remained a key driver of the sugar market in June. Signs of progress toward a peace agreement, along with increased commercial shipping through the Strait of Hormuz, contributed to periods of downward pressure on sugar prices during the month. Toward the end of June, however, prices found support as the rainfall outlook in India deteriorated and a heatwave spread across Europe."
+    },
+    {
+      "name": "ICE New York Arabica futures",
+      "as_of": "June 24",
+      "mom_pct": 3.3,
+      "yoy_pct": -12.0,
+      "price": "USc 281.34/Lb",
+      "canonical_name": "Arabica Coffee ICE New York",
+      "paragraph": "The average weekly spot price of ICE New York Arabica futures as of June 24 increased by 3.3% MOM and decreased by 12.0% YOY to USc 281.34/Lb. Arabica prices over the month were supported by concerns over adverse weather in Brazil, including frost risks and below-average rainfall in some growing regions. Tight certified ICE stocks and continued uncertainty over Brazil's harvest outlook also encouraged speculative buying despite improving harvest progress."
+    },
+    {
+      "name": "ICE New York Arabica futures as of June 24",
+      "as_of": "",
+      "mom_pct": 3.3,
+      "yoy_pct": -12.0,
+      "price": "USc 281.34/Lb",
+      "canonical_name": "Arabica Coffee ICE New York",
+      "paragraph": "The average weekly spot price of ICE New York Arabica futures as of June 24 increased by 3.3% MOM and decreased by 12.0% YOY to USc 281.34/Lb. Arabica prices over the month were supported by concerns over adverse weather in Brazil, including frost risks and below-average rainfall in some growing regions. Tight certified ICE stocks and continued uncertainty over Brazil's harvest outlook also encouraged speculative buying despite improving harvest progress."
+    },
+    {
+      "name": "Vietnamese Black Pepper",
+      "as_of": "June 24",
+      "mom_pct": 0.0,
+      "yoy_pct": 2.1,
+      "price": "$6,180/MT",
+      "canonical_name": "Black Pepper Vietnam",
+      "paragraph": "The average weekly price of Vietnamese Black Pepper as of June 24 was unchanged MOM and rose by 2.1% YOY to $6,180/MT."
+    },
+    {
+      "name": "Indian Turmeric",
+      "as_of": "June 24",
+      "mom_pct": 4.0,
+      "yoy_pct": 7.7,
+      "price": "$176.06/100kg",
+      "canonical_name": "Turmeric India",
+      "paragraph": "The average weekly price of Indian Turmeric as of June 24 increased by 4.0% MOM and rose by 7.7% YOY to $176.06/100kg."
+    },
+    {
+      "name": "Indian Turmeric as of June 24",
+      "as_of": "",
+      "mom_pct": 4.0,
+      "yoy_pct": 7.7,
+      "price": "$176.06/100kg",
+      "canonical_name": "Turmeric India",
+      "paragraph": "The average weekly price of Indian Turmeric as of June 24 increased by 4.0% MOM and rose by 7.7% YOY to $176.06/100kg."
+    },
+    {
+      "name": "Indian Chilli",
+      "as_of": "June 24",
+      "mom_pct": 14.8,
+      "yoy_pct": 89.8,
+      "price": "$275.69/100kg",
+      "canonical_name": "Chilli India",
+      "paragraph": "The average weekly price of Indian Chilli as of June 24 increased by 14.8% MOM and rose by 89.8% YOY to $275.69/100kg."
+    },
+    {
+      "name": "Indian Chilli as of June 24",
+      "as_of": "",
+      "mom_pct": 14.8,
+      "yoy_pct": 89.8,
+      "price": "$275.69/100kg",
+      "canonical_name": "Chilli India",
+      "paragraph": "The average weekly price of Indian Chilli as of June 24 increased by 14.8% MOM and rose by 89.8% YOY to $275.69/100kg."
+    },
+    {
+      "name": "Argentinian peanuts",
+      "as_of": "June 24",
+      "mom_pct": 1.8,
+      "yoy_pct": 9.8,
+      "price": "$1,400/MT",
+      "canonical_name": "Peanuts Argentina",
+      "paragraph": "The average weekly price of Argentinian peanuts as of June 24 increased by 1.8% MOM and rose by 9.8% YOY to $1,400/MT. Argentine peanuts continued their modest climb through June. Prices saw upward pressure due to challenging harvest weather that heightens yield and quality concerns. With the significantly smaller planted area compared to the prior year, production is anticipated to be similarly smaller, pushing old crop prices higher as the season transitions. Old crop supplies are getting tighter, but sources suggest they are sufficient for the currently quiet demand environment."
+    },
+    {
+      "name": "Argentinian peanuts as of June 24",
+      "as_of": "",
+      "mom_pct": 1.8,
+      "yoy_pct": 9.8,
+      "price": "$1,400/MT",
+      "canonical_name": "Peanuts Argentina",
+      "paragraph": "The average weekly price of Argentinian peanuts as of June 24 increased by 1.8% MOM and rose by 9.8% YOY to $1,400/MT. Argentine peanuts continued their modest climb through June. Prices saw upward pressure due to challenging harvest weather that heightens yield and quality concerns. With the significantly smaller planted area compared to the prior year, production is anticipated to be similarly smaller, pushing old crop prices higher as the season transitions. Old crop supplies are getting tighter, but sources suggest they are sufficient for the currently quiet demand environment."
+    },
+    {
+      "name": "Brazil nut EBP",
+      "as_of": "June",
+      "mom_pct": 4.3,
+      "yoy_pct": -44.2,
+      "price": "$4.8/Lb",
+      "canonical_name": "Brazil Nuts South America",
+      "paragraph": "The Brazil nut EBP increased by 4.3% MOM in June to $4.8/Lb, down 44.2% YOY. Sellers have returned to the market but offers are scarce which has been providing support to prices."
+    },
+    {
+      "name": "Turkish Sultanas",
+      "as_of": "June 24",
+      "mom_pct": -1.2,
+      "yoy_pct": -34.2,
+      "price": "$2,447/MT",
+      "canonical_name": "Sultanas Turkey",
+      "paragraph": "The average weekly price of Turkish Sultanas as of June 24 decreased by 1.2% MOM and declined by 34.2% YOY to $2,447/MT. Turkish 2026/27 sultana output is projected to nearly double to 290,000- 300,000 MT, yet demand continues to remain weak across major European markets as buyers shift to alternative origins and reformulate product recipes to reduce dried fruit content."
+    },
+    {
+      "name": "Turkish Sultanas as of June 24",
+      "as_of": "",
+      "mom_pct": -1.2,
+      "yoy_pct": -34.2,
+      "price": "$2,447/MT",
+      "canonical_name": "Sultanas Turkey",
+      "paragraph": "The average weekly price of Turkish Sultanas as of June 24 decreased by 1.2% MOM and declined by 34.2% YOY to $2,447/MT. Turkish 2026/27 sultana output is projected to nearly double to 290,000- 300,000 MT, yet demand continues to remain weak across major European markets as buyers shift to alternative origins and reformulate product recipes to reduce dried fruit content."
+    },
+    {
+      "name": "US Cotton",
+      "as_of": "June 24",
+      "mom_pct": -3.4,
+      "yoy_pct": 14.8,
+      "price": "USc 74.67/Lb",
+      "canonical_name": "Cotton US",
+      "paragraph": "The average weekly price of US Cotton as of June 24 decreased by 3.4% MOM and rose by 14.8% YOY to USc 74.67/Lb. Demand reportedly softened throughout the month, contributing to the downward price move, even against the backdrop of tightening supply. Indeed, the June 2026 USDA WASDE report showed reduced beginning and ending stocks for 2026/27, with the US crop projected at around 13.3 million bales \u2014 down around 600,000 bales compared to the prior estimate."
+    },
+    {
+      "name": "US Cotton as of June 24",
+      "as_of": "",
+      "mom_pct": -3.4,
+      "yoy_pct": 14.8,
+      "price": "USc 74.67/Lb",
+      "canonical_name": "Cotton US",
+      "paragraph": "The average weekly price of US Cotton as of June 24 decreased by 3.4% MOM and rose by 14.8% YOY to USc 74.67/Lb. Demand reportedly softened throughout the month, contributing to the downward price move, even against the backdrop of tightening supply. Indeed, the June 2026 USDA WASDE report showed reduced beginning and ending stocks for 2026/27, with the US crop projected at around 13.3 million bales \u2014 down around 600,000 bales compared to the prior estimate."
+    },
+    {
+      "name": "EU Kraftliner",
+      "as_of": "June",
+      "mom_pct": 6.2,
+      "yoy_pct": 6.2,
+      "price": "\u20ac1,024.50/MT",
+      "canonical_name": "Kraftliner EU",
+      "paragraph": "In June, the average price of EU Kraftliner increased by 6.2% MOM and rose by 6.2% YOY to \u20ac1,024.50/MT. Pulp prices in Europe continued to rise, pushing kraftliner production costs upward. Specifically, BNK pulp increased 4% MOM and 30% YOY in June. Pulp supply was constrained due to capacity shutdowns in May. As a result, unlike packaging paper produced primarily from waste paper, kraftliner prices rose."
+    },
+    {
+      "name": "EU Fluting",
+      "as_of": "",
+      "mom_pct": 0.0,
+      "yoy_pct": 3.5,
+      "price": "\u20ac877.50/MT",
+      "canonical_name": "Fluting EU",
+      "paragraph": "In June, the average price of EU Fluting was unchanged MOM and rose by 3.5% YOY to \u20ac877.50/MT. Producers of semichemical fluting were unable to raise prices in June because production cost drivers were absent, and the market remained well balanced with adequate supply."
+    },
+    {
+      "name": "US Linerboard",
+      "as_of": "June",
+      "mom_pct": 5.5,
+      "yoy_pct": 4.3,
+      "price": "$0.48/Lb",
+      "canonical_name": "Linerboard US",
+      "paragraph": "In June, the average price of US Linerboard increased by 5.5% MOM and rose by 4.3% YOY to $0.48/Lb. Supply-side tightening continued to drive pricing power even as demand remained tepid. Roughly 10% of containerboard capacity, was permanently retired between February 2025 and March 2026. Mill order backlogs increased in June, signaling ample demand for the summer season."
+    },
+    {
+      "name": "US Cartonboard SBB",
+      "as_of": "June",
+      "mom_pct": 0.8,
+      "yoy_pct": -1.6,
+      "price": "$0.63/Lb",
+      "canonical_name": "Cartonboard SBB US",
+      "paragraph": "In June, the average price of US Cartonboard SBB increased by 0.8% MOM and declined by 1.6% YOY to $0.63/Lb. Persistent oversupply kept producers focused on capacity rationalization rather than price hikes, with Clearwater Paper announcing plans in April to halve output at its Cypress Bend, Arkansas SBS mill and Smurfit Westrock having permanently shut a machine at its La Tuque, Quebec facility earlier in the year."
+    },
+    {
+      "name": "US HRC steel at CME",
+      "as_of": "June",
+      "mom_pct": 4.2,
+      "yoy_pct": 37.8,
+      "price": "$1,319.30/MT",
+      "canonical_name": "Steel CME US",
+      "paragraph": "In June, the average 3-month (3m) futures price of US HRC steel at CME increased by 4.2% MOM and rose by 37.8% YOY to $1,319.30/MT. At the same time, in late June a substantial decline in futures prices began, and in early July the 3-month futures price fell to spot market levels, though it had remained consistently higher over the previous several months. Some sources indicated that prices were likely inflated, as tariffs had already fully reflected in domestic prices and further upside from tariff support no longer existed. In June, the average EU HRC steel price decreased 1.4% MOM and rose 12.9% YOY to EUR 688.75/MT. Weak demand and elevated inventory levels were the primary drivers of the decline."
+    },
+    {
+      "name": "EU HDPE",
+      "as_of": "June",
+      "mom_pct": -3.2,
+      "yoy_pct": 62.2,
+      "price": "\u20ac2,413/MT",
+      "canonical_name": "HDPE EU",
+      "paragraph": "In June, the average price of EU HDPE decreased by 3.2% MOM and rose by 62.2% YOY to \u20ac2,413/MT. Prices moved downwards throughout the month, with order levels falling. Furthermore, increased imports reduced supply pressures across the EU, while a decline in production costs pulled down product prices MOM."
+    },
+    {
+      "name": "US HDPE",
+      "as_of": "June",
+      "mom_pct": -3.3,
+      "yoy_pct": 14.5,
+      "price": "USc 65.25/Lb",
+      "canonical_name": "HDPE US",
+      "paragraph": "In June, the average price of US HDPE decreased by 3.3% MOM and rose by 14.5% YOY to USc 65.25/Lb. Panic demand continued to fall away, with market fundamentals balancing due to easing geopolitical tensions in the Middle East. Domestic packaging demand was reportedly sluggish, although demand from construction and automotive sectors was stronger."
+    },
+    {
+      "name": "EU PET",
+      "as_of": "June",
+      "mom_pct": -1.9,
+      "yoy_pct": 42.4,
+      "price": "\u20ac1,450.50/MT",
+      "canonical_name": "PET EU",
+      "paragraph": "In June, the average price of EU PET decreased by 1.9% MOM and rose by 42.4% YOY to \u20ac1,450.50/MT. PET prices in the EU continued to stabilize throughout June, attributable to easing tensions in the Middle East and resulting lower production costs. Demand reportedly remained robust due to increased orders from drinks manufacturers as summer approaches."
+    },
+    {
+      "name": "EU PP",
+      "as_of": "June",
+      "mom_pct": -3.5,
+      "yoy_pct": 65.6,
+      "price": "\u20ac2,278/MT",
+      "canonical_name": "PP EU",
+      "paragraph": "In June, the average price of EU PP decreased by 3.5% MOM and rose by 65.6% YOY to \u20ac2,278/MT. PP prices fell notably throughout June, pushed downwards by lower production costs. Demand reportedly shrank throughout the month, with manufacturers operating at reduced capacity still able to cater for order levels."
+    },
+    {
+      "name": "Euronext Maize",
+      "as_of": "June 24",
+      "mom_pct": -0.6,
+      "yoy_pct": 11.5,
+      "price": "\u20ac219.10/MT",
+      "canonical_name": "Maize Euronext",
+      "paragraph": "The average weekly price of Euronext Maize as of June 24 decreased by 0.6% MOM and rose by 11.5% YOY to \u20ac219.10/MT. Extreme heat and dryness affected Western Europe in June, particularly France, with these conditions gradually spreading eastwards, although the impact remained less severe outside Western Europe. According to market participants, France entered a critical stage of crop development during the month, with early maize pollination taking place under exceptionally hot and dry conditions. Temperatures exceeded 40\u00b0C in some areas, increasing crop stress and making some yield losses increasingly unavoidable. Market participants told Expana that French maize acreage was already expected to decline this season, making final yield performance even more important for overall production."
+    },
+    {
+      "name": "Euronext Maize as of June 24",
+      "as_of": "",
+      "mom_pct": -0.6,
+      "yoy_pct": 11.5,
+      "price": "\u20ac219.10/MT",
+      "canonical_name": "Maize Euronext",
+      "paragraph": "The average weekly price of Euronext Maize as of June 24 decreased by 0.6% MOM and rose by 11.5% YOY to \u20ac219.10/MT. Extreme heat and dryness affected Western Europe in June, particularly France, with these conditions gradually spreading eastwards, although the impact remained less severe outside Western Europe. According to market participants, France entered a critical stage of crop development during the month, with early maize pollination taking place under exceptionally hot and dry conditions. Temperatures exceeded 40\u00b0C in some areas, increasing crop stress and making some yield losses increasingly unavoidable. Market participants told Expana that French maize acreage was already expected to decline this season, making final yield performance even more important for overall production."
+    },
+    {
+      "name": "Euronext Wheat",
+      "as_of": "June 24",
+      "mom_pct": -3.9,
+      "yoy_pct": 0.9,
+      "price": "\u20ac205.45/MT",
+      "canonical_name": "Wheat Euronext",
+      "paragraph": "The average weekly price of Euronext Wheat as of June 24 decreased by 3.9% MOM and rose by 0.9% YOY to \u20ac205.45/MT. The month-on-month decline largely reflected the transition to new-crop supplies and increasing seasonal harvest pressure. Early harvest results in Eastern Europe were encouraging, with market sources reporting record yields in Bulgaria and eastern Romania. Meanwhile, crops in the UK, Germany and the Baltic states entered the June dry spell in generally strong condition, although prolonged heat could still trim yield potential. In contrast, early French harvest results were disappointing, weighing on sentiment, although market participants expect a clearer production outlook once harvesting advances into northern regions."
+    },
+    {
+      "name": "Euronext Wheat as of June 24",
+      "as_of": "",
+      "mom_pct": -3.9,
+      "yoy_pct": 0.9,
+      "price": "\u20ac205.45/MT",
+      "canonical_name": "Wheat Euronext",
+      "paragraph": "The average weekly price of Euronext Wheat as of June 24 decreased by 3.9% MOM and rose by 0.9% YOY to \u20ac205.45/MT. The month-on-month decline largely reflected the transition to new-crop supplies and increasing seasonal harvest pressure. Early harvest results in Eastern Europe were encouraging, with market sources reporting record yields in Bulgaria and eastern Romania. Meanwhile, crops in the UK, Germany and the Baltic states entered the June dry spell in generally strong condition, although prolonged heat could still trim yield potential. In contrast, early French harvest results were disappointing, weighing on sentiment, although market participants expect a clearer production outlook once harvesting advances into northern regions."
+    },
+    {
+      "name": "Thai Rice",
+      "as_of": "June 24",
+      "mom_pct": 4.0,
+      "yoy_pct": 22.4,
+      "price": "$497/MT",
+      "canonical_name": "Rice Thailand",
+      "paragraph": "The average weekly price of Thai Rice as of June 24 increased by 4.0% MOM and rose by 22.4% YOY to $497/MT. Thai 5% broken rice moved higher through June as domestic prices and production costs rose. Traders said that supply is being held back by millers and reduced farmer sales, as they await higher prices. Sources said that El Ni\u00f1o risk has also exacerbated these conditions."
+    },
+    {
+      "name": "Thai Rice as of June 24",
+      "as_of": "",
+      "mom_pct": 4.0,
+      "yoy_pct": 22.4,
+      "price": "$497/MT",
+      "canonical_name": "Rice Thailand",
+      "paragraph": "The average weekly price of Thai Rice as of June 24 increased by 4.0% MOM and rose by 22.4% YOY to $497/MT. Thai 5% broken rice moved higher through June as domestic prices and production costs rose. Traders said that supply is being held back by millers and reduced farmer sales, as they await higher prices. Sources said that El Ni\u00f1o risk has also exacerbated these conditions."
+    },
+    {
+      "name": "Canadian Rapeseed",
+      "as_of": "June 24",
+      "mom_pct": -2.2,
+      "yoy_pct": 1.7,
+      "price": "CAD 732.38/MT",
+      "canonical_name": "Rapeseed Canada",
+      "paragraph": "The average weekly price of Canadian Rapeseed as of June 24 decreased by 2.2% MOM and rose by 1.7% YOY to CAD 732.38/MT. Record Canadian canola area of 23.4 million acres according Statistics Canada has improved crop potential and likely lifts output above Statistics Canada\u2019s earlier 19.2 million mt projection, but sources said stronger domestic crushing still limits how much of that supply becomes flexible seed available to export markets."
+    },
+    {
+      "name": "Canadian Rapeseed as of June 24",
+      "as_of": "",
+      "mom_pct": -2.2,
+      "yoy_pct": 1.7,
+      "price": "CAD 732.38/MT",
+      "canonical_name": "Rapeseed Canada",
+      "paragraph": "The average weekly price of Canadian Rapeseed as of June 24 decreased by 2.2% MOM and rose by 1.7% YOY to CAD 732.38/MT. Record Canadian canola area of 23.4 million acres according Statistics Canada has improved crop potential and likely lifts output above Statistics Canada\u2019s earlier 19.2 million mt projection, but sources said stronger domestic crushing still limits how much of that supply becomes flexible seed available to export markets."
+    },
+    {
+      "name": "Canadian Rapeseed Oil",
+      "as_of": "June 24",
+      "mom_pct": -4.3,
+      "yoy_pct": 28.5,
+      "price": "CAD 2,334.83/MT",
+      "canonical_name": "Rapeseed Oil Canada",
+      "paragraph": "The average weekly price of Canadian Rapeseed Oil as of June 24 decreased by 4.3% MOM and rose by 28.5% YOY to CAD 2,334.83/MT. Sources said cheaper raw material inputs could had weighed on Canadian canola oil prices this week, particularly following record planted area statistics even despite expectations of strong crushing demand."
+    },
+    {
+      "name": "Canadian Rapeseed Oil as of June 24",
+      "as_of": "",
+      "mom_pct": -4.3,
+      "yoy_pct": 28.5,
+      "price": "CAD 2,334.83/MT",
+      "canonical_name": "Rapeseed Oil Canada",
+      "paragraph": "The average weekly price of Canadian Rapeseed Oil as of June 24 decreased by 4.3% MOM and rose by 28.5% YOY to CAD 2,334.83/MT. Sources said cheaper raw material inputs could had weighed on Canadian canola oil prices this week, particularly following record planted area statistics even despite expectations of strong crushing demand."
+    },
+    {
+      "name": "Russian Sunflower Seed",
+      "as_of": "June 24",
+      "mom_pct": 3.0,
+      "yoy_pct": 10.9,
+      "price": "RUB 40,085/MT",
+      "canonical_name": "Sunflower Seed Russia",
+      "paragraph": "The average weekly price of Russian Sunflower Seed as of June 24 increased by 3.0% MOM and rose by 10.9% YOY to RUB 40,085/MT. Market players told Expana that the fundamental situation for Russian sunflower seed is not at a point of significant concern, and it is likely that the increased prices reflect supply constraints in other key producers such as Ukraine."
+    },
+    {
+      "name": "Russian Sunflower Seed as of June 24",
+      "as_of": "",
+      "mom_pct": 3.0,
+      "yoy_pct": 10.9,
+      "price": "RUB 40,085/MT",
+      "canonical_name": "Sunflower Seed Russia",
+      "paragraph": "The average weekly price of Russian Sunflower Seed as of June 24 increased by 3.0% MOM and rose by 10.9% YOY to RUB 40,085/MT. Market players told Expana that the fundamental situation for Russian sunflower seed is not at a point of significant concern, and it is likely that the increased prices reflect supply constraints in other key producers such as Ukraine."
+    },
+    {
+      "name": "Russian Sunflower Oil",
+      "as_of": "June 24",
+      "mom_pct": 2.2,
+      "yoy_pct": 12.9,
+      "price": "RUB 100,167/MT",
+      "canonical_name": "Sunflower Oil Russia",
+      "paragraph": "The average weekly price of Russian Sunflower Oil as of June 24 increased by 2.2% MOM and rose by 12.9% YOY to RUB 100,167/MT. Russian sunflower oil is also competitively priced in the global market, and traders have pointed towards support in the wider market as a primary tailwind for Russian sunflower oil prices."
+    },
+    {
+      "name": "Russian Sunflower Oil as of June 24",
+      "as_of": "",
+      "mom_pct": 2.2,
+      "yoy_pct": 12.9,
+      "price": "RUB 100,167/MT",
+      "canonical_name": "Sunflower Oil Russia",
+      "paragraph": "The average weekly price of Russian Sunflower Oil as of June 24 increased by 2.2% MOM and rose by 12.9% YOY to RUB 100,167/MT. Russian sunflower oil is also competitively priced in the global market, and traders have pointed towards support in the wider market as a primary tailwind for Russian sunflower oil prices."
+    },
+    {
+      "name": "US Soyabean Oil",
+      "as_of": "June 24",
+      "mom_pct": -5.6,
+      "yoy_pct": 32.7,
+      "price": "$1,548.13/MT",
+      "canonical_name": "Soyabean Oil US",
+      "paragraph": "The average weekly price of US Soyabean Oil as of June 24 decreased by 5.6% MOM and rose by 32.7% YOY to $1,548.13/MT. Market players largely attributed the dip in soybean oil prices towards weakness in crude oil prices, and a short-term cooldown in processing demand. As well as this, cheaper soybeans could had played a role, sources said."
+    },
+    {
+      "name": "US Soyabean Oil as of June 24",
+      "as_of": "",
+      "mom_pct": -5.6,
+      "yoy_pct": 32.7,
+      "price": "$1,548.13/MT",
+      "canonical_name": "Soyabean Oil US",
+      "paragraph": "The average weekly price of US Soyabean Oil as of June 24 decreased by 5.6% MOM and rose by 32.7% YOY to $1,548.13/MT. Market players largely attributed the dip in soybean oil prices towards weakness in crude oil prices, and a short-term cooldown in processing demand. As well as this, cheaper soybeans could had played a role, sources said."
+    },
+    {
+      "name": "US Pork",
+      "as_of": "June 24",
+      "mom_pct": -1.8,
+      "yoy_pct": -16.3,
+      "price": "$2,081.91/MT",
+      "canonical_name": "Pork US",
+      "paragraph": "The average weekly price of US Pork as of June 24 decreased by 1.8% MOM and declined by 16.3% YOY to $2,081.91/MT. US pork prices dropped during June. While the overall price trended downward, market trends across cuts diverged. Typical grilling season items saw some support during the month, while off-season items such as roasting cuts dropped in price. The overall tone was driven by sufficient supply for the US market during June, sources explained."
+    },
+    {
+      "name": "US Pork as of June 24",
+      "as_of": "",
+      "mom_pct": -1.8,
+      "yoy_pct": -16.3,
+      "price": "$2,081.91/MT",
+      "canonical_name": "Pork US",
+      "paragraph": "The average weekly price of US Pork as of June 24 decreased by 1.8% MOM and declined by 16.3% YOY to $2,081.91/MT. US pork prices dropped during June. While the overall price trended downward, market trends across cuts diverged. Typical grilling season items saw some support during the month, while off-season items such as roasting cuts dropped in price. The overall tone was driven by sufficient supply for the US market during June, sources explained."
+    },
+    {
+      "name": "US Beef",
+      "as_of": "June 24",
+      "mom_pct": 0.6,
+      "yoy_pct": 10.4,
+      "price": "$8,990.58/MT",
+      "canonical_name": "Beef US",
+      "paragraph": "The average weekly price of US Beef as of June 24 increased by 0.6% MOM and rose by 10.4% YOY to $8,990.58/MT. Father's Day consumer demand was noted as up in comparison to previous years for foodservice but buying interest remained largely focused at the retail level. The USDA monthly Cattle on Feed report for June displayed higher numbers compared to June2025. The amount of cattle on feed in US feedyards with a capacity of 1,000 or more as of June 1 was 2.1% above year-ago levels."
+    },
+    {
+      "name": "US Beef as of June 24",
+      "as_of": "",
+      "mom_pct": 0.6,
+      "yoy_pct": 10.4,
+      "price": "$8,990.58/MT",
+      "canonical_name": "Beef US",
+      "paragraph": "The average weekly price of US Beef as of June 24 increased by 0.6% MOM and rose by 10.4% YOY to $8,990.58/MT. Father's Day consumer demand was noted as up in comparison to previous years for foodservice but buying interest remained largely focused at the retail level. The USDA monthly Cattle on Feed report for June displayed higher numbers compared to June2025. The amount of cattle on feed in US feedyards with a capacity of 1,000 or more as of June 1 was 2.1% above year-ago levels."
+    },
+    {
+      "name": "New Zealand Lamb",
+      "as_of": "June 24",
+      "mom_pct": 6.0,
+      "yoy_pct": 22.4,
+      "price": "NZD 11,065.14/MT",
+      "canonical_name": "Lamb New Zealand",
+      "paragraph": "The average weekly price of New Zealand Lamb as of June 24 increased by 6.0% MOM and rose by 22.4% YOY to NZD 11,065.14/MT. Prices strengthened further in June as robust export demand and continued interest from global buyers supported the market. Lower flock numbers and reduced seasonal throughput kept supplies constrained, allowing prices to remain at elevated levels, sources said."
+    },
+    {
+      "name": "New Zealand Lamb as of June 24",
+      "as_of": "",
+      "mom_pct": 6.0,
+      "yoy_pct": 22.4,
+      "price": "NZD 11,065.14/MT",
+      "canonical_name": "Lamb New Zealand",
+      "paragraph": "The average weekly price of New Zealand Lamb as of June 24 increased by 6.0% MOM and rose by 22.4% YOY to NZD 11,065.14/MT. Prices strengthened further in June as robust export demand and continued interest from global buyers supported the market. Lower flock numbers and reduced seasonal throughput kept supplies constrained, allowing prices to remain at elevated levels, sources said."
+    },
+    {
+      "name": "Australian Lamb",
+      "as_of": "June 24",
+      "mom_pct": 4.0,
+      "yoy_pct": 15.0,
+      "price": "AUD 11,296.33/MT",
+      "canonical_name": "Lamb Australia",
+      "paragraph": "The average weekly price of Australian Lamb as of June 24 increased by 4.0% MOM and rose by 15.0% YOY to AUD 11,296.33/MT. Prices moved higher in June as strong export demand offset increasing seasonal production. Although supplies have improved, ongoing flock rebuilding and relatively tight overall availability continued to underpin values, keeping prices well above year-ago levels, sources told Expana."
+    },
+    {
+      "name": "Australian Lamb as of June 24",
+      "as_of": "",
+      "mom_pct": 4.0,
+      "yoy_pct": 15.0,
+      "price": "AUD 11,296.33/MT",
+      "canonical_name": "Lamb Australia",
+      "paragraph": "The average weekly price of Australian Lamb as of June 24 increased by 4.0% MOM and rose by 15.0% YOY to AUD 11,296.33/MT. Prices moved higher in June as strong export demand offset increasing seasonal production. Although supplies have improved, ongoing flock rebuilding and relatively tight overall availability continued to underpin values, keeping prices well above year-ago levels, sources told Expana."
+    },
+    {
+      "name": "US Chicken",
+      "as_of": "June 24",
+      "mom_pct": -3.3,
+      "yoy_pct": -12.8,
+      "price": "$2,608.70/MT",
+      "canonical_name": "Chicken US",
+      "paragraph": "The average weekly price of US Chicken as of June 24 decreased by 3.3% MOM and declined by 12.8% YOY to $2,608.70/MT. Monthly US broiler production continued to trend above year-ago levels, though month-over-month production retreated lower. Demand throughout June was somewhat limited, though pockets of active wing demand emerged lout of distributive and foodservice channels. Extreme heat across much of the country further dampened consumer engagement heading into the holiday weekend, with buyers largely considered to have wrapped up July 4, procurement ahead of schedule and distributors continuing to operate on a hand-to-mouth basis."
+    },
+    {
+      "name": "US Chicken as of June 24",
+      "as_of": "",
+      "mom_pct": -3.3,
+      "yoy_pct": -12.8,
+      "price": "$2,608.70/MT",
+      "canonical_name": "Chicken US",
+      "paragraph": "The average weekly price of US Chicken as of June 24 decreased by 3.3% MOM and declined by 12.8% YOY to $2,608.70/MT. Monthly US broiler production continued to trend above year-ago levels, though month-over-month production retreated lower. Demand throughout June was somewhat limited, though pockets of active wing demand emerged lout of distributive and foodservice channels. Extreme heat across much of the country further dampened consumer engagement heading into the holiday weekend, with buyers largely considered to have wrapped up July 4, procurement ahead of schedule and distributors continuing to operate on a hand-to-mouth basis."
+    },
+    {
+      "name": "US Milk",
+      "as_of": "June 24",
+      "mom_pct": -5.2,
+      "yoy_pct": -14.2,
+      "price": "$0.16/Lb",
+      "canonical_name": "Milk US",
+      "paragraph": "The average weekly price of US Milk as of June 24 decreased by 5.2% MOM and declined by 14.2% YOY to $0.16/Lb. Milk futures prices retreated over the month as robust milk flow throughout spring and into summer, combined with elevated milk components, continues to support finished product production, leading to downward price pressure in the market."
+    },
+    {
+      "name": "US Milk as of June 24",
+      "as_of": "",
+      "mom_pct": -5.2,
+      "yoy_pct": -14.2,
+      "price": "$0.16/Lb",
+      "canonical_name": "Milk US",
+      "paragraph": "The average weekly price of US Milk as of June 24 decreased by 5.2% MOM and declined by 14.2% YOY to $0.16/Lb. Milk futures prices retreated over the month as robust milk flow throughout spring and into summer, combined with elevated milk components, continues to support finished product production, leading to downward price pressure in the market."
+    },
+    {
+      "name": "New Zealand WMP",
+      "as_of": "June 24",
+      "mom_pct": -4.4,
+      "yoy_pct": -10.4,
+      "price": "$3,567.92/MT",
+      "canonical_name": "WMP New Zealand",
+      "paragraph": "The average weekly price of New Zealand WMP as of June 24 decreased by 4.4% MOM and declined by 10.4% YOY to $3,567.92/MT. The WMP market across New Zealand was weak during the month, linked to soft international buying from key trading regions across APAC. While an Algerian tender generated some demand across northern Africa, overall demand remained weak."
+    },
+    {
+      "name": "New Zealand WMP as of June 24",
+      "as_of": "",
+      "mom_pct": -4.4,
+      "yoy_pct": -10.4,
+      "price": "$3,567.92/MT",
+      "canonical_name": "WMP New Zealand",
+      "paragraph": "The average weekly price of New Zealand WMP as of June 24 decreased by 4.4% MOM and declined by 10.4% YOY to $3,567.92/MT. The WMP market across New Zealand was weak during the month, linked to soft international buying from key trading regions across APAC. While an Algerian tender generated some demand across northern Africa, overall demand remained weak."
+    },
+    {
+      "name": "New Zealand SMP",
+      "as_of": "June 24",
+      "mom_pct": -5.2,
+      "yoy_pct": 22.9,
+      "price": "$3,417.78/MT",
+      "canonical_name": "SMP New Zealand",
+      "paragraph": "The average weekly price of New Zealand SMP as of June 24 decreased by 5.2% MOM and rose by 22.9% YOY to $3,417.78/MT. Similar to the WMP market, SMP price levels decreased during June, driven by soft buying interest across the APAC market. Supply across New Zealand was ample according to multiple industry sources."
+    },
+    {
+      "name": "New Zealand SMP as of June 24",
+      "as_of": "",
+      "mom_pct": -5.2,
+      "yoy_pct": 22.9,
+      "price": "$3,417.78/MT",
+      "canonical_name": "SMP New Zealand",
+      "paragraph": "The average weekly price of New Zealand SMP as of June 24 decreased by 5.2% MOM and rose by 22.9% YOY to $3,417.78/MT. Similar to the WMP market, SMP price levels decreased during June, driven by soft buying interest across the APAC market. Supply across New Zealand was ample according to multiple industry sources."
+    },
+    {
+      "name": "New Zealand Butter",
+      "as_of": "June 24",
+      "mom_pct": -2.8,
+      "yoy_pct": -30.1,
+      "price": "$5,516/MT",
+      "canonical_name": "Butter New Zealand",
+      "paragraph": "The average weekly price of New Zealand Butter as of June 24 decreased by 2.8% MOM and declined by 30.1% YOY to $5,516/MT. Weak demand across the APAC region was the key driver behind the soft market tone across the NZ butter market. Production was reported by multiple market sources to be in line with seasonal expectations."
+    },
+    {
+      "name": "New Zealand Butter as of June 24",
+      "as_of": "",
+      "mom_pct": -2.8,
+      "yoy_pct": -30.1,
+      "price": "$5,516/MT",
+      "canonical_name": "Butter New Zealand",
+      "paragraph": "The average weekly price of New Zealand Butter as of June 24 decreased by 2.8% MOM and declined by 30.1% YOY to $5,516/MT. Weak demand across the APAC region was the key driver behind the soft market tone across the NZ butter market. Production was reported by multiple market sources to be in line with seasonal expectations."
+    },
+    {
+      "name": "UK Butter",
+      "as_of": "June 24",
+      "mom_pct": -4.5,
+      "yoy_pct": -48.4,
+      "price": "\u00a33,200/MT",
+      "canonical_name": "Butter UK",
+      "paragraph": "The average weekly price of UK Butter as of June 24 decreased by 4.5% MOM and declined by 48.4% YOY to \u00a33,200/MT. Market dynamics were unchanged in June. The butter market remained weighed down by previously high milk volumes and substantial inventories in storage. Churns continued to operate at high utilization rates, while limited outlets for additional product increased reliance on demand, which remained subdued in the spot market. Buyers focused on securing lower-priced forward coverage rather than incurring storage costs, further dampening market activity."
+    },
+    {
+      "name": "UK Butter as of June 24",
+      "as_of": "",
+      "mom_pct": -4.5,
+      "yoy_pct": -48.4,
+      "price": "\u00a33,200/MT",
+      "canonical_name": "Butter UK",
+      "paragraph": "The average weekly price of UK Butter as of June 24 decreased by 4.5% MOM and declined by 48.4% YOY to \u00a33,200/MT. Market dynamics were unchanged in June. The butter market remained weighed down by previously high milk volumes and substantial inventories in storage. Churns continued to operate at high utilization rates, while limited outlets for additional product increased reliance on demand, which remained subdued in the spot market. Buyers focused on securing lower-priced forward coverage rather than incurring storage costs, further dampening market activity."
+    },
+    {
+      "name": "New Zealand Cheddar",
+      "as_of": "June 24",
+      "mom_pct": -2.0,
+      "yoy_pct": -10.4,
+      "price": "$4,471/MT",
+      "canonical_name": "Cheddar New Zealand",
+      "paragraph": "The average weekly price of New Zealand Cheddar as of June 24 decreased by 2.0% MOM and declined by 10.4% YOY to $4,471/MT. New Zealand cheddar prices declined over the course of the month as rising domestic production levels and intensifying competitive dynamics on the global dairy market combined to pressure valuations."
+    },
+    {
+      "name": "New Zealand Cheddar as of June 24",
+      "as_of": "",
+      "mom_pct": -2.0,
+      "yoy_pct": -10.4,
+      "price": "$4,471/MT",
+      "canonical_name": "Cheddar New Zealand",
+      "paragraph": "The average weekly price of New Zealand Cheddar as of June 24 decreased by 2.0% MOM and declined by 10.4% YOY to $4,471/MT. New Zealand cheddar prices declined over the course of the month as rising domestic production levels and intensifying competitive dynamics on the global dairy market combined to pressure valuations."
+    },
+    {
+      "name": "UK Cheddar",
+      "as_of": "June 24",
+      "mom_pct": -3.1,
+      "yoy_pct": -25.9,
+      "price": "\u00a32,825/MT",
+      "canonical_name": "Cheddar UK",
+      "paragraph": "The average weekly price of UK Cheddar as of June 24 decreased by 3.1% MOM and declined by 25.9% YOY to \u00a32,825/MT. UK Cheddar prices edged lower in June, the UK Mild Cheddar market remained stable over the month, with supply and demand broadly balanced. Trading activity was limited as buyers covered only near-term requirements, while comfortable stock levels and occasional discounted offers from some sellers kept prices under slight downward pressure."
+    },
+    {
+      "name": "UK Cheddar as of June 24",
+      "as_of": "",
+      "mom_pct": -3.1,
+      "yoy_pct": -25.9,
+      "price": "\u00a32,825/MT",
+      "canonical_name": "Cheddar UK",
+      "paragraph": "The average weekly price of UK Cheddar as of June 24 decreased by 3.1% MOM and declined by 25.9% YOY to \u00a32,825/MT. UK Cheddar prices edged lower in June, the UK Mild Cheddar market remained stable over the month, with supply and demand broadly balanced. Trading activity was limited as buyers covered only near-term requirements, while comfortable stock levels and occasional discounted offers from some sellers kept prices under slight downward pressure."
+    },
+    {
+      "name": "US Egg",
+      "as_of": "June 24",
+      "mom_pct": -7.0,
+      "yoy_pct": -78.8,
+      "price": "$0.66/dzn",
+      "canonical_name": "Egg US",
+      "paragraph": "The average weekly price of US Egg as of June 24 decreased by 7.0% MOM and declined by 78.8% YOY to $0.66/dzn. The US shell egg market was characterized by exceptional stability throughout June, with few meaningful shifts in underlying fundamentals. Retail demand ranged from fair to fairly good, foodservice demand was consistent, and distributor procurement stayed measured throughout the month. Ongoing flock rotations and export activity helped offset returning production, leaving the market largely balanced and conventional wholesale values unchanged."
+    },
+    {
+      "name": "US Egg as of June 24",
+      "as_of": "",
+      "mom_pct": -7.0,
+      "yoy_pct": -78.8,
+      "price": "$0.66/dzn",
+      "canonical_name": "Egg US",
+      "paragraph": "The average weekly price of US Egg as of June 24 decreased by 7.0% MOM and declined by 78.8% YOY to $0.66/dzn. The US shell egg market was characterized by exceptional stability throughout June, with few meaningful shifts in underlying fundamentals. Retail demand ranged from fair to fairly good, foodservice demand was consistent, and distributor procurement stayed measured throughout the month. Ongoing flock rotations and export activity helped offset returning production, leaving the market largely balanced and conventional wholesale values unchanged."
+    },
+    {
+      "name": "Norwegian Haddock",
+      "as_of": "May",
+      "mom_pct": -19.3,
+      "yoy_pct": 10.4,
+      "price": "NOK 25,781.55/MT",
+      "canonical_name": "Haddock Norway*",
+      "paragraph": "In May, the average price of Norwegian Haddock decreased by 19.3% MOM and rose by 10.4% YOY to NOK 25,781.55/MT. The white fish market in Europe has been under supply pressure as the availability of Atlantic cod and pollock has been reported to be lower. This has sustained YOY price increases for Atlantic haddock, despite the total allowed catch in the Barents Sea increasing 18% YOY in 2026. Haddock landings continue to show recovery, with landings higher YOY in the first three months of the year. According to the Norwegian Directorate of Fisheries, accumulated landings through May showed a 2.9% YTD increase to 42,562 MT."
+    },
+    {
+      "name": "Chilean Salmon",
+      "as_of": "June 24",
+      "mom_pct": -6.8,
+      "yoy_pct": 12.2,
+      "price": "$13.67/kg",
+      "canonical_name": "Salmon Chile",
+      "paragraph": "The average weekly price of Chilean Salmon as of June 24 decreased by 6.8% MOM and rose by 12.2% YOY to $13.67/kg. The Chilean salmon market in the USA has exhibited a downward price trend, which market participants attribute to an unsettled market tone and weak to mixed demand signals. However, YOY prices remain higher than in 2025 and above the three-year average. This may be linked to a stronger international outlook for Chilean salmon, particularly in key markets such as Brazil and Asia. According to the Undersecretariat for Fisheries and Aquaculture (SUBPESCA), accumulated harvest through April 2026 totaled 257,467 MT, a 16.5% YTD increase compared to the same period in 2025."
+    },
+    {
+      "name": "Chilean Salmon as of June 24",
+      "as_of": "",
+      "mom_pct": -6.8,
+      "yoy_pct": 12.2,
+      "price": "$13.67/kg",
+      "canonical_name": "Salmon Chile",
+      "paragraph": "The average weekly price of Chilean Salmon as of June 24 decreased by 6.8% MOM and rose by 12.2% YOY to $13.67/kg. The Chilean salmon market in the USA has exhibited a downward price trend, which market participants attribute to an unsettled market tone and weak to mixed demand signals. However, YOY prices remain higher than in 2025 and above the three-year average. This may be linked to a stronger international outlook for Chilean salmon, particularly in key markets such as Brazil and Asia. According to the Undersecretariat for Fisheries and Aquaculture (SUBPESCA), accumulated harvest through April 2026 totaled 257,467 MT, a 16.5% YTD increase compared to the same period in 2025."
+    },
+    {
+      "name": "Shrimp Asian Whiteleg",
+      "as_of": "June 24",
+      "mom_pct": -5.8,
+      "yoy_pct": -6.0,
+      "price": "$8.90/kg",
+      "canonical_name": "Asian Whiteleg Shrimp",
+      "paragraph": "The average weekly price of Shrimp Asian Whiteleg as of June 24 decreased by 5.8% MOM and declined by 6.0% YOY to $8.90/kg. CFR prices for ASian peeled vannamei into Europe have been drifting down since January, driven by softer demand, with the decline accelerating in May as spring-season supply added volume to the market. Farm-gate prices have eased slightly, but rising input costs\u2014energy, transport and feed\u2014have compressed producer margins. As a result, export prices held broadly steady in June, with sellers adopting a wait-and-see posture for positive signs of replacement demand ahead of the summer season."
+    },
+    {
+      "name": "Shrimp Asian Whiteleg as of June 24",
+      "as_of": "",
+      "mom_pct": -5.8,
+      "yoy_pct": -6.0,
+      "price": "$8.90/kg",
+      "canonical_name": "Asian Whiteleg Shrimp",
+      "paragraph": "The average weekly price of Shrimp Asian Whiteleg as of June 24 decreased by 5.8% MOM and declined by 6.0% YOY to $8.90/kg. CFR prices for ASian peeled vannamei into Europe have been drifting down since January, driven by softer demand, with the decline accelerating in May as spring-season supply added volume to the market. Farm-gate prices have eased slightly, but rising input costs\u2014energy, transport and feed\u2014have compressed producer margins. As a result, export prices held broadly steady in June, with sellers adopting a wait-and-see posture for positive signs of replacement demand ahead of the summer season."
+    },
+    {
+      "name": "US Apple",
+      "as_of": "June 24",
+      "mom_pct": -0.9,
+      "yoy_pct": 21.2,
+      "price": "$0.74/Lb",
+      "canonical_name": "Apple US",
+      "paragraph": "The average weekly price of US Apple as of June 24 decreased by 0.9% MOM and rose by 21.2% YOY to $0.74/Lb. The US apple market remains steady but tighter than last year in some varieties. Washington still has solid supplies, especially Honeycrisp, while Red Delicious and Gala are more limited, and Eastern inventories are also tightening with little uncommitted fruit available. Demand is healthy, led by premium varieties and strong processing interest. The Washington State Tree Fruit Association said it will end early-season crop estimates, citing poor accuracy and concern that inflated forecasts have hurt pricing. Meanwhile, proposed H-2A reforms could also improve labor availability for growers."
+    },
+    {
+      "name": "US Apple as of June 24",
+      "as_of": "",
+      "mom_pct": -0.9,
+      "yoy_pct": 21.2,
+      "price": "$0.74/Lb",
+      "canonical_name": "Apple US",
+      "paragraph": "The average weekly price of US Apple as of June 24 decreased by 0.9% MOM and rose by 21.2% YOY to $0.74/Lb. The US apple market remains steady but tighter than last year in some varieties. Washington still has solid supplies, especially Honeycrisp, while Red Delicious and Gala are more limited, and Eastern inventories are also tightening with little uncommitted fruit available. Demand is healthy, led by premium varieties and strong processing interest. The Washington State Tree Fruit Association said it will end early-season crop estimates, citing poor accuracy and concern that inflated forecasts have hurt pricing. Meanwhile, proposed H-2A reforms could also improve labor availability for growers."
+    },
+    {
+      "name": "Chinese Pear",
+      "as_of": "June 24",
+      "mom_pct": -6.3,
+      "yoy_pct": -9.0,
+      "price": "CNY 6,080/MT",
+      "canonical_name": "Pear China",
+      "paragraph": "The average weekly price of Chinese Pear as of June 24 decreased by 6.3% MOM and declined by 9.0% YOY to CNY 6,080/MT. Frost events have been reportedly hit Chinese pear production in recent months, although the extent of the negative effects on the crop remain unclear. Price decreased MOM despite the USDA reporting a contraction in planted area compared with a year ago. The USDA also notes that the global market remains oversupplied."
+    },
+    {
+      "name": "Chinese Pear as of June 24",
+      "as_of": "",
+      "mom_pct": -6.3,
+      "yoy_pct": -9.0,
+      "price": "CNY 6,080/MT",
+      "canonical_name": "Pear China",
+      "paragraph": "The average weekly price of Chinese Pear as of June 24 decreased by 6.3% MOM and declined by 9.0% YOY to CNY 6,080/MT. Frost events have been reportedly hit Chinese pear production in recent months, although the extent of the negative effects on the crop remain unclear. Price decreased MOM despite the USDA reporting a contraction in planted area compared with a year ago. The USDA also notes that the global market remains oversupplied."
+    },
+    {
+      "name": "US Banana",
+      "as_of": "June 24",
+      "mom_pct": 0.0,
+      "yoy_pct": -4.0,
+      "price": "$0.60/Lb",
+      "canonical_name": "Banana US",
+      "paragraph": "The average weekly price of US Banana as of June 24 was unchanged MOM and declined by 4.0% YOY to $0.60/Lb. Banana prices have remained broadly stable across major South American producers. However, exchange rate challenges persist for some producers, as local currencies strengthen against the dollar, and some note increasing overseas competition."
+    },
+    {
+      "name": "EU Onion",
+      "as_of": "June 24",
+      "mom_pct": 130.8,
+      "yoy_pct": -49.2,
+      "price": "\u20ac300/MT",
+      "canonical_name": "Onion EU*",
+      "paragraph": "The average weekly price of EU Onion as of June 24 increased by 130.8% MOM and declined by 49.2% YOY to \u20ac300/MT. The 2025/26 season has ended amid subdued market sentiment, as oversupply and a drop in export opportunities weighed on prices. Prices have spiked with the onset of the new season, as is typical due to a usual dip in supply. Some growers have raised concern over the possible adverse impact of high temperatures on crops, as heatwave events persist across Europe."
+    },
+    {
+      "name": "EU Onion as of June 24",
+      "as_of": "",
+      "mom_pct": 130.8,
+      "yoy_pct": -49.2,
+      "price": "\u20ac300/MT",
+      "canonical_name": "Onion EU*",
+      "paragraph": "The average weekly price of EU Onion as of June 24 increased by 130.8% MOM and declined by 49.2% YOY to \u20ac300/MT. The 2025/26 season has ended amid subdued market sentiment, as oversupply and a drop in export opportunities weighed on prices. Prices have spiked with the onset of the new season, as is typical due to a usual dip in supply. Some growers have raised concern over the possible adverse impact of high temperatures on crops, as heatwave events persist across Europe."
+    },
+    {
+      "name": "EU Potato processing",
+      "as_of": "June 24",
+      "mom_pct": 0.0,
+      "yoy_pct": -38.9,
+      "price": "\u20ac55/MT",
+      "canonical_name": "Potato processing EU",
+      "paragraph": "The average weekly price of EU Potato processing as of June 24 was unchanged MOM and declined by 38.9% YOY to \u20ac55/MT. Recent projections of significant YOY decreases in EU planted area have been welcomed by some market participants, following calls to re-establish a supply-and-demand balance. Some have expressed cautious optimism, anticipating that free-buy trade will play a greater role in the upcoming new season than in 2025/26. However, sources state that yields will determine the course of the season and maintain a wait-and-see approach."
+    },
+    {
+      "name": "US Orange Juice",
+      "as_of": "June 24",
+      "mom_pct": -11.0,
+      "yoy_pct": -35.1,
+      "price": "$1.52/Lb",
+      "canonical_name": "Orange Juice US",
+      "paragraph": "The average weekly price of US Orange Juice as of June 24 decreased by 11.0% MOM and declined by 35.1% YOY to $1.52/Lb. The Fundecitrus forecast was a key watch-out factor for futures traders. However, despite the forecasted crop reduction, sluggish global demand continues to weigh on market sentiment. The upcoming hurricane season in the US and Mexico, typically starting in August, will also be a focal point, given the major impact that hurricanes have had on the sector in recent years."
+    },
+    {
+      "name": "US Orange Juice as of June 24",
+      "as_of": "",
+      "mom_pct": -11.0,
+      "yoy_pct": -35.1,
+      "price": "$1.52/Lb",
+      "canonical_name": "Orange Juice US",
+      "paragraph": "The average weekly price of US Orange Juice as of June 24 decreased by 11.0% MOM and declined by 35.1% YOY to $1.52/Lb. The Fundecitrus forecast was a key watch-out factor for futures traders. However, despite the forecasted crop reduction, sluggish global demand continues to weigh on market sentiment. The upcoming hurricane season in the US and Mexico, typically starting in August, will also be a focal point, given the major impact that hurricanes have had on the sector in recent years."
+    },
+    {
+      "name": "EU Apple Juice",
+      "as_of": "June 24",
+      "mom_pct": 3.2,
+      "yoy_pct": -31.9,
+      "price": "\u20ac1,600/MT",
+      "canonical_name": "Apple Juice EU",
+      "paragraph": "The average weekly price of EU Apple Juice as of June 24 increased by 3.2% MOM and declined by 31.9% YOY to \u20ac1,600/MT. The Polish apple juice concentrate (AJC) market faces the possibility of a heavily reduced crop this year, following severe frosts in recent months, according to market sources. The scale of the damage to the Polish crop is still unclear. Some participants continue to forecast a year- over-year (YOY) crop loss of 35-40%, while others suggest that this is overstated."
+    },
+    {
+      "name": "EU Apple Juice as of June 24",
+      "as_of": "",
+      "mom_pct": 3.2,
+      "yoy_pct": -31.9,
+      "price": "\u20ac1,600/MT",
+      "canonical_name": "Apple Juice EU",
+      "paragraph": "The average weekly price of EU Apple Juice as of June 24 increased by 3.2% MOM and declined by 31.9% YOY to \u20ac1,600/MT. The Polish apple juice concentrate (AJC) market faces the possibility of a heavily reduced crop this year, following severe frosts in recent months, according to market sources. The scale of the damage to the Polish crop is still unclear. Some participants continue to forecast a year- over-year (YOY) crop loss of 35-40%, while others suggest that this is overstated."
+    },
+    {
+      "name": "ICE London Cocoa futures",
+      "as_of": "June 24",
+      "mom_pct": 15.5,
+      "yoy_pct": -42.5,
+      "price": "\u00a33,432.20/MT",
+      "canonical_name": "Cocoa Bean ICE London",
+      "paragraph": "The average weekly spot price of ICE London Cocoa futures as of June 24 increased by 15.5% MOM and decreased by 42.5% YOY to \u00a33,432.20/MT, while the average weekly spot price of ICE New York Cocoa futures as of June 24 increased by 13.2% MOM and decreased by 51.4% YOY to $4,451.60/MT. Cocoa prices rallied sharply in June as the poor pod counts in West Africa were bolstered by ongoing fears that the developing El Ni\u00f1o could potentially be a very strong event in the later part of the year. There was also uncertainty over production volumes from Ivory Coast and Ghana as supply estimates continue to be revised. In turn, there was then renewed buying as sentiment turned more bullish."
+    },
+    {
+      "name": "ICE New York Cocoa futures",
+      "as_of": "June 24",
+      "mom_pct": 13.2,
+      "yoy_pct": -51.4,
+      "price": "$4,451.60/MT",
+      "canonical_name": "Cocoa Bean ICE New York",
+      "paragraph": "The average weekly spot price of ICE London Cocoa futures as of June 24 increased by 15.5% MOM and decreased by 42.5% YOY to \u00a33,432.20/MT, while the average weekly spot price of ICE New York Cocoa futures as of June 24 increased by 13.2% MOM and decreased by 51.4% YOY to $4,451.60/MT. Cocoa prices rallied sharply in June as the poor pod counts in West Africa were bolstered by ongoing fears that the developing El Ni\u00f1o could potentially be a very strong event in the later part of the year. There was also uncertainty over production volumes from Ivory Coast and Ghana as supply estimates continue to be revised. In turn, there was then renewed buying as sentiment turned more bullish."
+    },
+    {
+      "name": "ICE London Cocoa futures as of June 24",
+      "as_of": "",
+      "mom_pct": 15.5,
+      "yoy_pct": -42.5,
+      "price": "\u00a33,432.20/MT",
+      "canonical_name": "Cocoa Bean ICE London",
+      "paragraph": "The average weekly spot price of ICE London Cocoa futures as of June 24 increased by 15.5% MOM and decreased by 42.5% YOY to \u00a33,432.20/MT, while the average weekly spot price of ICE New York Cocoa futures as of June 24 increased by 13.2% MOM and decreased by 51.4% YOY to $4,451.60/MT. Cocoa prices rallied sharply in June as the poor pod counts in West Africa were bolstered by ongoing fears that the developing El Ni\u00f1o could potentially be a very strong event in the later part of the year. There was also uncertainty over production volumes from Ivory Coast and Ghana as supply estimates continue to be revised. In turn, there was then renewed buying as sentiment turned more bullish."
+    },
+    {
+      "name": "ICE New York Cocoa futures as of June 24",
+      "as_of": "",
+      "mom_pct": 13.2,
+      "yoy_pct": -51.4,
+      "price": "$4,451.60/MT",
+      "canonical_name": "Cocoa Bean ICE New York",
+      "paragraph": "The average weekly spot price of ICE London Cocoa futures as of June 24 increased by 15.5% MOM and decreased by 42.5% YOY to \u00a33,432.20/MT, while the average weekly spot price of ICE New York Cocoa futures as of June 24 increased by 13.2% MOM and decreased by 51.4% YOY to $4,451.60/MT. Cocoa prices rallied sharply in June as the poor pod counts in West Africa were bolstered by ongoing fears that the developing El Ni\u00f1o could potentially be a very strong event in the later part of the year. There was also uncertainty over production volumes from Ivory Coast and Ghana as supply estimates continue to be revised. In turn, there was then renewed buying as sentiment turned more bullish."
+    },
+    {
+      "name": "ICE London Robusta futures",
+      "as_of": "June 24",
+      "mom_pct": 2.9,
+      "yoy_pct": -5.9,
+      "price": "$3,640.20/MT",
+      "canonical_name": "Robusta Coffee ICE London",
+      "paragraph": "The average weekly spot price of ICE London Robusta futures as of June 24 increased by 2.9% MOM and declined by 5.9% YOY to $3,640.20/MT. Robusta prices over the month were supported by weather-related concerns in Vietnam and Brazil, alongside firm global demand for lower-cost coffee. Tight nearby supplies and limited producer selling also underpinned the market, although gains were capped by expectations of larger upcoming harvests."
+    },
+    {
+      "name": "ICE London Robusta futures as of June 24",
+      "as_of": "",
+      "mom_pct": 2.9,
+      "yoy_pct": -5.9,
+      "price": "$3,640.20/MT",
+      "canonical_name": "Robusta Coffee ICE London",
+      "paragraph": "The average weekly spot price of ICE London Robusta futures as of June 24 increased by 2.9% MOM and declined by 5.9% YOY to $3,640.20/MT. Robusta prices over the month were supported by weather-related concerns in Vietnam and Brazil, alongside firm global demand for lower-cost coffee. Tight nearby supplies and limited producer selling also underpinned the market, although gains were capped by expectations of larger upcoming harvests."
+    },
+    {
+      "name": "Indian Cumin",
+      "as_of": "June 24",
+      "mom_pct": -3.6,
+      "yoy_pct": -19.7,
+      "price": "$231.40/100kg",
+      "canonical_name": "Cumin India",
+      "paragraph": "The average weekly price of Indian Cumin as of June 24 decreased by 3.6% MOM and declined by 19.7% YOY to $231.40/100kg."
+    },
+    {
+      "name": "Indian Cumin as of June 24",
+      "as_of": "",
+      "mom_pct": -3.6,
+      "yoy_pct": -19.7,
+      "price": "$231.40/100kg",
+      "canonical_name": "Cumin India",
+      "paragraph": "The average weekly price of Indian Cumin as of June 24 decreased by 3.6% MOM and declined by 19.7% YOY to $231.40/100kg."
+    },
+    {
+      "name": "US almonds",
+      "as_of": "June 24",
+      "mom_pct": -0.3,
+      "yoy_pct": 6.4,
+      "price": "$2.98/LB",
+      "canonical_name": "Almonds US",
+      "paragraph": "The average weekly price of US almonds as of June 24 decreased by 0.3% MOM and rose by 6.4% YOY to $2.98/LB. The US almond complex showed mixed price action through June, with lower grades like Standard 5% almonds holding relatively steady while higher grades saw more increases. Overall, trade volumes have been described as relatively limited with most reported transactions being hand-to- mouth coverage. Market participants are monitoring end-of-season weather and seeking clarity on crop size and price direction for the next season, with harvest anticipated to begin in much of the growing region in the coming weeks."
+    },
+    {
+      "name": "US almonds as of June 24",
+      "as_of": "",
+      "mom_pct": -0.3,
+      "yoy_pct": 6.4,
+      "price": "$2.98/LB",
+      "canonical_name": "Almonds US",
+      "paragraph": "The average weekly price of US almonds as of June 24 decreased by 0.3% MOM and rose by 6.4% YOY to $2.98/LB. The US almond complex showed mixed price action through June, with lower grades like Standard 5% almonds holding relatively steady while higher grades saw more increases. Overall, trade volumes have been described as relatively limited with most reported transactions being hand-to- mouth coverage. Market participants are monitoring end-of-season weather and seeking clarity on crop size and price direction for the next season, with harvest anticipated to begin in much of the growing region in the coming weeks."
+    },
+    {
+      "name": "Vietnamese cashew nut EBP",
+      "as_of": "June",
+      "mom_pct": 1.0,
+      "yoy_pct": -0.6,
+      "price": "$3.16/Lb",
+      "canonical_name": "Cashews Vietnam",
+      "paragraph": "The Vietnamese cashew nut EBP increased by 1% MOM in June to $3.16/Lb, down 0.6% YOY. Prices strengthened as RCN prices rose, squeezing margins for Vietnamese sellers who raised kernel offers to defend profitability. Larger sizes including WW240 and WW180 continued drawing support from steady demand and limited availability, with momentum likely also spilling into WW320."
+    },
+    {
+      "name": "Turkish dried apricot",
+      "as_of": "June",
+      "mom_pct": 0.0,
+      "yoy_pct": -9.8,
+      "price": "$9,250/MT",
+      "canonical_name": "Dried Apricots Turkey",
+      "paragraph": "Turkish dried apricot prices were unchanged MOM in June at $9,250/MT, down 9.8% YOY. Prospects for the new season crop in Turkey appear promising, with early offers suggesting further softness ahead in the spot market."
+    },
+    {
+      "name": "Indian Cotton",
+      "as_of": "June 24",
+      "mom_pct": -2.5,
+      "yoy_pct": 18.6,
+      "price": "INR 181,989.13/MT",
+      "canonical_name": "Cotton India",
+      "paragraph": "The average weekly price of Indian Cotton as of June 24 decreased by 2.5% MOM and rose by 18.6% YOY to INR 181,989.13/MT. The MOM price decline was attributable to expectations of a large 2026/27 crop, which resulted in mills remaining cautious about being aggressive with prices."
+    },
+    {
+      "name": "Indian Cotton as of June 24",
+      "as_of": "",
+      "mom_pct": -2.5,
+      "yoy_pct": 18.6,
+      "price": "INR 181,989.13/MT",
+      "canonical_name": "Cotton India",
+      "paragraph": "The average weekly price of Indian Cotton as of June 24 decreased by 2.5% MOM and rose by 18.6% YOY to INR 181,989.13/MT. The MOM price decline was attributable to expectations of a large 2026/27 crop, which resulted in mills remaining cautious about being aggressive with prices."
+    },
+    {
+      "name": "EU Testliner",
+      "as_of": "",
+      "mom_pct": 0.0,
+      "yoy_pct": -1.3,
+      "price": "\u20ac760/MT",
+      "canonical_name": "Testliner EU",
+      "paragraph": "In June, the average price of EU Testliner was unchanged MOM and declined by 1.3% YOY to \u20ac760/MT. Price stabilization was driven by the relative stability of raw material and energy prices in Europe. Despite rising pulp prices, waste paper, which is predominantly used in testliner production, held stable prices. As a result, amid moderate market demand, producers were unable to raise testliner prices in June."
+    },
+    {
+      "name": "EU Cartonboard GC2",
+      "as_of": "",
+      "mom_pct": 0.0,
+      "yoy_pct": -3.3,
+      "price": "\u20ac1,165/MT",
+      "canonical_name": "Cartonboard GC2 Coated EU",
+      "paragraph": "In June, the average price of EU Cartonboard GC2 was unchanged MOM and declined by 3.3% YOY to \u20ac1,165/MT, the average price of EU Cartonboard GT2 was unchanged MOM and declined by 2.4% YOY to \u20ac825/MT. High competition in the market prevents producers from passing elevated energy, logistics, and rising labor costs on to customers. Negotiations over potential price increases continue. Demand was moderate, restraining suppliers' willingness to raise prices."
+    },
+    {
+      "name": "EU Cartonboard GT2",
+      "as_of": "",
+      "mom_pct": 0.0,
+      "yoy_pct": -2.4,
+      "price": "\u20ac825/MT",
+      "canonical_name": "Cartonboard GT2 Coated EU",
+      "paragraph": "In June, the average price of EU Cartonboard GC2 was unchanged MOM and declined by 3.3% YOY to \u20ac1,165/MT, the average price of EU Cartonboard GT2 was unchanged MOM and declined by 2.4% YOY to \u20ac825/MT. High competition in the market prevents producers from passing elevated energy, logistics, and rising labor costs on to customers. Negotiations over potential price increases continue. Demand was moderate, restraining suppliers' willingness to raise prices."
+    },
+    {
+      "name": "US Testliner",
+      "as_of": "June",
+      "mom_pct": 6.4,
+      "yoy_pct": 6.4,
+      "price": "$0.42/Lb",
+      "canonical_name": "Testliner US",
+      "paragraph": "In June, the average price of US Testliner increased by 6.4% MOM and rose by 6.4% YOY to $0.42/Lb. Softening feedstock cost gives recycled linerboard producers a modest margin tailwind even as finished product prices rise, though OCC remains roughly 4-5% above year-ago levels. Kruger restarted its roughly 363,000 MT/year Machine No. 10 at the Trois-Rivi\u00e8res mill in Quebec around June 20 after a three-week strike, returning high-performance recycled linerboard capacity to the market."
+    },
+    {
+      "name": "US Cartonboard FBB",
+      "as_of": "",
+      "mom_pct": 0.0,
+      "yoy_pct": 3.0,
+      "price": "$0.69/Lb",
+      "canonical_name": "Cartonboard FBB US",
+      "paragraph": "In June, the average price of US Cartonboard FBB was unchanged MOM and rose by 3.0% YOY to $0.69/Lb. Elevated transatlantic freight costs tied to the broader Middle East-driven logistics disruption continue to impact imported FBB price dynamics relative to competing grades."
+    },
+    {
+      "name": "LME Aluminium",
+      "as_of": "June",
+      "mom_pct": -4.4,
+      "yoy_pct": 36.6,
+      "price": "$3,438.89/MT",
+      "canonical_name": "Aluminium LME",
+      "paragraph": "In June, the average 3m futures price of LME Aluminium decreased by 4.4% MOM and rose by 36.6% YOY to $3,438.89/MT. The fall in aluminium prices was the steepest among base metals, driven by the resumption of shipping through the Strait of Hormuz, which carried approximately 8% of global exports before the strait's closure. Based on price dynamics late in the month, many sources expect price declines to continue as shipping operations fully recover."
+    },
+    {
+      "name": "EU LDPE",
+      "as_of": "June",
+      "mom_pct": -3.3,
+      "yoy_pct": 53.9,
+      "price": "\u20ac2,921.75/MT",
+      "canonical_name": "LDPE EU",
+      "paragraph": "In June, the average price of EU LDPE decreased by 3.3% MOM and rose by 53.9% YOY to \u20ac2,921.75/MT. Easing geopolitical tensions resulted in declining ethylene prices, which in turn lowered product prices. According to market sources, demand was poor with the approaching summer holidays, while imports from Asian origins arriving into the EU increased throughout June."
+    },
+    {
+      "name": "US LDPE",
+      "as_of": "June",
+      "mom_pct": -3.7,
+      "yoy_pct": 8.9,
+      "price": "USc 104/Lb",
+      "canonical_name": "LDPE US",
+      "paragraph": "In June, the average price of US LDPE decreased by 3.7% MOM and rose by 8.9% YOY to USc 104/Lb. The continued decline in ethylene prices resulted in decreasing LDPE prices in the US, as manufacturers were no longer able to justify price increases as was the case during the most challenging periods of the Middle East conflict."
+    },
+    {
+      "name": "US PET",
+      "as_of": "June",
+      "mom_pct": -5.0,
+      "yoy_pct": 13.1,
+      "price": "USc 71.25/Lb",
+      "canonical_name": "PET US",
+      "paragraph": "In June, the average price of US PET decreased by 5.0% MOM and rose by 13.1% YOY to USc 71.25/Lb. Falling production costs lowered product prices, although product prices remain elevated compared to pre-war levels. Demand was strong, according to market participants, especially from drinks manufacturers."
+    },
+    {
+      "name": "US PP",
+      "as_of": "June",
+      "mom_pct": -3.3,
+      "yoy_pct": -0.3,
+      "price": "USc 73.75/Lb",
+      "canonical_name": "PP US",
+      "paragraph": "In June, the average price of US PP decreased by 3.3% MOM and declined by 0.3% YOY to USc 73.75/Lb. PP prices continued to move downwards throughout the month, attributable to lower feedstock costs and more balanced supply and demand environment. Export demand also cooled down compared to the dynamic in previous months."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "2026-07",
+  "title": "Commodity Intelligence: EU Outlook",
+  "subtitle": "July 2026 — key cost drivers for food & catering procurement",
+  "region": "European Union",
+  "period": "July 2026",
+  "period_mom": "June 2026 vs May 2026",
+  "period_yoy": "June 2026 vs June 2025",
+  "source": "Expana (Mintec) Commodity Price Change Overview Report",
+  "output_html": "/reports/2026-07.html",
+  "trend_analysis": "The EU Food HICP index (Eurostat teicp010) sat at 101.74 in May 2026 (base 2025 = 100), with YoY food inflation easing further to +1.48% — down from +1.99% in the April report and comfortably below the mid-2025 peak. The calm headline masks sharp category swings: Onion EU spiked +130.8% MoM (a supply-driven snap-back, still -49.2% YoY), Milk UK jumped +40.9% MoM, and cocoa turned higher again (Cocoa Bean ICE London +15.5% MoM). Note: forward curves are carried over from the Q2 (April 2026) Mintec export and should be refreshed once the latest forecast file is available.",
+  "highlights": [
+    {
+      "tone": "red",
+      "label": "Extreme price risk",
+      "body": "Onion EU +130.8% MoM and Milk UK +40.9% MoM lead the monthly spikes, with cocoa rebounding (Cocoa Bean ICE London +15.5% MoM). Packaging resins remain sharply elevated YoY — PP EU +65.6%, HDPE EU +62.2%, LDPE EU +53.9% — alongside Chilli India +89.8% YoY."
+    },
+    {
+      "tone": "green",
+      "label": "Major opportunity",
+      "body": "Deep YoY deflation opens contract-lock windows: Egg US -78.8%, Orange South Africa -52.8%, Butter EU -51.4% / Butter UK -48.4%, and Cocoa Bean ICE New York -51.4% YoY."
+    },
+    {
+      "tone": "blue",
+      "label": "Grains & seafood softening",
+      "body": "New-crop transition and weaker demand eased grains (CBOT Maize -10.3% MoM, CBOT Wheat -6.9% MoM) while seafood cooled (Haddock Norway -19.3% MoM, Salmon Norway -13.6% MoM). Heat and dryness across Western Europe remain a supply risk to watch."
+    }
+  ]
+}

@@ -1,6 +1,14 @@
 {
   "reports": [
     {
+      "slug": "2026-07",
+      "title": "Commodity Intelligence: EU Outlook",
+      "period": "July 2026",
+      "region": "European Union",
+      "html": "/reports/2026-07.html",
+      "meta": "/data/2026-07/meta.json"
+    },
+    {
       "slug": "2026-04",
       "title": "Commodity Intelligence: EU Outlook",
       "period": "April 2026",

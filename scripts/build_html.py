@@ -21,7 +21,7 @@ def load(period: str) -> dict:
     p = ROOT / "data" / period
     def maybe(name: str):
         path = p / name
-        return json.loads(path.read_text()) if path.exists() else None
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
     return {
         "meta": maybe("meta.json") or {},
         "commodities": maybe("commodities.json") or {"rows": []},
@@ -1428,17 +1428,17 @@ def build_germany_page(
 
 def main() -> None:
     period = sys.argv[1] if len(sys.argv) > 1 else "2026-04"
-    meta = json.loads((ROOT / "data" / period / "meta.json").read_text())
+    meta = json.loads((ROOT / "data" / period / "meta.json").read_text(encoding="utf-8"))
     main_html, germany_html = build(period)
 
     out_path = ROOT / "public" / meta["output_html"].lstrip("/")
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(main_html)
+    out_path.write_text(main_html, encoding="utf-8")
     print(f"Wrote {out_path.relative_to(ROOT)} ({len(main_html):,} chars)")
 
     if germany_html:
         germany_path = out_path.parent / f"{period}-germany.html"
-        germany_path.write_text(germany_html)
+        germany_path.write_text(germany_html, encoding="utf-8")
         print(f"Wrote {germany_path.relative_to(ROOT)} ({len(germany_html):,} chars)")
 
 

@@ -1,0 +1,61 @@
+{
+  "source": "Eurostat \u2014 teicp010 (HICP - Food, Short-Term Indicator), base 2025 = 100",
+  "source_dataset": "teicp010 (HICP - Food, Short-Term Indicator)",
+  "url": "https://ec.europa.eu/eurostat/databrowser/view/teicp010/default/table?lang=en",
+  "unit": "Index (2025 = 100)",
+  "base_year": "2025 = 100",
+  "updated": "2026-07-01T11:00:00+0200",
+  "series": [
+    {
+      "month": "Jun 2025",
+      "index": 100.26
+    },
+    {
+      "month": "Jul 2025",
+      "index": 100.43
+    },
+    {
+      "month": "Aug 2025",
+      "index": 100.49
+    },
+    {
+      "month": "Sep 2025",
+      "index": 100.32
+    },
+    {
+      "month": "Oct 2025",
+      "index": 100.52
+    },
+    {
+      "month": "Nov 2025",
+      "index": 100.57
+    },
+    {
+      "month": "Dec 2025",
+      "index": 100.58
+    },
+    {
+      "month": "Jan 2026",
+      "index": 101.39
+    },
+    {
+      "month": "Feb 2026",
+      "index": 101.64
+    },
+    {
+      "month": "Mar 2026",
+      "index": 101.71
+    },
+    {
+      "month": "Apr 2026",
+      "index": 102.0
+    },
+    {
+      "month": "May 2026",
+      "index": 101.74
+    }
+  ],
+  "latest_month": "May 2026",
+  "latest_index": 101.74,
+  "yoy_pct_last_12": 1.48
+}

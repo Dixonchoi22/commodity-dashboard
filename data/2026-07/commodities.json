@@ -1,0 +1,685 @@
+{
+  "period": {
+    "slug": "2026-07"
+  },
+  "rows": [
+    {
+      "category": "Grains & Feed",
+      "name": "Maize CBOT",
+      "mom_pct": -10.3,
+      "yoy_pct": -1.7
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Pork EU",
+      "mom_pct": -1.9,
+      "yoy_pct": -25.4
+    },
+    {
+      "category": "Grains & Feed",
+      "name": "Maize Euronext",
+      "mom_pct": -0.6,
+      "yoy_pct": 11.5
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Pork US",
+      "mom_pct": -1.8,
+      "yoy_pct": -16.3
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Pork UK",
+      "mom_pct": -1.3,
+      "yoy_pct": -14.2
+    },
+    {
+      "category": "Grains & Feed",
+      "name": "Wheat CBOT",
+      "mom_pct": -6.9,
+      "yoy_pct": 8.8
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Beef EU",
+      "mom_pct": 0.3,
+      "yoy_pct": -6.3
+    },
+    {
+      "category": "Grains & Feed",
+      "name": "Wheat Euronext",
+      "mom_pct": -3.9,
+      "yoy_pct": 0.9
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Beef US",
+      "mom_pct": 0.6,
+      "yoy_pct": 10.4
+    },
+    {
+      "category": "Grains & Feed",
+      "name": "Rice India",
+      "mom_pct": 1.5,
+      "yoy_pct": -9.3
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Beef UK",
+      "mom_pct": 0.4,
+      "yoy_pct": -6.7
+    },
+    {
+      "category": "Grains & Feed",
+      "name": "Rice Thailand",
+      "mom_pct": 4.0,
+      "yoy_pct": 22.4
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Lamb EU",
+      "mom_pct": -4.1,
+      "yoy_pct": 8.9
+    },
+    {
+      "category": "Grains & Feed",
+      "name": "Rice Vietnam",
+      "mom_pct": 2.8,
+      "yoy_pct": 4.6
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Lamb New Zealand",
+      "mom_pct": 6.0,
+      "yoy_pct": 22.4
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Rapeseed EU",
+      "mom_pct": -2.5,
+      "yoy_pct": 3.4
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Lamb UK",
+      "mom_pct": -7.8,
+      "yoy_pct": 16.2
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Rapeseed Canada",
+      "mom_pct": -2.2,
+      "yoy_pct": 1.7
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Lamb Australia",
+      "mom_pct": 4.0,
+      "yoy_pct": 15.0
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Rapeseed Oil EU",
+      "mom_pct": 1.5,
+      "yoy_pct": 16.5
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Chicken EU",
+      "mom_pct": 1.3,
+      "yoy_pct": -1.5
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Rapeseed Oil Canada",
+      "mom_pct": -4.3,
+      "yoy_pct": 28.5
+    },
+    {
+      "category": "Meat & Poultry",
+      "name": "Chicken US",
+      "mom_pct": -3.3,
+      "yoy_pct": -12.8
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Sunflower Seed Ukraine",
+      "mom_pct": 2.3,
+      "yoy_pct": 34.9
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Milk EU",
+      "mom_pct": 7.7,
+      "yoy_pct": -48.1
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Sunflower Seed Russia",
+      "mom_pct": 3.0,
+      "yoy_pct": 10.9
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Milk US",
+      "mom_pct": -5.2,
+      "yoy_pct": -14.2
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Sunflower Oil Ukraine",
+      "mom_pct": 2.1,
+      "yoy_pct": 30.5
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Milk UK",
+      "mom_pct": 40.9,
+      "yoy_pct": -3.1
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Sunflower Oil Russia",
+      "mom_pct": 2.2,
+      "yoy_pct": 12.9
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "WMP EU",
+      "mom_pct": -0.2,
+      "yoy_pct": -23.9
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Soyabean US",
+      "mom_pct": -6.3,
+      "yoy_pct": 6.3
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "WMP New Zealand",
+      "mom_pct": -4.4,
+      "yoy_pct": -10.4
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Soyabean Oil US",
+      "mom_pct": -5.6,
+      "yoy_pct": 32.7
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "SMP EU",
+      "mom_pct": -12.9,
+      "yoy_pct": 8.0
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Sunflower Oil EU",
+      "mom_pct": 2.5,
+      "yoy_pct": 26.0
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "SMP New Zealand",
+      "mom_pct": -5.2,
+      "yoy_pct": 22.9
+    },
+    {
+      "category": "Oilseeds & Vegetable Oils",
+      "name": "Palm Oil EU",
+      "mom_pct": 9.2,
+      "yoy_pct": 30.4
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "NFDM - SMP US",
+      "mom_pct": -8.3,
+      "yoy_pct": 52.2
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Butter EU",
+      "mom_pct": -7.2,
+      "yoy_pct": -51.4
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Butter New Zealand",
+      "mom_pct": -2.8,
+      "yoy_pct": -30.1
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Butter US",
+      "mom_pct": 0.4,
+      "yoy_pct": -34.3
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Butter UK",
+      "mom_pct": -4.5,
+      "yoy_pct": -48.4
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Gouda EU",
+      "mom_pct": -13.2,
+      "yoy_pct": -28.6
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Cheddar New Zealand",
+      "mom_pct": -2.0,
+      "yoy_pct": -10.4
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Cheddar US",
+      "mom_pct": -5.3,
+      "yoy_pct": -18.2
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Cheddar UK",
+      "mom_pct": -3.1,
+      "yoy_pct": -25.9
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Egg EU",
+      "mom_pct": -6.9,
+      "yoy_pct": -1.2
+    },
+    {
+      "category": "Dairy & Eggs",
+      "name": "Egg US",
+      "mom_pct": -7.0,
+      "yoy_pct": -78.8
+    },
+    {
+      "category": "Fish & Seafood",
+      "name": "Cod Norway",
+      "mom_pct": -2.7,
+      "yoy_pct": 30.9
+    },
+    {
+      "category": "Juices",
+      "name": "Orange Juice Brazil",
+      "mom_pct": -4.5,
+      "yoy_pct": -31.7
+    },
+    {
+      "category": "Fish & Seafood",
+      "name": "Haddock Norway*",
+      "mom_pct": -19.3,
+      "yoy_pct": 10.4
+    },
+    {
+      "category": "Juices",
+      "name": "Orange Juice US",
+      "mom_pct": -11.0,
+      "yoy_pct": -35.1
+    },
+    {
+      "category": "Fish & Seafood",
+      "name": "Alaska Pollock Russia",
+      "mom_pct": 5.3,
+      "yoy_pct": 48.7
+    },
+    {
+      "category": "Juices",
+      "name": "Apple Juice China",
+      "mom_pct": 0.0,
+      "yoy_pct": -10.7
+    },
+    {
+      "category": "Fish & Seafood",
+      "name": "Salmon Norway",
+      "mom_pct": -13.6,
+      "yoy_pct": 2.6
+    },
+    {
+      "category": "Juices",
+      "name": "Apple Juice EU",
+      "mom_pct": 3.2,
+      "yoy_pct": -31.9
+    },
+    {
+      "category": "Fish & Seafood",
+      "name": "Salmon Chile",
+      "mom_pct": -6.8,
+      "yoy_pct": 12.2
+    },
+    {
+      "category": "Softs",
+      "name": "Sugar ICE #11 New York",
+      "mom_pct": -7.7,
+      "yoy_pct": -15.5
+    },
+    {
+      "category": "Fish & Seafood",
+      "name": "Prawn Norway*",
+      "mom_pct": -0.7,
+      "yoy_pct": 42.5
+    },
+    {
+      "category": "Softs",
+      "name": "Sugar ICE #5 London",
+      "mom_pct": 0.7,
+      "yoy_pct": -6.7
+    },
+    {
+      "category": "Fish & Seafood",
+      "name": "Asian Whiteleg Shrimp",
+      "mom_pct": -5.8,
+      "yoy_pct": -6.0
+    },
+    {
+      "category": "Softs",
+      "name": "Cocoa Bean ICE London",
+      "mom_pct": 15.5,
+      "yoy_pct": -42.5
+    },
+    {
+      "category": "Fish & Seafood",
+      "name": "Tuna Thailand",
+      "mom_pct": -9.1,
+      "yoy_pct": 16.7
+    },
+    {
+      "category": "Softs",
+      "name": "Cocoa Bean ICE New York",
+      "mom_pct": 13.2,
+      "yoy_pct": -51.4
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Apple China",
+      "mom_pct": -2.1,
+      "yoy_pct": -0.6
+    },
+    {
+      "category": "Softs",
+      "name": "Arabica Coffee ICE New York",
+      "mom_pct": 3.3,
+      "yoy_pct": -12.0
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Apple US",
+      "mom_pct": -0.9,
+      "yoy_pct": 21.2
+    },
+    {
+      "category": "Softs",
+      "name": "Robusta Coffee ICE London",
+      "mom_pct": 2.9,
+      "yoy_pct": -5.9
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Pear Spain",
+      "mom_pct": -1.5,
+      "yoy_pct": -5.9
+    },
+    {
+      "category": "Herbs & Spices",
+      "name": "Black Pepper Vietnam",
+      "mom_pct": 0.0,
+      "yoy_pct": 2.1
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Pear China",
+      "mom_pct": -6.3,
+      "yoy_pct": -9.0
+    },
+    {
+      "category": "Herbs & Spices",
+      "name": "Vanilla Madagascar",
+      "mom_pct": -3.8,
+      "yoy_pct": -37.5
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Pear Argentina",
+      "mom_pct": -0.3,
+      "yoy_pct": 4.6
+    },
+    {
+      "category": "Herbs & Spices",
+      "name": "Turmeric India",
+      "mom_pct": 4.0,
+      "yoy_pct": 7.7
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Orange South Africa",
+      "mom_pct": -37.0,
+      "yoy_pct": -52.8
+    },
+    {
+      "category": "Herbs & Spices",
+      "name": "Cumin India",
+      "mom_pct": -3.6,
+      "yoy_pct": -19.7
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Banana EU",
+      "mom_pct": -0.5,
+      "yoy_pct": 2.1
+    },
+    {
+      "category": "Herbs & Spices",
+      "name": "Chilli India",
+      "mom_pct": 14.8,
+      "yoy_pct": 89.8
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Banana US",
+      "mom_pct": 0.0,
+      "yoy_pct": -4.0
+    },
+    {
+      "category": "Nuts & Dried Fruit",
+      "name": "Peanuts Argentina",
+      "mom_pct": 1.8,
+      "yoy_pct": 9.8
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Onion India",
+      "mom_pct": 9.0,
+      "yoy_pct": -0.6
+    },
+    {
+      "category": "Nuts & Dried Fruit",
+      "name": "Almonds US",
+      "mom_pct": -0.3,
+      "yoy_pct": 6.4
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Onion EU*",
+      "mom_pct": 130.8,
+      "yoy_pct": -49.2
+    },
+    {
+      "category": "Nuts & Dried Fruit",
+      "name": "Hazelnuts Turkey",
+      "mom_pct": -12.3,
+      "yoy_pct": -16.2
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Tomato EU",
+      "mom_pct": -15.8,
+      "yoy_pct": -28.9
+    },
+    {
+      "category": "Nuts & Dried Fruit",
+      "name": "Cashews Vietnam",
+      "mom_pct": 1.0,
+      "yoy_pct": -0.6
+    },
+    {
+      "category": "Fruit & Vegetables",
+      "name": "Potato processing EU",
+      "mom_pct": 0.0,
+      "yoy_pct": -38.9
+    },
+    {
+      "category": "Nuts & Dried Fruit",
+      "name": "Brazil Nuts South America",
+      "mom_pct": 4.3,
+      "yoy_pct": -44.2
+    },
+    {
+      "category": "Nuts & Dried Fruit",
+      "name": "Dried Apricots Turkey",
+      "mom_pct": 0.0,
+      "yoy_pct": -9.8
+    },
+    {
+      "category": "Nuts & Dried Fruit",
+      "name": "Sultanas Turkey",
+      "mom_pct": -1.2,
+      "yoy_pct": -34.2
+    },
+    {
+      "category": "Textiles",
+      "name": "Cotton US",
+      "mom_pct": -3.4,
+      "yoy_pct": 14.8
+    },
+    {
+      "category": "Textiles",
+      "name": "Cotton India",
+      "mom_pct": -2.5,
+      "yoy_pct": 18.6
+    },
+    {
+      "category": "Packaging",
+      "name": "Kraftliner EU",
+      "mom_pct": 6.2,
+      "yoy_pct": 6.2
+    },
+    {
+      "category": "Packaging",
+      "name": "Testliner EU",
+      "mom_pct": 0.0,
+      "yoy_pct": -1.3
+    },
+    {
+      "category": "Packaging",
+      "name": "Fluting EU",
+      "mom_pct": 0.0,
+      "yoy_pct": 3.5
+    },
+    {
+      "category": "Packaging",
+      "name": "Cartonboard GC2 Coated EU",
+      "mom_pct": 0.0,
+      "yoy_pct": -3.3
+    },
+    {
+      "category": "Packaging",
+      "name": "Cartonboard GT2 Coated EU",
+      "mom_pct": 0.0,
+      "yoy_pct": -2.4
+    },
+    {
+      "category": "Packaging",
+      "name": "Linerboard US",
+      "mom_pct": 5.5,
+      "yoy_pct": 4.3
+    },
+    {
+      "category": "Packaging",
+      "name": "Testliner US",
+      "mom_pct": 6.4,
+      "yoy_pct": 6.4
+    },
+    {
+      "category": "Packaging",
+      "name": "Cartonboard SBB US",
+      "mom_pct": 0.8,
+      "yoy_pct": -1.6
+    },
+    {
+      "category": "Packaging",
+      "name": "Cartonboard FBB US",
+      "mom_pct": 0.0,
+      "yoy_pct": 3.0
+    },
+    {
+      "category": "Packaging",
+      "name": "Steel CME US",
+      "mom_pct": 4.2,
+      "yoy_pct": 37.8
+    },
+    {
+      "category": "Packaging",
+      "name": "Steel EU",
+      "mom_pct": -1.4,
+      "yoy_pct": 12.9
+    },
+    {
+      "category": "Packaging",
+      "name": "Aluminium LME",
+      "mom_pct": -4.4,
+      "yoy_pct": 36.6
+    },
+    {
+      "category": "Packaging",
+      "name": "HDPE EU",
+      "mom_pct": -3.2,
+      "yoy_pct": 62.2
+    },
+    {
+      "category": "Packaging",
+      "name": "LDPE EU",
+      "mom_pct": -3.3,
+      "yoy_pct": 53.9
+    },
+    {
+      "category": "Packaging",
+      "name": "HDPE US",
+      "mom_pct": -3.3,
+      "yoy_pct": 14.5
+    },
+    {
+      "category": "Packaging",
+      "name": "LDPE US",
+      "mom_pct": -3.7,
+      "yoy_pct": 8.9
+    },
+    {
+      "category": "Packaging",
+      "name": "PET EU",
+      "mom_pct": -1.9,
+      "yoy_pct": 42.4
+    },
+    {
+      "category": "Packaging",
+      "name": "PET US",
+      "mom_pct": -5.0,
+      "yoy_pct": 13.1
+    },
+    {
+      "category": "Packaging",
+      "name": "PP EU",
+      "mom_pct": -3.5,
+      "yoy_pct": 65.6
+    },
+    {
+      "category": "Packaging",
+      "name": "PP US",
+      "mom_pct": -3.3,
+      "yoy_pct": -0.3
+    }
+  ]
+}
