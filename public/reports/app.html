@@ -382,7 +382,10 @@ function strategyHTML(rep){
   var withY=rep.rows.filter(function(r){return typeof r.yoy==='number';});
   var risk=withY.slice().sort(function(a,b){return b.yoy-a.yoy;}).filter(function(r){return r.yoy>0;}).slice(0,5);
   var opp=withY.slice().sort(function(a,b){return a.yoy-b.yoy;}).filter(function(r){return r.yoy<0;}).slice(0,5);
-  var watch=withY.slice().sort(function(a,b){return Math.abs(b.mom||0)-Math.abs(a.mom||0);}).slice(0,5);
+  // Watch-list = biggest MoM movers NOT already shown as a risk/opportunity,
+  // so a commodity never appears in two columns.
+  var used={}; risk.concat(opp).forEach(function(r){used[r.name]=1;});
+  var watch=withY.slice().filter(function(r){return !used[r.name];}).sort(function(a,b){return Math.abs(b.mom||0)-Math.abs(a.mom||0);}).slice(0,5);
   function col(title,glyph,gc,items){
     return '<div><div style="display:flex;align-items:center;gap:8px;margin-bottom:11px"><span style="font-size:13px;color:'+gc+'">'+glyph+'</span>'
       +'<h4 style="font-size:14px;font-weight:700;margin:0;color:'+gc+'">'+title+'</h4></div><div style="display:flex;flex-direction:column;gap:8px">'
