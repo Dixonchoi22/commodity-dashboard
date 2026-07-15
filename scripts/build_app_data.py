@@ -200,9 +200,12 @@ def build_report(slug: str) -> dict:
         name = r.get("name", "")
         c = cmap.get(name)
         fc = fmap.get(name.lower())
+        # Display name without the trailing "*" lag marker (kept in the raw
+        # data, but hidden in the UI on request).
+        display = re.sub(r"\s*\*+\s*$", "", name)
         rows.append({
             "category": r.get("category", "Other"),
-            "name": name,
+            "name": display,
             "mom": num(r.get("mom_pct")),
             "yoy": num(r.get("yoy_pct")),
             "price": (c or {}).get("price", ""),

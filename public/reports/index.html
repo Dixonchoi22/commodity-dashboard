@@ -373,7 +373,7 @@ function moversTableHTML(rep){
           +'<th>Category</th><th data-sort="name">Commodity'+sortArrow('name')+'</th><th>Latest price</th>'
           +'<th data-sort="mom" style="text-align:center">MoM'+sortArrow('mom')+'</th><th data-sort="yoy" style="text-align:center">YoY'+sortArrow('yoy')+'</th></tr></thead>'
           +'<tbody>'+(tRows||'<tr><td colspan="5" style="color:var(--dim);padding:20px">No matching commodities.</td></tr>')+'</tbody></table>'
-          +(rows.some(function(r){return /\*/.test(r.name||'');})?'<p class="cap" style="margin:10px 14px 4px">* Reported on a one-month lag — these show the prior month\'s change (May vs April MoM / May 2025 YoY) instead of the headline June vs May window. A blank cell means that figure was not published this period.</p>':'')
+          +(rows.some(function(r){return r.mom==null||r.yoy==null;})?'<p class="cap" style="margin:10px 14px 4px">A blank cell means that figure was not published for this commodity this period. A few commodities are reported on a one-month lag (prior-month change).</p>':'')
           +'</div>')
   +'</div>';
 }
