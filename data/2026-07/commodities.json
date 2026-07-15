@@ -1,6 +1,9 @@
 {
   "period": {
-    "slug": "2026-07"
+    "slug": "2026-07",
+    "period": "July 2026",
+    "mom": "June 2026 vs May 2026",
+    "yoy": "June 2026 vs June 2025"
   },
   "rows": [
     {

@@ -534,34 +534,97 @@ def _iter_data_sheet(ws) -> tuple[list[str], list[tuple]]:
     return header, data
 
 
+_CODE_RE = re.compile(r"\[([A-Z0-9]{3,6})\]")
+
+
+def _parse_period_sheet(ws) -> list[dict]:
+    """New Expana forecast layout: column A header is ``Period`` (daily/weekly
+    dates); every ``Value - <unit>`` column is one commodity. The commodity
+    name lives in the row *above* the header — the first commodity's name sits
+    above the ``Period`` column with its values one column to the right, and
+    each subsequent commodity's name sits directly above its value column. The
+    name carries the Mintec code in brackets, e.g. ``Butter EEX [BUTH]``."""
+    rows = list(ws.iter_rows(values_only=True))
+    hidx = next(
+        (i for i, r in enumerate(rows)
+         if r and isinstance(r[0], str) and r[0].strip().lower() == "period"),
+        None,
+    )
+    if hidx is None:
+        return []
+    names = rows[hidx - 1] if hidx > 0 else ()
+    header = rows[hidx]
+    data = rows[hidx + 1:]
+
+    out: list[dict] = []
+    for j, h in enumerate(header):
+        if not (isinstance(h, str) and h.strip().lower().startswith("value")):
+            continue
+        raw = None
+        if j < len(names) and names[j]:
+            raw = names[j]
+        elif j - 1 >= 0 and j - 1 < len(names) and names[j - 1]:
+            raw = names[j - 1]
+        if not raw:
+            continue
+        name = str(raw).strip()
+        m = _CODE_RE.search(name)
+        code = m.group(1) if m else name
+        description = _CODE_RE.sub("", name).strip()
+        unit = h.split("-", 1)[1].strip() if "-" in h else ""
+
+        points = []
+        for r in data:
+            d = r[0] if r else None
+            v = r[j] if r and j < len(r) else None
+            if not isinstance(d, (date, datetime)) or v is None or v == "":
+                continue
+            try:
+                fv = float(v)
+            except (TypeError, ValueError):
+                continue
+            points.append({"date": d.date().isoformat(), "value": fv})
+        if not points:
+            continue
+        out.append({
+            "sheet": ws.title,
+            "code": code,
+            "label": name,
+            "description": description or name,
+            "unit": unit,
+            "points": points,
+            "start": points[0]["date"],
+            "end": points[-1]["date"],
+        })
+    return out
+
+
 def extract_forecast(forecast_xlsx: Path) -> dict:
     wb = openpyxl.load_workbook(forecast_xlsx, data_only=True)
     commodities: list[dict] = []
     for sheet_name in wb.sheetnames:
-        header, rows = _iter_data_sheet(wb[sheet_name])
-        if not header:
-            continue
-        # header[0] is "Date"; remaining are commodity labels
-        for col_idx, label in enumerate(header[1:], start=1):
-            points = []
-            for r in rows:
-                d = r[0]
-                v = r[col_idx] if col_idx < len(r) else None
-                if not isinstance(d, (date, datetime)) or v is None:
+        ws = wb[sheet_name]
+
+        # Legacy Mintec "Date" wide format: first cell of the header is "Date".
+        header, rows = _iter_data_sheet(ws)
+        if header:
+            for col_idx, label in enumerate(header[1:], start=1):
+                points = []
+                for r in rows:
+                    d = r[0]
+                    v = r[col_idx] if col_idx < len(r) else None
+                    if not isinstance(d, (date, datetime)) or v is None:
+                        continue
+                    points.append({"date": d.date().isoformat(), "value": float(v)})
+                if not points:
                     continue
-                points.append({"date": d.date().isoformat(), "value": float(v)})
-            if not points:
-                continue
-            # Split Mintec code / description / unit from header label,
-            # e.g. "COCL - Cocoa bean London ICE GBP/MT (L)"
-            code = label.split(" - ", 1)[0].strip() if " - " in label else label
-            description = label.split(" - ", 1)[1].strip() if " - " in label else label
-            unit = ""
-            m = re.search(r"([A-Z]{3}(?:/[A-Za-z/]+)?|[A-Z]+[/]?[A-Za-z]+)\s*\([LR]\)\s*$", label)
-            if m:
-                unit = m.group(1)
-            commodities.append(
-                {
+                code = label.split(" - ", 1)[0].strip() if " - " in label else label
+                description = label.split(" - ", 1)[1].strip() if " - " in label else label
+                unit = ""
+                m = re.search(r"([A-Z]{3}(?:/[A-Za-z/]+)?|[A-Z]+[/]?[A-Za-z]+)\s*\([LR]\)\s*$", label)
+                if m:
+                    unit = m.group(1)
+                commodities.append({
                     "sheet": sheet_name,
                     "code": code,
                     "label": label,
@@ -570,8 +633,12 @@ def extract_forecast(forecast_xlsx: Path) -> dict:
                     "points": points,
                     "start": points[0]["date"],
                     "end": points[-1]["date"],
-                }
-            )
+                })
+            continue
+
+        # New Expana "Period" format (two-row header + bracketed codes).
+        commodities.extend(_parse_period_sheet(ws))
+
     return {
         "source": "Expana (Mintec) forward curves",
         "commodities": commodities,

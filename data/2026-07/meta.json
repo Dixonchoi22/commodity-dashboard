@@ -8,7 +8,7 @@
   "period_yoy": "June 2026 vs June 2025",
   "source": "Expana (Mintec) Commodity Price Change Overview Report",
   "output_html": "/reports/2026-07.html",
-  "trend_analysis": "The EU Food HICP index (Eurostat teicp010) sat at 101.74 in May 2026 (base 2025 = 100), with YoY food inflation easing further to +1.48% — down from +1.99% in the April report and comfortably below the mid-2025 peak. The calm headline masks sharp category swings: Onion EU spiked +130.8% MoM (a supply-driven snap-back, still -49.2% YoY), Milk UK jumped +40.9% MoM, and cocoa turned higher again (Cocoa Bean ICE London +15.5% MoM). Note: forward curves are carried over from the Q2 (April 2026) Mintec export and should be refreshed once the latest forecast file is available.",
+  "trend_analysis": "The EU Food HICP index (Eurostat teicp010) sat at 101.74 in May 2026 (base 2025 = 100), with YoY food inflation easing further to +1.48% — down from +1.99% in the April report and comfortably below the mid-2025 peak. The calm headline masks sharp category swings: Onion EU spiked +130.8% MoM (a supply-driven snap-back, still -49.2% YoY), Milk UK jumped +40.9% MoM, and cocoa turned higher again (Cocoa Bean ICE London +15.5% MoM). Forward curves reflect the Q3 2026 Mintec export (one-year outlook to mid-2027).",
   "highlights": [
     {
       "tone": "red",
