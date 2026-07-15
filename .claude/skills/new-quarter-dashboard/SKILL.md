@@ -10,14 +10,15 @@ and updating the master quarter-picker `index.html` from new raw source
 files. Follow these steps when a new quarter's data arrives.
 
 Reports are updated **quarterly**. The slug is still the `YYYY-MM` cover
-month of the Expana PDF; the month maps to a calendar quarter for display:
+month of the Expana PDF; the month maps to a **fiscal quarter** (the
+fiscal year starts in April):
 
 | Reporting month | Quarter | Slug      |
 | --------------- | ------- | --------- |
-| April 2026      | Q2 2026 | `2026-04` |
-| July 2026       | Q3 2026 | `2026-07` |
-| October 2026    | Q4 2026 | `2026-10` |
-| January 2027    | Q1 2027 | `2027-01` |
+| April 2026      | Q1 2026 | `2026-04` |
+| July 2026       | Q2 2026 | `2026-07` |
+| October 2026    | Q3 2026 | `2026-10` |
+| January 2027    | Q4 2026 | `2027-01` |
 
 ## Environment (Windows)
 

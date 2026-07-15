@@ -372,7 +372,9 @@ function moversTableHTML(rep){
       : '<div style="padding:6px 4px 10px;overflow-x:auto"><table><thead><tr>'
           +'<th>Category</th><th data-sort="name">Commodity'+sortArrow('name')+'</th><th>Latest price</th>'
           +'<th data-sort="mom" style="text-align:center">MoM'+sortArrow('mom')+'</th><th data-sort="yoy" style="text-align:center">YoY'+sortArrow('yoy')+'</th></tr></thead>'
-          +'<tbody>'+(tRows||'<tr><td colspan="5" style="color:var(--dim);padding:20px">No matching commodities.</td></tr>')+'</tbody></table></div>')
+          +'<tbody>'+(tRows||'<tr><td colspan="5" style="color:var(--dim);padding:20px">No matching commodities.</td></tr>')+'</tbody></table>'
+          +(rows.some(function(r){return /\*/.test(r.name||'');})?'<p class="cap" style="margin:10px 14px 4px">* Reported on a one-month lag — these show the prior month\'s change (May vs April MoM / May 2025 YoY) instead of the headline June vs May window. A blank cell means that figure was not published this period.</p>':'')
+          +'</div>')
   +'</div>';
 }
 
@@ -419,8 +421,14 @@ function germanyHTML(){
   var kpis=g.kpis.map(function(k){return '<div class="kpi '+esc(k.tone)+'"><p class="lab">'+esc(k.label)+'</p>'
     +'<p class="val num" style="color:'+(k.tone==='up'?'var(--up)':k.tone==='down'?'var(--down)':'var(--ink)')+'">'+esc(k.value)+'</p><p class="sub">'+esc(k.sub)+'</p></div>';}).join('');
 
-  var maxIdx=Math.max.apply(null,groups.map(function(s){return s.index||0}).concat([1]));
-  var bars=groups.map(function(s){var w=Math.max(3,(s.index||0)/maxIdx*100);var d=divColor(s.yoy);
+  // Bar width is scaled across the group's min..max index so the high->low
+  // ranking is visible (all indices sit in a narrow 130-170 band, so scaling
+  // from zero would make every bar look the same length).
+  var idxVals=groups.map(function(s){return s.index;}).filter(function(v){return typeof v==='number';});
+  var maxIdx=Math.max.apply(null,idxVals.concat([1]));
+  var minIdx=Math.min.apply(null,idxVals.concat([maxIdx]));
+  var span=Math.max(1,maxIdx-minIdx);
+  var bars=groups.map(function(s){var w=(typeof s.index==='number')?15+(s.index-minIdx)/span*85:3;var d=divColor(s.yoy);
     return '<div title="'+esc(s.label)+' · idx '+(s.index!=null?s.index:'—')+' · '+pct(s.yoy)+' YoY" style="display:grid;grid-template-columns:130px 1fr auto;align-items:center;gap:10px">'
       +'<div style="display:flex;align-items:center;gap:7px;min-width:0"><span class="dot" style="width:8px;height:8px;background:'+groupColor(s.coicop)+'"></span><span style="font-size:11.5px;color:#E2E8F0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(s.label)+'</span></div>'
       +'<div style="height:14px;background:var(--bg);border-radius:4px;overflow:hidden;position:relative"><div style="position:absolute;left:0;top:0;bottom:0;border-radius:4px;width:'+w+'%;background:'+groupColor(s.coicop)+';opacity:.85"></div></div>'
@@ -471,7 +479,7 @@ function openModal(name){
   var r=rep.rows.filter(function(x){return x.name===name;})[0]; if(!r) return;
   var fc=r.forecast;
   var chart=fc?'<div style="height:180px;margin-top:14px"><canvas id="fcChart"></canvas></div>'
-    +'<p class="cap" style="margin:8px 0 0">Forward curve — '+esc(fc.desc)+' ('+esc(fc.unit)+'). Carried from the latest Mintec export.</p>':'';
+    +'<p class="cap" style="margin:8px 0 0">Forward curve — '+esc(fc.desc)+' ('+esc(fc.unit)+'). Mintec forward curve · ~1-year outlook.</p>':'';
   var ov=document.createElement('div'); ov.className='overlay'; ov.id='ov';
   ov.innerHTML='<div class="modal" style="position:relative"><button class="x" data-close>✕</button>'
     +'<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span class="dot" style="width:11px;height:11px;border-radius:3px;background:'+catColor(r.category)+'"></span>'
@@ -493,17 +501,17 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()
 /* ---------------- CHARTS ---------------- */
 var _charts=[];
 function killCharts(){_charts.forEach(function(c){try{c.destroy();}catch(e){}});_charts=[];}
-function lineChart(id,labels,values,color){
+function lineChart(id,labels,values,color,unit){
   var el=document.getElementById(id); if(!el||!window.Chart) return;
   var ctx=el.getContext('2d');
   var grad=ctx.createLinearGradient(0,0,0,260); grad.addColorStop(0,color+'55'); grad.addColorStop(1,color+'05');
-  _charts.push(new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{data:values,borderColor:color,backgroundColor:grad,borderWidth:2,fill:true,tension:.32,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:color}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#0F172A',borderColor:'#334155',borderWidth:1,titleColor:'#F8FAFC',bodyColor:'#CBD5E1',padding:10}},
-    scales:{x:{grid:{color:'#1E293B'},ticks:{color:'#64748B',font:{size:10},maxRotation:0,autoSkip:false,callback:function(v,i){var L=this.chart.data.labels;return (L.length-1-i)%2===0?L[i]:'';}}},y:{grid:{color:'#1E293B'},ticks:{color:'#64748B',font:{size:10}}}}}}));
+  _charts.push(new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{data:values,borderColor:color,backgroundColor:grad,borderWidth:2,fill:true,tension:.32,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:color,pointHoverBorderColor:'#0F172A',pointHoverBorderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},hover:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#0F172A',borderColor:'#334155',borderWidth:1,titleColor:'#F8FAFC',bodyColor:'#F8FAFC',bodyFont:{size:13,weight:'700'},padding:10,displayColors:false,callbacks:{title:function(items){return items.length?items[0].label:'';},label:function(ctx){var v=ctx.parsed.y;var s=(typeof v==='number'?v.toLocaleString(undefined,{maximumFractionDigits:2}):v);return unit?(s+' '+unit):s;}}}},
+    scales:{x:{grid:{color:'#1E293B'},ticks:{color:'#64748B',font:{size:10},maxRotation:0,autoSkip:false,callback:function(v,i){var L=this.chart.data.labels;var step=Math.max(1,Math.ceil(L.length/6));return (L.length-1-i)%step===0?L[i]:'';}}},y:{grid:{color:'#1E293B'},ticks:{color:'#64748B',font:{size:10}}}}}}));
 }
 function drawForecast(fc){
   var el=document.getElementById('fcChart'); if(!el||!window.Chart) return;
-  lineChart('fcChart',fc.points.map(function(p){return p.d;}),fc.points.map(function(p){return p.v;}),'#4ADE80');
+  lineChart('fcChart',fc.points.map(function(p){return p.d;}),fc.points.map(function(p){return p.v;}),'#4ADE80',fc.unit||'');
 }
 
 /* ---------------- MOUNT + EVENTS ---------------- */
@@ -514,8 +522,8 @@ function render(){
   else if(state.screen==='germany') app.innerHTML=germanyHTML();
   else app.innerHTML=reportHTML();
   // charts after DOM is in place
-  if(state.screen==='report' && !state.cat){var rep=D.reports[state.slug];lineChart('hicpChart',rep.hicp.labels,rep.hicp.values,'#60A5FA');}
-  if(state.screen==='germany' && !state.gGroup){var g=D.reports[state.slug].germany;if(g)lineChart('gTrend',g.trend.labels,g.trend.values,'#FBBF24');}
+  if(state.screen==='report' && !state.cat){var rep=D.reports[state.slug];lineChart('hicpChart',rep.hicp.labels,rep.hicp.values,'#60A5FA','index');}
+  if(state.screen==='germany' && !state.gGroup){var g=D.reports[state.slug].germany;if(g)lineChart('gTrend',g.trend.labels,g.trend.values,'#FBBF24','index');}
 }
 document.getElementById('app').addEventListener('click',function(e){
   var t=e.target.closest('[data-go],[data-open],[data-rank],[data-tab],[data-sort]');

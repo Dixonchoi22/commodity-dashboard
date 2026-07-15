@@ -49,16 +49,20 @@ def month_label(slug: str) -> str:
 
 
 def quarter_of(slug: str) -> tuple[int, int]:
-    """Return (year, quarter) for a YYYY-MM slug. Falls back to (0, 0)."""
+    """Return (fiscal_year, fiscal_quarter) for a YYYY-MM slug. The fiscal year
+    starts in April: Apr-Jun = Q1, Jul-Sep = Q2, Oct-Dec = Q3, Jan-Mar = Q4 (of
+    the fiscal year that began the previous April). Falls back to (0, 0)."""
     try:
-        y, m = slug.split("-")
-        return int(y), (int(m) - 1) // 3 + 1
+        y, m = int(slug.split("-")[0]), int(slug.split("-")[1])
+        fq = ((m - 4) % 12) // 3 + 1
+        fy = y if m >= 4 else y - 1
+        return fy, fq
     except Exception:
         return 0, 0
 
 
 def quarter_label(slug: str) -> str:
-    """'2026-04' -> 'Q2 2026'. Falls back to the raw slug."""
+    """'2026-04' -> 'Q1 2026', '2026-07' -> 'Q2 2026'. Falls back to raw slug."""
     y, q = quarter_of(slug)
     if not y:
         return slug

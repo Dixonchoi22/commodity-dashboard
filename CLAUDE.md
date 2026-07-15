@@ -18,8 +18,11 @@ into `index.html` on every run. The legacy card menu is kept as
 and remain reachable directly.
 
 Slugs are `YYYY-MM` (the cover month of the Expana PDF) and map to a
-calendar quarter for display: Jan–Mar → Q1, Apr–Jun → Q2, Jul–Sep → Q3,
-Oct–Dec → Q4. e.g. `2026-04` = **Q2 2026**, `2026-07` = **Q3 2026**.
+**fiscal quarter** (the fiscal year starts in April): Apr–Jun → Q1,
+Jul–Sep → Q2, Oct–Dec → Q3, Jan–Mar → Q4 (of the fiscal year that began
+the previous April). e.g. `2026-04` = **Q1 2026**, `2026-07` = **Q2 2026**.
+The mapping lives in `quarter_label()` in `build_app_data.py` and
+`build_dashboard.py` — keep them in sync.
 
 ## Environment (Windows)
 

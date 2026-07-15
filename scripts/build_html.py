@@ -488,6 +488,8 @@ def build(period: str) -> tuple[str, str | None]:
         "BW19": "Pork EU",
         "J114": "Gouda EU",
         "ED24": "Milk EU",
+        "UI62": "Cod Norway",
+        "UG01": "Salmon Norway",
     }
     forecast_by_name: dict[str, dict] = {}
     for c in forecast["commodities"]:
