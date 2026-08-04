@@ -31,7 +31,6 @@ def load(period: str) -> dict:
         "hicp_index": maybe("hicp_index.json"),
         "germany": maybe("germany.json"),
         "destatis": maybe("destatis.json"),
-        "world_bank": maybe("world_bank.json"),
     }
 
 

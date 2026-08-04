@@ -5,8 +5,14 @@ public/reports/app-data.js as `window.CD_APP = {...}` — a single object the
 static SPA renders client-side (menu + quarter report + Germany deep-dive).
 
 Everything the UI needs is precomputed here (category colours, category net
-YoY, KPIs, movers inputs, Germany food-group indices, forecast curves), so
-the client stays a thin renderer.
+YoY, movers inputs, Germany food-group indices, forecast curves), so the
+client stays a thin renderer.
+
+Labels are the exception: anything the user reads is emitted as a
+translation *key* plus parameters, never as a finished English sentence, so
+the SPA can render it in any of the languages in data/i18n.json. Raw values
+that need locale formatting (numbers, percentages, "Jun 2026" months) are
+emitted unformatted and shaped client-side.
 
 Usage:
   py scripts/build_app_data.py
@@ -19,6 +25,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / "data" / "manifest.json"
+I18N = ROOT / "data" / "i18n.json"
 OUT = ROOT / "public" / "reports" / "app-data.js"
 
 MONTHS = ["January", "February", "March", "April", "May", "June",
@@ -47,12 +54,90 @@ def cat_color(name: str) -> str:
     return CATEGORY_COLORS.get(name, FALLBACK_COLOR)
 
 
-def quarter_label(slug: str) -> str:
+# ------------------------------------------------------------------ i18n
+# data/i18n.json is authored key-first (all languages of one string side by
+# side, so gaps are obvious). The client wants it language-first, so pivot
+# here and report anything that would silently fall back to English.
+def build_i18n() -> dict:
+    cat = json.loads(I18N.read_text(encoding="utf-8"))
+    langs = cat["languages"]
+    codes = [l["code"] for l in langs]
+    missing: list[str] = []
+
+    def pivot(section: str, self_is_en: bool = False) -> dict:
+        """section -> {lang: {key: text}}. With self_is_en the entry key is
+        itself the English text (categories, phrases)."""
+        out = {c: {} for c in codes}
+        for key, vals in cat.get(section, {}).items():
+            en = key if self_is_en else vals.get("en", key)
+            for c in codes:
+                text = vals.get(c) or (en if c == "en" else None)
+                if text is None:
+                    missing.append(f"{section}.{key} [{c}]")
+                    text = en
+                out[c][key] = text
+        return out
+
+    pivoted = {
+        "strings": pivot("strings"),
+        "categories": pivot("categories", self_is_en=True),
+        "coicop": pivot("coicop"),
+        "phrases": pivot("phrases", self_is_en=True),
+    }
+    if missing:
+        print(f"  ! {len(missing)} untranslated entries fall back to English:")
+        for m in missing[:10]:
+            print(f"      {m}")
+        if len(missing) > 10:
+            print(f"      … and {len(missing) - 10} more")
+    return {
+        "languages": [{"code": l["code"], "name": l["name"], "locale": l["locale"]}
+                      for l in langs],
+        "default": "en",
+        **pivoted,
+    }
+
+
+def load_overrides(slug: str, codes: list[str]) -> dict:
+    """Optional per-quarter translations of analyst-written text, one file per
+    language at data/{slug}/i18n/{lang}.json:
+
+        {"trend_analysis": "…",
+         "highlights": [{"label": "…", "body": "…"}],
+         "commentary": {"Butter EU": "…"}}
+
+    Anything absent falls back to the English source text."""
+    out = {}
+    for code in codes:
+        if code == "en":
+            continue
+        p = ROOT / "data" / slug / "i18n" / f"{code}.json"
+        if not p.exists():
+            continue
+        d = json.loads(p.read_text(encoding="utf-8"))
+        entry = {}
+        if d.get("trend_analysis"):
+            entry["trend"] = d["trend_analysis"]
+        if d.get("highlights"):
+            entry["highlights"] = d["highlights"]
+        if d.get("commentary"):
+            entry["notes"] = d["commentary"]
+        if entry:
+            out[code] = entry
+    return out
+
+
+def quarter_parts(slug: str) -> tuple[int, int]:
     # Fiscal year starts in April: Apr-Jun = Q1, Jul-Sep = Q2, Oct-Dec = Q3,
     # Jan-Mar = Q4 (of the fiscal year that began the previous April).
     y, m = int(slug.split("-")[0]), int(slug.split("-")[1])
     fq = ((m - 4) % 12) // 3 + 1
     fy = y if m >= 4 else y - 1
+    return fq, fy
+
+
+def quarter_label(slug: str) -> str:
+    fq, fy = quarter_parts(slug)
     return f"Q{fq} {fy}"
 
 
@@ -149,27 +234,26 @@ def build_germany(destatis: dict) -> dict | None:
             })
     groups.sort(key=lambda g: (g["index"] is None, -(g["index"] or 0)))
 
+    base = destatis.get("base_year", "2020 = 100")
     kpis = [
-        {"label": "DE Food Index", "value": f'{head["latest"]:.1f}' if head["latest"] else "—",
-         "sub": f'Destatis CP01 · latest {head["month"] or "—"}', "tone": "neutral"},
-        {"label": "YoY", "value": _pct(head["yoy"]), "sub": "vs a year ago", "tone": _tone(head["yoy"])},
-        {"label": "MoM", "value": _pct(head["mom"]), "sub": "vs previous month", "tone": _tone(head["mom"])},
-        {"label": "Food groups", "value": str(len(groups)), "sub": "COICOP 5-digit tracked", "tone": "neutral"},
+        {"k": "menu.deIndex", "type": "num", "num": head["latest"],
+         "sub": "de.kpiIndexSub", "subp": {"month": head["month"]}, "tone": "neutral"},
+        {"k": "common.yoyLong", "type": "pct", "pct": head["yoy"],
+         "sub": "de.kpiYoySub", "tone": _tone(head["yoy"])},
+        {"k": "common.momLong", "type": "pct", "pct": head["mom"],
+         "sub": "de.kpiMomSub", "tone": _tone(head["mom"])},
+        {"k": "de.kpiGroups", "type": "count", "num": len(groups),
+         "sub": "de.kpiGroupsSub", "tone": "neutral"},
     ]
     return {
-        "meta": {"title": "Germany — Food Market Detail", "period": None,
-                 "latestMonth": head["month"], "baseLabel": destatis.get("base_year", "2020 = 100")},
+        "meta": {"latestMonth": head["month"], "base": base},
         "head": head,
         "kpis": kpis,
         "trend": {"labels": [p["month"] for p in trend],
                   "values": [p["index"] for p in trend],
-                  "baseLabel": f'Index, {destatis.get("base_year", "2020 = 100")}'},
+                  "base": base},
         "groups": groups,
     }
-
-
-def _pct(v):
-    return f"{v:+.1f}%" if isinstance(v, (int, float)) else "—"
 
 
 def _tone(v):
@@ -179,7 +263,7 @@ def _tone(v):
 
 
 # ------------------------------------------------------------------ per report
-def build_report(slug: str) -> dict:
+def build_report(slug: str, lang_codes: list[str]) -> dict:
     meta = load(slug, "meta.json") or {}
     commodities = (load(slug, "commodities.json") or {}).get("rows", [])
     hicp = load(slug, "hicp_index.json") or {}
@@ -231,35 +315,43 @@ def build_report(slug: str) -> dict:
     top_hike = max(with_mom, key=lambda r: r["mom"], default=None)
     top_drop = min(with_mom, key=lambda r: r["mom"], default=None)
     latest_month = hicp.get("latest_month", "")
+    base = hicp.get("base_year", "2025 = 100")
     kpis = [
-        {"label": f"HICP Food Index ({latest_month})",
-         "value": f'{hicp.get("latest_index", "—")}',
-         "sub": f'Eurostat EU27 · {hicp.get("base_year", "2025 = 100")} base', "tone": "neutral"},
-        {"label": "YoY Food Inflation", "value": _pct(hicp.get("yoy_pct_last_12")),
-         "sub": "HICP food, last 12 months", "tone": _tone(hicp.get("yoy_pct_last_12"))},
-        {"label": "Highest MoM Hike",
-         "value": f'{top_hike["name"]} ({_pct(top_hike["mom"])})' if top_hike else "—",
-         "sub": "Immediate cost pressure", "tone": "up"},
-        {"label": "Biggest MoM Drop",
-         "value": f'{top_drop["name"]} ({_pct(top_drop["mom"])})' if top_drop else "—",
-         "sub": "Procurement opportunity", "tone": "down"},
+        {"k": "kpi.hicpIndex", "kp": {"month": latest_month},
+         "type": "num", "num": num(hicp.get("latest_index")),
+         "sub": "kpi.hicpIndex.sub", "subp": {"base": base}, "tone": "neutral"},
+        {"k": "kpi.yoyFood", "type": "pct", "pct": hicp.get("yoy_pct_last_12"),
+         "sub": "kpi.yoyFood.sub", "tone": _tone(hicp.get("yoy_pct_last_12"))},
+        {"k": "kpi.topHike", "type": "namePct",
+         "name": top_hike["name"] if top_hike else None,
+         "pct": top_hike["mom"] if top_hike else None,
+         "sub": "kpi.topHike.sub", "tone": "up"},
+        {"k": "kpi.topDrop", "type": "namePct",
+         "name": top_drop["name"] if top_drop else None,
+         "pct": top_drop["mom"] if top_drop else None,
+         "sub": "kpi.topDrop.sub", "tone": "down"},
     ]
 
+    fq, fy = quarter_parts(slug)
+    y, m = slug.split("-")
     series = hicp.get("series", [])
     return {
         "meta": {
-            "slug": slug, "q": quarter_label(slug), "title": meta.get("title", ""),
-            "period": meta.get("period", month_label(slug)), "region": meta.get("region", ""),
+            "slug": slug, "q": quarter_label(slug), "qn": fq, "fy": fy,
+            "title": meta.get("title", ""),
+            "period": meta.get("period", month_label(slug)),
+            "periodY": int(y), "periodM": int(m), "region": meta.get("region", ""),
             "periodMom": meta.get("period_mom", ""), "periodYoy": meta.get("period_yoy", ""),
             "source": meta.get("source", ""),
         },
         "hicp": {
             "labels": [s["month"] for s in series],
             "values": [s["index"] for s in series],
-            "baseLabel": f'Index, {hicp.get("base_year", "2025 = 100")}',
+            "base": base,
             "yoyPct": hicp.get("yoy_pct_last_12"),
         },
         "kpis": kpis,
+        "tr": load_overrides(slug, lang_codes),
         "highlights": meta.get("highlights", []),
         "trend": meta.get("trend_analysis", ""),
         "categories": categories,
@@ -277,8 +369,12 @@ def build_menu_card(slug: str, report: dict, is_latest: bool) -> dict:
     return {
         "slug": slug,
         "q": report["meta"]["q"],
+        "qn": report["meta"]["qn"],
+        "fy": report["meta"]["fy"],
         "title": report["meta"]["title"],
         "period": report["meta"]["period"],
+        "periodY": report["meta"]["periodY"],
+        "periodM": report["meta"]["periodM"],
         "region": report["meta"]["region"],
         "latest": is_latest,
         "hicpLevel": report["hicp"]["values"][-1] if report["hicp"]["values"] else None,
@@ -300,24 +396,23 @@ def main() -> None:
     reports_meta = sorted(manifest["reports"], key=lambda r: r["slug"], reverse=True)
     default_slug = reports_meta[0]["slug"] if reports_meta else None
 
+    i18n = build_i18n()
+    lang_codes = [l["code"] for l in i18n["languages"]]
+
     reports = {}
     menu = []
     for rm in reports_meta:
         slug = rm["slug"]
-        rep = build_report(slug)
+        rep = build_report(slug, lang_codes)
         reports[slug] = rep
         menu.append(build_menu_card(slug, rep, is_latest=(slug == default_slug)))
 
     payload = {
-        "brand": {
-            "eyebrow": "Procurement PMO · Europe",
-            "title": "Commodity Dashboard",
-            "subtitle": "Quarterly cost intelligence for food & catering procurement",
-        },
         "defaultSlug": default_slug,
         "menu": menu,
         "reports": reports,
         "categoryColors": CATEGORY_COLORS,
+        "i18n": i18n,
     }
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -325,7 +420,8 @@ def main() -> None:
     OUT.write_text(js, encoding="utf-8")
     fc = sum(1 for r in reports.values() for row in r["rows"] if row["forecast"])
     print(f"Wrote {OUT.relative_to(ROOT)} — {len(menu)} quarter(s), "
-          f"{sum(len(r['rows']) for r in reports.values())} rows, {fc} forecast matches")
+          f"{sum(len(r['rows']) for r in reports.values())} rows, {fc} forecast matches, "
+          f"{len(lang_codes)} languages ({', '.join(lang_codes)})")
 
 
 if __name__ == "__main__":

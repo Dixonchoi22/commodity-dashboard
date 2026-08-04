@@ -1,0 +1,1180 @@
+{
+  "_readme": [
+    "Translation catalogue for the category-first SPA (public/reports/app.html).",
+    "",
+    "scripts/build_app_data.py pivots this file into per-language dictionaries",
+    "and embeds them in public/reports/app-data.js as window.CD_APP.i18n.",
+    "",
+    "  strings    UI chrome, keyed by a dotted id. {token} placeholders must",
+    "             appear in every language (the build warns when one is missing,",
+    "             each language owns its own sentence shape).",
+    "  categories commodity category names as written in commodities.json.",
+    "  coicop     Destatis / COICOP series labels used by the Germany deep-dive.",
+    "  phrases    free-text data values from meta.json (title, region, source)",
+    "             that repeat across quarters. Unknown values fall back to the",
+    "             original string, so nothing ever renders blank.",
+    "",
+    "Adding a language: add it to `languages` and give every string a value.",
+    "Missing values fall back to English and are reported by the build."
+  ],
+
+  "languages": [
+    { "code": "en", "name": "English",    "locale": "en-GB" },
+    { "code": "de", "name": "Deutsch",    "locale": "de-DE" },
+    { "code": "fr", "name": "Français",   "locale": "fr-FR" },
+    { "code": "it", "name": "Italiano",   "locale": "it-IT" },
+    { "code": "es", "name": "Español",    "locale": "es-ES" },
+    { "code": "pl", "name": "Polski",     "locale": "pl-PL" },
+    { "code": "nl", "name": "Nederlands", "locale": "nl-NL" },
+    { "code": "pt", "name": "Português",  "locale": "pt-PT" },
+    { "code": "ro", "name": "Română",     "locale": "ro-RO" }
+  ],
+
+  "strings": {
+    "app.dataFailed": {
+      "en": "Data failed to load.",
+      "de": "Daten konnten nicht geladen werden.",
+      "fr": "Échec du chargement des données.",
+      "it": "Caricamento dei dati non riuscito.",
+      "es": "No se han podido cargar los datos.",
+      "pl": "Nie udało się wczytać danych.",
+      "nl": "Laden van gegevens mislukt.",
+      "pt": "Falha ao carregar os dados.",
+      "ro": "Datele nu au putut fi încărcate."
+    },
+    "lang.label": {
+      "en": "Language", "de": "Sprache", "fr": "Langue", "it": "Lingua",
+      "es": "Idioma", "pl": "Język", "nl": "Taal", "pt": "Idioma", "ro": "Limbă"
+    },
+    "lang.aria": {
+      "en": "Change language",
+      "de": "Sprache wechseln",
+      "fr": "Changer de langue",
+      "it": "Cambia lingua",
+      "es": "Cambiar de idioma",
+      "pl": "Zmień język",
+      "nl": "Taal wijzigen",
+      "pt": "Mudar de idioma",
+      "ro": "Schimbați limba"
+    },
+
+    "brand.eyebrow": {
+      "en": "Procurement PMO · Europe",
+      "de": "Beschaffungs-PMO · Europa",
+      "fr": "PMO Achats · Europe",
+      "it": "PMO Acquisti · Europa",
+      "es": "PMO de Compras · Europa",
+      "pl": "PMO Zakupów · Europa",
+      "nl": "Inkoop-PMO · Europa",
+      "pt": "PMO de Compras · Europa",
+      "ro": "PMO Achiziții · Europa"
+    },
+    "brand.title": {
+      "en": "Commodity Dashboard",
+      "de": "Rohstoff-Dashboard",
+      "fr": "Tableau de bord matières premières",
+      "it": "Dashboard materie prime",
+      "es": "Panel de materias primas",
+      "pl": "Pulpit surowcowy",
+      "nl": "Grondstoffen-dashboard",
+      "pt": "Painel de matérias-primas",
+      "ro": "Tablou de bord materii prime"
+    },
+    "brand.subtitle": {
+      "en": "Quarterly cost intelligence for food & catering procurement",
+      "de": "Quartalsweise Kostenanalyse für den Einkauf von Lebensmitteln und Catering",
+      "fr": "Analyse trimestrielle des coûts pour les achats alimentaires et de restauration",
+      "it": "Analisi trimestrale dei costi per gli acquisti food & catering",
+      "es": "Inteligencia de costes trimestral para compras de alimentación y catering",
+      "pl": "Kwartalna analiza kosztów zakupów żywności i cateringu",
+      "nl": "Driemaandelijkse kosteninzichten voor food- en cateringinkoop",
+      "pt": "Informação trimestral de custos para compras alimentares e de catering",
+      "ro": "Analiză trimestrială a costurilor pentru achiziții alimentare și catering"
+    },
+    "menu.lead": {
+      "en": "Pick your reporting quarter — then jump straight to your category.",
+      "de": "Wählen Sie Ihr Berichtsquartal — und springen Sie direkt zu Ihrer Kategorie.",
+      "fr": "Choisissez votre trimestre de reporting — puis accédez directement à votre catégorie.",
+      "it": "Scegli il trimestre di riferimento — poi vai direttamente alla tua categoria.",
+      "es": "Elija su trimestre de reporte — y vaya directamente a su categoría.",
+      "pl": "Wybierz kwartał raportowy — a następnie przejdź prosto do swojej kategorii.",
+      "nl": "Kies uw rapportagekwartaal — en ga direct naar uw categorie.",
+      "pt": "Escolha o seu trimestre de reporte — e vá diretamente para a sua categoria.",
+      "ro": "Alegeți trimestrul de raportare — apoi mergeți direct la categoria dvs."
+    },
+    "menu.quarters": {
+      "en": "Reporting quarters",
+      "de": "Berichtsquartale",
+      "fr": "Trimestres de reporting",
+      "it": "Trimestri di riferimento",
+      "es": "Trimestres de reporte",
+      "pl": "Kwartały raportowe",
+      "nl": "Rapportagekwartalen",
+      "pt": "Trimestres de reporte",
+      "ro": "Trimestre de raportare"
+    },
+    "menu.deepdive": {
+      "en": "Regional deep-dive",
+      "de": "Regionale Detailanalyse",
+      "fr": "Analyse régionale approfondie",
+      "it": "Approfondimento regionale",
+      "es": "Análisis regional en detalle",
+      "pl": "Analiza regionalna",
+      "nl": "Regionale verdieping",
+      "pt": "Análise regional aprofundada",
+      "ro": "Analiză regională detaliată"
+    },
+    "menu.latest": {
+      "en": "Latest", "de": "Aktuell", "fr": "Dernier", "it": "Ultimo",
+      "es": "Último", "pl": "Najnowszy", "nl": "Nieuwste", "pt": "Mais recente", "ro": "Recent"
+    },
+    "menu.archive": {
+      "en": "Archive", "de": "Archiv", "fr": "Archive", "it": "Archivio",
+      "es": "Archivo", "pl": "Archiwum", "nl": "Archief", "pt": "Arquivo", "ro": "Arhivă"
+    },
+    "menu.hicp": {
+      "en": "EU Food HICP",
+      "de": "HVPI Lebensmittel EU",
+      "fr": "IPCH alimentaire UE",
+      "it": "IPCA alimentare UE",
+      "es": "IPCA alimentos UE",
+      "pl": "HICP żywność UE",
+      "nl": "HICP voeding EU",
+      "pt": "IHPC alimentar UE",
+      "ro": "IAPC alimente UE"
+    },
+    "menu.riskOpp": {
+      "en": "Risks / Opportunities",
+      "de": "Risiken / Chancen",
+      "fr": "Risques / Opportunités",
+      "it": "Rischi / Opportunità",
+      "es": "Riesgos / Oportunidades",
+      "pl": "Ryzyka / Szanse",
+      "nl": "Risico's / Kansen",
+      "pt": "Riscos / Oportunidades",
+      "ro": "Riscuri / Oportunități"
+    },
+    "menu.riskOppTitle": {
+      "en": "Commodities with a year-on-year change beyond ±25%",
+      "de": "Rohstoffe mit einer Jahresveränderung über ±25 %",
+      "fr": "Matières premières dont la variation annuelle dépasse ±25 %",
+      "it": "Materie prime con variazione annua oltre ±25%",
+      "es": "Materias primas con variación interanual superior a ±25 %",
+      "pl": "Surowce ze zmianą r/r powyżej ±25%",
+      "nl": "Grondstoffen met een jaarmutatie boven ±25%",
+      "pt": "Matérias-primas com variação homóloga acima de ±25%",
+      "ro": "Materii prime cu variație anuală peste ±25%"
+    },
+    "menu.risksN": {
+      "en": "{n} risks", "de": "{n} Risiken", "fr": "{n} risques", "it": "{n} rischi",
+      "es": "{n} riesgos", "pl": "ryzyka: {n}", "nl": "{n} risico's",
+      "pt": "{n} riscos", "ro": "riscuri: {n}"
+    },
+    "menu.oppsN": {
+      "en": "{n} opportunities", "de": "{n} Chancen", "fr": "{n} opportunités",
+      "it": "{n} opportunità", "es": "{n} oportunidades", "pl": "szanse: {n}",
+      "nl": "{n} kansen", "pt": "{n} oportunidades", "ro": "oportunități: {n}"
+    },
+    "menu.jump": {
+      "en": "Jump to your category",
+      "de": "Direkt zu Ihrer Kategorie",
+      "fr": "Accéder à votre catégorie",
+      "it": "Vai alla tua categoria",
+      "es": "Ir a su categoría",
+      "pl": "Przejdź do swojej kategorii",
+      "nl": "Naar uw categorie",
+      "pt": "Ir para a sua categoria",
+      "ro": "Mergeți la categoria dvs."
+    },
+    "menu.open": {
+      "en": "Open the {q} report",
+      "de": "Bericht {q} öffnen",
+      "fr": "Ouvrir le rapport {q}",
+      "it": "Apri il report {q}",
+      "es": "Abrir el informe {q}",
+      "pl": "Otwórz raport {q}",
+      "nl": "Rapport {q} openen",
+      "pt": "Abrir o relatório {q}",
+      "ro": "Deschideți raportul {q}"
+    },
+    "menu.catTitle": {
+      "en": "{name} · net {pct} {yoy}",
+      "de": "{name} · netto {pct} {yoy}",
+      "fr": "{name} · net {pct} {yoy}",
+      "it": "{name} · netto {pct} {yoy}",
+      "es": "{name} · neto {pct} {yoy}",
+      "pl": "{name} · netto {pct} {yoy}",
+      "nl": "{name} · netto {pct} {yoy}",
+      "pt": "{name} · líquido {pct} {yoy}",
+      "ro": "{name} · net {pct} {yoy}"
+    },
+    "menu.germanyCard": {
+      "en": "Germany — {q}", "de": "Deutschland — {q}", "fr": "Allemagne — {q}",
+      "it": "Germania — {q}", "es": "Alemania — {q}", "pl": "Niemcy — {q}",
+      "nl": "Duitsland — {q}", "pt": "Alemanha — {q}", "ro": "Germania — {q}"
+    },
+    "menu.germanySub": {
+      "en": "{period} · Destatis CP01 breakdown",
+      "de": "{period} · Destatis-CP01-Aufschlüsselung",
+      "fr": "{period} · ventilation Destatis CP01",
+      "it": "{period} · dettaglio Destatis CP01",
+      "es": "{period} · desglose Destatis CP01",
+      "pl": "{period} · rozbicie Destatis CP01",
+      "nl": "{period} · Destatis CP01-uitsplitsing",
+      "pt": "{period} · detalhe Destatis CP01",
+      "ro": "{period} · defalcare Destatis CP01"
+    },
+    "menu.deIndex": {
+      "en": "DE Food Index",
+      "de": "Lebensmittelindex DE",
+      "fr": "Indice alimentaire DE",
+      "it": "Indice alimentare DE",
+      "es": "Índice alimentario DE",
+      "pl": "Indeks żywności DE",
+      "nl": "Voedingsindex DE",
+      "pt": "Índice alimentar DE",
+      "ro": "Indice alimentar DE"
+    },
+    "menu.deBaseNote": {
+      "en": "Base 2020 = 100 · not comparable to the EU HICP (2025 = 100).",
+      "de": "Basis 2020 = 100 · nicht vergleichbar mit dem EU-HVPI (2025 = 100).",
+      "fr": "Base 2020 = 100 · non comparable à l'IPCH UE (2025 = 100).",
+      "it": "Base 2020 = 100 · non confrontabile con l'IPCA UE (2025 = 100).",
+      "es": "Base 2020 = 100 · no comparable con el IPCA de la UE (2025 = 100).",
+      "pl": "Baza 2020 = 100 · nieporównywalne z HICP UE (2025 = 100).",
+      "nl": "Basis 2020 = 100 · niet vergelijkbaar met de EU-HICP (2025 = 100).",
+      "pt": "Base 2020 = 100 · não comparável com o IHPC da UE (2025 = 100).",
+      "ro": "Bază 2020 = 100 · necomparabil cu IAPC UE (2025 = 100)."
+    },
+    "menu.openGermany": {
+      "en": "Open the Germany deep-dive",
+      "de": "Detailanalyse Deutschland öffnen",
+      "fr": "Ouvrir l'analyse Allemagne",
+      "it": "Apri l'approfondimento Germania",
+      "es": "Abrir el análisis de Alemania",
+      "pl": "Otwórz analizę: Niemcy",
+      "nl": "Verdieping Duitsland openen",
+      "pt": "Abrir a análise da Alemanha",
+      "ro": "Deschideți analiza Germania"
+    },
+    "menu.footnote": {
+      "en": "The EU food HICP is indexed to {base} (Eurostat teicp010). German figures come from Destatis (base {gbase}) and are {notcomp}.",
+      "de": "Der EU-HVPI für Lebensmittel ist auf {base} indexiert (Eurostat teicp010). Deutsche Werte stammen von Destatis (Basis {gbase}) und sind {notcomp}.",
+      "fr": "L'IPCH alimentaire UE est indexé sur {base} (Eurostat teicp010). Les chiffres allemands proviennent de Destatis (base {gbase}) et {notcomp}.",
+      "it": "L'IPCA alimentare UE è indicizzato a {base} (Eurostat teicp010). I dati tedeschi provengono da Destatis (base {gbase}) e {notcomp}.",
+      "es": "El IPCA alimentario de la UE está indexado a {base} (Eurostat teicp010). Las cifras alemanas proceden de Destatis (base {gbase}) y {notcomp}.",
+      "pl": "HICP żywności UE jest indeksowany do {base} (Eurostat teicp010). Dane niemieckie pochodzą z Destatis (baza {gbase}) i {notcomp}.",
+      "nl": "De EU-HICP voor voeding is geïndexeerd op {base} (Eurostat teicp010). Duitse cijfers komen van Destatis (basis {gbase}) en zijn {notcomp}.",
+      "pt": "O IHPC alimentar da UE está indexado a {base} (Eurostat teicp010). Os valores alemães vêm do Destatis (base {gbase}) e {notcomp}.",
+      "ro": "IAPC alimentar UE este indexat la {base} (Eurostat teicp010). Cifrele germane provin de la Destatis (bază {gbase}) și {notcomp}."
+    },
+    "menu.notDirectlyComparable": {
+      "en": "not directly comparable",
+      "de": "nicht direkt vergleichbar",
+      "fr": "ne sont pas directement comparables",
+      "it": "non sono direttamente confrontabili",
+      "es": "no son directamente comparables",
+      "pl": "nie są bezpośrednio porównywalne",
+      "nl": "niet direct vergelijkbaar",
+      "pt": "não são diretamente comparáveis",
+      "ro": "nu sunt direct comparabile"
+    },
+
+    "common.mom": {
+      "en": "MoM", "de": "MoM", "fr": "M/M", "it": "M/M", "es": "M/M",
+      "pl": "m/m", "nl": "MoM", "pt": "M/M", "ro": "L/L"
+    },
+    "common.yoy": {
+      "en": "YoY", "de": "YoY", "fr": "A/A", "it": "A/A", "es": "A/A",
+      "pl": "r/r", "nl": "JoJ", "pt": "A/A", "ro": "A/A"
+    },
+    "common.momLong": {
+      "en": "Month on month",
+      "de": "Gegenüber dem Vormonat",
+      "fr": "Variation mensuelle",
+      "it": "Variazione mensile",
+      "es": "Variación mensual",
+      "pl": "Zmiana miesiąc do miesiąca",
+      "nl": "Maand op maand",
+      "pt": "Variação mensal",
+      "ro": "Variație lunară"
+    },
+    "common.yoyLong": {
+      "en": "Year on year",
+      "de": "Gegenüber dem Vorjahr",
+      "fr": "Variation annuelle",
+      "it": "Variazione annua",
+      "es": "Variación interanual",
+      "pl": "Zmiana rok do roku",
+      "nl": "Jaar op jaar",
+      "pt": "Variação homóloga",
+      "ro": "Variație anuală"
+    },
+    "common.vs": {
+      "en": "vs", "de": "ggü.", "fr": "vs", "it": "vs", "es": "vs",
+      "pl": "wobec", "nl": "t.o.v.", "pt": "vs", "ro": "față de"
+    },
+    "common.back": {
+      "en": "Back", "de": "Zurück", "fr": "Retour", "it": "Indietro",
+      "es": "Volver", "pl": "Wstecz", "nl": "Terug", "pt": "Voltar", "ro": "Înapoi"
+    },
+    "common.allQuarters": {
+      "en": "All quarters", "de": "Alle Quartale", "fr": "Tous les trimestres",
+      "it": "Tutti i trimestri", "es": "Todos los trimestres", "pl": "Wszystkie kwartały",
+      "nl": "Alle kwartalen", "pt": "Todos os trimestres", "ro": "Toate trimestrele"
+    },
+    "common.quarterReport": {
+      "en": "Quarter report", "de": "Quartalsbericht", "fr": "Rapport du trimestre",
+      "it": "Report del trimestre", "es": "Informe del trimestre", "pl": "Raport kwartalny",
+      "nl": "Kwartaalrapport", "pt": "Relatório do trimestre", "ro": "Raportul trimestrului"
+    },
+    "common.source": {
+      "en": "Source: {s}", "de": "Quelle: {s}", "fr": "Source : {s}", "it": "Fonte: {s}",
+      "es": "Fuente: {s}", "pl": "Źródło: {s}", "nl": "Bron: {s}",
+      "pt": "Fonte: {s}", "ro": "Sursă: {s}"
+    },
+    "common.indexUnit": {
+      "en": "index", "de": "Index", "fr": "indice", "it": "indice", "es": "índice",
+      "pl": "indeks", "nl": "index", "pt": "índice", "ro": "indice"
+    },
+    "common.idx": {
+      "en": "idx {v}", "de": "Idx {v}", "fr": "ind. {v}", "it": "ind. {v}",
+      "es": "índ. {v}", "pl": "idx {v}", "nl": "idx {v}", "pt": "índ. {v}", "ro": "ind. {v}"
+    },
+    "common.quarterFmt": {
+      "en": "Q{q} {y}", "de": "Q{q} {y}", "fr": "T{q} {y}", "it": "T{q} {y}",
+      "es": "T{q} {y}", "pl": "K{q} {y}", "nl": "K{q} {y}", "pt": "T{q} {y}", "ro": "T{q} {y}"
+    },
+
+    "report.railHead": {
+      "en": "Your category", "de": "Ihre Kategorie", "fr": "Votre catégorie",
+      "it": "La tua categoria", "es": "Su categoría", "pl": "Twoja kategoria",
+      "nl": "Uw categorie", "pt": "A sua categoria", "ro": "Categoria dvs."
+    },
+    "report.allCategories": {
+      "en": "All categories", "de": "Alle Kategorien", "fr": "Toutes les catégories",
+      "it": "Tutte le categorie", "es": "Todas las categorías", "pl": "Wszystkie kategorie",
+      "nl": "Alle categorieën", "pt": "Todas as categorias", "ro": "Toate categoriile"
+    },
+    "report.items": {
+      "en": "{n} items", "de": "{n} Positionen", "fr": "{n} éléments", "it": "{n} voci",
+      "es": "{n} elementos", "pl": "poz.: {n}", "nl": "{n} items",
+      "pt": "{n} itens", "ro": "elemente: {n}"
+    },
+    "report.railCatTitle": {
+      "en": "{name} · average {yoy} {pct}",
+      "de": "{name} · durchschnittlich {yoy} {pct}",
+      "fr": "{name} · moyenne {yoy} {pct}",
+      "it": "{name} · media {yoy} {pct}",
+      "es": "{name} · media {yoy} {pct}",
+      "pl": "{name} · średnio {yoy} {pct}",
+      "nl": "{name} · gemiddeld {yoy} {pct}",
+      "pt": "{name} · média {yoy} {pct}",
+      "ro": "{name} · medie {yoy} {pct}"
+    },
+    "report.search": {
+      "en": "Search {scope}…", "de": "{scope} durchsuchen…", "fr": "Rechercher dans {scope}…",
+      "it": "Cerca in {scope}…", "es": "Buscar en {scope}…", "pl": "Szukaj w: {scope}…",
+      "nl": "Zoeken in {scope}…", "pt": "Pesquisar em {scope}…", "ro": "Căutați în {scope}…"
+    },
+    "report.searchAll": {
+      "en": "all commodities", "de": "allen Rohstoffen", "fr": "toutes les matières premières",
+      "it": "tutte le materie prime", "es": "todas las materias primas", "pl": "wszystkich surowcach",
+      "nl": "alle grondstoffen", "pt": "todas as matérias-primas", "ro": "toate materiile prime"
+    },
+    "report.rankBy": {
+      "en": "Rank by", "de": "Sortieren nach", "fr": "Classer par", "it": "Ordina per",
+      "es": "Ordenar por", "pl": "Sortuj wg", "nl": "Sorteren op", "pt": "Ordenar por", "ro": "Ordonați după"
+    },
+    "report.clearFilter": {
+      "en": "Clear filter", "de": "Filter zurücksetzen", "fr": "Effacer le filtre",
+      "it": "Rimuovi filtro", "es": "Quitar filtro", "pl": "Wyczyść filtr",
+      "nl": "Filter wissen", "pt": "Limpar filtro", "ro": "Ștergeți filtrul"
+    },
+
+    "kpi.hicpIndex": {
+      "en": "HICP food index ({month})",
+      "de": "HVPI-Lebensmittelindex ({month})",
+      "fr": "Indice IPCH alimentaire ({month})",
+      "it": "Indice IPCA alimentare ({month})",
+      "es": "Índice IPCA de alimentos ({month})",
+      "pl": "Indeks HICP żywności ({month})",
+      "nl": "HICP-voedingsindex ({month})",
+      "pt": "Índice IHPC alimentar ({month})",
+      "ro": "Indice IAPC alimente ({month})"
+    },
+    "kpi.hicpIndex.sub": {
+      "en": "Eurostat EU27 · base {base}",
+      "de": "Eurostat EU27 · Basis {base}",
+      "fr": "Eurostat UE27 · base {base}",
+      "it": "Eurostat UE27 · base {base}",
+      "es": "Eurostat UE27 · base {base}",
+      "pl": "Eurostat UE27 · baza {base}",
+      "nl": "Eurostat EU27 · basis {base}",
+      "pt": "Eurostat UE27 · base {base}",
+      "ro": "Eurostat UE27 · bază {base}"
+    },
+    "kpi.yoyFood": {
+      "en": "Food inflation, year on year",
+      "de": "Lebensmittelinflation im Jahresvergleich",
+      "fr": "Inflation alimentaire sur un an",
+      "it": "Inflazione alimentare su base annua",
+      "es": "Inflación alimentaria interanual",
+      "pl": "Inflacja żywności r/r",
+      "nl": "Voedselinflatie jaar op jaar",
+      "pt": "Inflação alimentar homóloga",
+      "ro": "Inflația alimentelor, anual"
+    },
+    "kpi.yoyFood.sub": {
+      "en": "HICP food, last 12 months",
+      "de": "HVPI Lebensmittel, letzte 12 Monate",
+      "fr": "IPCH alimentaire, 12 derniers mois",
+      "it": "IPCA alimentare, ultimi 12 mesi",
+      "es": "IPCA de alimentos, últimos 12 meses",
+      "pl": "HICP żywności, ostatnie 12 miesięcy",
+      "nl": "HICP voeding, laatste 12 maanden",
+      "pt": "IHPC alimentar, últimos 12 meses",
+      "ro": "IAPC alimente, ultimele 12 luni"
+    },
+    "kpi.topHike": {
+      "en": "Steepest monthly rise",
+      "de": "Stärkster Monatsanstieg",
+      "fr": "Plus forte hausse mensuelle",
+      "it": "Rialzo mensile più forte",
+      "es": "Mayor subida mensual",
+      "pl": "Największy wzrost miesięczny",
+      "nl": "Sterkste maandstijging",
+      "pt": "Maior subida mensal",
+      "ro": "Cea mai mare creștere lunară"
+    },
+    "kpi.topHike.sub": {
+      "en": "Immediate cost pressure",
+      "de": "Unmittelbarer Kostendruck",
+      "fr": "Pression immédiate sur les coûts",
+      "it": "Pressione immediata sui costi",
+      "es": "Presión de costes inmediata",
+      "pl": "Bezpośrednia presja kosztowa",
+      "nl": "Directe kostendruk",
+      "pt": "Pressão imediata sobre os custos",
+      "ro": "Presiune imediată asupra costurilor"
+    },
+    "kpi.topDrop": {
+      "en": "Biggest monthly drop",
+      "de": "Stärkster Monatsrückgang",
+      "fr": "Plus forte baisse mensuelle",
+      "it": "Calo mensile più forte",
+      "es": "Mayor caída mensual",
+      "pl": "Największy spadek miesięczny",
+      "nl": "Grootste maanddaling",
+      "pt": "Maior queda mensal",
+      "ro": "Cea mai mare scădere lunară"
+    },
+    "kpi.topDrop.sub": {
+      "en": "Procurement opportunity",
+      "de": "Chance für den Einkauf",
+      "fr": "Opportunité pour les achats",
+      "it": "Opportunità per gli acquisti",
+      "es": "Oportunidad de compra",
+      "pl": "Szansa zakupowa",
+      "nl": "Inkoopkans",
+      "pt": "Oportunidade de compra",
+      "ro": "Oportunitate de achiziție"
+    },
+
+    "chart.euTitle": {
+      "en": "EU food inflation — 12-month trend",
+      "de": "Lebensmittelinflation EU — Trend über 12 Monate",
+      "fr": "Inflation alimentaire UE — tendance sur 12 mois",
+      "it": "Inflazione alimentare UE — andamento a 12 mesi",
+      "es": "Inflación alimentaria UE — tendencia a 12 meses",
+      "pl": "Inflacja żywności w UE — trend 12-miesięczny",
+      "nl": "Voedselinflatie EU — trend over 12 maanden",
+      "pt": "Inflação alimentar UE — tendência a 12 meses",
+      "ro": "Inflația alimentelor în UE — tendință pe 12 luni"
+    },
+    "chart.euSub": {
+      "en": "Eurostat HICP food & non-alcoholic beverages · single axis",
+      "de": "Eurostat HVPI Nahrungsmittel und alkoholfreie Getränke · eine Achse",
+      "fr": "Eurostat IPCH produits alimentaires et boissons non alcoolisées · axe unique",
+      "it": "Eurostat IPCA alimentari e bevande analcoliche · asse unico",
+      "es": "Eurostat IPCA alimentos y bebidas no alcohólicas · eje único",
+      "pl": "Eurostat HICP żywność i napoje bezalkoholowe · jedna oś",
+      "nl": "Eurostat HICP voeding en niet-alcoholische dranken · één as",
+      "pt": "Eurostat IHPC alimentos e bebidas não alcoólicas · eixo único",
+      "ro": "Eurostat IAPC alimente și băuturi nealcoolice · o singură axă"
+    },
+    "chart.baseLabel": {
+      "en": "Index, {base}", "de": "Index, {base}", "fr": "Indice, {base}",
+      "it": "Indice, {base}", "es": "Índice, {base}", "pl": "Indeks, {base}",
+      "nl": "Index, {base}", "pt": "Índice, {base}", "ro": "Indice, {base}"
+    },
+    "note.methodKey": {
+      "en": "Method:", "de": "Methodik:", "fr": "Méthode :", "it": "Metodo:",
+      "es": "Método:", "pl": "Metoda:", "nl": "Methode:", "pt": "Método:", "ro": "Metodă:"
+    },
+    "note.method": {
+      "en": "The EU HICP is indexed to 2025 = 100. German data (Germany deep-dive) uses Destatis, base 2020 = 100 — the two bases are never plotted together.",
+      "de": "Der EU-HVPI ist auf 2025 = 100 indexiert. Deutsche Daten (Detailanalyse Deutschland) stammen von Destatis mit Basis 2020 = 100 — beide Basisjahre werden nie gemeinsam dargestellt.",
+      "fr": "L'IPCH UE est indexé sur 2025 = 100. Les données allemandes (analyse Allemagne) proviennent de Destatis, base 2020 = 100 — les deux bases ne sont jamais tracées ensemble.",
+      "it": "L'IPCA UE è indicizzato a 2025 = 100. I dati tedeschi (approfondimento Germania) usano Destatis, base 2020 = 100 — le due basi non vengono mai rappresentate insieme.",
+      "es": "El IPCA de la UE está indexado a 2025 = 100. Los datos alemanes (análisis de Alemania) usan Destatis, base 2020 = 100: las dos bases nunca se representan juntas.",
+      "pl": "HICP UE jest indeksowany do 2025 = 100. Dane niemieckie (analiza: Niemcy) pochodzą z Destatis, baza 2020 = 100 — obie bazy nigdy nie są przedstawiane razem.",
+      "nl": "De EU-HICP is geïndexeerd op 2025 = 100. Duitse gegevens (verdieping Duitsland) komen van Destatis, basis 2020 = 100 — beide basisjaren worden nooit samen weergegeven.",
+      "pt": "O IHPC da UE está indexado a 2025 = 100. Os dados alemães (análise da Alemanha) usam o Destatis, base 2020 = 100 — as duas bases nunca são representadas em conjunto.",
+      "ro": "IAPC UE este indexat la 2025 = 100. Datele germane (analiza Germania) provin de la Destatis, bază 2020 = 100 — cele două baze nu sunt niciodată reprezentate împreună."
+    },
+    "head.stakeholders": {
+      "en": "Headlines for your stakeholders",
+      "de": "Kernaussagen für Ihre Stakeholder",
+      "fr": "Points clés pour vos parties prenantes",
+      "it": "Messaggi chiave per i tuoi stakeholder",
+      "es": "Titulares para sus grupos de interés",
+      "pl": "Najważniejsze wnioski dla interesariuszy",
+      "nl": "Kernpunten voor uw stakeholders",
+      "pt": "Destaques para as suas partes interessadas",
+      "ro": "Concluzii pentru părțile interesate"
+    },
+    "head.none": {
+      "en": "No highlights recorded.",
+      "de": "Keine Kernaussagen erfasst.",
+      "fr": "Aucun point clé enregistré.",
+      "it": "Nessun messaggio chiave registrato.",
+      "es": "No se han registrado titulares.",
+      "pl": "Brak zapisanych wniosków.",
+      "nl": "Geen kernpunten vastgelegd.",
+      "pt": "Sem destaques registados.",
+      "ro": "Nu există concluzii înregistrate."
+    },
+
+    "verdict.opportunity": {
+      "en": "Opportunity", "de": "Chance", "fr": "Opportunité", "it": "Opportunità",
+      "es": "Oportunidad", "pl": "Szansa", "nl": "Kans", "pt": "Oportunidade", "ro": "Oportunitate"
+    },
+    "verdict.risk": {
+      "en": "Risk", "de": "Risiko", "fr": "Risque", "it": "Rischio",
+      "es": "Riesgo", "pl": "Ryzyko", "nl": "Risico", "pt": "Risco", "ro": "Risc"
+    },
+    "verdict.watch": {
+      "en": "Watch", "de": "Beobachten", "fr": "À surveiller", "it": "Da monitorare",
+      "es": "Vigilar", "pl": "Obserwuj", "nl": "In de gaten houden", "pt": "Vigiar", "ro": "De urmărit"
+    },
+    "verdict.none": {
+      "en": "No data", "de": "Keine Daten", "fr": "Aucune donnée", "it": "Nessun dato",
+      "es": "Sin datos", "pl": "Brak danych", "nl": "Geen gegevens", "pt": "Sem dados", "ro": "Fără date"
+    },
+    "cat.commodities": {
+      "en": "{n} commodities", "de": "{n} Rohstoffe", "fr": "{n} matières premières",
+      "it": "{n} materie prime", "es": "{n} materias primas", "pl": "surowce: {n}",
+      "nl": "{n} grondstoffen", "pt": "{n} matérias-primas", "ro": "materii prime: {n}"
+    },
+    "cat.verdictKey": {
+      "en": "Verdict:", "de": "Fazit:", "fr": "Verdict :", "it": "Giudizio:",
+      "es": "Veredicto:", "pl": "Ocena:", "nl": "Oordeel:", "pt": "Veredicto:", "ro": "Concluzie:"
+    },
+    "cat.reasonOpp": {
+      "en": "Category prices are falling on average ({pct} {yoy}) — a window to lock in longer-term contracts. Deepest fall: {item}.",
+      "de": "Die Preise dieser Kategorie sinken im Schnitt ({pct} {yoy}) — ein Zeitfenster für längerfristige Verträge. Stärkster Rückgang: {item}.",
+      "fr": "Les prix de la catégorie baissent en moyenne ({pct} {yoy}) — une fenêtre pour sécuriser des contrats plus longs. Plus forte baisse : {item}.",
+      "it": "I prezzi della categoria sono in calo in media ({pct} {yoy}) — una finestra per fissare contratti più lunghi. Calo maggiore: {item}.",
+      "es": "Los precios de la categoría bajan en promedio ({pct} {yoy}): una ventana para cerrar contratos a más largo plazo. Mayor caída: {item}.",
+      "pl": "Ceny w tej kategorii średnio spadają ({pct} {yoy}) — to okno na zawarcie dłuższych kontraktów. Największy spadek: {item}.",
+      "nl": "De prijzen in deze categorie dalen gemiddeld ({pct} {yoy}) — een moment om langere contracten vast te leggen. Grootste daling: {item}.",
+      "pt": "Os preços da categoria estão a descer em média ({pct} {yoy}) — uma janela para fixar contratos mais longos. Maior queda: {item}.",
+      "ro": "Prețurile categoriei scad în medie ({pct} {yoy}) — o fereastră pentru contracte pe termen mai lung. Cea mai mare scădere: {item}."
+    },
+    "cat.reasonRisk": {
+      "en": "Category prices are rising on average ({pct} {yoy}) — hedge or renegotiate. Sharpest rise: {item}.",
+      "de": "Die Preise dieser Kategorie steigen im Schnitt ({pct} {yoy}) — absichern oder nachverhandeln. Stärkster Anstieg: {item}.",
+      "fr": "Les prix de la catégorie augmentent en moyenne ({pct} {yoy}) — couvrez-vous ou renégociez. Plus forte hausse : {item}.",
+      "it": "I prezzi della categoria sono in aumento in media ({pct} {yoy}) — copriti o rinegozia. Rialzo maggiore: {item}.",
+      "es": "Los precios de la categoría suben en promedio ({pct} {yoy}): cubra el riesgo o renegocie. Mayor subida: {item}.",
+      "pl": "Ceny w tej kategorii średnio rosną ({pct} {yoy}) — zabezpiecz się lub renegocjuj. Największy wzrost: {item}.",
+      "nl": "De prijzen in deze categorie stijgen gemiddeld ({pct} {yoy}) — dek af of heronderhandel. Sterkste stijging: {item}.",
+      "pt": "Os preços da categoria estão a subir em média ({pct} {yoy}) — faça cobertura ou renegoceie. Maior subida: {item}.",
+      "ro": "Prețurile categoriei cresc în medie ({pct} {yoy}) — acoperiți riscul sau renegociați. Cea mai mare creștere: {item}."
+    },
+    "cat.reasonWatch": {
+      "en": "Mixed or broadly flat ({pct} {yoy}). Watch the spread: {up} against {down}.",
+      "de": "Gemischt bzw. weitgehend unverändert ({pct} {yoy}). Achten Sie auf die Spanne: {up} gegenüber {down}.",
+      "fr": "Contrasté ou globalement stable ({pct} {yoy}). Surveillez l'écart : {up} face à {down}.",
+      "it": "Andamento misto o sostanzialmente stabile ({pct} {yoy}). Attenzione allo scarto: {up} contro {down}.",
+      "es": "Mixto o prácticamente estable ({pct} {yoy}). Vigile la horquilla: {up} frente a {down}.",
+      "pl": "Mieszany lub zasadniczo stabilny ({pct} {yoy}). Obserwuj rozpiętość: {up} wobec {down}.",
+      "nl": "Gemengd of grotendeels vlak ({pct} {yoy}). Let op de spreiding: {up} tegenover {down}.",
+      "pt": "Misto ou praticamente estável ({pct} {yoy}). Atenção à amplitude: {up} face a {down}.",
+      "ro": "Mixt sau în general stabil ({pct} {yoy}). Urmăriți ecartul: {up} față de {down}."
+    },
+    "cat.avgMom": {
+      "en": "Average {mom}", "de": "Durchschnitt {mom}", "fr": "Moyenne {mom}",
+      "it": "Media {mom}", "es": "Media {mom}", "pl": "Średnia {mom}",
+      "nl": "Gemiddeld {mom}", "pt": "Média {mom}", "ro": "Medie {mom}"
+    },
+    "cat.avgYoy": {
+      "en": "Average {yoy}", "de": "Durchschnitt {yoy}", "fr": "Moyenne {yoy}",
+      "it": "Media {yoy}", "es": "Media {yoy}", "pl": "Średnia {yoy}",
+      "nl": "Gemiddeld {yoy}", "pt": "Média {yoy}", "ro": "Medie {yoy}"
+    },
+    "cat.sharpestRise": {
+      "en": "Sharpest rise ({yoy})", "de": "Stärkster Anstieg ({yoy})",
+      "fr": "Plus forte hausse ({yoy})", "it": "Rialzo maggiore ({yoy})",
+      "es": "Mayor subida ({yoy})", "pl": "Największy wzrost ({yoy})",
+      "nl": "Sterkste stijging ({yoy})", "pt": "Maior subida ({yoy})",
+      "ro": "Cea mai mare creștere ({yoy})"
+    },
+    "cat.deepestFall": {
+      "en": "Deepest fall ({yoy})", "de": "Stärkster Rückgang ({yoy})",
+      "fr": "Plus forte baisse ({yoy})", "it": "Calo maggiore ({yoy})",
+      "es": "Mayor caída ({yoy})", "pl": "Największy spadek ({yoy})",
+      "nl": "Grootste daling ({yoy})", "pt": "Maior queda ({yoy})",
+      "ro": "Cea mai mare scădere ({yoy})"
+    },
+    "cat.footnote": {
+      "en": "Averages across every commodity in this category. Green = falling prices (a chance to lock in). Red = rising prices (a budget risk to hedge or renegotiate).",
+      "de": "Durchschnittswerte über alle Rohstoffe dieser Kategorie. Grün = fallende Preise (Chance zur Absicherung). Rot = steigende Preise (Budgetrisiko, absichern oder nachverhandeln).",
+      "fr": "Moyennes sur toutes les matières premières de cette catégorie. Vert = prix en baisse (occasion de sécuriser). Rouge = prix en hausse (risque budgétaire à couvrir ou renégocier).",
+      "it": "Medie su tutte le materie prime di questa categoria. Verde = prezzi in calo (occasione per fissare i contratti). Rosso = prezzi in aumento (rischio di budget da coprire o rinegoziare).",
+      "es": "Medias de todas las materias primas de esta categoría. Verde = precios a la baja (ocasión para fijar contratos). Rojo = precios al alza (riesgo presupuestario que cubrir o renegociar).",
+      "pl": "Średnie dla wszystkich surowców w tej kategorii. Zielony = spadające ceny (okazja do zawarcia kontraktu). Czerwony = rosnące ceny (ryzyko budżetowe do zabezpieczenia lub renegocjacji).",
+      "nl": "Gemiddelden over alle grondstoffen in deze categorie. Groen = dalende prijzen (kans om vast te leggen). Rood = stijgende prijzen (budgetrisico om af te dekken of te heronderhandelen).",
+      "pt": "Médias de todas as matérias-primas desta categoria. Verde = preços a descer (oportunidade para fixar contratos). Vermelho = preços a subir (risco orçamental a cobrir ou renegociar).",
+      "ro": "Medii pentru toate materiile prime din această categorie. Verde = prețuri în scădere (ocazie de a fixa contracte). Roșu = prețuri în creștere (risc bugetar de acoperit sau renegociat)."
+    },
+
+    "tab.movers": {
+      "en": "Top movers", "de": "Größte Veränderungen", "fr": "Principales variations",
+      "it": "Variazioni principali", "es": "Mayores variaciones", "pl": "Największe zmiany",
+      "nl": "Grootste bewegingen", "pt": "Maiores variações", "ro": "Cele mai mari variații"
+    },
+    "tab.table": {
+      "en": "Detail table", "de": "Detailtabelle", "fr": "Tableau détaillé",
+      "it": "Tabella dettagliata", "es": "Tabla detallada", "pl": "Tabela szczegółowa",
+      "nl": "Detailtabel", "pt": "Tabela detalhada", "ro": "Tabel detaliat"
+    },
+    "movers.title": {
+      "en": "Biggest movers", "de": "Größte Veränderungen", "fr": "Plus fortes variations",
+      "it": "Variazioni più forti", "es": "Mayores variaciones", "pl": "Największe zmiany",
+      "nl": "Grootste bewegingen", "pt": "Maiores variações", "ro": "Cele mai mari variații"
+    },
+    "movers.rankedBy": {
+      "en": "Ranked by {m} · left = falling · right = rising",
+      "de": "Sortiert nach {m} · links = fallend · rechts = steigend",
+      "fr": "Classé par {m} · gauche = baisse · droite = hausse",
+      "it": "Ordinato per {m} · sinistra = in calo · destra = in aumento",
+      "es": "Ordenado por {m} · izquierda = baja · derecha = sube",
+      "pl": "Sortowanie wg {m} · lewo = spadek · prawo = wzrost",
+      "nl": "Gesorteerd op {m} · links = dalend · rechts = stijgend",
+      "pt": "Ordenado por {m} · esquerda = desce · direita = sobe",
+      "ro": "Ordonat după {m} · stânga = în scădere · dreapta = în creștere"
+    },
+    "movers.none": {
+      "en": "No matching commodities.",
+      "de": "Keine passenden Rohstoffe.",
+      "fr": "Aucune matière première correspondante.",
+      "it": "Nessuna materia prima corrispondente.",
+      "es": "No hay materias primas coincidentes.",
+      "pl": "Brak pasujących surowców.",
+      "nl": "Geen overeenkomende grondstoffen.",
+      "pt": "Não há matérias-primas correspondentes.",
+      "ro": "Nicio materie primă corespunzătoare."
+    },
+    "movers.caption": {
+      "en": "Each bar is one commodity's {m} price change. Right = getting dearer (risk); left = getting cheaper (opportunity). Click any bar for the commentary{fc}.",
+      "de": "Jeder Balken zeigt die {m}-Preisänderung eines Rohstoffs. Rechts = teurer (Risiko); links = günstiger (Chance). Klicken Sie auf einen Balken für den Kommentar{fc}.",
+      "fr": "Chaque barre correspond à la variation de prix {m} d'une matière première. Droite = plus cher (risque) ; gauche = moins cher (opportunité). Cliquez sur une barre pour le commentaire{fc}.",
+      "it": "Ogni barra è la variazione di prezzo {m} di una materia prima. Destra = più cara (rischio); sinistra = più economica (opportunità). Clicca su una barra per il commento{fc}.",
+      "es": "Cada barra es la variación de precio {m} de una materia prima. Derecha = más cara (riesgo); izquierda = más barata (oportunidad). Haga clic en una barra para ver el comentario{fc}.",
+      "pl": "Każdy słupek to zmiana ceny {m} jednego surowca. Prawo = drożej (ryzyko); lewo = taniej (szansa). Kliknij słupek, aby zobaczyć komentarz{fc}.",
+      "nl": "Elke balk is de {m}-prijsverandering van één grondstof. Rechts = duurder (risico); links = goedkoper (kans). Klik op een balk voor het commentaar{fc}.",
+      "pt": "Cada barra é a variação de preço {m} de uma matéria-prima. Direita = mais cara (risco); esquerda = mais barata (oportunidade). Clique numa barra para ver o comentário{fc}.",
+      "ro": "Fiecare bară este variația de preț {m} a unei materii prime. Dreapta = mai scumpă (risc); stânga = mai ieftină (oportunitate). Faceți clic pe o bară pentru comentariu{fc}."
+    },
+    "movers.captionForecast": {
+      "en": " and the ◈ forward curve",
+      "de": " und die ◈ Terminkurve",
+      "fr": " et la courbe à terme ◈",
+      "it": " e la curva forward ◈",
+      "es": " y la curva a plazo ◈",
+      "pl": " i krzywą terminową ◈",
+      "nl": " en de ◈ termijncurve",
+      "pt": " e a curva a prazo ◈",
+      "ro": " și curba forward ◈"
+    },
+    "movers.clickHint": {
+      "en": "{name} · click for detail",
+      "de": "{name} · für Details klicken",
+      "fr": "{name} · cliquer pour le détail",
+      "it": "{name} · clicca per il dettaglio",
+      "es": "{name} · haga clic para ver el detalle",
+      "pl": "{name} · kliknij, aby zobaczyć szczegóły",
+      "nl": "{name} · klik voor details",
+      "pt": "{name} · clique para ver o detalhe",
+      "ro": "{name} · faceți clic pentru detalii"
+    },
+    "table.category": {
+      "en": "Category", "de": "Kategorie", "fr": "Catégorie", "it": "Categoria",
+      "es": "Categoría", "pl": "Kategoria", "nl": "Categorie", "pt": "Categoria", "ro": "Categorie"
+    },
+    "table.commodity": {
+      "en": "Commodity", "de": "Rohstoff", "fr": "Matière première", "it": "Materia prima",
+      "es": "Materia prima", "pl": "Surowiec", "nl": "Grondstof", "pt": "Matéria-prima", "ro": "Materie primă"
+    },
+    "table.price": {
+      "en": "Latest price", "de": "Aktueller Preis", "fr": "Dernier prix", "it": "Ultimo prezzo",
+      "es": "Último precio", "pl": "Ostatnia cena", "nl": "Laatste prijs",
+      "pt": "Último preço", "ro": "Ultimul preț"
+    },
+    "table.lagNote": {
+      "en": "A blank cell means that figure was not published for this commodity this period. A few commodities are reported on a one-month lag (prior-month change).",
+      "de": "Ein leeres Feld bedeutet, dass dieser Wert für den Rohstoff in dieser Periode nicht veröffentlicht wurde. Einige Rohstoffe werden mit einem Monat Verzögerung ausgewiesen (Veränderung des Vormonats).",
+      "fr": "Une cellule vide signifie que ce chiffre n'a pas été publié pour cette matière première sur la période. Quelques matières premières sont publiées avec un mois de décalage (variation du mois précédent).",
+      "it": "Una cella vuota indica che il dato non è stato pubblicato per questa materia prima nel periodo. Alcune materie prime sono riportate con un mese di ritardo (variazione del mese precedente).",
+      "es": "Una celda vacía significa que esa cifra no se publicó para esta materia prima en el periodo. Algunas materias primas se publican con un mes de retraso (variación del mes anterior).",
+      "pl": "Pusta komórka oznacza, że dana wartość nie została opublikowana dla tego surowca w tym okresie. Kilka surowców jest raportowanych z miesięcznym opóźnieniem (zmiana z poprzedniego miesiąca).",
+      "nl": "Een lege cel betekent dat dit cijfer voor deze grondstof in deze periode niet is gepubliceerd. Enkele grondstoffen worden met een maand vertraging gerapporteerd (mutatie van de voorgaande maand).",
+      "pt": "Uma célula vazia significa que esse valor não foi publicado para esta matéria-prima no período. Algumas matérias-primas são reportadas com um mês de desfasamento (variação do mês anterior).",
+      "ro": "O celulă goală înseamnă că valoarea nu a fost publicată pentru această materie primă în perioada respectivă. Câteva materii prime sunt raportate cu o lună întârziere (variația lunii precedente)."
+    },
+    "tip.forward": {
+      "en": "Forward curve", "de": "Terminkurve", "fr": "Courbe à terme", "it": "Curva forward",
+      "es": "Curva a plazo", "pl": "Krzywa terminowa", "nl": "Termijncurve",
+      "pt": "Curva a prazo", "ro": "Curbă forward"
+    },
+
+    "act.title": {
+      "en": "Procurement actions", "de": "Maßnahmen für den Einkauf",
+      "fr": "Actions achats", "it": "Azioni per gli acquisti",
+      "es": "Acciones de compras", "pl": "Działania zakupowe",
+      "nl": "Inkoopacties", "pt": "Ações de compras", "ro": "Acțiuni de achiziție"
+    },
+    "act.sub": {
+      "en": "What to do about it — renegotiate or hedge the risks; lock in long-term on the opportunities; keep the watch-list under review.",
+      "de": "Was zu tun ist — Risiken nachverhandeln oder absichern; Chancen langfristig festschreiben; die Beobachtungsliste im Blick behalten.",
+      "fr": "Que faire — renégocier ou couvrir les risques ; sécuriser les opportunités sur le long terme ; garder la liste de surveillance sous contrôle.",
+      "it": "Cosa fare — rinegoziare o coprire i rischi; bloccare a lungo termine le opportunità; tenere sotto osservazione la watch-list.",
+      "es": "Qué hacer — renegociar o cubrir los riesgos; fijar a largo plazo las oportunidades; mantener la lista de vigilancia bajo revisión.",
+      "pl": "Co z tym zrobić — renegocjuj lub zabezpiecz ryzyka; zablokuj długoterminowo szanse; monitoruj listę obserwacyjną.",
+      "nl": "Wat te doen — heronderhandel of dek de risico's af; leg de kansen langlopend vast; houd de watchlist in de gaten.",
+      "pt": "O que fazer — renegociar ou cobrir os riscos; fixar as oportunidades a longo prazo; manter a lista de vigilância sob revisão.",
+      "ro": "Ce este de făcut — renegociați sau acoperiți riscurile; fixați oportunitățile pe termen lung; păstrați lista de urmărire în atenție."
+    },
+    "act.hedge": {
+      "en": "Renegotiate / hedge", "de": "Nachverhandeln / absichern",
+      "fr": "Renégocier / couvrir", "it": "Rinegoziare / coprire",
+      "es": "Renegociar / cubrir", "pl": "Renegocjuj / zabezpiecz",
+      "nl": "Heronderhandelen / afdekken", "pt": "Renegociar / cobrir",
+      "ro": "Renegociați / acoperiți"
+    },
+    "act.lock": {
+      "en": "Lock in long-term", "de": "Langfristig festschreiben",
+      "fr": "Sécuriser sur le long terme", "it": "Bloccare a lungo termine",
+      "es": "Fijar a largo plazo", "pl": "Zablokuj długoterminowo",
+      "nl": "Langlopend vastleggen", "pt": "Fixar a longo prazo",
+      "ro": "Fixați pe termen lung"
+    },
+    "act.watch": {
+      "en": "Watch-list", "de": "Beobachtungsliste", "fr": "Liste de surveillance",
+      "it": "Watch-list", "es": "Lista de vigilancia", "pl": "Lista obserwacyjna",
+      "nl": "Watchlist", "pt": "Lista de vigilância", "ro": "Listă de urmărire"
+    },
+
+    "de.railHead": {
+      "en": "German food group", "de": "Deutsche Nahrungsmittelgruppe",
+      "fr": "Groupe alimentaire allemand", "it": "Gruppo alimentare tedesco",
+      "es": "Grupo alimentario alemán", "pl": "Niemiecka grupa żywności",
+      "nl": "Duitse voedingsgroep", "pt": "Grupo alimentar alemão", "ro": "Grup alimentar german"
+    },
+    "de.foodOverview": {
+      "en": "Food overview", "de": "Überblick Nahrungsmittel", "fr": "Vue d'ensemble alimentaire",
+      "it": "Panoramica alimentare", "es": "Visión general de alimentos", "pl": "Przegląd żywności",
+      "nl": "Overzicht voeding", "pt": "Visão geral alimentar", "ro": "Prezentare generală alimente"
+    },
+    "de.kpiIndexSub": {
+      "en": "Destatis CP01 · latest {month}",
+      "de": "Destatis CP01 · Stand {month}",
+      "fr": "Destatis CP01 · dernier point {month}",
+      "it": "Destatis CP01 · ultimo dato {month}",
+      "es": "Destatis CP01 · último dato {month}",
+      "pl": "Destatis CP01 · ostatni odczyt {month}",
+      "nl": "Destatis CP01 · laatste {month}",
+      "pt": "Destatis CP01 · último dado {month}",
+      "ro": "Destatis CP01 · ultimul {month}"
+    },
+    "de.kpiYoySub": {
+      "en": "against a year ago", "de": "gegenüber dem Vorjahr", "fr": "par rapport à l'an dernier",
+      "it": "rispetto a un anno fa", "es": "frente al año pasado", "pl": "wobec roku poprzedniego",
+      "nl": "ten opzichte van een jaar geleden", "pt": "face ao ano anterior", "ro": "față de anul trecut"
+    },
+    "de.kpiMomSub": {
+      "en": "against the previous month", "de": "gegenüber dem Vormonat",
+      "fr": "par rapport au mois précédent", "it": "rispetto al mese precedente",
+      "es": "frente al mes anterior", "pl": "wobec poprzedniego miesiąca",
+      "nl": "ten opzichte van de vorige maand", "pt": "face ao mês anterior",
+      "ro": "față de luna precedentă"
+    },
+    "de.kpiGroups": {
+      "en": "Food groups", "de": "Nahrungsmittelgruppen", "fr": "Groupes alimentaires",
+      "it": "Gruppi alimentari", "es": "Grupos de alimentos", "pl": "Grupy żywności",
+      "nl": "Voedingsgroepen", "pt": "Grupos alimentares", "ro": "Grupe alimentare"
+    },
+    "de.kpiGroupsSub": {
+      "en": "5-digit COICOP series tracked",
+      "de": "erfasste 5-stellige COICOP-Reihen",
+      "fr": "séries COICOP à 5 chiffres suivies",
+      "it": "serie COICOP a 5 cifre monitorate",
+      "es": "series COICOP de 5 dígitos seguidas",
+      "pl": "śledzone 5-cyfrowe szeregi COICOP",
+      "nl": "gevolgde 5-cijferige COICOP-reeksen",
+      "pt": "séries COICOP de 5 dígitos acompanhadas",
+      "ro": "serii COICOP de 5 cifre urmărite"
+    },
+    "de.headerSub": {
+      "en": "Destatis 61111-0004 · latest {month}",
+      "de": "Destatis 61111-0004 · Stand {month}",
+      "fr": "Destatis 61111-0004 · dernier point {month}",
+      "it": "Destatis 61111-0004 · ultimo dato {month}",
+      "es": "Destatis 61111-0004 · último dato {month}",
+      "pl": "Destatis 61111-0004 · ostatni odczyt {month}",
+      "nl": "Destatis 61111-0004 · laatste {month}",
+      "pt": "Destatis 61111-0004 · último dado {month}",
+      "ro": "Destatis 61111-0004 · ultimul {month}"
+    },
+    "de.baseNoteKey": {
+      "en": "Different base year.", "de": "Abweichendes Basisjahr.",
+      "fr": "Année de base différente.", "it": "Anno base diverso.",
+      "es": "Año base diferente.", "pl": "Inny rok bazowy.",
+      "nl": "Ander basisjaar.", "pt": "Ano base diferente.", "ro": "An de bază diferit."
+    },
+    "de.baseNote": {
+      "en": "German figures come from Destatis (base {gbase}) and are {notcomp} with the EU HICP ({base}) — separate axes, never plotted together.",
+      "de": "Deutsche Werte stammen von Destatis (Basis {gbase}) und sind {notcomp} mit dem EU-HVPI ({base}) — getrennte Achsen, nie gemeinsam dargestellt.",
+      "fr": "Les chiffres allemands proviennent de Destatis (base {gbase}) et {notcomp} avec l'IPCH UE ({base}) — axes distincts, jamais tracés ensemble.",
+      "it": "I dati tedeschi provengono da Destatis (base {gbase}) e {notcomp} con l'IPCA UE ({base}) — assi separati, mai rappresentati insieme.",
+      "es": "Las cifras alemanas proceden de Destatis (base {gbase}) y {notcomp} con el IPCA de la UE ({base}): ejes separados, nunca representados juntos.",
+      "pl": "Dane niemieckie pochodzą z Destatis (baza {gbase}) i {notcomp} z HICP UE ({base}) — osobne osie, nigdy nie przedstawiane razem.",
+      "nl": "Duitse cijfers komen van Destatis (basis {gbase}) en zijn {notcomp} met de EU-HICP ({base}) — aparte assen, nooit samen weergegeven.",
+      "pt": "Os valores alemães vêm do Destatis (base {gbase}) e {notcomp} com o IHPC da UE ({base}) — eixos separados, nunca representados em conjunto.",
+      "ro": "Cifrele germane provin de la Destatis (bază {gbase}) și {notcomp} cu IAPC UE ({base}) — axe separate, niciodată reprezentate împreună."
+    },
+    "de.notComparable": {
+      "en": "not comparable", "de": "nicht vergleichbar", "fr": "ne sont pas comparables",
+      "it": "non sono confrontabili", "es": "no son comparables", "pl": "nie są porównywalne",
+      "nl": "niet vergelijkbaar", "pt": "não são comparáveis", "ro": "nu sunt comparabile"
+    },
+    "de.trendTitle": {
+      "en": "German food inflation — 12-month trend",
+      "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",
+      "fr": "Inflation alimentaire allemande — tendance sur 12 mois",
+      "it": "Inflazione alimentare tedesca — andamento a 12 mesi",
+      "es": "Inflación alimentaria alemana — tendencia a 12 meses",
+      "pl": "Inflacja żywności w Niemczech — trend 12-miesięczny",
+      "nl": "Duitse voedselinflatie — trend over 12 maanden",
+      "pt": "Inflação alimentar alemã — tendência a 12 meses",
+      "ro": "Inflația alimentelor în Germania — tendință pe 12 luni"
+    },
+    "de.trendSub": {
+      "en": "Destatis CP01 · food & non-alcoholic beverages · single axis",
+      "de": "Destatis CP01 · Nahrungsmittel und alkoholfreie Getränke · eine Achse",
+      "fr": "Destatis CP01 · produits alimentaires et boissons non alcoolisées · axe unique",
+      "it": "Destatis CP01 · alimentari e bevande analcoliche · asse unico",
+      "es": "Destatis CP01 · alimentos y bebidas no alcohólicas · eje único",
+      "pl": "Destatis CP01 · żywność i napoje bezalkoholowe · jedna oś",
+      "nl": "Destatis CP01 · voeding en niet-alcoholische dranken · één as",
+      "pt": "Destatis CP01 · alimentos e bebidas não alcoólicas · eixo único",
+      "ro": "Destatis CP01 · alimente și băuturi nealcoolice · o singură axă"
+    },
+    "de.groupsTitle": {
+      "en": "Food groups — latest index",
+      "de": "Nahrungsmittelgruppen — aktueller Index",
+      "fr": "Groupes alimentaires — dernier indice",
+      "it": "Gruppi alimentari — ultimo indice",
+      "es": "Grupos de alimentos — último índice",
+      "pl": "Grupy żywności — najnowszy indeks",
+      "nl": "Voedingsgroepen — laatste index",
+      "pt": "Grupos alimentares — último índice",
+      "ro": "Grupe alimentare — ultimul indice"
+    },
+    "de.groupsSub": {
+      "en": "Base 2020 = 100 · sorted high → low · {yoy} at right",
+      "de": "Basis 2020 = 100 · sortiert hoch → niedrig · {yoy} rechts",
+      "fr": "Base 2020 = 100 · triés du plus haut au plus bas · {yoy} à droite",
+      "it": "Base 2020 = 100 · ordinati dal più alto al più basso · {yoy} a destra",
+      "es": "Base 2020 = 100 · ordenados de mayor a menor · {yoy} a la derecha",
+      "pl": "Baza 2020 = 100 · sortowanie malejąco · {yoy} po prawej",
+      "nl": "Basis 2020 = 100 · gesorteerd hoog → laag · {yoy} rechts",
+      "pt": "Base 2020 = 100 · ordenados do maior para o menor · {yoy} à direita",
+      "ro": "Bază 2020 = 100 · ordonate descrescător · {yoy} în dreapta"
+    },
+    "de.indexLabel": {
+      "en": "Index (2020 = 100)", "de": "Index (2020 = 100)", "fr": "Indice (2020 = 100)",
+      "it": "Indice (2020 = 100)", "es": "Índice (2020 = 100)", "pl": "Indeks (2020 = 100)",
+      "nl": "Index (2020 = 100)", "pt": "Índice (2020 = 100)", "ro": "Indice (2020 = 100)"
+    },
+    "de.groupFootnote": {
+      "en": "German national CPI sub-index (Destatis 61111-0004). A rising index means dearer for German buyers; compare the year-on-year change against the EU category on the quarter report — mind the different base years.",
+      "de": "Teilindex des deutschen Verbraucherpreisindex (Destatis 61111-0004). Ein steigender Index bedeutet höhere Preise für deutsche Einkäufer; vergleichen Sie die Jahresveränderung mit der EU-Kategorie im Quartalsbericht — beachten Sie die unterschiedlichen Basisjahre.",
+      "fr": "Sous-indice de l'IPC national allemand (Destatis 61111-0004). Un indice en hausse signifie plus cher pour les acheteurs allemands ; comparez la variation annuelle à la catégorie UE du rapport trimestriel — attention aux années de base différentes.",
+      "it": "Sotto-indice dell'IPC nazionale tedesco (Destatis 61111-0004). Un indice in aumento significa prezzi più alti per gli acquirenti tedeschi; confronta la variazione annua con la categoria UE nel report trimestrale — attenzione ai diversi anni base.",
+      "es": "Subíndice del IPC nacional alemán (Destatis 61111-0004). Un índice al alza significa precios más caros para los compradores alemanes; compare la variación interanual con la categoría de la UE en el informe trimestral, teniendo en cuenta los distintos años base.",
+      "pl": "Podindeks niemieckiego krajowego CPI (Destatis 61111-0004). Rosnący indeks oznacza wyższe ceny dla niemieckich kupujących; porównaj zmianę r/r z kategorią UE w raporcie kwartalnym — pamiętaj o różnych latach bazowych.",
+      "nl": "Subindex van de Duitse nationale CPI (Destatis 61111-0004). Een stijgende index betekent duurder voor Duitse inkopers; vergelijk de jaarmutatie met de EU-categorie in het kwartaalrapport — let op de verschillende basisjaren.",
+      "pt": "Subíndice do IPC nacional alemão (Destatis 61111-0004). Um índice a subir significa mais caro para os compradores alemães; compare a variação homóloga com a categoria da UE no relatório trimestral — atenção aos anos base diferentes.",
+      "ro": "Subindice al IPC național german (Destatis 61111-0004). Un indice în creștere înseamnă prețuri mai mari pentru cumpărătorii germani; comparați variația anuală cu categoria UE din raportul trimestrial — atenție la anii de bază diferiți."
+    },
+    "de.none": {
+      "en": "No German data for this quarter.",
+      "de": "Für dieses Quartal liegen keine deutschen Daten vor.",
+      "fr": "Aucune donnée allemande pour ce trimestre.",
+      "it": "Nessun dato tedesco per questo trimestre.",
+      "es": "No hay datos alemanes para este trimestre.",
+      "pl": "Brak danych niemieckich dla tego kwartału.",
+      "nl": "Geen Duitse gegevens voor dit kwartaal.",
+      "pt": "Sem dados alemães para este trimestre.",
+      "ro": "Nu există date germane pentru acest trimestru."
+    },
+
+    "modal.price": {
+      "en": "Latest price", "de": "Aktueller Preis", "fr": "Dernier prix", "it": "Ultimo prezzo",
+      "es": "Último precio", "pl": "Ostatnia cena", "nl": "Laatste prijs",
+      "pt": "Último preço", "ro": "Ultimul preț"
+    },
+    "modal.close": {
+      "en": "Close", "de": "Schließen", "fr": "Fermer", "it": "Chiudi",
+      "es": "Cerrar", "pl": "Zamknij", "nl": "Sluiten", "pt": "Fechar", "ro": "Închideți"
+    },
+    "modal.noComment": {
+      "en": "No market commentary recorded for this commodity this quarter.",
+      "de": "Für diesen Rohstoff wurde in diesem Quartal kein Marktkommentar erfasst.",
+      "fr": "Aucun commentaire de marché enregistré pour cette matière première ce trimestre.",
+      "it": "Nessun commento di mercato registrato per questa materia prima in questo trimestre.",
+      "es": "No hay comentario de mercado registrado para esta materia prima este trimestre.",
+      "pl": "Brak komentarza rynkowego dla tego surowca w tym kwartale.",
+      "nl": "Geen marktcommentaar vastgelegd voor deze grondstof dit kwartaal.",
+      "pt": "Sem comentário de mercado registado para esta matéria-prima neste trimestre.",
+      "ro": "Nu există comentariu de piață pentru această materie primă în acest trimestru."
+    },
+    "modal.forecast": {
+      "en": "Forward curve — {desc} ({unit}). Mintec forward curve · outlook of about one year.",
+      "de": "Terminkurve — {desc} ({unit}). Mintec-Terminkurve · Ausblick auf rund ein Jahr.",
+      "fr": "Courbe à terme — {desc} ({unit}). Courbe à terme Mintec · horizon d'environ un an.",
+      "it": "Curva forward — {desc} ({unit}). Curva forward Mintec · orizzonte di circa un anno.",
+      "es": "Curva a plazo — {desc} ({unit}). Curva a plazo de Mintec · horizonte de aproximadamente un año.",
+      "pl": "Krzywa terminowa — {desc} ({unit}). Krzywa terminowa Mintec · horyzont około roku.",
+      "nl": "Termijncurve — {desc} ({unit}). Mintec-termijncurve · vooruitblik van ongeveer een jaar.",
+      "pt": "Curva a prazo — {desc} ({unit}). Curva a prazo Mintec · horizonte de cerca de um ano.",
+      "ro": "Curbă forward — {desc} ({unit}). Curbă forward Mintec · orizont de aproximativ un an."
+    },
+
+    "note.sourceEnglish": {
+      "en": "Quarter highlights and market commentary are written by the analyst team in English; the interface is translated.",
+      "de": "Die Quartals-Kernaussagen und Marktkommentare werden vom Analystenteam auf Englisch verfasst; die Oberfläche ist übersetzt.",
+      "fr": "Les points clés du trimestre et les commentaires de marché sont rédigés en anglais par l'équipe d'analyse ; l'interface est traduite.",
+      "it": "I messaggi chiave del trimestre e i commenti di mercato sono redatti in inglese dal team di analisi; l'interfaccia è tradotta.",
+      "es": "Los titulares del trimestre y los comentarios de mercado los redacta en inglés el equipo de análisis; la interfaz está traducida.",
+      "pl": "Najważniejsze wnioski kwartału i komentarze rynkowe są pisane po angielsku przez zespół analityków; interfejs jest przetłumaczony.",
+      "nl": "De kwartaalkernpunten en het marktcommentaar worden door het analistenteam in het Engels geschreven; de interface is vertaald.",
+      "pt": "Os destaques do trimestre e os comentários de mercado são escritos em inglês pela equipa de análise; a interface está traduzida.",
+      "ro": "Concluziile trimestrului și comentariile de piață sunt redactate în engleză de echipa de analiză; interfața este tradusă."
+    }
+  },
+
+  "categories": {
+    "Meat & Poultry": {
+      "de": "Fleisch & Geflügel", "fr": "Viande & volaille", "it": "Carne e pollame",
+      "es": "Carne y aves", "pl": "Mięso i drób", "nl": "Vlees & gevogelte",
+      "pt": "Carne e aves", "ro": "Carne și pasăre"
+    },
+    "Dairy & Eggs": {
+      "de": "Milchprodukte & Eier", "fr": "Produits laitiers & œufs", "it": "Latticini e uova",
+      "es": "Lácteos y huevos", "pl": "Nabiał i jaja", "nl": "Zuivel & eieren",
+      "pt": "Lacticínios e ovos", "ro": "Lactate și ouă"
+    },
+    "Grains & Feed": {
+      "de": "Getreide & Futtermittel", "fr": "Céréales & aliments pour animaux",
+      "it": "Cereali e mangimi", "es": "Cereales y piensos", "pl": "Zboża i pasze",
+      "nl": "Granen & veevoer", "pt": "Cereais e rações", "ro": "Cereale și furaje"
+    },
+    "Oilseeds & Vegetable Oils": {
+      "de": "Ölsaaten & Pflanzenöle", "fr": "Oléagineux & huiles végétales",
+      "it": "Semi oleosi e oli vegetali", "es": "Oleaginosas y aceites vegetales",
+      "pl": "Nasiona oleiste i oleje roślinne", "nl": "Oliehoudende zaden & plantaardige oliën",
+      "pt": "Oleaginosas e óleos vegetais", "ro": "Semințe oleaginoase și uleiuri vegetale"
+    },
+    "Fish & Seafood": {
+      "de": "Fisch & Meeresfrüchte", "fr": "Poissons & fruits de mer",
+      "it": "Pesce e frutti di mare", "es": "Pescado y marisco", "pl": "Ryby i owoce morza",
+      "nl": "Vis & zeevruchten", "pt": "Peixe e marisco", "ro": "Pește și fructe de mare"
+    },
+    "Fruit & Vegetables": {
+      "de": "Obst & Gemüse", "fr": "Fruits & légumes", "it": "Frutta e verdura",
+      "es": "Frutas y verduras", "pl": "Owoce i warzywa", "nl": "Groenten & fruit",
+      "pt": "Frutas e legumes", "ro": "Fructe și legume"
+    },
+    "Packaging": {
+      "de": "Verpackung", "fr": "Emballages", "it": "Imballaggi", "es": "Envases",
+      "pl": "Opakowania", "nl": "Verpakkingen", "pt": "Embalagens", "ro": "Ambalaje"
+    },
+    "Softs": {
+      "de": "Soft Commodities", "fr": "Produits tropicaux", "it": "Soft commodities",
+      "es": "Materias primas blandas", "pl": "Surowce miękkie", "nl": "Soft commodities",
+      "pt": "Matérias-primas tropicais", "ro": "Materii prime tropicale"
+    },
+    "Nuts & Dried Fruit": {
+      "de": "Nüsse & Trockenfrüchte", "fr": "Fruits à coque & fruits secs",
+      "it": "Frutta secca e disidratata", "es": "Frutos secos y deshidratados",
+      "pl": "Orzechy i bakalie", "nl": "Noten & gedroogd fruit",
+      "pt": "Frutos secos e desidratados", "ro": "Nuci și fructe uscate"
+    },
+    "Herbs & Spices": {
+      "de": "Kräuter & Gewürze", "fr": "Herbes & épices", "it": "Erbe e spezie",
+      "es": "Hierbas y especias", "pl": "Zioła i przyprawy", "nl": "Kruiden & specerijen",
+      "pt": "Ervas e especiarias", "ro": "Ierburi și condimente"
+    },
+    "Juices": {
+      "de": "Säfte", "fr": "Jus", "it": "Succhi", "es": "Zumos", "pl": "Soki",
+      "nl": "Sappen", "pt": "Sumos", "ro": "Sucuri"
+    },
+    "Textiles": {
+      "de": "Textilien", "fr": "Textiles", "it": "Tessili", "es": "Textiles",
+      "pl": "Tekstylia", "nl": "Textiel", "pt": "Têxteis", "ro": "Textile"
+    }
+  },
+
+  "coicop": {
+    "CP01": {
+      "en": "Food and non-alcoholic beverages",
+      "de": "Nahrungsmittel und alkoholfreie Getränke",
+      "fr": "Produits alimentaires et boissons non alcoolisées",
+      "it": "Prodotti alimentari e bevande analcoliche",
+      "es": "Alimentos y bebidas no alcohólicas",
+      "pl": "Żywność i napoje bezalkoholowe",
+      "nl": "Voedingsmiddelen en niet-alcoholische dranken",
+      "pt": "Produtos alimentares e bebidas não alcoólicas",
+      "ro": "Alimente și băuturi nealcoolice"
+    },
+    "CP011": {
+      "en": "Food", "de": "Nahrungsmittel", "fr": "Produits alimentaires",
+      "it": "Prodotti alimentari", "es": "Alimentos", "pl": "Żywność",
+      "nl": "Voedingsmiddelen", "pt": "Produtos alimentares", "ro": "Alimente"
+    },
+    "CP012": {
+      "en": "Non-alcoholic beverages", "de": "Alkoholfreie Getränke",
+      "fr": "Boissons non alcoolisées", "it": "Bevande analcoliche",
+      "es": "Bebidas no alcohólicas", "pl": "Napoje bezalkoholowe",
+      "nl": "Niet-alcoholische dranken", "pt": "Bebidas não alcoólicas",
+      "ro": "Băuturi nealcoolice"
+    },
+    "CP0111": {
+      "en": "Bread and cereals", "de": "Brot und Getreideerzeugnisse",
+      "fr": "Pain et céréales", "it": "Pane e cereali", "es": "Pan y cereales",
+      "pl": "Pieczywo i produkty zbożowe", "nl": "Brood en granen",
+      "pt": "Pão e cereais", "ro": "Pâine și cereale"
+    },
+    "CP0112": {
+      "en": "Meat and meat products", "de": "Fleisch und Fleischwaren",
+      "fr": "Viande et produits à base de viande", "it": "Carne e prodotti a base di carne",
+      "es": "Carne y productos cárnicos", "pl": "Mięso i przetwory mięsne",
+      "nl": "Vlees en vleesproducten", "pt": "Carne e produtos à base de carne",
+      "ro": "Carne și produse din carne"
+    },
+    "CP0113": {
+      "en": "Fish, fish products and seafood",
+      "de": "Fisch, Fischerzeugnisse und Meeresfrüchte",
+      "fr": "Poissons, produits de la pêche et fruits de mer",
+      "it": "Pesce, prodotti ittici e frutti di mare",
+      "es": "Pescado, productos pesqueros y marisco",
+      "pl": "Ryby, przetwory rybne i owoce morza",
+      "nl": "Vis, visproducten en zeevruchten",
+      "pt": "Peixe, produtos da pesca e marisco",
+      "ro": "Pește, produse din pește și fructe de mare"
+    },
+    "CP0114": {
+      "en": "Dairy products and eggs", "de": "Molkereiprodukte und Eier",
+      "fr": "Produits laitiers et œufs", "it": "Prodotti lattiero-caseari e uova",
+      "es": "Productos lácteos y huevos", "pl": "Produkty mleczne i jaja",
+      "nl": "Zuivelproducten en eieren", "pt": "Lacticínios e ovos",
+      "ro": "Produse lactate și ouă"
+    },
+    "CP0115": {
+      "en": "Edible fats and oils", "de": "Speisefette und Speiseöle",
+      "fr": "Huiles et graisses alimentaires", "it": "Grassi e oli alimentari",
+      "es": "Aceites y grasas comestibles", "pl": "Tłuszcze i oleje jadalne",
+      "nl": "Eetbare vetten en oliën", "pt": "Óleos e gorduras alimentares",
+      "ro": "Grăsimi și uleiuri alimentare"
+    },
+    "CP0116": {
+      "en": "Fruit", "de": "Obst", "fr": "Fruits", "it": "Frutta", "es": "Frutas",
+      "pl": "Owoce", "nl": "Fruit", "pt": "Frutas", "ro": "Fructe"
+    },
+    "CP0117": {
+      "en": "Vegetables", "de": "Gemüse", "fr": "Légumes", "it": "Verdura",
+      "es": "Verduras", "pl": "Warzywa", "nl": "Groenten", "pt": "Legumes", "ro": "Legume"
+    },
+    "CP0118": {
+      "en": "Sugar, jam, honey and other confectionery",
+      "de": "Zucker, Marmelade, Honig und Süßwaren",
+      "fr": "Sucre, confiture, miel et confiserie",
+      "it": "Zucchero, marmellata, miele e dolciumi",
+      "es": "Azúcar, mermelada, miel y confitería",
+      "pl": "Cukier, dżem, miód i słodycze",
+      "nl": "Suiker, jam, honing en zoetwaren",
+      "pt": "Açúcar, doces, mel e confeitaria",
+      "ro": "Zahăr, gem, miere și produse zaharoase"
+    },
+    "CP0119": {
+      "en": "Food products n.e.c.", "de": "Nahrungsmittel, anderweitig nicht genannt",
+      "fr": "Produits alimentaires n.c.a.", "it": "Prodotti alimentari n.c.a.",
+      "es": "Productos alimenticios n.c.o.p.", "pl": "Produkty żywnościowe gdzie indziej niesklasyfikowane",
+      "nl": "Voedingsmiddelen n.e.g.", "pt": "Produtos alimentares n.e.",
+      "ro": "Produse alimentare n.c.a."
+    },
+    "CP0121": {
+      "en": "Coffee, tea and cocoa", "de": "Kaffee, Tee und Kakao",
+      "fr": "Café, thé et cacao", "it": "Caffè, tè e cacao", "es": "Café, té y cacao",
+      "pl": "Kawa, herbata i kakao", "nl": "Koffie, thee en cacao",
+      "pt": "Café, chá e cacau", "ro": "Cafea, ceai și cacao"
+    },
+    "CP0122": {
+      "en": "Mineral water, soft drinks and juices",
+      "de": "Mineralwasser, Erfrischungsgetränke und Säfte",
+      "fr": "Eaux minérales, boissons rafraîchissantes et jus",
+      "it": "Acque minerali, bibite e succhi",
+      "es": "Agua mineral, refrescos y zumos",
+      "pl": "Wody mineralne, napoje bezalkoholowe i soki",
+      "nl": "Mineraalwater, frisdranken en sappen",
+      "pt": "Águas minerais, refrigerantes e sumos",
+      "ro": "Ape minerale, băuturi răcoritoare și sucuri"
+    }
+  },
+
+  "phrases": {
+    "Commodity Intelligence: EU Outlook": {
+      "de": "Rohstoffanalyse: Ausblick EU",
+      "fr": "Analyse des matières premières : perspectives UE",
+      "it": "Analisi materie prime: prospettive UE",
+      "es": "Inteligencia de materias primas: perspectiva UE",
+      "pl": "Analiza surowców: perspektywa UE",
+      "nl": "Grondstoffenanalyse: EU-vooruitzicht",
+      "pt": "Análise de matérias-primas: perspetiva UE",
+      "ro": "Analiza materiilor prime: perspectiva UE"
+    },
+    "European Union": {
+      "de": "Europäische Union", "fr": "Union européenne", "it": "Unione europea",
+      "es": "Unión Europea", "pl": "Unia Europejska", "nl": "Europese Unie",
+      "pt": "União Europeia", "ro": "Uniunea Europeană"
+    },
+    "Germany": {
+      "de": "Deutschland", "fr": "Allemagne", "it": "Germania", "es": "Alemania",
+      "pl": "Niemcy", "nl": "Duitsland", "pt": "Alemanha", "ro": "Germania"
+    },
+    "Expana (Mintec) Commodity Price Change Overview Report": {
+      "de": "Expana (Mintec) – Übersichtsbericht zu Rohstoffpreisänderungen",
+      "fr": "Expana (Mintec) – rapport de synthèse sur les variations de prix des matières premières",
+      "it": "Expana (Mintec) – report di sintesi sulle variazioni dei prezzi delle materie prime",
+      "es": "Expana (Mintec) – informe general de variación de precios de materias primas",
+      "pl": "Expana (Mintec) – raport przeglądowy zmian cen surowców",
+      "nl": "Expana (Mintec) – overzichtsrapport grondstofprijsontwikkeling",
+      "pt": "Expana (Mintec) – relatório de variação de preços de matérias-primas",
+      "ro": "Expana (Mintec) – raport privind variația prețurilor materiilor prime"
+    }
+  }
+}
