@@ -184,9 +184,20 @@ Edit `scripts/build_dashboard.py` (`build_index` for the menu page,
    `public/reports/` to GitHub Pages on every push to `main` that touches
    that directory. Other branches do **not** deploy.
 
-> **Authorization**: Treat pushing to `main` as a deploy. Prefer a feature
-> branch and ask before merging. The user has authorised direct pushes to
-> `main` for fast iteration — defer to current session context.
+> **Always finish the job by pushing.** Any change to this repo is only
+> real once it is on `main` — work that stops at a local commit or a
+> feature branch leaves the live dashboard on the old build, which reads
+> as "nothing happened". So after every update: rebuild, commit, merge to
+> `main`, push, and confirm the Pages workflow went green before saying
+> it is done. Don't stop to ask whether to deploy; that is the standing
+> instruction. (Still say what you pushed, and still ask first for
+> genuinely destructive things — history rewrites, force pushes, deleting
+> source data.)
+
+Confirm the deploy with the GitHub Actions API (workflow
+`pages.yml` → the `build` and `deploy` jobs both `success`). Note that
+`*.github.io` may be blocked by the sandbox proxy, so a failed fetch of
+the live URL is not evidence that the deploy failed.
 
 ## Gotchas observed in real sessions
 
