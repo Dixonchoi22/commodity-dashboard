@@ -83,6 +83,7 @@ def build_i18n() -> dict:
         "categories": pivot("categories", self_is_en=True),
         "coicop": pivot("coicop"),
         "phrases": pivot("phrases", self_is_en=True),
+        "commodities": pivot("commodities", self_is_en=True),
     }
     if missing:
         print(f"  ! {len(missing)} untranslated entries fall back to English:")
@@ -406,6 +407,18 @@ def main() -> None:
         rep = build_report(slug, lang_codes)
         reports[slug] = rep
         menu.append(build_menu_card(slug, rep, is_latest=(slug == default_slug)))
+
+    # A new quarter can introduce a commodity the catalogue has never seen.
+    # It still renders (falling back to its English name), but say so — that
+    # is the only way anyone finds out a name needs translating.
+    known = i18n["commodities"]["en"]
+    unknown = sorted({row["name"] for rep in reports.values() for row in rep["rows"]}
+                     - set(known))
+    if unknown:
+        print(f"  ! {len(unknown)} commodity name(s) missing from "
+              f"data/i18n.json 'commodities' — shown in English:")
+        for n in unknown:
+            print(f"      {n}")
 
     payload = {
         "defaultSlug": default_slug,

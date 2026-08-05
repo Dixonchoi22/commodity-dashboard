@@ -118,11 +118,21 @@ Rules that keep this working:
 - **Each language owns its own sentence shape.** Placeholders like
   `{notcomp}` exist so a language can put the negation where its grammar
   wants it — don't try to assemble sentences from fragments in JS.
-- **Analyst-written text is not in the catalogue.** Commodity names, quarter
-  highlights and market commentary stay in the language they were written in.
-  Drop a `data/{slug}/i18n/{lang}.json` with `trend_analysis`, `highlights`
-  and/or `commentary` keys to override them per quarter; without it the SPA
-  shows the English source plus a "written in English" note.
+- **Commodity names are translated** via the `commodities` section — keyed by
+  the exact English name in `commodities.json` (minus the trailing `*`). The
+  English name stays the row's identity (`data-open=`, `rep.rows` lookups);
+  only the displayed text changes. A new quarter that introduces a new
+  commodity still renders — it falls back to English — and the build prints
+  the missing names, so add them when that warning appears. Kept untranslated
+  on purpose: polymer acronyms (HDPE, LDPE, PET, PP), board grades (FBB, SBB,
+  GC2, GT2, Kraftliner, Testliner), exchange names (ICE, LME, CBOT, CME,
+  Euronext), varietals (Cheddar, Gouda, Arabica, Robusta), and the `US` / `UK`
+  market tags — `EU` does become `UE` where that is the local abbreviation.
+- **Analyst-written prose is not in the catalogue.** Quarter highlights and
+  market commentary stay in the language they were written in. Drop a
+  `data/{slug}/i18n/{lang}.json` with `trend_analysis`, `highlights` and/or
+  `commentary` keys to override them per quarter; without it the SPA shows
+  the English source plus a "written in English" note.
 - Language choice comes from `?lang=xx`, then `localStorage`, then the
   browser's `Accept-Language`. The picker writes `?lang=` back into the URL so
   links are shareable.

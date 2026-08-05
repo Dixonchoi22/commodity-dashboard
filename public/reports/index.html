@@ -166,6 +166,9 @@ function t(key,params){
 function tCat(name){ var m=I18N.categories[LANG]||{}; return m[name]||name; }
 function tCoicop(code,fallback){ var m=I18N.coicop[LANG]||{}; return m[code]||fallback||code; }
 function tPhrase(s){ if(!s) return ''; var m=I18N.phrases[LANG]||{}; return m[s]||s; }
+// Commodity display name. The English name stays the identity used by
+// data-open= and rep.rows lookups; only what the user reads changes.
+function tName(n){ var m=(I18N.commodities||{})[LANG]||{}; return m[n]||n; }
 
 /* ---------------- LOCALE FORMATTING ---------------- */
 var MONTHS_EN=['january','february','march','april','may','june','july','august','september','october','november','december'];
@@ -353,6 +356,7 @@ function currentRows(rep){
     var q=state.q.toLowerCase();
     rows=rows.filter(function(r){
       return r.name.toLowerCase().indexOf(q)>=0
+        || tName(r.name).toLowerCase().indexOf(q)>=0
         || r.category.toLowerCase().indexOf(q)>=0
         || tCat(r.category).toLowerCase().indexOf(q)>=0;
     });
@@ -414,7 +418,7 @@ function reportHTML(){
 function kpiValue(k){
   if(k.type==='pct') return pct(k.pct);
   if(k.type==='count') return numf(k.num,0,0);
-  if(k.type==='namePct') return k.name ? esc(k.name)+' ('+esc(pct(k.pct))+')' : '—';
+  if(k.type==='namePct') return k.name ? esc(tName(k.name))+' ('+esc(pct(k.pct))+')' : '—';
   return numf(k.num);
 }
 function kpiHTML(k){
@@ -467,7 +471,7 @@ function catSummaryHTML(rep){
   var topUp=withY.slice().sort(function(a,b){return b.yoy-a.yoy;})[0];
   var topDn=withY.slice().sort(function(a,b){return a.yoy-b.yoy;})[0];
   var v=verdictFor(c.netYoY);
-  var item=function(r){return r?esc(r.name)+' '+esc(pct(r.yoy)):'—';};
+  var item=function(r){return r?esc(tName(r.name))+' '+esc(pct(r.yoy)):'—';};
   var yoy=t('common.yoy'), p=esc(pct(c.netYoY));
   var reason;
   if(v.key==='opp') reason=t('cat.reasonOpp',{pct:p,yoy:yoy,item:item(topDn)});
@@ -476,8 +480,8 @@ function catSummaryHTML(rep){
   var tiles=[
     {l:t('cat.avgMom',{mom:t('common.mom')}),v:pct(c.netMoM),t:c.netMoM},
     {l:t('cat.avgYoy',{yoy:yoy}),v:pct(c.netYoY),t:c.netYoY},
-    {l:t('cat.sharpestRise',{yoy:yoy}),v:topUp?pct(topUp.yoy):'—',t:topUp?topUp.yoy:null,s:topUp?topUp.name:''},
-    {l:t('cat.deepestFall',{yoy:yoy}),v:topDn?pct(topDn.yoy):'—',t:topDn?topDn.yoy:null,s:topDn?topDn.name:''}
+    {l:t('cat.sharpestRise',{yoy:yoy}),v:topUp?pct(topUp.yoy):'—',t:topUp?topUp.yoy:null,s:topUp?tName(topUp.name):''},
+    {l:t('cat.deepestFall',{yoy:yoy}),v:topDn?pct(topDn.yoy):'—',t:topDn?topDn.yoy:null,s:topDn?tName(topDn.name):''}
   ].map(function(x){var d=divColor(x.t);return '<div style="padding:14px 15px;border-radius:11px;background:var(--bg);border:1px solid var(--border2)">'
     +'<p style="font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);margin:0">'+esc(x.l)+'</p>'
     +'<p class="num" style="font-size:19px;font-weight:800;margin:7px 0 0;color:'+d.c+'">'+esc(x.v)+'</p>'
@@ -506,9 +510,9 @@ function moversTableHTML(rep){
   var moversRows=movers.map(function(r){
     var v=r[measure], d=divColor(v), w=Math.max(2,Math.abs(v)/maxAbs*47);
     var bar=v>=0?'left:50%;width:'+w+'%;background:'+d.c:'right:50%;width:'+w+'%;background:'+d.c;
-    return '<div class="mv" data-open="'+esc(r.name)+'" title="'+esc(t('movers.clickHint',{name:r.name}))+'" style="display:grid;grid-template-columns:180px 1fr 84px;align-items:center;gap:12px;padding:4px 6px;cursor:pointer;border-radius:7px">'
+    return '<div class="mv" data-open="'+esc(r.name)+'" title="'+esc(t('movers.clickHint',{name:tName(r.name)}))+'" style="display:grid;grid-template-columns:220px 1fr 84px;align-items:center;gap:12px;padding:4px 6px;cursor:pointer;border-radius:7px">'
       +'<div style="display:flex;align-items:center;justify-content:flex-end;gap:7px;min-width:0">'
-        +'<span style="font-size:12.5px;color:#E2E8F0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(r.name)+(r.forecast?' <span style="color:#4ADE80" title="'+esc(t('tip.forward'))+'">◈</span>':'')+'</span>'
+        +'<span style="font-size:12.5px;color:#E2E8F0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(tName(r.name))+(r.forecast?' <span style="color:#4ADE80" title="'+esc(t('tip.forward'))+'">◈</span>':'')+'</span>'
         +'<span class="dot" style="width:8px;height:8px;background:'+catColor(r.category)+'"></span></div>'
       +'<div style="position:relative;height:16px"><div style="position:absolute;top:2px;bottom:2px;border-radius:3px;'+bar+'"></div></div>'
       +'<div class="num" style="font-size:12.5px;font-weight:700;color:'+d.c+'">'+arrow(v)+' '+esc(pct(v))+'</div></div>';
@@ -517,13 +521,13 @@ function moversTableHTML(rep){
   var sortArrow=function(k){return state.sortKey===k?(state.sortDir<0?' ↓':' ↑'):'';};
   var tRows=rows.slice().sort(function(a,b){
     var k=state.sortKey;
-    if(k==='name') return state.sortDir*cmp(a.name,b.name);
+    if(k==='name') return state.sortDir*cmp(tName(a.name),tName(b.name));
     var av=a[k], bv=b[k]; if(typeof av!=='number')av=-1e9; if(typeof bv!=='number')bv=-1e9;
     return state.sortDir*(bv-av);
   }).map(function(r){
     return '<tr data-open="'+esc(r.name)+'" style="border-left-color:'+catColor(r.category)+'">'
       +'<td><span style="display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:600;font-size:12px"><span class="dot" style="width:8px;height:8px;background:'+catColor(r.category)+'"></span>'+esc(tCat(r.category))+'</span></td>'
-      +'<td style="font-weight:600">'+esc(r.name)+(r.forecast?' <span style="color:#4ADE80" title="'+esc(t('tip.forward'))+'">◈</span>':'')+'</td>'
+      +'<td style="font-weight:600">'+esc(tName(r.name))+(r.forecast?' <span style="color:#4ADE80" title="'+esc(t('tip.forward'))+'">◈</span>':'')+'</td>'
       +'<td class="num" style="color:var(--muted);font-size:12px">'+esc(r.price||'—')+'</td>'
       +'<td style="text-align:center">'+pillHTML(r.mom)+'</td>'
       +'<td style="text-align:center">'+pillHTML(r.yoy)+'</td></tr>';
@@ -563,7 +567,7 @@ function strategyHTML(rep){
       +'<h4 style="font-size:14px;font-weight:700;margin:0;color:'+gc+'">'+esc(title)+'</h4></div><div style="display:flex;flex-direction:column;gap:8px">'
       +items.map(function(r){var d=divColor(r.yoy);return '<div class="mv" data-open="'+esc(r.name)+'" style="display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;background:var(--bg);border:1px solid var(--border2);cursor:pointer">'
         +'<span class="dot" style="width:7px;height:7px;background:'+catColor(r.category)+'"></span>'
-        +'<span style="flex:1;min-width:0"><span class="nm" style="font-size:12.5px">'+esc(r.name)+'</span><span style="font-size:10.5px;color:var(--dim)">'+esc(tCat(r.category))+'</span></span>'
+        +'<span style="flex:1;min-width:0"><span class="nm" style="font-size:12.5px">'+esc(tName(r.name))+'</span><span style="font-size:10.5px;color:var(--dim)">'+esc(tCat(r.category))+'</span></span>'
         +'<span style="text-align:right"><span class="num" style="display:block;font-size:11.5px;font-weight:700;color:'+d.c+'">'+esc(pct(r.yoy))+'</span><span style="font-size:10px;color:var(--dim)">'+esc(t('common.yoy'))+'</span></span></div>';}).join('')
       +'</div></div>';
   }
@@ -674,7 +678,7 @@ function openModal(name){
   var ovEl=document.createElement('div'); ovEl.className='overlay'; ovEl.id='ov';
   ovEl.innerHTML='<div class="modal" style="position:relative"><button class="x" data-close title="'+esc(t('modal.close'))+'" aria-label="'+esc(t('modal.close'))+'">✕</button>'
     +'<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span class="dot" style="width:11px;height:11px;border-radius:3px;background:'+catColor(r.category)+'"></span>'
-      +'<h2 style="font-size:20px;font-weight:800;margin:0">'+esc(r.name)+'</h2>'
+      +'<h2 style="font-size:20px;font-weight:800;margin:0">'+esc(tName(r.name))+'</h2>'
       +'<span style="font-size:12px;color:var(--muted)">'+esc(tCat(r.category))+'</span></div>'
     +'<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'
       +'<div style="padding:10px 13px;border-radius:10px;background:var(--bg);border:1px solid var(--border2)"><div style="font-size:10px;text-transform:uppercase;color:var(--dim);font-weight:700">'+esc(t('modal.price'))+'</div><div class="num" style="font-size:16px;font-weight:800;margin-top:3px">'+esc(r.price||'—')+'</div></div>'
