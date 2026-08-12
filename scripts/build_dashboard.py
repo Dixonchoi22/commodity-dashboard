@@ -24,6 +24,7 @@ Usage:
 """
 from __future__ import annotations
 
+import hashlib
 import html as _html
 import json
 import re
@@ -325,8 +326,26 @@ def main() -> None:
     app_path = REPORTS_DIR / "app.html"
     if not app_path.exists():
         raise SystemExit(f"missing {app_path} — the SPA source is the landing page")
+    html = app_path.read_text(encoding="utf-8")
+
+    # Cache-bust the data blob. index.html and app-data.js are separate
+    # requests, so a browser can pair a fresh page with a cached blob — the
+    # page then renders with the previous quarter's data and silently drops
+    # anything new (a section whose `has…` flag is only in the new blob just
+    # never appears). Stamping the src with a content hash makes the URL change
+    # whenever the data does, and stay put when it doesn't.
+    data_path = REPORTS_DIR / "app-data.js"
+    if data_path.exists():
+        digest = hashlib.sha256(data_path.read_bytes()).hexdigest()[:10]
+        html, n = re.subn(r'(<script src="\./app-data\.js)(\?v=[0-9a-f]+)?(")',
+                          rf'\1?v={digest}\3', html)
+        if n != 1:
+            raise SystemExit("could not stamp app-data.js in app.html — "
+                             "the <script src=\"./app-data.js\"> tag moved")
+        print(f"  stamped app-data.js?v={digest}")
+
     INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
-    INDEX_OUT.write_text(app_path.read_text(encoding="utf-8"), encoding="utf-8")
+    INDEX_OUT.write_text(html, encoding="utf-8")
     print(f"Wrote {INDEX_OUT.relative_to(ROOT)} (mirror of app.html — the landing page)")
 
 
