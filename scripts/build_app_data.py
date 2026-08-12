@@ -105,9 +105,13 @@ def load_overrides(slug: str, codes: list[str]) -> dict:
 
         {"trend_analysis": "…",
          "highlights": [{"label": "…", "body": "…"}],
-         "commentary": {"Butter EU": "…"}}
+         "commentary": {"Butter EU": "…"},
+         "indirect": {"summary": "…", "gapNote": "…",
+                      "pillars": {"energy": "…"},
+                      "actions": [{"label": "…", "body": "…"}]}}
 
-    Anything absent falls back to the English source text."""
+    Anything absent falls back to the English source text — including
+    individually, so a file may translate two pillars and leave the rest."""
     out = {}
     for code in codes:
         if code == "en":
@@ -123,6 +127,8 @@ def load_overrides(slug: str, codes: list[str]) -> dict:
             entry["highlights"] = d["highlights"]
         if d.get("commentary"):
             entry["notes"] = d["commentary"]
+        if d.get("indirect"):
+            entry["indirect"] = d["indirect"]
         if entry:
             out[code] = entry
     return out
@@ -488,6 +494,42 @@ def main() -> None:
         rep = build_report(slug, lang_codes)
         reports[slug] = rep
         menu.append(build_menu_card(slug, rep, is_latest=(slug == default_slug)))
+
+    # Indirect-inflation prose is analyst-written, so it lives in the optional
+    # per-quarter override files rather than the catalogue. Report what is still
+    # falling back to English — the screen shows a note when it does, but the
+    # build is the only place anyone learns which pieces are missing.
+    gaps = []
+    for slug, rep in reports.items():
+        ind = rep.get("indirect")
+        if not ind:
+            continue
+        wanted = (["summary", "gapNote"]
+                  + [f"pillars.{p['key']}" for p in ind["pillars"]]
+                  + (["actions"] if ind.get("actions") else []))
+        for code in lang_codes:
+            if code == "en":
+                continue
+            ov = (rep["tr"].get(code) or {}).get("indirect") or {}
+            missing = []
+            for key in wanted:
+                if key.startswith("pillars."):
+                    if not (ov.get("pillars") or {}).get(key.split(".", 1)[1]):
+                        missing.append(key)
+                elif key == "actions":
+                    if len(ov.get("actions") or []) != len(ind["actions"]):
+                        missing.append(key)
+                elif not ov.get(key):
+                    missing.append(key)
+            if missing:
+                gaps.append(f"{slug} [{code}]: {', '.join(missing)}")
+    if gaps:
+        print(f"  ! indirect-inflation prose still in English for "
+              f"{len(gaps)} quarter/language pair(s):")
+        for g in gaps[:10]:
+            print(f"      {g}")
+        if len(gaps) > 10:
+            print(f"      … and {len(gaps) - 10} more")
 
     # A new quarter can introduce a commodity the catalogue has never seen.
     # It still renders (falling back to its English name), but say so — that

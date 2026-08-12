@@ -109,7 +109,7 @@
     {"label": "Euro area HICP, all items", "value": "+2.8%", "sub": "June 2026 · from +3.2% in May", "tone": "down"},
     {"label": "Euro area energy inflation", "value": "+8.5%", "sub": "June 2026 · decelerating 1.8pp MoM", "tone": "up"},
     {"label": "US CPI, all items", "value": "+3.5%", "sub": "June 2026 · from +4.2% in May", "tone": "down"},
-    {"label": "US energy commodities", "value": "+27.1%", "sub": "June 2026 · gasoline +26.7% YoY", "tone": "up"},
+    {"label": "US energy commodities", "value": "+27.1%", "sub": "June 2026 · petrol +26.7% YoY", "tone": "up"},
     {"label": "Expana US dollar index", "value": "101.37", "sub": "29 July 2026 · +0.4% MoM on safe-haven demand", "tone": "up"},
     {"label": "Policy rates", "value": "On hold", "sub": "Fed held on 26 July; sources price possible H2 2026 hikes", "tone": "neutral"}
   ],

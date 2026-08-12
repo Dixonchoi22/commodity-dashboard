@@ -637,7 +637,10 @@ function indDriverTable(p){
     var basis=d.basis==='qoq'
       ? '<span class="qoq" title="'+esc(t('ind.qoqTitle'))+'">'+esc(t('common.qoq'))+'</span>' : '';
     var code=d.code?'<span class="num" style="font-size:10.5px;color:var(--dim);margin-left:6px">'+esc(d.code)+'</span>':'';
-    var note=d.note?'<div class="cap" style="font-size:11px;margin-top:4px;white-space:normal;max-width:520px">'+esc(d.note)+'</div>':'';
+    // Row notes are short, fixed caveats that repeat across quarters, so they
+    // go through the phrase catalogue like indicator names — not through the
+    // per-quarter prose overrides.
+    var note=d.note?'<div class="cap" style="font-size:11px;margin-top:4px;white-space:normal;max-width:520px">'+esc(tPhrase(d.note))+'</div>':'';
     return '<tr>'
       +'<td style="white-space:normal"><span style="font-weight:600">'+esc(tPhrase(d.name))+'</span>'+code+note+'</td>'
       +'<td style="color:var(--muted);font-size:12px">'+esc(tPhrase(d.region))+'</td>'
@@ -655,7 +658,7 @@ function indDriverTable(p){
     +'<tbody>'+rows+'</tbody></table></div>';
 }
 
-function indPillarPanel(p){
+function indPillarPanel(p,commentary){
   var v=verdictFor(p.netYoY);
   var policy=(p.policy||[]).length
     ? '<div style="margin-top:16px;padding:14px 15px;border-radius:11px;background:var(--bg);border:1px solid var(--border2)">'
@@ -681,7 +684,7 @@ function indPillarPanel(p){
       +'<span style="flex:1"></span>'
       +'<span class="verdict" style="color:'+v.c+';background:'+v.bg+'"><span>'+v.glyph+'</span>'
         +esc(t('ind.basket',{pct:pct(p.netYoY)}))+'</span></div>'
-    +(p.commentary?'<p style="font-size:13px;color:#CBD5E1;margin:14px 0 0;line-height:1.65">'+esc(p.commentary)+'</p>':'')
+    +(commentary?'<p style="font-size:13px;color:#CBD5E1;margin:14px 0 0;line-height:1.65">'+esc(commentary)+'</p>':'')
     +policy
     +indDriverTable(p)
     +cross
@@ -723,27 +726,40 @@ function indirectHTML(){
     +ind.pillars.map(function(p){return railItem(p.key,p.color,p.netYoY,p.count,sel===p.key);}).join('')
     +(ind.macro.length?railItem('macro','#94A3B8',null,null,sel==='macro'):'');
 
-  // Pillar commentary, the summary paragraph and the actions are analyst-written
-  // and stay in their source language. Say so once for the whole screen rather
-  // than repeating it under every panel.
-  var srcNote=(LANG!=='en')
+  // Pillar commentary, the summary paragraph and the actions are analyst-written.
+  // data/{slug}/i18n/{lang}.json can translate them; anything it leaves out
+  // falls back to the English source, and the note appears only while some of
+  // the prose on this screen is still English.
+  var ovi=(overrides(rep)||{}).indirect||{};
+  var opill=ovi.pillars||{};
+  var prose=function(p){ return opill[p.key]||p.commentary; };
+  var gapNote=(ind.summary&&ind.summary.gap&&(ovi.gapNote||ind.summary.gap.note))||'';
+  var headline=(ind.summary&&(ovi.summary||ind.summary.headline))||'';
+  var actionList=(ovi.actions&&ovi.actions.length===(ind.actions||[]).length)?ovi.actions:(ind.actions||[]);
+  var anyEnglish=(LANG!=='en')&&(
+      (headline&&!ovi.summary) || (gapNote&&!ovi.gapNote) ||
+      ind.pillars.some(function(p){return p.commentary&&!opill[p.key];}) ||
+      ((ind.actions||[]).length&&actionList===ind.actions));
+  var srcNote=anyEnglish
     ? '<div class="note"><span style="color:var(--dim);flex:none">ⓘ</span><p>'+esc(t('note.sourceEnglish'))+'</p></div>' : '';
 
-  var summary=ind.summary&&ind.summary.headline
+  var summary=headline
     ? '<div class="panel" style="animation:cdFade .25s ease">'
         +'<h3 style="font-size:16px;font-weight:700;margin:0 0 10px">'+esc(t('ind.summaryTitle'))+'</h3>'
-        +'<p style="font-size:13.5px;color:#CBD5E1;margin:0;line-height:1.7">'+esc(ind.summary.headline)+'</p>'
-        +(ind.summary.gap&&ind.summary.gap.note
-          ? '<p class="cap" style="margin:12px 0 0;border-top:1px solid var(--border2);padding-top:11px">'+esc(ind.summary.gap.note)+'</p>' : '')
+        +'<p style="font-size:13.5px;color:#CBD5E1;margin:0;line-height:1.7">'+esc(headline)+'</p>'
+        +(gapNote
+          ? '<p class="cap" style="margin:12px 0 0;border-top:1px solid var(--border2);padding-top:11px">'+esc(gapNote)+'</p>' : '')
         +'</div>'
     : '';
 
-  var actions=(ind.actions||[]).length
+  var actions=actionList.length
     ? '<div class="panel" style="animation:cdFade .25s ease">'
         +'<h3 style="font-size:17px;font-weight:700;margin:0;display:flex;align-items:center;gap:8px">🛡️ '+esc(t('ind.actionsTitle'))+'</h3>'
         +'<p class="cap" style="margin:6px 0 16px">'+esc(t('ind.actionsSub'))+'</p>'
         +'<div style="display:flex;flex-direction:column;gap:11px">'
-        +ind.actions.map(function(a){
+        +actionList.map(function(a,i){
+          var tone=(ind.actions[i]||a).tone;
+          a={label:a.label,body:a.body,tone:tone};
           var col=a.tone==='red'?'var(--up)':a.tone==='green'?'var(--down)':a.tone==='amber'?'var(--warn)':'var(--blue)';
           return '<div style="padding:13px 15px;border-radius:10px;background:var(--bg);border-left:3px solid '+col+'">'
             +'<p style="font-size:12.5px;font-weight:700;margin:0;color:'+col+'">'+esc(a.label)+'</p>'
@@ -759,10 +775,13 @@ function indirectHTML(){
   var body;
   if(sel==='macro') body=indMacroPanel(ind);
   else if(sel){
-    body=indPillarPanel(ind.pillars.filter(function(x){return x.key===sel;})[0])+srcNote;
+    var one=ind.pillars.filter(function(x){return x.key===sel;})[0];
+    body=indPillarPanel(one,prose(one))
+      +((LANG!=='en'&&one.commentary&&!opill[one.key])
+        ? '<div class="note"><span style="color:var(--dim);flex:none">ⓘ</span><p>'+esc(t('note.sourceEnglish'))+'</p></div>' : '');
   } else {
     body=summary
-      +ind.pillars.map(indPillarPanel).join('')
+      +ind.pillars.map(function(x){return indPillarPanel(x,prose(x));}).join('')
       +(ind.macro.length?indMacroPanel(ind):'')
       +actions+srcNote+sources;
   }

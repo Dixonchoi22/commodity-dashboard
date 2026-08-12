@@ -2143,7 +2143,7 @@
       "pt": "Junho de 2026 · face a +4,2% em maio",
       "ro": "Iunie 2026 · de la +4,2% în mai"
     },
-    "June 2026 · gasoline +26.7% YoY": {
+    "June 2026 · petrol +26.7% YoY": {
       "de": "Juni 2026 · Benzin +26,7 % im Jahresvergleich",
       "fr": "Juin 2026 · essence +26,7 % sur un an",
       "it": "Giugno 2026 · benzina +26,7% su base annua",
@@ -2172,6 +2172,36 @@
       "nl": "De Fed hield de rente op 26 juli ongewijzigd; bronnen rekenen op mogelijke verhogingen in H2 2026",
       "pt": "A Fed manteve as taxas a 26 de julho; as fontes preveem possíveis subidas no 2.º semestre de 2026",
       "ro": "Fed a menținut dobânzile pe 26 iulie; sursele anticipează posibile majorări în S2 2026"
+    },
+    "Not seasonally adjusted — the quarterly fall is the usual Q4-to-Q1 bonus effect, not an easing of wage costs.": {
+      "de": "Nicht saisonbereinigt — der Quartalsrückgang ist der übliche Bonuseffekt von Q4 auf Q1 und kein Nachlassen der Arbeitskosten.",
+      "fr": "Données non corrigées des variations saisonnières — la baisse trimestrielle correspond à l'effet de primes habituel du T4 au T1, et non à un reflux du coût du travail.",
+      "it": "Dato non destagionalizzato — il calo trimestrale è il consueto effetto dei premi dal 4° al 1° trimestre, non un allentamento del costo del lavoro.",
+      "es": "Serie no desestacionalizada: la caída trimestral responde al habitual efecto de las pagas extraordinarias del 4.º al 1.er trimestre, no a una moderación del coste laboral.",
+      "pl": "Dane niewyrównane sezonowo — spadek kwartalny to zwykły efekt premii z IV na I kwartał, a nie osłabienie kosztów pracy.",
+      "nl": "Niet voor seizoen gecorrigeerd — de kwartaaldaling is het gebruikelijke bonuseffect van Q4 naar Q1, geen afname van de arbeidskosten.",
+      "pt": "Série não corrigida de sazonalidade — a queda trimestral corresponde ao habitual efeito dos prémios do 4.º para o 1.º trimestre, não a um alívio do custo do trabalho.",
+      "ro": "Serie neajustată sezonier — scăderea trimestrială este efectul obișnuit al primelor de la trimestrul IV la trimestrul I, nu o temperare a costului muncii."
+    },
+    "Not seasonally adjusted.": {
+      "de": "Nicht saisonbereinigt.",
+      "fr": "Données non corrigées des variations saisonnières.",
+      "it": "Dato non destagionalizzato.",
+      "es": "Serie no desestacionalizada.",
+      "pl": "Dane niewyrównane sezonowo.",
+      "nl": "Niet voor seizoen gecorrigeerd.",
+      "pt": "Série não corrigida de sazonalidade.",
+      "ro": "Serie neajustată sezonier."
+    },
+    "Mid-July reading. By 31 July the index had eased to $4,255/unit, −6.1% versus end-June, as frontloading faded.": {
+      "de": "Stand Mitte Juli. Bis zum 31. Juli fiel der Index auf 4.255 $/Einheit zurück, −6,1 % gegenüber Ende Juni, da die Vorzieheffekte nachließen.",
+      "fr": "Relevé de mi-juillet. Au 31 juillet, l'indice était retombé à 4 255 $/unité, −6,1 % par rapport à fin juin, les achats anticipés s'estompant.",
+      "it": "Rilevazione di metà luglio. Al 31 luglio l'indice era sceso a 4.255 $/unità, −6,1% rispetto a fine giugno, con l'esaurirsi degli acquisti anticipati.",
+      "es": "Dato de mediados de julio. A 31 de julio el índice había bajado a 4.255 $/unidad, −6,1 % frente al cierre de junio, al desvanecerse el adelanto de compras.",
+      "pl": "Odczyt z połowy lipca. Do 31 lipca indeks spadł do 4 255 $/jednostkę, −6,1 % wobec końca czerwca, gdy przyspieszone zakupy wygasły.",
+      "nl": "Stand medio juli. Op 31 juli was de index teruggezakt naar $ 4.255 per eenheid, −6,1 % ten opzichte van eind juni, toen het vervroegd inkopen wegviel.",
+      "pt": "Leitura de meados de julho. A 31 de julho o índice tinha recuado para 4 255 $/unidade, −6,1 % face ao final de junho, com o esgotamento das compras antecipadas.",
+      "ro": "Valoare de la mijlocul lui iulie. La 31 iulie indicele scăzuse la 4.255 $/unitate, −6,1 % față de finalul lui iunie, pe măsură ce achizițiile anticipate s-au estompat."
     }
   },
 
