@@ -114,15 +114,15 @@
       "ro": "Trimestre de raportare"
     },
     "menu.deepdive": {
-      "en": "Deep-dives",
-      "de": "Detailanalysen",
-      "fr": "Analyses approfondies",
-      "it": "Approfondimenti",
-      "es": "Análisis en detalle",
-      "pl": "Analizy szczegółowe",
-      "nl": "Verdiepingen",
-      "pt": "Análises aprofundadas",
-      "ro": "Analize detaliate"
+      "en": "Regional deep-dive",
+      "de": "Regionale Detailanalyse",
+      "fr": "Analyse régionale approfondie",
+      "it": "Approfondimento regionale",
+      "es": "Análisis regional en detalle",
+      "pl": "Analiza regionalna",
+      "nl": "Regionale verdieping",
+      "pt": "Análise regional aprofundada",
+      "ro": "Analiză regională detaliată"
     },
     "menu.latest": {
       "en": "Latest", "de": "Aktuell", "fr": "Dernier", "it": "Ultimo",
@@ -1426,28 +1426,6 @@
       "pt": "Série trimestral — o valor compara com o trimestre anterior",
       "ro": "Serie trimestrială — valoarea se compară cu trimestrul anterior"
     },
-    "report.indirectTitle": {
-      "en": "Indirect inflation",
-      "de": "Indirekte Inflation",
-      "fr": "Inflation indirecte",
-      "it": "Inflazione indiretta",
-      "es": "Inflación indirecta",
-      "pl": "Inflacja pośrednia",
-      "nl": "Indirecte inflatie",
-      "pt": "Inflação indireta",
-      "ro": "Inflația indirectă"
-    },
-    "report.indirectSub": {
-      "en": "Energy, freight, labour and packaging inputs behind the delivered price",
-      "de": "Energie, Fracht, Arbeit und Verpackungsvormaterialien hinter dem Anlieferpreis",
-      "fr": "Énergie, fret, main-d'œuvre et intrants d'emballage derrière le prix rendu",
-      "it": "Energia, trasporti, lavoro e input per imballaggi dietro il prezzo reso",
-      "es": "Energía, transporte, mano de obra e insumos de envase detrás del precio entregado",
-      "pl": "Energia, fracht, praca i surowce opakowaniowe stojące za ceną dostawy",
-      "nl": "Energie, vracht, arbeid en verpakkingsgrondstoffen achter de leverprijs",
-      "pt": "Energia, frete, mão de obra e insumos de embalagem por trás do preço entregue",
-      "ro": "Energie, transport, forță de muncă și materiale de ambalare din spatele prețului livrat"
-    },
     "menu.indirectCard": {
       "en": "Indirect inflation · {q}",
       "de": "Indirekte Inflation · {q}",
@@ -1491,6 +1469,28 @@
       "nl": "{v} pp",
       "pt": "{v} p.p.",
       "ro": "{v} p.p."
+    },
+    "menu.indirectSection": {
+      "en": "Indirect cost pressure",
+      "de": "Indirekter Kostendruck",
+      "fr": "Pression indirecte sur les coûts",
+      "it": "Pressione indiretta sui costi",
+      "es": "Presión de costes indirecta",
+      "pl": "Pośrednia presja kosztowa",
+      "nl": "Indirecte kostendruk",
+      "pt": "Pressão de custos indireta",
+      "ro": "Presiune indirectă pe costuri"
+    },
+    "menu.indirectSectionSub": {
+      "en": "Separate from the commodity quotes above: the energy, freight, labour and packaging inputs that move a delivered price on their own.",
+      "de": "Getrennt von den Rohstoffnotierungen oben: Energie, Fracht, Arbeit und Verpackungsvormaterialien, die den Anlieferpreis eigenständig bewegen.",
+      "fr": "Distinct des cotations de matières premières ci-dessus : l'énergie, le fret, la main-d'œuvre et les intrants d'emballage qui font bouger le prix rendu par eux-mêmes.",
+      "it": "Distinta dalle quotazioni delle materie prime qui sopra: energia, trasporti, lavoro e input per imballaggi che muovono il prezzo reso per conto proprio.",
+      "es": "Al margen de las cotizaciones de materias primas de arriba: la energía, el transporte, la mano de obra y los insumos de envase que mueven el precio entregado por sí solos.",
+      "pl": "Oddzielnie od notowań surowców powyżej: energia, fracht, praca i surowce opakowaniowe, które samodzielnie zmieniają cenę dostawy.",
+      "nl": "Los van de grondstofnoteringen hierboven: de energie, vracht, arbeid en verpakkingsgrondstoffen die de leverprijs op eigen kracht bewegen.",
+      "pt": "Separada das cotações de matérias-primas acima: a energia, o frete, a mão de obra e os insumos de embalagem que movem o preço entregue por si sós.",
+      "ro": "Separat de cotațiile materiilor prime de mai sus: energia, transportul, forța de muncă și materialele de ambalare care mișcă singure prețul livrat."
     }
   },
 

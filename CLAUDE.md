@@ -156,9 +156,18 @@ monthly *Energy / Freight & Labor*, *Energy*, *Paper*, *Plastics* and *Weekly
 Industrial & Macroeconomic* insight PDFs, archived alongside it in
 `data/{slug}/raw/indirect-*.pdf`.
 
+**It is kept separate from the direct commodity view on purpose.** The quarter
+report screen carries no indirect content at all; indirect inflation has its own
+landing section (`Indirect cost pressure`, between the quarter cards and the
+regional deep-dive), its own route and its own screen — the same separation the
+Germany deep-dive uses. Don't add a teaser or a summary panel back into the
+quarter report: a freight index sitting next to commodity rows reads as if it
+were a commodity price. The only ties between the two are the topbar
+`Quarter report` link and the packaging `crosslink`.
+
 The file is **optional**. A quarter without one renders no indirect section
-anywhere — no menu card, no teaser on the quarter report, and the route falls
-back to a "no data" message. Nothing else changes, so old quarters are safe.
+anywhere — no landing section, no card — and the route falls back to a "no data"
+message. Nothing else changes, so old quarters are safe.
 
 Things to keep right when writing a new quarter's file:
 
