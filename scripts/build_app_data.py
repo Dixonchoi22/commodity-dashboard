@@ -263,6 +263,79 @@ def _tone(v):
     return "up" if v >= 0 else "down"
 
 
+# ------------------------------------------------------------------ indirect
+def build_indirect(ind: dict | None) -> dict | None:
+    """Indirect inflation — energy, freight, labour and packaging inputs.
+
+    Optional per quarter: without data/{slug}/indirect.json the SPA simply has
+    no indirect section. Each pillar gets a basket average (mean YoY / first-
+    percentage across its drivers) so the rail, the KPIs and the report-level
+    teaser can all rank pillars without the client recomputing anything."""
+    if not ind:
+        return None
+    pillars = []
+    for p in ind.get("pillars", []):
+        drivers = p.get("drivers", [])
+        pillars.append({
+            "key": p["key"],
+            "color": p.get("color", FALLBACK_COLOR),
+            "count": len(drivers),
+            "netYoY": mean([d.get("yoy") for d in drivers]),
+            "netMoM": mean([d.get("mom") for d in drivers]),
+            "commentary": p.get("commentary", ""),
+            "crosslink": p.get("crosslink", ""),
+            "policy": p.get("policy", []),
+            "drivers": [{
+                "name": d.get("name", ""),
+                "region": d.get("region", ""),
+                "code": d.get("code", ""),
+                "price": d.get("price", ""),
+                "mom": num(d.get("mom")),
+                "yoy": num(d.get("yoy")),
+                "basis": d.get("basis", "mom"),
+                "asOf": d.get("asOf", ""),
+                "source": d.get("source", ""),
+                "note": d.get("note", ""),
+            } for d in drivers],
+        })
+
+    all_yoy = [d["yoy"] for p in pillars for d in p["drivers"]]
+    net = mean(all_yoy)
+    summary = ind.get("summary", {})
+    gap = summary.get("gap", {})
+    gap_pp = None
+    if isinstance(gap.get("labour_pct"), (int, float)) and isinstance(gap.get("cpi_pct"), (int, float)):
+        gap_pp = round(gap["labour_pct"] - gap["cpi_pct"], 1)
+
+    def basket(key):
+        p = [x for x in pillars if x["key"] == key]
+        return p[0] if p else {"netYoY": None, "count": 0}
+
+    energy, freight, labour = basket("energy"), basket("freight"), basket("labour")
+    kpis = [
+        {"k": "ind.kpi.energy", "type": "pct", "pct": energy["netYoY"],
+         "sub": "ind.kpi.basketSub", "subp": {"n": energy["count"]},
+         "tone": _tone(energy["netYoY"])},
+        {"k": "ind.kpi.freight", "type": "pct", "pct": freight["netYoY"],
+         "sub": "ind.kpi.basketSub", "subp": {"n": freight["count"]},
+         "tone": _tone(freight["netYoY"])},
+        {"k": "ind.kpi.labour", "type": "pct", "pct": labour["netYoY"],
+         "sub": "ind.kpi.basketSub", "subp": {"n": labour["count"]},
+         "tone": _tone(labour["netYoY"])},
+        {"k": "ind.kpi.gap", "type": "pp", "num": gap_pp,
+         "sub": "ind.kpi.gapSub", "tone": _tone(gap_pp)},
+    ]
+    return {
+        "meta": {"asOf": ind.get("as_of", ""), "sources": ind.get("sources", [])},
+        "net": net,
+        "kpis": kpis,
+        "summary": summary,
+        "pillars": pillars,
+        "macro": ind.get("macro", []),
+        "actions": ind.get("actions", []),
+    }
+
+
 # ------------------------------------------------------------------ per report
 def build_report(slug: str, lang_codes: list[str]) -> dict:
     meta = load(slug, "meta.json") or {}
@@ -270,6 +343,7 @@ def build_report(slug: str, lang_codes: list[str]) -> dict:
     hicp = load(slug, "hicp_index.json") or {}
     commentary = (load(slug, "commentary.json") or {}).get("entries", [])
     destatis = load(slug, "destatis.json")
+    indirect = load(slug, "indirect.json")
     forecast = load(slug, "forecast.json")
     fmap = build_forecast_by_name(forecast)
 
@@ -358,6 +432,7 @@ def build_report(slug: str, lang_codes: list[str]) -> dict:
         "categories": categories,
         "rows": rows,
         "germany": build_germany(destatis),
+        "indirect": build_indirect(indirect),
     }
 
 
@@ -367,6 +442,7 @@ def build_menu_card(slug: str, report: dict, is_latest: bool) -> dict:
     opps = sum(1 for r in rows if (r["yoy"] or 0) <= -25)
     g = report.get("germany") or {}
     ghead = g.get("head") or {}
+    ind = report.get("indirect") or {}
     return {
         "slug": slug,
         "q": report["meta"]["q"],
@@ -388,6 +464,11 @@ def build_menu_card(slug: str, report: dict, is_latest: bool) -> dict:
         "gIndex": ghead.get("latest"),
         "gYoY": ghead.get("yoy"),
         "gLatest": ghead.get("month"),
+        "hasIndirect": bool(ind),
+        "iNet": ind.get("net"),
+        "iAsOf": (ind.get("meta") or {}).get("asOf"),
+        "iPillars": [{"key": p["key"], "color": p["color"], "netYoY": p["netYoY"]}
+                     for p in ind.get("pillars", [])],
         "highlights": report["highlights"][:3],
     }
 

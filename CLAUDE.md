@@ -51,6 +51,7 @@ Those files are generated. Edit the source, then regenerate:
 | Commodity commentary / paragraph             | `data/{slug}/commentary.json`                    |
 | Forecast curves                              | `data/{slug}/forecast.json`                      |
 | Germany sub-categories / drilldowns          | `data/{slug}/destatis.json` (built from the Destatis zip in `raw/`) |
+| Indirect inflation (energy / freight / labour / packaging inputs) | `data/{slug}/indirect.json` |
 | Headlines: KPIs, chart subtitles, table headers, column lists, drilldown layout | `scripts/build_html.py` |
 | SPA layout / interactions / branding         | `public/reports/app.html` (then `build_dashboard.py` to mirror into index) |
 | What data the SPA shows (KPIs, categories, movers, Germany) | `scripts/build_app_data.py` |
@@ -81,6 +82,7 @@ data/{slug}/
   hicp_index.json    # current HICP series (Eurostat teicp010)
   germany.json       # Eurostat headline + prc_hicp_midx subcategories (required for Germany section)
   destatis.json      # Destatis 61111-0004 — preferred source for German drilldowns
+  indirect.json      # optional: indirect-inflation pillars (energy/freight/labour/packaging inputs)
   i18n/{lang}.json   # optional: translated trend_analysis / highlights / commentary
   raw/               # original PDF / xlsx / Destatis zip — keep these
 data/i18n.json       # translation catalogue for the SPA (all languages)
@@ -142,6 +144,40 @@ string, re-run `build_dashboard.py`, and check the build reports no fallbacks.
 
 The static `{slug}.html` reports from `build_html.py` are **English only** —
 they have their own layout code and were not part of the i18n work.
+
+## Indirect inflation section
+
+`data/{slug}/indirect.json` drives the SPA's **indirect inflation** screen
+(`#/q/{slug}/indirect`): the cost pressure that reaches a delivered price
+without appearing in the commodity quote — **energy**, **freight & logistics**,
+**labour** and **packaging inputs** (pulp, recovered paper, feedstocks), plus a
+macro backdrop and procurement actions. It is hand-authored from the Expana
+monthly *Energy / Freight & Labor*, *Energy*, *Paper*, *Plastics* and *Weekly
+Industrial & Macroeconomic* insight PDFs, archived alongside it in
+`data/{slug}/raw/indirect-*.pdf`.
+
+The file is **optional**. A quarter without one renders no indirect section
+anywhere — no menu card, no teaser on the quarter report, and the route falls
+back to a "no data" message. Nothing else changes, so old quarters are safe.
+
+Things to keep right when writing a new quarter's file:
+
+- **Every driver carries its own `asOf`.** These series publish on different
+  lags (ocean freight is same-month, EU labour costs are a quarter behind), so
+  the section deliberately shows the latest print per series rather than forcing
+  one common month. Don't backfill a stale figure to make the months match.
+- **`basis` is `"mom"` or `"qoq"`.** EU labour-cost series from Eurostat are
+  quarterly and not seasonally adjusted; they render with a `QoQ` marker so the
+  Q4→Q1 bonus effect isn't misread as wage costs easing.
+- **Don't repeat the commodity table.** Finished packaging (resins, board) is
+  already in the `Packaging` category of `commodities.json`. The `inputs` pillar
+  carries only what sits upstream of it; `crosslink` links the two.
+- **Driver names, regions and macro labels go through `phrases`** in
+  `data/i18n.json` — they are translated like commodity names. Analyst prose
+  (`commentary`, `summary.headline`, `actions`) stays in its source language and
+  the screen shows the "written in English" note once at the bottom.
+- Pillar baskets (`netYoY`), the net pressure figure and the KPIs are all
+  computed in `build_indirect()` — the JSON holds only raw values.
 
 ## Germany section data source
 

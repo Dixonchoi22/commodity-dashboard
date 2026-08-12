@@ -95,6 +95,16 @@
   .pill{display:inline-flex;align-items:center;justify-content:center;min-width:84px;padding:4px 9px;border-radius:16px;font-size:12px;font-weight:700}
   .verdict{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:9px;font-size:13px;font-weight:700}
   .cap{font-size:12px;color:#8798ad;line-height:1.55}
+  /* indirect inflation */
+  .itiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .itile{display:flex;flex-direction:column;gap:3px;padding:13px 15px;border-radius:11px;background:var(--bg);
+    border:1px solid var(--border2);text-align:left;cursor:pointer;font-family:inherit}
+  .itile:hover{border-color:var(--blue)}
+  .itile .il{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dim)}
+  .itile .iv{font-size:20px;font-weight:800}
+  .itile .is{font-size:11px;color:#8798ad}
+  .qoq{display:inline-block;margin-left:5px;padding:1px 5px;border-radius:5px;font-size:9.5px;font-weight:700;
+    letter-spacing:.04em;color:var(--warn);background:rgba(250,204,21,.13);border:1px solid rgba(250,204,21,.3);vertical-align:middle}
   /* modal */
   .overlay{position:fixed;inset:0;background:rgba(2,6,16,.7);backdrop-filter:blur(3px);z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;animation:cdFade .2s ease}
   .modal{background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:620px;width:100%;max-height:88vh;overflow-y:auto;padding:24px;animation:cdIn .25s ease both}
@@ -253,7 +263,7 @@ function langPickerHTML(){
 // translated analyst text for the active quarter/language, when supplied
 function overrides(rep){ return (rep && rep.tr && rep.tr[LANG]) || null; }
 
-var state={screen:'menu',slug:D.defaultSlug,cat:null,rankBy:'yoy',tab:'movers',q:'',sortKey:'yoy',sortDir:-1,gGroup:null};
+var state={screen:'menu',slug:D.defaultSlug,cat:null,rankBy:'yoy',tab:'movers',q:'',sortKey:'yoy',sortDir:-1,gGroup:null,iPillar:null};
 
 /* ---------------- ROUTER ---------------- */
 function parseHash(){
@@ -262,6 +272,7 @@ function parseHash(){
   if(p[0]!=='q') return {screen:'menu'};
   var slug=p[1]; if(!D.reports[slug]) return {screen:'menu'};
   if(p[2]==='germany') return {screen:'germany',slug:slug,gGroup:p[3]||null};
+  if(p[2]==='indirect') return {screen:'indirect',slug:slug,iPillar:p[3]||null};
   if(p[2]==='c') return {screen:'report',slug:slug,cat:p[3]||null};
   return {screen:'report',slug:slug,cat:null};
 }
@@ -271,7 +282,8 @@ function route(){
   var r=parseHash();
   state.screen=r.screen; state.slug=r.slug||D.defaultSlug;
   // reset per-view controls on navigation
-  state.cat=r.cat||null; state.gGroup=r.gGroup||null; state.q=''; state.tab='movers';
+  state.cat=r.cat||null; state.gGroup=r.gGroup||null; state.iPillar=r.iPillar||null;
+  state.q=''; state.tab='movers';
   state.sortKey='yoy'; state.sortDir=-1;
   render(); window.scrollTo(0,0);
 }
@@ -331,6 +343,30 @@ function menuHTML(){
     +'</div>';
   }).join('');
 
+  // Indirect-inflation cards (quarters that have it)
+  var inds=D.menu.filter(function(m){return m.hasIndirect;}).map(function(m){
+    var d=divColor(m.iNet);
+    var q=qLabel(m.qn,m.fy,m.q);
+    var chips=(m.iPillars||[]).map(function(p){
+      var pd=divColor(p.netYoY);
+      return '<button class="chipbtn" data-go="#/q/'+m.slug+'/indirect/'+encodeURIComponent(p.key)+'">'
+        +'<span class="dot" style="width:8px;height:8px;background:'+p.color+'"></span>'+esc(t('ind.pillar.'+p.key))
+        +'<span class="num" style="color:'+pd.c+';font-weight:700">'+esc(pct(p.netYoY))+'</span></button>';
+    }).join('');
+    return '<div class="card">'
+      +'<div style="display:flex;align-items:center;gap:13px"><span style="font-size:28px">⚙️</span>'
+        +'<div><h2 style="font-size:19px;font-weight:700;margin:0">'+esc(t('menu.indirectCard',{q:q}))+'</h2>'
+        +'<p style="font-size:13px;color:var(--muted);margin:4px 0 0">'+esc(t('menu.indirectSub'))+'</p></div></div>'
+      +'<div class="glance"><div style="flex:1"><div class="k" title="'+esc(t('ind.netPressureTitle'))+'">'+esc(t('ind.netPressure'))+'</div>'
+        +'<div style="display:flex;align-items:baseline;gap:8px;margin-top:3px">'
+        +'<span class="num" style="font-size:22px;font-weight:800;color:'+d.c+'">'+esc(pct(m.iNet))+'</span>'
+        +'<span style="font-size:12.5px;font-weight:700;color:var(--muted)">'+esc(t('common.yoy'))+'</span></div></div></div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:7px">'+chips+'</div>'
+      +'<button class="cta ghost" data-go="#/q/'+m.slug+'/indirect"><span>'+esc(t('ind.openIndirect'))+'</span>'
+        +'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>'
+    +'</div>';
+  }).join('');
+
   var b=function(s){return '<b style="color:#CBD5E1">'+esc(s)+'</b>';};
   return '<div class="wrap">'
     +'<header>'
@@ -342,7 +378,8 @@ function menuHTML(){
       +'<p class="lead">'+esc(t('brand.subtitle'))+'. '+esc(t('menu.lead'))+'</p></header>'
     +'<div class="sec"><div class="lbl">'+esc(t('menu.quarters'))+'</div><div class="ln"></div></div>'
     +'<div class="grid-cards">'+cards+'</div>'
-    +(dds?'<div class="sec"><div class="lbl">'+esc(t('menu.deepdive'))+'</div><div class="ln"></div></div><div class="grid-cards">'+dds+'</div>':'')
+    +(dds||inds?'<div class="sec"><div class="lbl">'+esc(t('menu.deepdive'))+'</div><div class="ln"></div></div>'
+       +'<div class="grid-cards">'+dds+inds+'</div>':'')
     +'<div class="note" style="margin-top:26px;max-width:760px"><span style="color:var(--dim);flex:none">ⓘ</span>'
       +'<p>'+t('menu.footnote',{base:b('2025 = 100'),gbase:b('2020 = 100'),notcomp:b(t('menu.notDirectlyComparable'))})+'</p></div>'
     +'</div>';
@@ -396,6 +433,7 @@ function reportHTML(){
   var body = state.cat ? catSummaryHTML(rep) : overviewHTML(rep);
   var moversCard = moversTableHTML(rep);
   var strategy = state.cat ? '' : strategyHTML(rep);
+  var indirect = state.cat ? '' : indirectTeaserHTML(rep);
 
   return '<div style="animation:cdFade .3s ease">'
     +'<div class="topbar"><div class="topbar-in">'
@@ -409,7 +447,7 @@ function reportHTML(){
     +'</div></div>'
     +'<div class="wrapR layout">'
       +'<aside class="rail">'+rail+'</aside>'
-      +'<main class="content">'+filters+body+moversCard+strategy+'</main>'
+      +'<main class="content">'+filters+body+moversCard+strategy+indirect+'</main>'
     +'</div></div>';
 }
 
@@ -419,6 +457,9 @@ function kpiValue(k){
   if(k.type==='pct') return pct(k.pct);
   if(k.type==='count') return numf(k.num,0,0);
   if(k.type==='namePct') return k.name ? esc(tName(k.name))+' ('+esc(pct(k.pct))+')' : '—';
+  // percentage points — a gap between two rates, not a rate itself
+  if(k.type==='pp') return typeof k.num==='number'
+    ? esc(t('common.ppFmt',{v:(k.num>=0?'+':'−')+numf(Math.abs(k.num),1,1)})) : '—';
   return numf(k.num);
 }
 function kpiHTML(k){
@@ -578,6 +619,195 @@ function strategyHTML(rep){
     +'</div></div>';
 }
 
+/* ---------------- INDIRECT INFLATION ----------------
+   Cost that reaches a delivered price without appearing in the commodity
+   quote: energy, freight, labour and the inputs upstream of packaging.
+   Optional per quarter — a quarter with no data/{slug}/indirect.json simply
+   renders none of this (no teaser, no menu card, no route). */
+function indPillarLabel(key){ return t('ind.pillar.'+key); }
+function indBold(s){ return '<b style="color:#CBD5E1">'+esc(s)+'</b>'; }
+
+// Teaser on the quarter overview: four pillar tiles + a way in.
+function indirectTeaserHTML(rep){
+  var ind=rep.indirect; if(!ind) return '';
+  var tiles=ind.pillars.map(function(p){
+    var d=divColor(p.netYoY);
+    return '<button class="itile" data-go="#/q/'+state.slug+'/indirect/'+encodeURIComponent(p.key)+'" style="border-left:3px solid '+p.color+'">'
+      +'<span class="il">'+esc(indPillarLabel(p.key))+'</span>'
+      +'<span class="num iv" style="color:'+d.c+'">'+esc(pct(p.netYoY))+'</span>'
+      +'<span class="is">'+esc(t('ind.indicators',{n:p.count}))+'</span></button>';
+  }).join('');
+  return '<div class="panel" style="animation:cdFade .25s ease">'
+    +'<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">'
+      +'<h3 style="font-size:17px;font-weight:700;margin:0;display:flex;align-items:center;gap:8px">⚙️ '+esc(t('report.indirectTitle'))+'</h3>'
+      +'<span style="flex:1"></span>'
+      +'<span class="num" style="font-size:12px;color:var(--dim)">'+esc(t('ind.headerSub',{month:locMonth(ind.meta.asOf,'long')}))+'</span></div>'
+    +'<p class="cap" style="margin:6px 0 16px">'+esc(t('report.indirectSub'))+'</p>'
+    +'<div class="itiles">'+tiles+'</div>'
+    +'<button class="cta ghost" style="margin-top:16px" data-go="#/q/'+state.slug+'/indirect"><span>'+esc(t('ind.openFull'))+'</span>'
+      +'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>'
+  +'</div>';
+}
+
+function indDriverTable(p){
+  var rows=p.drivers.map(function(d){
+    var basis=d.basis==='qoq'
+      ? '<span class="qoq" title="'+esc(t('ind.qoqTitle'))+'">'+esc(t('common.qoq'))+'</span>' : '';
+    var code=d.code?'<span class="num" style="font-size:10.5px;color:var(--dim);margin-left:6px">'+esc(d.code)+'</span>':'';
+    var note=d.note?'<div class="cap" style="font-size:11px;margin-top:4px;white-space:normal;max-width:520px">'+esc(d.note)+'</div>':'';
+    return '<tr>'
+      +'<td style="white-space:normal"><span style="font-weight:600">'+esc(tPhrase(d.name))+'</span>'+code+note+'</td>'
+      +'<td style="color:var(--muted);font-size:12px">'+esc(tPhrase(d.region))+'</td>'
+      +'<td class="num" style="color:var(--muted);font-size:12px">'+esc(d.price||'—')+'</td>'
+      +'<td style="text-align:center">'+pillHTML(d.mom)+basis+'</td>'
+      +'<td style="text-align:center">'+pillHTML(d.yoy)+'</td>'
+      +'<td class="num" style="font-size:11.5px;color:var(--dim)">'+esc(locPeriod(d.asOf))+'</td>'
+      +'<td style="font-size:11.5px;color:var(--dim)">'+esc(d.source||'—')+'</td></tr>';
+  }).join('');
+  return '<div style="overflow-x:auto;margin-top:16px"><table><thead><tr>'
+    +'<th>'+esc(t('ind.table.driver'))+'</th><th>'+esc(t('ind.table.region'))+'</th><th>'+esc(t('ind.table.latest'))+'</th>'
+    +'<th style="text-align:center">'+esc(t('common.mom'))+'</th>'
+    +'<th style="text-align:center">'+esc(t('common.yoy'))+'</th>'
+    +'<th>'+esc(t('ind.table.asOf'))+'</th><th>'+esc(t('ind.table.source'))+'</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody></table></div>';
+}
+
+function indPillarPanel(p){
+  var v=verdictFor(p.netYoY);
+  var policy=(p.policy||[]).length
+    ? '<div style="margin-top:16px;padding:14px 15px;border-radius:11px;background:var(--bg);border:1px solid var(--border2)">'
+        +'<p style="font-size:12.5px;font-weight:700;margin:0">'+esc(t('ind.policyTitle'))+'</p>'
+        +'<p class="cap" style="margin:4px 0 10px">'+esc(t('ind.policySub'))+'</p>'
+        +'<div style="display:flex;flex-wrap:wrap;gap:8px">'
+        +p.policy.map(function(x){
+          return '<span class="chipbtn" style="cursor:default"><b style="color:#E2E8F0">'+esc(tPhrase(x.label))+'</b>'
+            +'<span class="num" style="color:var(--warn);font-weight:700">'+esc(tPhrase(x.value))+'</span>'
+            +'<span style="color:var(--dim)">'+esc(locPeriod(x.when))+'</span></span>';
+        }).join('')
+        +'</div></div>'
+    : '';
+  var cross=p.crosslink
+    ? '<p class="cap" style="margin:14px 0 0;border-top:1px solid var(--border2);padding-top:11px">'
+        +t('ind.crosslink',{cat:'<a href="#/q/'+state.slug+'/c/'+encodeURIComponent(p.crosslink)+'">'+esc(tCat(p.crosslink))+'</a>'})+'</p>'
+    : '';
+  return '<div class="panel" style="animation:cdFade .25s ease;border-top:3px solid '+p.color+'">'
+    +'<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+      +'<span class="dot" style="width:14px;height:14px;border-radius:4px;background:'+p.color+'"></span>'
+      +'<h2 style="font-size:20px;font-weight:800;margin:0;letter-spacing:-.01em">'+esc(indPillarLabel(p.key))+'</h2>'
+      +'<span class="num" style="font-size:12px;color:var(--dim)">'+esc(t('ind.indicators',{n:p.count}))+'</span>'
+      +'<span style="flex:1"></span>'
+      +'<span class="verdict" style="color:'+v.c+';background:'+v.bg+'"><span>'+v.glyph+'</span>'
+        +esc(t('ind.basket',{pct:pct(p.netYoY)}))+'</span></div>'
+    +(p.commentary?'<p style="font-size:13px;color:#CBD5E1;margin:14px 0 0;line-height:1.65">'+esc(p.commentary)+'</p>':'')
+    +policy
+    +indDriverTable(p)
+    +cross
+  +'</div>';
+}
+
+function indMacroPanel(ind){
+  var tiles=ind.macro.map(function(m){
+    var col=m.tone==='up'?'var(--up)':m.tone==='down'?'var(--down)':'var(--ink)';
+    return '<div style="padding:14px 15px;border-radius:11px;background:var(--bg);border:1px solid var(--border2)">'
+      +'<p style="font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);margin:0">'+esc(tPhrase(m.label))+'</p>'
+      +'<p class="num" style="font-size:20px;font-weight:800;margin:7px 0 0;color:'+col+'">'+esc(tPhrase(m.value))+'</p>'
+      +'<p style="font-size:11px;color:#8798ad;margin:5px 0 0;line-height:1.5">'+esc(tPhrase(m.sub))+'</p></div>';
+  }).join('');
+  return '<div class="panel" style="animation:cdFade .25s ease">'
+    +'<h3 style="font-size:17px;font-weight:700;margin:0;display:flex;align-items:center;gap:8px">🌍 '+esc(t('ind.macroTitle'))+'</h3>'
+    +'<p class="cap" style="margin:6px 0 16px">'+esc(t('ind.macroSub'))+'</p>'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px">'+tiles+'</div></div>';
+}
+
+function indirectHTML(){
+  var rep=D.reports[state.slug], ind=rep.indirect;
+  if(!ind) return '<div class="wrap">'+esc(t('ind.none'))+' <button class="back" data-go="#/">'+esc(t('common.back'))+'</button></div>';
+  // an unknown pillar in the URL falls back to the full view rather than
+  // rendering a screen with nothing under the KPIs
+  var sel=state.iPillar;
+  if(sel && sel!=='macro' && !ind.pillars.some(function(x){return x.key===sel;})) sel=null;
+  var railItem=function(key,color,net,count,active){
+    var d=divColor(net);
+    return '<button class="rail-item '+(active?'active':'')+'" data-go="#/q/'+state.slug+'/indirect'+(key?'/'+encodeURIComponent(key):'')+'">'
+      +'<span class="dot" style="width:9px;height:9px;background:'+color+'"></span>'
+      +'<span style="flex:1;min-width:0"><span class="nm">'+esc(key?indPillarLabel(key):t('ind.allPillars'))+'</span>'
+      +(count!=null?'<span class="sub">'+esc(t('ind.indicators',{n:count}))+'</span>':'')+'</span>'
+      +(typeof net==='number'?'<span class="num" style="font-size:11.5px;font-weight:700;color:'+d.c+'">'+esc(pct(net))+'</span>':'')+'</button>';
+  };
+  var rail='<div class="rail-h">'+esc(t('ind.railHead'))+'</div>'
+    +railItem(null,'linear-gradient(135deg,#F97316,#A78BFA)',ind.net,null,!sel)
+    +'<div style="height:1px;background:#1E293B;margin:5px 4px"></div>'
+    +ind.pillars.map(function(p){return railItem(p.key,p.color,p.netYoY,p.count,sel===p.key);}).join('')
+    +(ind.macro.length?railItem('macro','#94A3B8',null,null,sel==='macro'):'');
+
+  // Pillar commentary, the summary paragraph and the actions are analyst-written
+  // and stay in their source language. Say so once for the whole screen rather
+  // than repeating it under every panel.
+  var srcNote=(LANG!=='en')
+    ? '<div class="note"><span style="color:var(--dim);flex:none">ⓘ</span><p>'+esc(t('note.sourceEnglish'))+'</p></div>' : '';
+
+  var summary=ind.summary&&ind.summary.headline
+    ? '<div class="panel" style="animation:cdFade .25s ease">'
+        +'<h3 style="font-size:16px;font-weight:700;margin:0 0 10px">'+esc(t('ind.summaryTitle'))+'</h3>'
+        +'<p style="font-size:13.5px;color:#CBD5E1;margin:0;line-height:1.7">'+esc(ind.summary.headline)+'</p>'
+        +(ind.summary.gap&&ind.summary.gap.note
+          ? '<p class="cap" style="margin:12px 0 0;border-top:1px solid var(--border2);padding-top:11px">'+esc(ind.summary.gap.note)+'</p>' : '')
+        +'</div>'
+    : '';
+
+  var actions=(ind.actions||[]).length
+    ? '<div class="panel" style="animation:cdFade .25s ease">'
+        +'<h3 style="font-size:17px;font-weight:700;margin:0;display:flex;align-items:center;gap:8px">🛡️ '+esc(t('ind.actionsTitle'))+'</h3>'
+        +'<p class="cap" style="margin:6px 0 16px">'+esc(t('ind.actionsSub'))+'</p>'
+        +'<div style="display:flex;flex-direction:column;gap:11px">'
+        +ind.actions.map(function(a){
+          var col=a.tone==='red'?'var(--up)':a.tone==='green'?'var(--down)':a.tone==='amber'?'var(--warn)':'var(--blue)';
+          return '<div style="padding:13px 15px;border-radius:10px;background:var(--bg);border-left:3px solid '+col+'">'
+            +'<p style="font-size:12.5px;font-weight:700;margin:0;color:'+col+'">'+esc(a.label)+'</p>'
+            +'<p style="font-size:12.5px;color:#CBD5E1;margin:6px 0 0;line-height:1.6">'+esc(a.body)+'</p></div>';
+        }).join('')
+        +'</div></div>'
+    : '';
+
+  var sources=(ind.meta.sources||[]).length
+    ? '<div class="note"><span style="color:var(--dim);flex:none">ⓘ</span><p><b style="color:#CBD5E1">'+esc(t('ind.sourcesTitle'))+'</b> '
+        +esc(ind.meta.sources.join(' · '))+'</p></div>' : '';
+
+  var body;
+  if(sel==='macro') body=indMacroPanel(ind);
+  else if(sel){
+    body=indPillarPanel(ind.pillars.filter(function(x){return x.key===sel;})[0])+srcNote;
+  } else {
+    body=summary
+      +ind.pillars.map(indPillarPanel).join('')
+      +(ind.macro.length?indMacroPanel(ind):'')
+      +actions+srcNote+sources;
+  }
+
+  var net=divColor(ind.net);
+  return '<div style="animation:cdFade .3s ease">'
+    +'<div class="topbar"><div class="topbar-in">'
+      +'<button class="back" data-go="#/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>'+esc(t('common.allQuarters'))+'</button>'
+      +'<button class="back" data-go="#/q/'+state.slug+'">'+esc(t('common.quarterReport'))+'</button>'
+      +'<div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">⚙️</span>'
+        +'<div><div style="font-size:14px;font-weight:700;line-height:1.1">'+esc(t('ind.title'))+' · '+esc(qLabel(rep.meta.qn,rep.meta.fy,rep.meta.q))+'</div>'
+        +'<div style="font-size:11.5px;color:var(--muted)">'+esc(t('ind.headerSub',{month:locMonth(ind.meta.asOf,'long')}))+'</div></div></div>'
+      +'<span style="flex:1"></span>'
+      +langPickerHTML()
+      +'<span class="num" style="font-size:11px;font-weight:700;color:'+net.c+';background:'+net.bg+';border:1px solid '+net.c+'55;padding:4px 9px;border-radius:7px">'
+      +esc(t('ind.netPressure'))+' '+esc(pct(ind.net))+'</span>'
+    +'</div></div>'
+    +'<div class="wrapR layout"><aside class="rail">'+rail+'</aside><main class="content">'
+      +'<div class="note"><span style="color:var(--dim);flex:none">ⓘ</span><p><b style="color:#CBD5E1">'+esc(t('ind.noteKey'))+'</b> '
+        +t('ind.note',{energy:indBold(t('ind.pillar.energy')),freight:indBold(t('ind.pillar.freight')),
+                       labour:indBold(t('ind.pillar.labour')),inputs:indBold(t('ind.pillar.inputs'))})+'</p></div>'
+      +'<div class="note" style="border-color:rgba(250,204,21,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p><b style="color:#CBD5E1">'
+        +esc(t('ind.vintageKey'))+'</b> '+t('ind.vintage',{mom:indBold(t('common.mom')),qoq:indBold(t('common.qoq'))})+'</p></div>'
+      +'<div class="kpis">'+ind.kpis.map(kpiHTML).join('')+'</div>'
+      +body
+    +'</main></div></div>';
+}
+
 /* ---------------- GERMANY ---------------- */
 function germanyHTML(){
   var rep=D.reports[state.slug], g=rep.germany;
@@ -715,6 +945,7 @@ function render(){
   var app=document.getElementById('app');
   if(state.screen==='menu') app.innerHTML=menuHTML();
   else if(state.screen==='germany') app.innerHTML=germanyHTML();
+  else if(state.screen==='indirect') app.innerHTML=indirectHTML();
   else app.innerHTML=reportHTML();
   // charts after DOM is in place
   if(state.screen==='report' && !state.cat){
