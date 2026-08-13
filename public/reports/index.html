@@ -107,7 +107,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=58dcad57f7"></script>
+<script src="./app-data.js?v=c4bdfc10e6"></script>
 <script>
 (function(){
 "use strict";
@@ -733,11 +733,10 @@ function indirectHTML(){
   var ovi=(overrides(rep)||{}).indirect||{};
   var opill=ovi.pillars||{};
   var prose=function(p){ return opill[p.key]||p.commentary; };
-  var gapNote=(ind.summary&&ind.summary.gap&&(ovi.gapNote||ind.summary.gap.note))||'';
   var headline=(ind.summary&&(ovi.summary||ind.summary.headline))||'';
   var actionList=(ovi.actions&&ovi.actions.length===(ind.actions||[]).length)?ovi.actions:(ind.actions||[]);
   var anyEnglish=(LANG!=='en')&&(
-      (headline&&!ovi.summary) || (gapNote&&!ovi.gapNote) ||
+      (headline&&!ovi.summary) ||
       ind.pillars.some(function(p){return p.commentary&&!opill[p.key];}) ||
       ((ind.actions||[]).length&&actionList===ind.actions));
   var srcNote=anyEnglish
@@ -747,8 +746,6 @@ function indirectHTML(){
     ? '<div class="panel" style="animation:cdFade .25s ease">'
         +'<h3 style="font-size:16px;font-weight:700;margin:0 0 10px">'+esc(t('ind.summaryTitle'))+'</h3>'
         +'<p style="font-size:13.5px;color:#CBD5E1;margin:0;line-height:1.7">'+esc(headline)+'</p>'
-        +(gapNote
-          ? '<p class="cap" style="margin:12px 0 0;border-top:1px solid var(--border2);padding-top:11px">'+esc(gapNote)+'</p>' : '')
         +'</div>'
     : '';
 
@@ -793,16 +790,13 @@ function indirectHTML(){
       +'<button class="back" data-go="#/q/'+state.slug+'">'+esc(t('common.quarterReport'))+'</button>'
       +'<div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">⚙️</span>'
         +'<div><div style="font-size:14px;font-weight:700;line-height:1.1">'+esc(t('ind.title'))+' · '+esc(qLabel(rep.meta.qn,rep.meta.fy,rep.meta.q))+'</div>'
-        +'<div style="font-size:11.5px;color:var(--muted)">'+esc(t('ind.headerSub',{month:locMonth(ind.meta.asOf,'long')}))+'</div></div></div>'
+        +'<div style="font-size:11.5px;color:var(--muted)">'+esc(locMonth(ind.meta.asOf,'long'))+'</div></div></div>'
       +'<span style="flex:1"></span>'
       +langPickerHTML()
       +'<span class="num" style="font-size:11px;font-weight:700;color:'+net.c+';background:'+net.bg+';border:1px solid '+net.c+'55;padding:4px 9px;border-radius:7px">'
       +esc(t('ind.netPressure'))+' '+esc(pct(ind.net))+'</span>'
     +'</div></div>'
     +'<div class="wrapR layout"><aside class="rail">'+rail+'</aside><main class="content">'
-      +'<div class="note"><span style="color:var(--dim);flex:none">ⓘ</span><p><b style="color:#CBD5E1">'+esc(t('ind.noteKey'))+'</b> '
-        +t('ind.note',{energy:indBold(t('ind.pillar.energy')),freight:indBold(t('ind.pillar.freight')),
-                       labour:indBold(t('ind.pillar.labour')),inputs:indBold(t('ind.pillar.inputs'))})+'</p></div>'
       +'<div class="note" style="border-color:rgba(250,204,21,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p><b style="color:#CBD5E1">'
         +esc(t('ind.vintageKey'))+'</b> '+t('ind.vintage',{mom:indBold(t('common.mom')),qoq:indBold(t('common.qoq'))})+'</p></div>'
       +'<div class="kpis">'+ind.kpis.map(kpiHTML).join('')+'</div>'

@@ -37,8 +37,7 @@
       "labour_pct": 3.3,
       "labour_label": "Labour cost, EU manufacturing",
       "cpi_pct": 2.8,
-      "cpi_label": "Euro area HICP, all items",
-      "note": "EU manufacturing labour costs are outrunning euro-area consumer prices, so producers cannot fully recover wage growth through ex-factory prices without losing volume. The gap is far wider in some markets — UK food-manufacturing labour ran +6.0% YoY in April against the same 2.8% headline."
+      "cpi_label": "Euro area HICP, all items"
     }
   },
 

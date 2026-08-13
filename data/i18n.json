@@ -986,17 +986,6 @@
       "pt": "Inflação indireta",
       "ro": "Inflația indirectă"
     },
-    "ind.headerSub": {
-      "en": "Cost pressure outside the commodity price · {month}",
-      "de": "Kostendruck außerhalb des Rohstoffpreises · {month}",
-      "fr": "Pression sur les coûts hors prix des matières premières · {month}",
-      "it": "Pressione sui costi al di fuori del prezzo delle materie prime · {month}",
-      "es": "Presión de costes al margen del precio de la materia prima · {month}",
-      "pl": "Presja kosztowa poza ceną surowca · {month}",
-      "nl": "Kostendruk buiten de grondstofprijs · {month}",
-      "pt": "Pressão de custos fora do preço da matéria-prima · {month}",
-      "ro": "Presiune pe costuri în afara prețului materiei prime · {month}"
-    },
     "ind.railHead": {
       "en": "Cost pillar",
       "de": "Kostensäule",
@@ -1040,28 +1029,6 @@
       "nl": "Gemiddelde verandering op jaarbasis over alle indirecte indicatoren",
       "pt": "Variação homóloga média de todos os indicadores indiretos",
       "ro": "Variația medie anuală a tuturor indicatorilor indirecți"
-    },
-    "ind.noteKey": {
-      "en": "Reading this section",
-      "de": "Zum Lesen dieses Abschnitts",
-      "fr": "Comment lire cette section",
-      "it": "Come leggere questa sezione",
-      "es": "Cómo leer esta sección",
-      "pl": "Jak czytać tę sekcję",
-      "nl": "Deze sectie lezen",
-      "pt": "Como ler esta secção",
-      "ro": "Cum se citește această secțiune"
-    },
-    "ind.note": {
-      "en": "Indirect inflation is the cost that reaches a delivered price without appearing in the commodity quote: the {energy} to process the goods, the {freight} to move them, the {labour} to handle them and the {inputs} behind their packaging.",
-      "de": "Indirekte Inflation sind die Kosten, die im Anlieferpreis stecken, ohne in der Rohstoffnotierung aufzutauchen: die {energy} für die Verarbeitung, die {freight} für den Transport, die {labour} für das Handling und die {inputs} hinter der Verpackung.",
-      "fr": "L'inflation indirecte, c'est le coût qui se retrouve dans le prix rendu sans figurer dans la cotation de la matière première : l'{energy} pour transformer les produits, le {freight} pour les acheminer, la {labour} pour les manipuler et les {inputs} derrière leur emballage.",
-      "it": "L'inflazione indiretta è il costo che arriva al prezzo reso senza comparire nella quotazione della materia prima: l'{energy} per trasformare i prodotti, il {freight} per spostarli, il {labour} per gestirli e gli {inputs} dietro il loro imballaggio.",
-      "es": "La inflación indirecta es el coste que llega al precio entregado sin aparecer en la cotización de la materia prima: la {energy} para transformar el producto, el {freight} para moverlo, la {labour} para manipularlo y los {inputs} que hay detrás de su envase.",
-      "pl": "Inflacja pośrednia to koszt, który trafia do ceny dostawy, nie pojawiając się w notowaniu surowca: {energy} potrzebna do przetworzenia towaru, {freight} do jego przewiezienia, {labour} do jego obsługi oraz {inputs} stojące za opakowaniem.",
-      "nl": "Indirecte inflatie is de kost die in de leverprijs terechtkomt zonder in de grondstofnotering te staan: de {energy} om de goederen te verwerken, de {freight} om ze te vervoeren, de {labour} om ze te behandelen en de {inputs} achter hun verpakking.",
-      "pt": "A inflação indireta é o custo que chega ao preço entregue sem aparecer na cotação da matéria-prima: a {energy} para transformar os produtos, o {freight} para os movimentar, a {labour} para os manusear e os {inputs} por trás da sua embalagem.",
-      "ro": "Inflația indirectă este costul care ajunge în prețul livrat fără să apară în cotația materiei prime: {energy} pentru procesare, {freight} pentru transport, {labour} pentru manipulare și {inputs} din spatele ambalajului."
     },
     "ind.vintageKey": {
       "en": "As-of dates differ",

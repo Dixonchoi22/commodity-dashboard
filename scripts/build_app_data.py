@@ -106,7 +106,7 @@ def load_overrides(slug: str, codes: list[str]) -> dict:
         {"trend_analysis": "…",
          "highlights": [{"label": "…", "body": "…"}],
          "commentary": {"Butter EU": "…"},
-         "indirect": {"summary": "…", "gapNote": "…",
+         "indirect": {"summary": "…",
                       "pillars": {"energy": "…"},
                       "actions": [{"label": "…", "body": "…"}]}}
 
@@ -504,7 +504,7 @@ def main() -> None:
         ind = rep.get("indirect")
         if not ind:
             continue
-        wanted = (["summary", "gapNote"]
+        wanted = (["summary"]
                   + [f"pillars.{p['key']}" for p in ind["pillars"]]
                   + (["actions"] if ind.get("actions") else []))
         for code in lang_codes:
