@@ -61,7 +61,7 @@
       "color": "#38BDF8",
       "commentary": "Peak season arrived early. Frontloading ahead of anticipated new US tariffs, plus carrier peak-season surcharges, pushed the 40ft composite index up 31% MoM by mid-July and 74% above a year ago; Shanghai-Rotterdam moved with it at +31% MoM on tight Asia-Europe capacity. The turn came late in the month — by 31 July the composite had eased to $4,255/unit, down 6.1% from end-June as frontloading faded — but carriers are actively managing capacity to defend rates and have signalled further emergency fuel surcharges for August, so the fall is not yet a trend. Road freight is the quieter, stickier problem: driver shortages, new tolls that took effect on 1 July and elevated diesel keep European road rates grinding up (+11% YoY) with no conflict-driven reversal available.",
       "drivers": [
-        {"name": "Ocean container, 40ft global composite", "region": "Global", "code": "ZB99", "price": "$4,255/unit (31 Jul)", "mom": 31.0, "yoy": 74.0, "basis": "mom", "asOf": "July 2026", "source": "Drewry", "note": "Mid-July reading. By 31 July the index had eased to $4,255/unit, −6.1% versus end-June, as frontloading faded."},
+        {"name": "Ocean container, 40ft global composite", "region": "Global", "code": "ZB99", "price": "", "mom": 31.0, "yoy": 74.0, "basis": "mom", "asOf": "July 2026", "source": "Drewry"},
         {"name": "Ocean container, Shanghai to Rotterdam", "region": "European Union", "code": "ZQ34", "price": "", "mom": 31.0, "yoy": 46.0, "basis": "mom", "asOf": "July 2026", "source": "Drewry"},
         {"name": "Ocean container, US East Coast to North Europe", "region": "European Union", "code": "ZZ04", "price": "", "mom": 0.7, "yoy": 18.0, "basis": "mom", "asOf": "July 2026", "source": "Drewry"},
         {"name": "Air freight Baltic index", "region": "Global", "code": "BE09", "price": "", "mom": -4.8, "yoy": 28.0, "basis": "mom", "asOf": "July 2026", "source": "Baltic Exchange"},
@@ -82,10 +82,7 @@
       "drivers": [
         {"name": "Labour cost, manufacturing", "region": "European Union", "code": "UQ27", "price": "", "mom": -9.6, "yoy": 3.3, "basis": "qoq", "asOf": "Q1 2026", "source": "Eurostat", "note": "Not seasonally adjusted — the quarterly fall is the usual Q4-to-Q1 bonus effect, not an easing of wage costs."},
         {"name": "Labour cost, accommodation & food services", "region": "European Union", "code": "UQ31", "price": "", "mom": -6.9, "yoy": 2.4, "basis": "qoq", "asOf": "Q1 2026", "source": "Eurostat", "note": "Not seasonally adjusted."},
-        {"name": "Labour cost, food manufacturing", "region": "United Kingdom", "code": "2D50", "price": "", "mom": 2.5, "yoy": 6.0, "basis": "mom", "asOf": "April 2026", "source": "Office for National Statistics"},
-        {"name": "Labour cost, food manufacturing", "region": "United States", "code": "QO59", "price": "", "mom": -0.4, "yoy": 3.0, "basis": "mom", "asOf": "May 2026", "source": "US Bureau of Labor Statistics"},
-        {"name": "Labour cost, manufacturing", "region": "United States", "code": "QO41", "price": "", "mom": 0.1, "yoy": 4.0, "basis": "mom", "asOf": "May 2026", "source": "US Bureau of Labor Statistics"},
-        {"name": "Labour cost, transport & warehousing", "region": "United States", "code": "QO51", "price": "", "mom": 0.3, "yoy": 3.5, "basis": "mom", "asOf": "May 2026", "source": "US Bureau of Labor Statistics"}
+        {"name": "Labour cost, food manufacturing", "region": "United Kingdom", "code": "2D50", "price": "", "mom": 2.5, "yoy": 6.0, "basis": "mom", "asOf": "April 2026", "source": "Office for National Statistics"}
       ]
     },
     {

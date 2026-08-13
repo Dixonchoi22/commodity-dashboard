@@ -107,7 +107,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=c4bdfc10e6"></script>
+<script src="./app-data.js?v=d374d397a2"></script>
 <script>
 (function(){
 "use strict";
@@ -633,6 +633,10 @@ function indPillarLabel(key){ return t('ind.pillar.'+key); }
 function indBold(s){ return '<b style="color:#CBD5E1">'+esc(s)+'</b>'; }
 
 function indDriverTable(p){
+  // Freight and labour publish as indices — the source carries MoM/YoY but no
+  // price level — so drop the "Latest" column entirely on those pillars rather
+  // than printing a column of em-dashes.
+  var hasPrice=p.drivers.some(function(d){return d.price;});
   var rows=p.drivers.map(function(d){
     var basis=d.basis==='qoq'
       ? '<span class="qoq" title="'+esc(t('ind.qoqTitle'))+'">'+esc(t('common.qoq'))+'</span>' : '';
@@ -644,14 +648,15 @@ function indDriverTable(p){
     return '<tr>'
       +'<td style="white-space:normal"><span style="font-weight:600">'+esc(tPhrase(d.name))+'</span>'+code+note+'</td>'
       +'<td style="color:var(--muted);font-size:12px">'+esc(tPhrase(d.region))+'</td>'
-      +'<td class="num" style="color:var(--muted);font-size:12px">'+esc(d.price||'—')+'</td>'
+      +(hasPrice?'<td class="num" style="color:var(--muted);font-size:12px">'+esc(d.price||'—')+'</td>':'')
       +'<td style="text-align:center">'+pillHTML(d.mom)+basis+'</td>'
       +'<td style="text-align:center">'+pillHTML(d.yoy)+'</td>'
       +'<td class="num" style="font-size:11.5px;color:var(--dim)">'+esc(locPeriod(d.asOf))+'</td>'
       +'<td style="font-size:11.5px;color:var(--dim)">'+esc(d.source||'—')+'</td></tr>';
   }).join('');
   return '<div style="overflow-x:auto;margin-top:16px"><table><thead><tr>'
-    +'<th>'+esc(t('ind.table.driver'))+'</th><th>'+esc(t('ind.table.region'))+'</th><th>'+esc(t('ind.table.latest'))+'</th>'
+    +'<th>'+esc(t('ind.table.driver'))+'</th><th>'+esc(t('ind.table.region'))+'</th>'
+    +(hasPrice?'<th>'+esc(t('ind.table.latest'))+'</th>':'')
     +'<th style="text-align:center">'+esc(t('common.mom'))+'</th>'
     +'<th style="text-align:center">'+esc(t('common.yoy'))+'</th>'
     +'<th>'+esc(t('ind.table.asOf'))+'</th><th>'+esc(t('ind.table.source'))+'</th></tr></thead>'
