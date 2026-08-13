@@ -107,7 +107,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=d374d397a2"></script>
+<script src="./app-data.js?v=4dcf098f45"></script>
 <script>
 (function(){
 "use strict";
@@ -652,7 +652,9 @@ function indDriverTable(p){
       +'<td style="text-align:center">'+pillHTML(d.mom)+basis+'</td>'
       +'<td style="text-align:center">'+pillHTML(d.yoy)+'</td>'
       +'<td class="num" style="font-size:11.5px;color:var(--dim)">'+esc(locPeriod(d.asOf))+'</td>'
-      +'<td style="font-size:11.5px;color:var(--dim)">'+esc(d.source||'—')+'</td></tr>';
+      +'<td style="font-size:11.5px;color:var(--dim);white-space:normal;max-width:215px">'+esc(d.source||'—')
+        +(d.ref?'<div style="font-size:10.5px;color:#5a6b85;margin-top:3px">'+esc(d.ref.doc)+' · '
+          +esc(t('common.page',{n:d.ref.page}))+'</div>':'')+'</td></tr>';
   }).join('');
   return '<div style="overflow-x:auto;margin-top:16px"><table><thead><tr>'
     +'<th>'+esc(t('ind.table.driver'))+'</th><th>'+esc(t('ind.table.region'))+'</th>'
@@ -696,27 +698,13 @@ function indPillarPanel(p,commentary){
   +'</div>';
 }
 
-function indMacroPanel(ind){
-  var tiles=ind.macro.map(function(m){
-    var col=m.tone==='up'?'var(--up)':m.tone==='down'?'var(--down)':'var(--ink)';
-    return '<div style="padding:14px 15px;border-radius:11px;background:var(--bg);border:1px solid var(--border2)">'
-      +'<p style="font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);margin:0">'+esc(tPhrase(m.label))+'</p>'
-      +'<p class="num" style="font-size:20px;font-weight:800;margin:7px 0 0;color:'+col+'">'+esc(tPhrase(m.value))+'</p>'
-      +'<p style="font-size:11px;color:#8798ad;margin:5px 0 0;line-height:1.5">'+esc(tPhrase(m.sub))+'</p></div>';
-  }).join('');
-  return '<div class="panel" style="animation:cdFade .25s ease">'
-    +'<h3 style="font-size:17px;font-weight:700;margin:0;display:flex;align-items:center;gap:8px">🌍 '+esc(t('ind.macroTitle'))+'</h3>'
-    +'<p class="cap" style="margin:6px 0 16px">'+esc(t('ind.macroSub'))+'</p>'
-    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px">'+tiles+'</div></div>';
-}
-
 function indirectHTML(){
   var rep=D.reports[state.slug], ind=rep.indirect;
   if(!ind) return '<div class="wrap">'+esc(t('ind.none'))+' <button class="back" data-go="#/">'+esc(t('common.back'))+'</button></div>';
   // an unknown pillar in the URL falls back to the full view rather than
   // rendering a screen with nothing under the KPIs
   var sel=state.iPillar;
-  if(sel && sel!=='macro' && !ind.pillars.some(function(x){return x.key===sel;})) sel=null;
+  if(sel && !ind.pillars.some(function(x){return x.key===sel;})) sel=null;
   var railItem=function(key,color,net,count,active){
     var d=divColor(net);
     return '<button class="rail-item '+(active?'active':'')+'" data-go="#/q/'+state.slug+'/indirect'+(key?'/'+encodeURIComponent(key):'')+'">'
@@ -729,7 +717,7 @@ function indirectHTML(){
     +railItem(null,'linear-gradient(135deg,#F97316,#A78BFA)',ind.net,null,!sel)
     +'<div style="height:1px;background:#1E293B;margin:5px 4px"></div>'
     +ind.pillars.map(function(p){return railItem(p.key,p.color,p.netYoY,p.count,sel===p.key);}).join('')
-    +(ind.macro.length?railItem('macro','#94A3B8',null,null,sel==='macro'):'');
+    ;
 
   // Pillar commentary, the summary paragraph and the actions are analyst-written.
   // data/{slug}/i18n/{lang}.json can translate them; anything it leaves out
@@ -775,8 +763,7 @@ function indirectHTML(){
         +esc(ind.meta.sources.join(' · '))+'</p></div>' : '';
 
   var body;
-  if(sel==='macro') body=indMacroPanel(ind);
-  else if(sel){
+  if(sel){
     var one=ind.pillars.filter(function(x){return x.key===sel;})[0];
     body=indPillarPanel(one,prose(one))
       +((LANG!=='en'&&one.commentary&&!opill[one.key])
@@ -784,7 +771,6 @@ function indirectHTML(){
   } else {
     body=summary
       +ind.pillars.map(function(x){return indPillarPanel(x,prose(x));}).join('')
-      +(ind.macro.length?indMacroPanel(ind):'')
       +actions+srcNote+sources;
   }
 

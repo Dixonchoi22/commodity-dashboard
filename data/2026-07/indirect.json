@@ -20,7 +20,6 @@
     "tracked directly in the Packaging category of commodities.json. This file",
     "carries only what sits upstream of them (pulp, recovered paper, feedstocks)."
   ],
-
   "slug": "2026-07",
   "as_of": "July 2026",
   "sources": [
@@ -30,7 +29,6 @@
     "Expana — Global Monthly Plastics Market Insight, August 2026",
     "Expana — Global Weekly Industrial and Macroeconomic Insight, Week 32 2026"
   ],
-
   "summary": {
     "headline": "Energy, freight and labour rose together through Q2 2026 — the three biggest non-commodity inputs moving in the same direction at once, which is what turns a manageable commodity picture into a margin problem. Crude and diesel corrected off their war peaks in June, but every energy series remains 20-75% above year-ago levels, European gas and power re-accelerated hard in July as the Strait of Hormuz closed again, and container freight ran a peak season that started early. Labour is the slow, structural one: legislated wage floors, not scarcity, and they do not reverse when the conflict does.",
     "gap": {
@@ -40,20 +38,117 @@
       "cpi_label": "Euro area HICP, all items"
     }
   },
-
   "pillars": [
     {
       "key": "energy",
       "color": "#F97316",
       "commentary": "Crude corrected off its June peak and diesel, jet fuel and bunker fuel followed it down — but only from extraordinary highs, and the annual comparison is unforgiving: Brent is still +20% YoY, German diesel +30%, US jet fuel +47%, Ghent marine gasoil +45%. July then split the market in two. Oil kept easing on hopes of a durable US-Iran settlement, while European gas and power went the other way: TTF +19.2% MoM and the European electricity index +18.7% MoM, as the de facto closure of the Strait of Hormuz cut Qatari LNG flows into a continent with low storage, and a heatwave lifted cooling demand on top. German baseload power at €124.83/MWh is +74% YoY. For food and beverage processing — drying, chilling, sterilising — this is the input that bites hardest, and it is the one that reversed direction most recently.",
       "drivers": [
-        {"name": "Brent crude oil", "region": "Global", "code": "BCRD", "price": "$83.69/barrel", "mom": -0.9, "yoy": 20.3, "basis": "mom", "asOf": "July 2026", "source": "ICE"},
-        {"name": "Natural gas TTF", "region": "European Union", "code": "NGNL", "price": "€53.58/MWh", "mom": 19.2, "yoy": 57.7, "basis": "mom", "asOf": "July 2026", "source": "EEX"},
-        {"name": "Electricity index", "region": "European Union", "code": "EFA1", "price": "€110.51/MWh", "mom": 18.7, "yoy": 46.9, "basis": "mom", "asOf": "July 2026", "source": "Expana"},
-        {"name": "Electricity baseload", "region": "Germany", "code": "NR14", "price": "€124.83/MWh", "mom": 30.6, "yoy": 74.3, "basis": "mom", "asOf": "June 2026", "source": "EEX"},
-        {"name": "Diesel retail", "region": "Germany", "code": "DY32", "price": "€2.02/L", "mom": -6.0, "yoy": 30.3, "basis": "mom", "asOf": "June 2026", "source": "AMI"},
-        {"name": "Marine gasoil", "region": "Belgium", "code": "FX64", "price": "$980.46/MT", "mom": -19.4, "yoy": 44.5, "basis": "mom", "asOf": "June 2026", "source": "Bunker Ex"},
-        {"name": "Jet fuel", "region": "United States", "code": "OC19", "price": "USc 306.94/gal", "mom": -22.0, "yoy": 46.6, "basis": "mom", "asOf": "June 2026", "source": "EIA"}
+        {
+          "name": "Brent crude oil",
+          "region": "Global",
+          "code": "BCRD",
+          "price": "$83.69/barrel",
+          "mom": -0.9,
+          "yoy": 20.3,
+          "basis": "mom",
+          "asOf": "July 2026",
+          "source": "ICE",
+          "ref": {
+            "doc": "Energy · Aug 2026",
+            "page": 1
+          }
+        },
+        {
+          "name": "Natural gas TTF",
+          "region": "European Union",
+          "code": "NGNL",
+          "price": "€53.58/MWh",
+          "mom": 19.2,
+          "yoy": 57.7,
+          "basis": "mom",
+          "asOf": "July 2026",
+          "source": "EEX",
+          "ref": {
+            "doc": "Energy · Aug 2026",
+            "page": 1
+          }
+        },
+        {
+          "name": "Electricity index",
+          "region": "European Union",
+          "code": "EFA1",
+          "price": "€110.51/MWh",
+          "mom": 18.7,
+          "yoy": 46.9,
+          "basis": "mom",
+          "asOf": "July 2026",
+          "source": "Expana",
+          "ref": {
+            "doc": "Energy · Aug 2026",
+            "page": 1
+          }
+        },
+        {
+          "name": "Electricity baseload",
+          "region": "Germany",
+          "code": "NR14",
+          "price": "€124.83/MWh",
+          "mom": 30.6,
+          "yoy": 74.3,
+          "basis": "mom",
+          "asOf": "June 2026",
+          "source": "Iberian Energy Derivatives Exchange, Marex Spectron",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 4
+          }
+        },
+        {
+          "name": "Diesel retail",
+          "region": "Germany",
+          "code": "DY32",
+          "price": "€2.02/L",
+          "mom": -6.0,
+          "yoy": 30.3,
+          "basis": "mom",
+          "asOf": "June 2026",
+          "source": "AMI",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 2
+          }
+        },
+        {
+          "name": "Marine gasoil",
+          "region": "Belgium",
+          "code": "FX64",
+          "price": "$980.46/MT",
+          "mom": -19.4,
+          "yoy": 44.5,
+          "basis": "mom",
+          "asOf": "June 2026",
+          "source": "Bunker Ex",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 2
+          }
+        },
+        {
+          "name": "Jet fuel",
+          "region": "United States",
+          "code": "OC19",
+          "price": "USc 306.94/gal",
+          "mom": -22.0,
+          "yoy": 46.6,
+          "basis": "mom",
+          "asOf": "June 2026",
+          "source": "EIA",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 2
+          }
+        }
       ]
     },
     {
@@ -61,12 +156,96 @@
       "color": "#38BDF8",
       "commentary": "Peak season arrived early. Frontloading ahead of anticipated new US tariffs, plus carrier peak-season surcharges, pushed the 40ft composite index up 31% MoM by mid-July and 74% above a year ago; Shanghai-Rotterdam moved with it at +31% MoM on tight Asia-Europe capacity. The turn came late in the month — by 31 July the composite had eased to $4,255/unit, down 6.1% from end-June as frontloading faded — but carriers are actively managing capacity to defend rates and have signalled further emergency fuel surcharges for August, so the fall is not yet a trend. Road freight is the quieter, stickier problem: driver shortages, new tolls that took effect on 1 July and elevated diesel keep European road rates grinding up (+11% YoY) with no conflict-driven reversal available.",
       "drivers": [
-        {"name": "Ocean container, 40ft global composite", "region": "Global", "code": "ZB99", "price": "", "mom": 31.0, "yoy": 74.0, "basis": "mom", "asOf": "July 2026", "source": "Drewry"},
-        {"name": "Ocean container, Shanghai to Rotterdam", "region": "European Union", "code": "ZQ34", "price": "", "mom": 31.0, "yoy": 46.0, "basis": "mom", "asOf": "July 2026", "source": "Drewry"},
-        {"name": "Ocean container, US East Coast to North Europe", "region": "European Union", "code": "ZZ04", "price": "", "mom": 0.7, "yoy": 18.0, "basis": "mom", "asOf": "July 2026", "source": "Drewry"},
-        {"name": "Air freight Baltic index", "region": "Global", "code": "BE09", "price": "", "mom": -4.8, "yoy": 28.0, "basis": "mom", "asOf": "July 2026", "source": "Baltic Exchange"},
-        {"name": "Road freight index", "region": "European Union", "code": "GWAD", "price": "", "mom": 1.9, "yoy": 11.0, "basis": "mom", "asOf": "May 2026", "source": "Transport Market Monitor"},
-        {"name": "Truckload linehaul index", "region": "North America", "code": "XI08", "price": "", "mom": 0.4, "yoy": 6.9, "basis": "mom", "asOf": "May 2026", "source": "Cass Information Systems"}
+        {
+          "name": "Ocean container, 40ft global composite",
+          "region": "Global",
+          "code": "ZB99",
+          "price": "",
+          "mom": 31.0,
+          "yoy": 74.0,
+          "basis": "mom",
+          "asOf": "July 2026",
+          "source": "Drewry",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 5
+          }
+        },
+        {
+          "name": "Ocean container, Shanghai to Rotterdam",
+          "region": "European Union",
+          "code": "ZQ34",
+          "price": "",
+          "mom": 31.0,
+          "yoy": 46.0,
+          "basis": "mom",
+          "asOf": "July 2026",
+          "source": "Drewry",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 5
+          }
+        },
+        {
+          "name": "Ocean container, US East Coast to North Europe",
+          "region": "European Union",
+          "code": "ZZ04",
+          "price": "",
+          "mom": 0.7,
+          "yoy": 18.0,
+          "basis": "mom",
+          "asOf": "July 2026",
+          "source": "Drewry",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 5
+          }
+        },
+        {
+          "name": "Air freight Baltic index",
+          "region": "Global",
+          "code": "BE09",
+          "price": "",
+          "mom": -4.8,
+          "yoy": 28.0,
+          "basis": "mom",
+          "asOf": "July 2026",
+          "source": "Baltic Exchange",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 5
+          }
+        },
+        {
+          "name": "Road freight index",
+          "region": "European Union",
+          "code": "GWAD",
+          "price": "",
+          "mom": 1.9,
+          "yoy": 11.0,
+          "basis": "mom",
+          "asOf": "May 2026",
+          "source": "Transport Market Monitor",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 5
+          }
+        },
+        {
+          "name": "Truckload linehaul index",
+          "region": "North America",
+          "code": "XI08",
+          "price": "",
+          "mom": 0.4,
+          "yoy": 6.9,
+          "basis": "mom",
+          "asOf": "May 2026",
+          "source": "Cass Information Systems",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 6
+          }
+        }
       ]
     },
     {
@@ -74,15 +253,91 @@
       "color": "#A78BFA",
       "commentary": "Labour is the pillar that does not correct. EU manufacturing labour costs rose 3.3% YoY in Q1 2026 — the slowest in two years, but still ahead of the 2.8% euro-area headline — and the drivers are legislated rather than cyclical: statutory minimum wage floors moved in Germany, the UK, Belgium and the Netherlands within seven months. That matters disproportionately in food and beverage manufacturing, where pay sits below the wider manufacturing average and a large share of the workforce is concentrated near the wage floor, so a floor increase passes through almost one-for-one. EU food-service labour costs still trail manufacturing by roughly 39% in absolute terms, which preserves a structural cost advantage — but it is exactly the advantage that minimum-wage increases erode fastest.",
       "policy": [
-        {"label": "Germany — statutory minimum wage", "value": "+8.4%", "when": "January 2026"},
-        {"label": "United Kingdom — National Living Wage", "value": "+4.1%", "when": "April 2026"},
-        {"label": "Belgium — minimum wage", "value": "increase", "when": "April 2026"},
-        {"label": "Netherlands — minimum wage", "value": "increase", "when": "July 2026"}
+        {
+          "label": "Germany — statutory minimum wage",
+          "value": "+8.4%",
+          "when": "January 2026",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 9
+          }
+        },
+        {
+          "label": "United Kingdom — National Living Wage",
+          "value": "+4.1%",
+          "when": "April 2026",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 9
+          }
+        },
+        {
+          "label": "Belgium — minimum wage",
+          "value": "increase",
+          "when": "April 2026",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 9
+          }
+        },
+        {
+          "label": "Netherlands — minimum wage",
+          "value": "increase",
+          "when": "July 2026",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 9
+          }
+        }
       ],
       "drivers": [
-        {"name": "Labour cost, manufacturing", "region": "European Union", "code": "UQ27", "price": "", "mom": -9.6, "yoy": 3.3, "basis": "qoq", "asOf": "Q1 2026", "source": "Eurostat", "note": "Not seasonally adjusted — the quarterly fall is the usual Q4-to-Q1 bonus effect, not an easing of wage costs."},
-        {"name": "Labour cost, accommodation & food services", "region": "European Union", "code": "UQ31", "price": "", "mom": -6.9, "yoy": 2.4, "basis": "qoq", "asOf": "Q1 2026", "source": "Eurostat", "note": "Not seasonally adjusted."},
-        {"name": "Labour cost, food manufacturing", "region": "United Kingdom", "code": "2D50", "price": "", "mom": 2.5, "yoy": 6.0, "basis": "mom", "asOf": "April 2026", "source": "Office for National Statistics"}
+        {
+          "name": "Labour cost, manufacturing",
+          "region": "European Union",
+          "code": "UQ27",
+          "price": "",
+          "mom": -9.6,
+          "yoy": 3.3,
+          "basis": "qoq",
+          "asOf": "Q1 2026",
+          "source": "Eurostat",
+          "note": "Not seasonally adjusted — the quarterly fall is the usual Q4-to-Q1 bonus effect, not an easing of wage costs.",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 9
+          }
+        },
+        {
+          "name": "Labour cost, accommodation & food services",
+          "region": "European Union",
+          "code": "UQ31",
+          "price": "",
+          "mom": -6.9,
+          "yoy": 2.4,
+          "basis": "qoq",
+          "asOf": "Q1 2026",
+          "source": "Eurostat",
+          "note": "Not seasonally adjusted.",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 9
+          }
+        },
+        {
+          "name": "Labour cost, food manufacturing",
+          "region": "United Kingdom",
+          "code": "2D50",
+          "price": "",
+          "mom": 2.5,
+          "yoy": 6.0,
+          "basis": "mom",
+          "asOf": "April 2026",
+          "source": "Office for National Statistics",
+          "ref": {
+            "doc": "Energy, Freight & Labor · Jul 2026",
+            "page": 9
+          }
+        }
       ]
     },
     {
@@ -91,25 +346,69 @@
       "commentary": "The cost base under packaging, one step before the prices in the Packaging category. Pulp is the pressure point: European eucalyptus BHK rose 4% MoM and 30% YoY on mill closures and capacity cuts, and NBSK added another 1.1% MoM — enough to push European kraftliner up 6.2% MoM in June while the rest of the board complex sat flat. Recovered paper pulls the other way: European corrugated waste is down more than 32% YoY because weak paper production means weak demand for it, capping recycled-grade board. The polymer chain is easing — ethylene, propylene and paraxylene all softened outside the US on oversupply in Asia and Europe — but naphtha remains hostage to the Strait of Hormuz, so the resin relief that started in May is only as durable as the ceasefire.",
       "crosslink": "Packaging",
       "drivers": [
-        {"name": "Pulp NBSK", "region": "European Union", "code": "EX24", "price": "€1,430/mt", "mom": 1.1, "yoy": 5.9, "basis": "mom", "asOf": "June 2026", "source": "Expana"},
-        {"name": "Pulp eucalyptus BHK", "region": "European Union", "code": "", "price": "", "mom": 4.0, "yoy": 30.0, "basis": "mom", "asOf": "June 2026", "source": "Expana"},
-        {"name": "Pulp SBSK", "region": "United States", "code": "PX02", "price": "$1,515/mt", "mom": 0.0, "yoy": -12.7, "basis": "mom", "asOf": "June 2026", "source": "Expana"},
-        {"name": "Recovered paper, corrugated 1.05", "region": "France", "code": "9G03", "price": "€65/mt", "mom": 1.6, "yoy": -32.4, "basis": "mom", "asOf": "June 2026", "source": "Expana"},
-        {"name": "Recovered paper, mixed 1.02", "region": "France", "code": "9G01", "price": "€36/mt", "mom": 1.7, "yoy": -36.6, "basis": "mom", "asOf": "June 2026", "source": "Expana"},
-        {"name": "Recovered paper, old corrugated containers", "region": "United States", "code": "SZ86", "price": "$114/mt", "mom": -3.1, "yoy": 4.7, "basis": "mom", "asOf": "June 2026", "source": "Expana"}
+        {
+          "name": "Pulp NBSK",
+          "region": "European Union",
+          "code": "EX24",
+          "price": "€1,430/mt",
+          "mom": 1.1,
+          "yoy": 5.9,
+          "basis": "mom",
+          "asOf": "June 2026",
+          "source": "Expana",
+          "ref": {
+            "doc": "Paper · Jul 2026",
+            "page": 6
+          }
+        },
+        {
+          "name": "Pulp eucalyptus BHK",
+          "region": "European Union",
+          "code": "",
+          "price": "",
+          "mom": 4.0,
+          "yoy": 30.0,
+          "basis": "mom",
+          "asOf": "June 2026",
+          "source": "Expana",
+          "ref": {
+            "doc": "Paper · Jul 2026",
+            "page": 3
+          }
+        },
+        {
+          "name": "Recovered paper, corrugated 1.05",
+          "region": "France",
+          "code": "9G03",
+          "price": "€65/mt",
+          "mom": 1.6,
+          "yoy": -32.4,
+          "basis": "mom",
+          "asOf": "June 2026",
+          "source": "Expana",
+          "ref": {
+            "doc": "Paper · Jul 2026",
+            "page": 6
+          }
+        },
+        {
+          "name": "Recovered paper, mixed 1.02",
+          "region": "France",
+          "code": "9G01",
+          "price": "€36/mt",
+          "mom": 1.7,
+          "yoy": -36.6,
+          "basis": "mom",
+          "asOf": "June 2026",
+          "source": "Expana",
+          "ref": {
+            "doc": "Paper · Jul 2026",
+            "page": 6
+          }
+        }
       ]
     }
   ],
-
-  "macro": [
-    {"label": "Euro area HICP, all items", "value": "+2.8%", "sub": "June 2026 · from +3.2% in May", "tone": "down"},
-    {"label": "Euro area energy inflation", "value": "+8.5%", "sub": "June 2026 · decelerating 1.8pp MoM", "tone": "up"},
-    {"label": "US CPI, all items", "value": "+3.5%", "sub": "June 2026 · from +4.2% in May", "tone": "down"},
-    {"label": "US energy commodities", "value": "+27.1%", "sub": "June 2026 · petrol +26.7% YoY", "tone": "up"},
-    {"label": "Expana US dollar index", "value": "101.37", "sub": "29 July 2026 · +0.4% MoM on safe-haven demand", "tone": "up"},
-    {"label": "Policy rates", "value": "On hold", "sub": "Fed held on 26 July; sources price possible H2 2026 hikes", "tone": "neutral"}
-  ],
-
   "actions": [
     {
       "tone": "red",

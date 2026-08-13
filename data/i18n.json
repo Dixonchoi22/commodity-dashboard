@@ -1107,17 +1107,6 @@
       "pt": "Insumos de embalagem",
       "ro": "Materii prime pentru ambalaje"
     },
-    "ind.pillar.macro": {
-      "en": "Macro backdrop",
-      "de": "Makro-Umfeld",
-      "fr": "Contexte macro",
-      "it": "Contesto macro",
-      "es": "Contexto macro",
-      "pl": "Tło makro",
-      "nl": "Macro-context",
-      "pt": "Contexto macro",
-      "ro": "Context macro"
-    },
     "ind.indicators": {
       "en": "{n} indicators",
       "de": "{n} Indikatoren",
@@ -1227,28 +1216,6 @@
       "nl": "Prijzen van eindverpakking — kunststoffen en karton — worden rechtstreeks gevolgd in de categorie {cat}.",
       "pt": "Os preços da embalagem acabada — resinas e cartão — são acompanhados diretamente na categoria {cat}.",
       "ro": "Prețurile ambalajelor finite — rășini și carton — sunt urmărite direct în categoria {cat}."
-    },
-    "ind.macroTitle": {
-      "en": "Macro backdrop",
-      "de": "Makro-Umfeld",
-      "fr": "Contexte macro",
-      "it": "Contesto macro",
-      "es": "Contexto macro",
-      "pl": "Tło makro",
-      "nl": "Macro-context",
-      "pt": "Contexto macro",
-      "ro": "Context macro"
-    },
-    "ind.macroSub": {
-      "en": "The inflation and currency context every pass-through negotiation happens in",
-      "de": "Das Inflations- und Währungsumfeld, in dem jede Verhandlung über Kostenweitergabe stattfindet",
-      "fr": "Le contexte d'inflation et de change dans lequel se tient chaque négociation de répercussion des coûts",
-      "it": "Il contesto di inflazione e cambio in cui si svolge ogni trattativa sul trasferimento dei costi",
-      "es": "El contexto de inflación y divisas en el que se produce cada negociación de traslado de costes",
-      "pl": "Otoczenie inflacyjne i walutowe, w którym toczy się każda negocjacja o przeniesienie kosztów",
-      "nl": "De inflatie- en valutacontext waarin elke onderhandeling over kostendoorbelasting plaatsvindt",
-      "pt": "O contexto de inflação e câmbio em que decorre cada negociação de repercussão de custos",
-      "ro": "Contextul de inflație și curs valutar în care are loc fiecare negociere privind transferul costurilor"
     },
     "ind.actionsTitle": {
       "en": "What this means for procurement",
@@ -1458,7 +1425,8 @@
       "nl": "Los van de grondstofnoteringen hierboven: de energie, vracht, arbeid en verpakkingsgrondstoffen die de leverprijs op eigen kracht bewegen.",
       "pt": "Separada das cotações de matérias-primas acima: a energia, o frete, a mão de obra e os insumos de embalagem que movem o preço entregue por si sós.",
       "ro": "Separat de cotațiile materiilor prime de mai sus: energia, transportul, forța de muncă și materialele de ambalare care mișcă singure prețul livrat."
-    }
+    },
+    "common.page": { "en": "p. {n}", "de": "S. {n}", "fr": "p. {n}", "it": "p. {n}", "es": "pág. {n}", "pl": "s. {n}", "nl": "blz. {n}", "pt": "p. {n}", "ro": "p. {n}" }
   },
 
   "categories": {
@@ -2009,136 +1977,6 @@
       "nl": "verhoging",
       "pt": "aumento",
       "ro": "majorare"
-    },
-    "Euro area HICP, all items": {
-      "de": "Euroraum HVPI, Gesamtindex",
-      "fr": "Zone euro IPCH, ensemble",
-      "it": "Area euro IPCA, indice generale",
-      "es": "Zona euro IPCA, índice general",
-      "pl": "Strefa euro HICP, ogółem",
-      "nl": "Eurozone HICP, totaal",
-      "pt": "Área do euro IHPC, índice global",
-      "ro": "Zona euro IAPC, total"
-    },
-    "Euro area energy inflation": {
-      "de": "Euroraum Energieinflation",
-      "fr": "Zone euro, inflation énergétique",
-      "it": "Area euro, inflazione energetica",
-      "es": "Zona euro, inflación energética",
-      "pl": "Strefa euro, inflacja energii",
-      "nl": "Eurozone, energie-inflatie",
-      "pt": "Área do euro, inflação energética",
-      "ro": "Zona euro, inflația energiei"
-    },
-    "US CPI, all items": {
-      "de": "USA VPI, Gesamtindex",
-      "fr": "États-Unis IPC, ensemble",
-      "it": "USA CPI, indice generale",
-      "es": "EE. UU. IPC, índice general",
-      "pl": "USA CPI, ogółem",
-      "nl": "VS CPI, totaal",
-      "pt": "EUA IPC, índice global",
-      "ro": "SUA IPC, total"
-    },
-    "US energy commodities": {
-      "de": "USA Energierohstoffe",
-      "fr": "États-Unis, produits énergétiques",
-      "it": "USA, materie prime energetiche",
-      "es": "EE. UU., materias primas energéticas",
-      "pl": "USA, surowce energetyczne",
-      "nl": "VS, energiegrondstoffen",
-      "pt": "EUA, matérias-primas energéticas",
-      "ro": "SUA, materii prime energetice"
-    },
-    "Expana US dollar index": {
-      "de": "Expana US-Dollar-Index",
-      "fr": "Indice du dollar américain Expana",
-      "it": "Indice del dollaro USA Expana",
-      "es": "Índice del dólar estadounidense Expana",
-      "pl": "Indeks dolara amerykańskiego Expana",
-      "nl": "Expana-index Amerikaanse dollar",
-      "pt": "Índice do dólar norte-americano Expana",
-      "ro": "Indicele dolarului american Expana"
-    },
-    "Policy rates": {
-      "de": "Leitzinsen",
-      "fr": "Taux directeurs",
-      "it": "Tassi di riferimento",
-      "es": "Tipos de interés oficiales",
-      "pl": "Stopy procentowe",
-      "nl": "Beleidsrentes",
-      "pt": "Taxas diretoras",
-      "ro": "Ratele de politică monetară"
-    },
-    "On hold": {
-      "de": "Unverändert",
-      "fr": "Inchangés",
-      "it": "Invariati",
-      "es": "Sin cambios",
-      "pl": "Bez zmian",
-      "nl": "Ongewijzigd",
-      "pt": "Inalteradas",
-      "ro": "Neschimbate"
-    },
-    "June 2026 · from +3.2% in May": {
-      "de": "Juni 2026 · nach +3,2 % im Mai",
-      "fr": "Juin 2026 · après +3,2 % en mai",
-      "it": "Giugno 2026 · da +3,2% di maggio",
-      "es": "Junio de 2026 · desde +3,2 % en mayo",
-      "pl": "Czerwiec 2026 · z +3,2% w maju",
-      "nl": "Juni 2026 · na +3,2% in mei",
-      "pt": "Junho de 2026 · face a +3,2% em maio",
-      "ro": "Iunie 2026 · de la +3,2% în mai"
-    },
-    "June 2026 · decelerating 1.8pp MoM": {
-      "de": "Juni 2026 · Verlangsamung um 1,8 PP zum Vormonat",
-      "fr": "Juin 2026 · décélération de 1,8 pt de % sur un mois",
-      "it": "Giugno 2026 · in rallentamento di 1,8 p.p. su base mensile",
-      "es": "Junio de 2026 · desacelerando 1,8 p.p. mensual",
-      "pl": "Czerwiec 2026 · spowolnienie o 1,8 pp m/m",
-      "nl": "Juni 2026 · vertraging van 1,8 pp op maandbasis",
-      "pt": "Junho de 2026 · desaceleração de 1,8 p.p. em cadeia",
-      "ro": "Iunie 2026 · încetinire de 1,8 p.p. față de luna anterioară"
-    },
-    "June 2026 · from +4.2% in May": {
-      "de": "Juni 2026 · nach +4,2 % im Mai",
-      "fr": "Juin 2026 · après +4,2 % en mai",
-      "it": "Giugno 2026 · da +4,2% di maggio",
-      "es": "Junio de 2026 · desde +4,2 % en mayo",
-      "pl": "Czerwiec 2026 · z +4,2% w maju",
-      "nl": "Juni 2026 · na +4,2% in mei",
-      "pt": "Junho de 2026 · face a +4,2% em maio",
-      "ro": "Iunie 2026 · de la +4,2% în mai"
-    },
-    "June 2026 · petrol +26.7% YoY": {
-      "de": "Juni 2026 · Benzin +26,7 % im Jahresvergleich",
-      "fr": "Juin 2026 · essence +26,7 % sur un an",
-      "it": "Giugno 2026 · benzina +26,7% su base annua",
-      "es": "Junio de 2026 · gasolina +26,7 % interanual",
-      "pl": "Czerwiec 2026 · benzyna +26,7% r/r",
-      "nl": "Juni 2026 · benzine +26,7% op jaarbasis",
-      "pt": "Junho de 2026 · gasolina +26,7% homólogo",
-      "ro": "Iunie 2026 · benzină +26,7% anual"
-    },
-    "29 July 2026 · +0.4% MoM on safe-haven demand": {
-      "de": "29. Juli 2026 · +0,4 % zum Vormonat durch Nachfrage nach sicheren Häfen",
-      "fr": "29 juillet 2026 · +0,4 % sur un mois, portée par la demande de valeurs refuges",
-      "it": "29 luglio 2026 · +0,4% su base mensile per la domanda di beni rifugio",
-      "es": "29 de julio de 2026 · +0,4 % mensual por la demanda de refugio",
-      "pl": "29 lipca 2026 · +0,4% m/m dzięki popytowi na bezpieczne aktywa",
-      "nl": "29 juli 2026 · +0,4% op maandbasis door vraag naar veilige havens",
-      "pt": "29 de julho de 2026 · +0,4% em cadeia com a procura de refúgio",
-      "ro": "29 iulie 2026 · +0,4% lunar, pe fondul cererii de active-refugiu"
-    },
-    "Fed held on 26 July; sources price possible H2 2026 hikes": {
-      "de": "Fed am 26. Juli unverändert; Quellen preisen mögliche Erhöhungen im 2. Halbjahr 2026 ein",
-      "fr": "La Fed a maintenu ses taux le 26 juillet ; les sources anticipent de possibles hausses au 2e semestre 2026",
-      "it": "La Fed ha lasciato i tassi invariati il 26 luglio; le fonti scontano possibili rialzi nel 2° semestre 2026",
-      "es": "La Fed mantuvo los tipos el 26 de julio; las fuentes descuentan posibles subidas en el 2.º semestre de 2026",
-      "pl": "Fed utrzymał stopy 26 lipca; źródła wyceniają możliwe podwyżki w II poł. 2026",
-      "nl": "De Fed hield de rente op 26 juli ongewijzigd; bronnen rekenen op mogelijke verhogingen in H2 2026",
-      "pt": "A Fed manteve as taxas a 26 de julho; as fontes preveem possíveis subidas no 2.º semestre de 2026",
-      "ro": "Fed a menținut dobânzile pe 26 iulie; sursele anticipează posibile majorări în S2 2026"
     },
     "Not seasonally adjusted — the quarterly fall is the usual Q4-to-Q1 bonus effect, not an easing of wage costs.": {
       "de": "Nicht saisonbereinigt — der Quartalsrückgang ist der übliche Bonuseffekt von Q4 auf Q1 und kein Nachlassen der Arbeitskosten.",

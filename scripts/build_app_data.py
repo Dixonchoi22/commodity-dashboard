@@ -302,6 +302,8 @@ def build_indirect(ind: dict | None) -> dict | None:
                 "asOf": d.get("asOf", ""),
                 "source": d.get("source", ""),
                 "note": d.get("note", ""),
+                # which report and page the figure was read from
+                "ref": d.get("ref"),
             } for d in drivers],
         })
 
@@ -337,7 +339,6 @@ def build_indirect(ind: dict | None) -> dict | None:
         "kpis": kpis,
         "summary": summary,
         "pillars": pillars,
-        "macro": ind.get("macro", []),
         "actions": ind.get("actions", []),
     }
 
