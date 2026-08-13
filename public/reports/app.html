@@ -238,6 +238,12 @@ function divColor(v){
   if(typeof v!=='number'||Math.abs(v)<0.05) return {c:'#94A3B8',bg:'rgba(148,163,184,.12)'};
   return v>0 ? {c:'#F87171',bg:'rgba(248,113,113,.15)'} : {c:'#4ADE80',bg:'rgba(74,222,128,.15)'};
 }
+// Same shape as pillHTML but off the diverging scale, for figures whose sign
+// carries no risk/opportunity meaning.
+function neutralPillHTML(v){
+  if(typeof v!=='number') return '<span class="pill" style="color:#64748B;background:#0F172A">—</span>';
+  return '<span class="pill" style="color:#94A3B8;background:rgba(148,163,184,.12)">'+arrow(v)+' '+esc(pct(v))+'</span>';
+}
 function pillHTML(v){
   if(typeof v!=='number') return '<span class="pill" style="color:#64748B;background:#0F172A">—</span>';
   var d=divColor(v);
@@ -649,7 +655,13 @@ function indDriverTable(p){
       +'<td style="white-space:normal"><span style="font-weight:600">'+esc(tPhrase(d.name))+'</span>'+code+note+'</td>'
       +'<td style="color:var(--muted);font-size:12px">'+esc(tPhrase(d.region))+'</td>'
       +(hasPrice?'<td class="num" style="color:var(--muted);font-size:12px">'+esc(d.price||'—')+'</td>':'')
-      +'<td style="text-align:center">'+pillHTML(d.mom)+basis+'</td>'
+      // A not-seasonally-adjusted QoQ move is a calendar artefact, not a cost
+      // signal — the Q4-to-Q1 bonus drop-off reads as -9.6% while the series is
+      // up 3.3% on the year. Rendering it in the diverging palette would colour
+      // it green, i.e. "getting cheaper", which is the opposite of the truth,
+      // so quarterly rows get a neutral pill instead.
+      +'<td style="text-align:center">'
+        +(d.basis==='qoq' ? neutralPillHTML(d.mom) : pillHTML(d.mom))+basis+'</td>'
       +'<td style="text-align:center">'+pillHTML(d.yoy)+'</td>'
       +'<td class="num" style="font-size:11.5px;color:var(--dim)">'+esc(locPeriod(d.asOf))+'</td>'
       +'<td style="font-size:11.5px;color:var(--dim);white-space:normal;max-width:215px">'+esc(d.source||'—')
