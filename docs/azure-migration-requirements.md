@@ -95,9 +95,11 @@ plan. The correct Azure-native host would be a **Container Apps Job** (see
 §6.5). Our preference is to leave the build in CI/CD, which costs nothing and
 needs no Azure resource.
 
-**What would change this:** if we later add a live data feed (e.g. a nightly
-Eurostat refresh that updates the dashboard between quarters), that would be
-one timer-triggered Function on a **Flex Consumption** plan.
+**What is planned.** We expect to add a live data feed — a scheduled pull from
+external commodity and index APIs to refresh the dashboard between quarters.
+That is one timer-triggered Function on a **Flex Consumption** plan, which bills
+close to zero when idle. Not requested now, but worth confirming Flex
+Consumption is available in the catalogue (§11.2).
 
 ---
 
@@ -140,13 +142,14 @@ standard.
 
 ## 4. SQL Database
 
-**Request: 0.**
+**Request: 0 today. Planned, but not to be provisioned yet.**
 
 | Question | Answer |
 | --- | --- |
-| Number of SQL Databases | **None required** |
+| Number of SQL Databases | **None required today** |
 | Estimated size | N/A |
 | Performance tier | N/A |
+| Planned | A small PostgreSQL database once we hold cross-quarter time series |
 
 The dashboard's content is 113 commodity rows per quarter plus commentary and
 translations — a few hundred KB of JSON per quarter, version-controlled in the
@@ -155,11 +158,25 @@ would otherwise provide, and the data is written once per quarter by one
 operator. There is no query workload, no concurrent write, and no relational
 integrity requirement.
 
-**What would change this:** if the roadmap adds cross-quarter time-series
-analysis, an API for other systems to query commodity prices, or user-entered
-data (saved views, annotations, alerts). At that point the right starting
-point would be **Azure SQL Database, Basic tier (5 DTU, 2 GB, ~€5/month)** —
-still the smallest SKU available. We do not need it provisioned now.
+**What is planned.** We do expect this project to gain two things: a **live
+data feed** — a scheduled pull from external commodity and index APIs, which
+belongs on a Flex Consumption Function App (§2) — and a **small database** for
+cross-quarter time series. Neither should be provisioned now. Flex Consumption
+bills close to zero when idle and can be added in minutes; an idle database
+bills every month.
+
+**The cheapest route when the database is needed** is a second database on the
+same **PostgreSQL Flexible Server** as EU Indirect Supplier Finder. One server
+hosts several databases at no additional server cost, so the dashboard's future
+database is effectively free if the programme standardises on Postgres. Stood up
+alone it would be roughly €13/month per environment on a `B1ms` burstable tier.
+
+**This is the practical reason to set PostgreSQL rather than Azure SQL as the
+programme database standard** — not just that the Supplier Finder's schema is
+Postgres via Prisma, but that one engine lets the two projects share a server.
+
+What we need from IT now is that **PostgreSQL Flexible Server is approved**, not
+that anything is provisioned.
 
 ---
 
