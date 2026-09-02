@@ -43,7 +43,7 @@ that would sit idle. The requirements below are deliberately minimal, with the
 trigger conditions stated for each thing we are *not* asking for.
 
 **One structural note.** PMO EU Procurement is the **first individual project
-under the PMO programme**, not a standalone system — further projects will
+under the PMO EU Procurement programme**, not a standalone system — further projects will
 follow in the same subscription. Section 7 covers what that means for resource
 group layout, naming and shared components, and section 8 sets out what we are
 asking for now versus what we will request against a stated trigger later.
@@ -210,7 +210,7 @@ opens, which informs what we build next quarter. Expected telemetry volume is
 well inside the **5 GB/month free grant**; effective cost ≈ €0.
 
 The Application Insights *instance* should be per project, but it should write
-into a **Log Analytics workspace shared across the PMO programme** rather than
+into a **Log Analytics workspace shared across the PMO EU Procurement programme** rather than
 one we own — see §7.3. If no such workspace exists yet, this project is a
 sensible place to create it, in a shared resource group rather than ours.
 
@@ -278,15 +278,15 @@ web applications.** If yes, we will need:
 ## 7. Programme structure, naming and shared resources
 
 PMO EU Procurement is the first of several individual projects that will sit
-under the **PMO programme**. Three things follow from that, and two of them
+under the **PMO EU Procurement** programme. Three things follow from that, and two of them
 cannot be changed after provisioning without recreating resources.
 
 ### 7.1 One Resource Group per project per environment — not one for the programme
 
 | Resource Group | Contents |
 | --- | --- |
-| `rg-pmo-euproc-dev-weu` | Everything for this project, DEV |
-| `rg-pmo-euproc-prod-weu` | Everything for this project, PROD |
+| `rg-pmoeu-dash-dev-weu` | Everything for this project, DEV |
+| `rg-pmoeu-dash-prod-weu` | Everything for this project, PROD |
 
 **Please do not place all PMO projects in one shared Resource Group.** The
 Resource Group is the unit of four separate things, and sharing it couples all
@@ -323,18 +323,23 @@ Spelling the project name out does not fit inside the storage account limit:
 stpmoeuprocurementprodweu   = 25 characters  ->  rejected by Azure
 ```
 
-So the programme needs an agreed **short project code**, fixed before creation,
-because renaming a storage account is not an operation — it means creating a
-new account and copying the data. We propose **`euproc`** (6 characters).
-Applying the Microsoft Cloud Adoption Framework abbreviations:
+So the programme needs an agreed **programme code** plus a **short project code
+per project**, both fixed before creation, because renaming a storage account is
+not an operation — it means creating a new account and copying the data. We
+propose **`pmoeu`** for the programme and **`dash`** for this project
+(**`sfind`** for EU Indirect Supplier Finder). Applying the Microsoft Cloud
+Adoption Framework abbreviations:
 
 | Resource | DEV | PROD | Length |
 | --- | --- | --- | --- |
-| Resource group | `rg-pmo-euproc-dev-weu` | `rg-pmo-euproc-prod-weu` | 22 |
-| Static Web App | `stapp-pmo-euproc-dev-weu` | `stapp-pmo-euproc-prod-weu` | 25 |
-| Storage account | `stpmoeuprocdevweu` | `stpmoeuprocprodweu` | **18** |
-| Key Vault | `kv-pmo-euproc-dev` | `kv-pmo-euproc-prod` | **18** |
-| Application Insights | `appi-pmo-euproc-dev-weu` | `appi-pmo-euproc-prod-weu` | 24 |
+| Resource group | `rg-pmoeu-dash-dev-weu` | `rg-pmoeu-dash-prod-weu` | 22 |
+| Static Web App | `stapp-pmoeu-dash-dev-weu` | `stapp-pmoeu-dash-prod-weu` | 25 |
+| Storage account | `stpmoeudashdevweu` | `stpmoeudashprodweu` | **18** |
+| Key Vault | `kv-pmoeu-dash-dev` | `kv-pmoeu-dash-prod` | **18** |
+| Application Insights | `appi-pmoeu-dash-dev-weu` | `appi-pmoeu-dash-prod-weu` | 24 |
+
+The same slots for the second project give `rg-pmoeu-sfind-prod-weu` (23) and
+`stpmoeusfindprodweu` (19) — both comfortably inside the limits.
 
 The pattern generalises: each future PMO project takes its own code of six
 characters or fewer in the same slot, leaving room for the environment and
@@ -348,12 +353,12 @@ a short code per project is part of it, for the reason above.
 
 | Component | Scope | Reasoning |
 | --- | --- | --- |
-| **Log Analytics workspace** | **Shared** — one per environment for all of PMO | Cross-project querying, one retention policy, one cost line. Centralising is Microsoft's own guidance. |
+| **Log Analytics workspace** | **Shared** — one per environment for all of PMO EU Procurement | Cross-project querying, one retention policy, one cost line. Centralising is Microsoft's own guidance. |
 | Application Insights | Per project | Keeps each project's telemetry separately queryable while writing into the shared workspace. |
 | Key Vault | Per project | Blast radius and RBAC isolation. It is nearly free, so sharing saves nothing and costs separation. |
 | Storage Account | Per project per environment | As §5. |
 | Entra ID app registration | Per project | Each application authenticates as itself. |
-| **Security groups** | **Nested** — a programme-wide `PMO-Readers` group held as a member of each project's group | Lets a person be granted every PMO dashboard at once, or exactly one. |
+| **Security groups** | **Nested** — a programme-wide `PMO-EU-Procurement-Readers` group held as a member of each project's group | Lets a person be granted every PMO dashboard at once, or exactly one. |
 | **VNet and private DNS zones** | **Shared** — only if private endpoints are ever mandated | One programme VNet with a subnet per project. Do not build a VNet per project. |
 | Custom domain | Shared parent, subdomain per project | See §7.4. |
 
@@ -363,8 +368,8 @@ With several PMO dashboards likely, allocate a parent and give each project a
 subdomain, rather than issuing unrelated hostnames per project:
 
 ```
-pmo.<company>.com                    <- programme landing page (later, optional)
-eu-procurement.pmo.<company>.com     <- this project
+procurement.<company>.com                    <- programme landing page (later, optional)
+eu-procurement.procurement.<company>.com     <- this project
 ```
 
 Static Web Apps binds one hostname per app, so a subdomain per project is the
@@ -378,9 +383,9 @@ cost attribution. Applied consistently to every resource:
 
 | Tag | Value for this project |
 | --- | --- |
-| `programme` | `PMO` |
-| `project` | `PMO EU Procurement` |
-| `project-code` | `euproc` |
+| `programme` | `PMO EU Procurement` |
+| `project` | `Commodity Dashboard` |
+| `project-code` | `dash` |
 | `environment` | `dev` / `prod` |
 | `owner` | *(project owner / distribution list)* |
 | `cost-centre` | *(supplied by IT)* |
@@ -388,15 +393,15 @@ cost attribution. Applied consistently to every resource:
 
 ### 7.6 Azure DevOps — one programme project, one repository per sub-project
 
-If the "PMO" project already created is an **Azure DevOps project**, keep it as
+If the "PMO EU Procurement" project already created is an **Azure DevOps project**, keep it as
 the programme container and give each individual project its own **Git
 repository inside it**:
 
 ```
-PMO  (Azure DevOps project = the programme)
+PMO EU Procurement  (Azure DevOps project = the programme)
 ├── Repos
-│   ├── eu-procurement-dashboard      <- this project
-│   ├── vendorpath                    <- the procurement ERP
+│   ├── commodity-dashboard           <- this project
+│   ├── vendorpath                    <- EU Indirect Supplier Finder
 │   └── <next project>
 ├── Pipelines   one per repository, deploying only to that project's RG
 └── Boards      one backlog, an area path per project
@@ -419,12 +424,12 @@ permissions** on it rather than relying on the project default — Azure DevOps
 supports this, but it has to be configured deliberately. If that is awkward under
 your governance model, VendorPath is the one repository worth keeping separate.
 
-**A naming point worth being explicit about.** "PMO" is the *programme* and "PMO
-EU Procurement" is one *project* within it. The two do not have to map one-to-one
+**A naming point worth being explicit about.** "PMO EU Procurement" is the *programme*;
+Commodity Dashboard and EU Indirect Supplier Finder are *projects* within it. The two do not have to map one-to-one
 across systems: one Azure DevOps project named `PMO` holding several
 repositories, and a separate Azure Resource Group **per project per
-environment**. Please avoid creating a single Resource Group named for
-"PMO EU Procurement" and then using it as the container for the whole programme —
+environment**. Please avoid creating a single Resource Group named
+for the programme and then using it as the container for every project inside it —
 the name would be wrong for every subsequent project, and Resource Groups cannot
 be renamed.
 
@@ -525,7 +530,7 @@ are what make a fast "yes" possible later.
 
 ### 8.4 The one thing genuinely worth having from day one
 
-If a shared Log Analytics workspace does not yet exist for PMO, **create it with
+If a shared Log Analytics workspace does not yet exist for the programme, **create it with
 this project**. It is the one component that is materially better to have early:
 telemetry not collected in month one cannot be backfilled in month six, every
 later project attaches to it at no additional cost, and it is the foundation for
@@ -606,14 +611,14 @@ sizing above:
 8. **Naming convention & tagging** — please share the standard so we can
    pre-populate resource names, cost-centre and owner tags (§7.2, §7.5).
 9. **Resource Group strategy** — one Resource Group per project per environment,
-   or one shared across the PMO programme? We need the former, and this is
+   or one shared across the PMO EU Procurement programme? We need the former, and this is
    difficult to change afterwards (§7.1).
 10. **Project short code** — is `euproc` acceptable, and is `pmo` the programme
     code? This must be fixed before any storage account is created (§7.2).
 11. **Team RBAC** — can the project team hold Contributor on its own Resource
     Groups, within an agreed budget? This determines whether future resources
     take minutes or a ticket (§8.1).
-12. **Shared Log Analytics workspace** — does one already exist for PMO, or
+12. **Shared Log Analytics workspace** — does one already exist for the programme, or
     should this project create it? (§7.3, §8.4)
 13. **Service catalogue** — which Azure services are pre-approved for this
     subscription, and what is the lead time to add one that is not? (§8.1)

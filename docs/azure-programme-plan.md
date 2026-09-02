@@ -1,7 +1,7 @@
 # PMO Programme — Azure Landing Zone Plan
 
-**Programme:** PMO
-**Known projects:** PMO EU Procurement (commodity dashboard) · VendorPath (procurement ERP)
+**Programme:** PMO EU Procurement
+**Known projects:** Commodity Dashboard · EU Indirect Supplier Finder (repo: `vendorpath`)
 **Date:** September 2026
 **Status:** Draft — read alongside `azure-migration-requirements.md`
 
@@ -9,11 +9,11 @@
 
 ## Why this document exists
 
-Business IT asked us to size **PMO EU Procurement** and offered to create a
-Resource Group for it. Answering only that question would produce a landing zone
+Business IT asked us to size the programme's first project and offered to create
+a Resource Group for it. Answering only that question would produce a landing zone
 sized for a 1.5 MB static website.
 
-The programme's second project, **VendorPath**, is a supplier onboarding and
+The programme's second project, **EU Indirect Supplier Finder** (repo `vendorpath`), is a supplier onboarding and
 procurement ERP: server-rendered Next.js, a fourteen-model PostgreSQL schema,
 supplier PII and bank details, an **externally facing supplier portal**, and
 integrations into Entra ID, SAP, D365 and n8n. It does not fit the same shape.
@@ -31,7 +31,7 @@ So this document puts both projects in front of IT at the same time.
 
 ## 1. The two known projects, side by side
 
-| | PMO EU Procurement | VendorPath |
+| | Commodity Dashboard | EU Indirect Supplier Finder |
 | --- | --- | --- |
 | **Type** | Quarterly commodity intelligence dashboard | Supplier onboarding + procurement ERP |
 | **Stack** | Pre-built static HTML; offline Python build | Next.js 14 App Router (SSR), Prisma, PostgreSQL |
@@ -145,7 +145,7 @@ attached (see §6).
 | | DEV | PROD |
 | --- | --- | --- |
 | VendorPath | ~€40–70 | ~€180–250 |
-| PMO EU Procurement | ~€1 | ~€10 |
+| Commodity Dashboard | ~€1 | ~€10 |
 | **Programme** | **~€45–70** | **~€190–260** |
 
 Roughly **€250–330/month for the programme**, against €11/month if only the
@@ -390,7 +390,7 @@ security matters. Recorded here so they are not lost.
 | --- | --- | --- |
 | **Now** | Declare both projects to IT. Settle subscription, RG layout, naming, RBAC, budget, tagging | — |
 | **Now** | Raise the five §5 decisions — they run in parallel and cost nothing to start | — |
-| **Next** | Migrate PMO EU Procurement. Small, low risk, proves the landing zone and the CI/CD pattern end to end | RG + RBAC |
+| **Next** | Migrate the Commodity Dashboard. Small, low risk, proves the landing zone and the CI/CD pattern end to end | RG + RBAC |
 | **Then** | Fix VendorPath's database connection and rotate its secrets, still on Vercel | Nothing |
 | **Then** | Replace `db push` with versioned migrations | Nothing |
 | **Then** | Stand up VendorPath DEV in Azure — Container Apps, PostgreSQL, Key Vault | §5.3 approval |
