@@ -42,6 +42,14 @@ Database for it would create cost and patching obligations against resources
 that would sit idle. The requirements below are deliberately minimal, with the
 trigger conditions stated for each thing we are *not* asking for.
 
+**One structural note.** PMO EU Procurement is the **first individual project
+under the PMO programme**, not a standalone system — further projects will
+follow in the same subscription. Section 7 covers what that means for resource
+group layout, naming and shared components, and section 8 sets out what we are
+asking for now versus what we will request against a stated trigger later.
+Several items in section 7 are effectively irreversible once resources are
+created, so they are worth settling before provisioning begins.
+
 ---
 
 ## 1. Environments
@@ -84,7 +92,7 @@ solution. The build is an operator-run batch job, not a function.
 would be the wrong target — the extraction step shells out to **`pdftotext`
 (Poppler)**, a native Linux binary that cannot be installed on a Consumption
 plan. The correct Azure-native host would be a **Container Apps Job** (see
-§5.5). Our preference is to leave the build in CI/CD, which costs nothing and
+§6.5). Our preference is to leave the build in CI/CD, which costs nothing and
 needs no Azure resource.
 
 **What would change this:** if we later add a live data feed (e.g. a nightly
@@ -193,13 +201,18 @@ specifically a Mintec/Expana data-vendor API key if we automate source
 ingestion, and the deployment service principal. Cost is negligible
 (~€0.03 per 10,000 operations).
 
-### 6.2 Application Insights + Log Analytics workspace — **1 per environment.**
+### 6.2 Application Insights — **1 per environment**, on a shared workspace.
 
 We currently have **no visibility into whether the dashboard is being used** —
 GitHub Pages provides no analytics. This is genuinely valuable: it tells us
 which commodity categories and which language versions the business actually
 opens, which informs what we build next quarter. Expected telemetry volume is
 well inside the **5 GB/month free grant**; effective cost ≈ €0.
+
+The Application Insights *instance* should be per project, but it should write
+into a **Log Analytics workspace shared across the PMO programme** rather than
+one we own — see §7.3. If no such workspace exists yet, this project is a
+sensible place to create it, in a shared resource group rather than ours.
 
 ### 6.3 Microsoft Entra ID app registration — **1 per environment.**
 
@@ -262,7 +275,246 @@ web applications.** If yes, we will need:
 
 ---
 
-## 7. Region and data residency
+## 7. Programme structure, naming and shared resources
+
+PMO EU Procurement is the first of several individual projects that will sit
+under the **PMO programme**. Three things follow from that, and two of them
+cannot be changed after provisioning without recreating resources.
+
+### 7.1 One Resource Group per project per environment — not one for the programme
+
+| Resource Group | Contents |
+| --- | --- |
+| `rg-pmo-euproc-dev-weu` | Everything for this project, DEV |
+| `rg-pmo-euproc-prod-weu` | Everything for this project, PROD |
+
+**Please do not place all PMO projects in one shared Resource Group.** The
+Resource Group is the unit of four separate things, and sharing it couples all
+of them across unrelated projects:
+
+- **Lifecycle** — tearing down or rebuilding this project must not put a
+  sibling project's resources at risk.
+- **RBAC** — access is granted at Resource Group scope. A shared group means
+  every project team can see and modify every other project's resources.
+- **Deployment scope** — each CI/CD service principal should hold rights over
+  exactly one Resource Group.
+- **Cost** — Resource Group is a native dimension in Cost Analysis. A shared
+  group forces cost attribution to depend entirely on tags being correct.
+
+**Subscription:** one shared PMO subscription containing a Resource Group per
+project per environment is the normal pattern at this size. If your standard is
+separate DEV and PROD subscriptions, that works equally well and the naming
+below is unchanged.
+
+### 7.2 Fix the project short code before anything is created
+
+Azure name limits differ by resource type, and one of them is binding:
+
+| Resource | Length | Characters permitted | Scope of uniqueness |
+| --- | --- | --- | --- |
+| **Storage account** | **3–24** | **lowercase letters and digits only — no hyphens** | **Global** |
+| Key Vault | 3–24 | alphanumeric and hyphen | Global |
+| Static Web App | 40 | alphanumeric and hyphen | Resource group |
+| Resource Group | 90 | broad | Subscription |
+
+Spelling the project name out does not fit inside the storage account limit:
+
+```
+stpmoeuprocurementprodweu   = 25 characters  ->  rejected by Azure
+```
+
+So the programme needs an agreed **short project code**, fixed before creation,
+because renaming a storage account is not an operation — it means creating a
+new account and copying the data. We propose **`euproc`** (6 characters).
+Applying the Microsoft Cloud Adoption Framework abbreviations:
+
+| Resource | DEV | PROD | Length |
+| --- | --- | --- | --- |
+| Resource group | `rg-pmo-euproc-dev-weu` | `rg-pmo-euproc-prod-weu` | 22 |
+| Static Web App | `stapp-pmo-euproc-dev-weu` | `stapp-pmo-euproc-prod-weu` | 25 |
+| Storage account | `stpmoeuprocdevweu` | `stpmoeuprocprodweu` | **18** |
+| Key Vault | `kv-pmo-euproc-dev` | `kv-pmo-euproc-prod` | **18** |
+| Application Insights | `appi-pmo-euproc-dev-weu` | `appi-pmo-euproc-prod-weu` | 24 |
+
+The pattern generalises: each future PMO project takes its own code of six
+characters or fewer in the same slot, leaving room for the environment and
+region suffixes. Storage account and Key Vault names are globally unique across
+all of Azure, so availability should be confirmed at creation time.
+
+**If you already have a naming standard, we will use yours** — we only ask that
+a short code per project is part of it, for the reason above.
+
+### 7.3 What should be shared across the programme, and what should not
+
+| Component | Scope | Reasoning |
+| --- | --- | --- |
+| **Log Analytics workspace** | **Shared** — one per environment for all of PMO | Cross-project querying, one retention policy, one cost line. Centralising is Microsoft's own guidance. |
+| Application Insights | Per project | Keeps each project's telemetry separately queryable while writing into the shared workspace. |
+| Key Vault | Per project | Blast radius and RBAC isolation. It is nearly free, so sharing saves nothing and costs separation. |
+| Storage Account | Per project per environment | As §5. |
+| Entra ID app registration | Per project | Each application authenticates as itself. |
+| **Security groups** | **Nested** — a programme-wide `PMO-Readers` group held as a member of each project's group | Lets a person be granted every PMO dashboard at once, or exactly one. |
+| **VNet and private DNS zones** | **Shared** — only if private endpoints are ever mandated | One programme VNet with a subnet per project. Do not build a VNet per project. |
+| Custom domain | Shared parent, subdomain per project | See §7.4. |
+
+### 7.4 Reserve the parent domain now
+
+With several PMO dashboards likely, allocate a parent and give each project a
+subdomain, rather than issuing unrelated hostnames per project:
+
+```
+pmo.<company>.com                    <- programme landing page (later, optional)
+eu-procurement.pmo.<company>.com     <- this project
+```
+
+Static Web Apps binds one hostname per app, so a subdomain per project is the
+natural fit, and a shared index listing every PMO dashboard becomes trivial to
+add later. Hostnames are hard to change once people have bookmarked them.
+
+### 7.5 Tagging — this is how the programme bill gets split
+
+With one subscription carrying several projects, tags are the mechanism for
+cost attribution. Applied consistently to every resource:
+
+| Tag | Value for this project |
+| --- | --- |
+| `programme` | `PMO` |
+| `project` | `PMO EU Procurement` |
+| `project-code` | `euproc` |
+| `environment` | `dev` / `prod` |
+| `owner` | *(project owner / distribution list)* |
+| `cost-centre` | *(supplied by IT)* |
+| `data-classification` | `Internal — commercially licensed` |
+
+### 7.6 Azure DevOps — one programme project, one repository per sub-project
+
+If the "PMO" project already created is an **Azure DevOps project**, keep it as
+the programme container and give each individual project its own **Git
+repository inside it**:
+
+```
+PMO  (Azure DevOps project)
+├── Repos
+│   ├── eu-procurement-dashboard      <- this project
+│   └── <next project>
+├── Pipelines   one per repository, deploying only to that project's RG
+└── Boards      one backlog, an area path per project
+```
+
+Microsoft's guidance favours fewer, larger Azure DevOps projects. Creating one
+ADO project per sub-project fragments boards, permissions, service connections
+and pipeline templates, and the fragmentation cannot easily be undone later.
+
+**Service connections:** one per project per environment, each scoped to that
+project's Resource Group alone — not a single programme-wide principal holding
+subscription-level rights.
+
+This sharpens §11.4: if the repository is expected to live in the PMO Azure
+DevOps project, we will migrate it from GitHub during phase 3.
+
+---
+
+## 8. Forward roadmap — what to secure now, what to provision later
+
+This project is the first under the programme, not the last, and later projects
+will not all be static dashboards. **VendorPath** — a supplier onboarding and
+procurement ERP built on Next.js with a PostgreSQL database, an externally
+facing supplier portal and integrations into Entra ID, SAP and D365 — is already
+in development as the programme's second project. It is a materially larger
+workload than this one, and the landing-zone decisions in §7 need to accommodate
+it rather than be sized to a static dashboard.
+
+**A separate programme-level plan covering both projects is provided alongside
+this response** (`docs/azure-programme-plan.md`). This section states only the
+principle and the triggers that apply to this project.
+
+**Our position: ask for headroom now, hardware later.**
+
+The two have opposite cost profiles, which is what makes the split obvious:
+
+| | Cost to hold unused | Cost to add later |
+| --- | --- | --- |
+| **Structure and permission** — naming, RG layout, RBAC, budget envelope, service-catalogue approval, Entra groups, DNS parent | **Zero** | **High** — retrofitting a naming scheme or splitting a shared Resource Group means recreating resources and re-pointing every pipeline |
+| **Provisioned resources** — App Service Plans, SQL Databases, API Management, Premium Functions | **Real monthly spend**, plus patching, vulnerability-scanning, access-review and audit obligations on something nobody uses | **Low** — minutes, provided the structure and permissions above already exist |
+
+So we request the first row generously and the second row against a trigger.
+
+### 8.1 Requested now — free to hold, expensive to retrofit
+
+1. **Contributor RBAC for the project team on our own Resource Groups.** This is
+   the single highest-value item in this document after SSO. With it, adding a
+   Function App or a database to our own Resource Group when a project genuinely
+   needs one takes minutes. Without it, every individual resource becomes a
+   ticket with a lead time, which is what actually slows programmes down.
+2. **A programme budget with alert thresholds** — for example an Azure Budget on
+   the subscription with notifications at 50/80/100%. Given an agreed ceiling we
+   can add small resources beneath it without a fresh approval round each time,
+   and IT keeps a hard signal if anything runs away.
+3. **Clarity on the service catalogue** — which Azure services are pre-approved
+   for this subscription, and what the request process and lead time look like
+   for one that is not. Knowing this now is worth more than provisioning
+   anything, because it tells us what to design around.
+4. **The naming convention and reserved project codes** (§7.2).
+5. **Resource Group and subscription layout** (§7.1).
+6. **The shared Log Analytics workspace** (§7.3, §8.4).
+7. **Nested Entra ID security groups** (§7.3).
+8. **The parent DNS domain** (§7.4).
+9. **The tagging schema** (§7.5).
+10. **Azure OpenAI access approval — if AI features are plausible within twelve
+    months.** This one is an exception to "provision later": the access request
+    and regional quota assignment are slow, involve a separate approval path,
+    and are entirely independent of provisioning anything. Securing the approval
+    early costs nothing and removes a long lead time from a future project.
+
+### 8.2 Provisioned later, against a trigger already written down
+
+| Service | Trigger | Documented in |
+| --- | --- | --- |
+| Function App (Flex Consumption) | A live or scheduled data refresh between quarters | §2 |
+| App Service | A future project with genuine server-side code | §3 |
+| Azure Database for PostgreSQL | Cross-quarter time series, a queryable API, or user-entered data. **Note:** the programme's database standard should be PostgreSQL Flexible Server rather than Azure SQL — VendorPath's schema is Postgres via Prisma, and one engine across the programme is cheaper to operate | §4 |
+| Container Apps Job | A build that must run inside Azure, or any containerised workload | §6.5 |
+| API Management | More than one consumer of a published API | §6.6 |
+| Service Bus | Asynchronous work passing between two services | §6.6 |
+| Azure OpenAI | Commentary drafting or natural-language Q&A over the reports | §6.6, §8.1 |
+| Private endpoints + VNet | Policy mandate, or a project handling restricted data | §6.7, §7.3 |
+
+Because sections 2 to 6 already state the condition for each of these, none of
+them will arrive as a surprise. That is deliberate — it is far easier to get a
+Function App approved in six months against a trigger IT has already read and
+accepted than to justify one that appears without warning.
+
+**One sizing note for the database case:** when a project does need a database,
+start on a **burstable tier** (PostgreSQL Flexible Server `B1ms` or `B2s`) rather
+than a provisioned general-purpose SKU. Burstable can be scaled up in place
+without a migration, which removes most of the argument for pre-provisioning
+capacity "just in case".
+
+### 8.3 Why we are deliberately not over-requesting
+
+Idle resources are not free, even on a cheap SKU:
+
+- App Service Plans bill 24/7 regardless of traffic.
+- Every provisioned resource enters the patching, vulnerability-scanning and
+  access-review cycle, which is IT's cost rather than ours.
+- Unused resources from a programme's first project make its *next* request
+  harder to defend.
+
+We would rather build a record of precise, justified requests. The trigger
+conditions stated throughout this document are the mechanism for that, and they
+are what make a fast "yes" possible later.
+
+### 8.4 The one thing genuinely worth having from day one
+
+If a shared Log Analytics workspace does not yet exist for PMO, **create it with
+this project**. It is the one component that is materially better to have early:
+telemetry not collected in month one cannot be backfilled in month six, every
+later project attaches to it at no additional cost, and it is the foundation for
+any programme-level view of how these tools are actually used.
+
+---
+
+## 9. Region and data residency
 
 **Requested region: West Europe (Netherlands)**, with Germany West Central as
 an acceptable alternative.
@@ -273,14 +525,14 @@ the same region.
 
 ---
 
-## 8. Summary — what we are asking for
+## 10. Summary — what we are asking for
 
 | # | Resource | DEV | PROD |
 | --- | --- | --- | --- |
 | 1 | Azure Static Web App | Free | **Standard** |
 | 2 | Storage Account (Standard LRS, Hot, Blob) | 1 | 1 |
 | 3 | Key Vault (Standard) | 1 | 1 |
-| 4 | Application Insights + Log Analytics | 1 | 1 |
+| 4 | Application Insights *(onto the shared PMO workspace, §7.3)* | 1 | 1 |
 | 5 | Entra ID app registration | 1 | 1 |
 | 6 | Custom domain + managed TLS | — | 1 |
 | — | Function Apps | 0 | 0 |
@@ -309,7 +561,7 @@ calculator.*
 
 ---
 
-## 9. Questions back to IT
+## 11. Questions back to IT
 
 These do not block the Resource Group creation, but the answers may adjust the
 sizing above:
@@ -324,25 +576,39 @@ sizing above:
    bundle those assets into the deployment instead — a small development task
    we would rather identify now than discover after go-live. **This is the one
    change that could break the application on a locked-down network.**
-4. **Source control** — does the repository stay on GitHub, or move to Azure
-   DevOps? This determines how the CI/CD deployment is wired.
+4. **Source control** — does the repository stay on GitHub, or move to a repo
+   inside the PMO Azure DevOps project? This determines how CI/CD is wired
+   (§7.6).
 5. **Private endpoints** — mandated by policy, or optional? (§6.7)
-6. **Custom domain** — what hostname should be reserved? (§6.4)
+6. **Custom domain** — can a parent domain be reserved for the programme, with
+   a subdomain per project? (§7.4)
 7. **Environment count** — is DEV + PROD acceptable, or does the landing-zone
    standard require four tiers? (§1)
 8. **Naming convention & tagging** — please share the standard so we can
-   pre-populate resource names, cost-centre and owner tags.
+   pre-populate resource names, cost-centre and owner tags (§7.2, §7.5).
+9. **Resource Group strategy** — one Resource Group per project per environment,
+   or one shared across the PMO programme? We need the former, and this is
+   difficult to change afterwards (§7.1).
+10. **Project short code** — is `euproc` acceptable, and is `pmo` the programme
+    code? This must be fixed before any storage account is created (§7.2).
+11. **Team RBAC** — can the project team hold Contributor on its own Resource
+    Groups, within an agreed budget? This determines whether future resources
+    take minutes or a ticket (§8.1).
+12. **Shared Log Analytics workspace** — does one already exist for PMO, or
+    should this project create it? (§7.3, §8.4)
+13. **Service catalogue** — which Azure services are pre-approved for this
+    subscription, and what is the lead time to add one that is not? (§8.1)
 
 ---
 
-## 10. Migration approach
+## 12. Migration approach
 
 | Phase | Work | Owner |
 | --- | --- | --- |
-| 1 | Resource Group + resources provisioned per §8 | IT |
+| 1 | Resource Group + resources provisioned per §10 | IT |
 | 2 | Entra ID app registration, security group, access model confirmed | IT |
 | 3 | CI/CD pipeline wired from repository to Static Web App | Project |
-| 4 | Vendor CDN assets locally if required by §9.3 | Project |
+| 4 | Vendor CDN assets locally if required by §11.3 | Project |
 | 5 | Deploy to DEV, validate all 9 languages and both quarters | Project |
 | 6 | Custom domain + TLS on PROD, SSO smoke test | IT + Project |
 | 7 | Cut over, retire the public GitHub Pages site | Project |
