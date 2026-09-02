@@ -393,9 +393,10 @@ the programme container and give each individual project its own **Git
 repository inside it**:
 
 ```
-PMO  (Azure DevOps project)
+PMO  (Azure DevOps project = the programme)
 ├── Repos
 │   ├── eu-procurement-dashboard      <- this project
+│   ├── vendorpath                    <- the procurement ERP
 │   └── <next project>
 ├── Pipelines   one per repository, deploying only to that project's RG
 └── Boards      one backlog, an area path per project
@@ -408,6 +409,24 @@ and pipeline templates, and the fragmentation cannot easily be undone later.
 **Service connections:** one per project per environment, each scoped to that
 project's Resource Group alone — not a single programme-wide principal holding
 subscription-level rights.
+
+**One caveat on consolidating repositories.** Azure DevOps grants read access at
+*project* level by default, so every member of the PMO project would be able to
+read every repository in it. That is fine for the dashboard, whose content is
+published anyway, but VendorPath contains supplier PII handling and its
+repository is deliberately private. Before moving it in, set **repository-level
+permissions** on it rather than relying on the project default — Azure DevOps
+supports this, but it has to be configured deliberately. If that is awkward under
+your governance model, VendorPath is the one repository worth keeping separate.
+
+**A naming point worth being explicit about.** "PMO" is the *programme* and "PMO
+EU Procurement" is one *project* within it. The two do not have to map one-to-one
+across systems: one Azure DevOps project named `PMO` holding several
+repositories, and a separate Azure Resource Group **per project per
+environment**. Please avoid creating a single Resource Group named for
+"PMO EU Procurement" and then using it as the container for the whole programme —
+the name would be wrong for every subsequent project, and Resource Groups cannot
+be renamed.
 
 This sharpens §11.4: if the repository is expected to live in the PMO Azure
 DevOps project, we will migrate it from GitHub during phase 3.
