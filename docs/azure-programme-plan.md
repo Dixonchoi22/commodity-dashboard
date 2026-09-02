@@ -47,7 +47,78 @@ The dashboard is the easy one. Everything that follows is driven by VendorPath.
 
 ---
 
-## 2. What VendorPath needs — indicative sizing
+## 2. The actual requirement: keep the ability to build
+
+Before the resource lists, the requirement that matters most to us.
+
+**We are not asking Azure to be cheaper or bigger. We are asking it not to be
+slower.** The current setup — deploy on git push, create a database in under a
+minute, call an external API by adding an environment variable — is why these
+two projects exist at all. A landing zone that turns each of those into a ticket
+does not just cost time; it stops the exploratory work that produced them.
+
+### 2.1 What we would be trading
+
+| Today | In a default corporate landing zone |
+| --- | --- |
+| `git push` → deployed in ~90 seconds | A release process, possibly change-controlled |
+| Create a database in under a minute | A ticket, a SKU approval, a lead time |
+| Call any external API by adding an env var | Egress via a firewall allowlist — a rule request per endpoint |
+| A preview environment per branch | One shared DEV environment |
+| Try something, delete it, no trace | Every resource enters patching, scanning and access review |
+
+**Not all of that is worth defending.** Some of the governance is genuinely
+needed here: VendorPath holds supplier bank details and PII on a personal Vercel
+and Neon account today, and the dashboard publishes internal procurement data to
+a public URL. Those are real problems that a governed tenant fixes, and we are
+not arguing against them.
+
+**But velocity in DEV is worth defending, and it is almost always free to
+grant.** The controls that matter belong in PROD.
+
+### 2.2 The five asks that preserve most of it
+
+1. **Contributor RBAC on our own resource groups, inside an agreed budget.** The
+   single highest-value item in either document. With it, adding a database or a
+   container app to our own resource group takes minutes. Without it, every
+   resource is a ticket, and that is what actually slows programmes down — not
+   provisioning time.
+
+2. **A DEV resource group, or a sandbox subscription, with relaxed Azure Policy.**
+   Many organisations already run an innovation or sandbox subscription for
+   exactly this. If one exists, we would rather build there first and promote into
+   the governed landing zone than start against production policy.
+
+3. **Confirmed outbound internet egress — and this is the quiet one.** VendorPath
+   calls n8n, SAP and D365; the dashboard build pulls Eurostat and Destatis; both
+   pull public package registries at build time. If the landing zone routes egress
+   through a firewall with a destination allowlist, every one of those becomes a
+   separate rule request. **The first symptom is a timeout nobody can explain**,
+   usually weeks after the design was signed off. We need to know the egress model
+   before we design against it, and ideally an allowlist we can extend ourselves in
+   DEV.
+
+4. **Deploy on push.** A pipeline with a service principal scoped to our own
+   resource group, triggered by a merge — not a manual release request. This is
+   also the safer option: it makes deployments reproducible and auditable, which
+   is what change control is actually trying to achieve.
+
+5. **DEV exempt from change control.** Whatever approval PROD requires, DEV should
+   not need it.
+
+### 2.3 The honest summary
+
+We will not get Vercel-grade flexibility inside a governed corporate tenant, and
+for a system holding supplier bank details we should not expect to. But with
+those five, we keep most of it where it matters, and PROD keeps the controls it
+ought to have. **The trade we are proposing is: accept real governance in PROD,
+in exchange for staying fast in DEV.**
+
+If IT can only grant one of the five, make it the first.
+
+---
+
+## 3. What VendorPath needs — indicative sizing
 
 This is a forward estimate for planning and budget purposes, not a provisioning
 request. VendorPath is not ready to migrate; it currently has no database
@@ -83,14 +154,92 @@ rather than in six months.
 
 ---
 
-## 3. The five long-lead items — start these now
+## 4. Verdict on IT's "other Azure resources" list
+
+IT listed nine services and invited us to add others. Assessed across **both**
+projects rather than the dashboard alone:
+
+| Service | Dashboard | VendorPath | Verdict |
+| --- | --- | --- | --- |
+| **Key Vault** | placeholder | **required** | **Yes, day one.** VendorPath cannot run without it — auth signing secret, n8n shared secret and API key, SAP credentials, database connection strings, Entra client secret. Accessed by managed identity, not secrets in config. |
+| **Application Insights** | yes | yes | **Yes, day one.** One instance per project per environment, all writing into one shared programme workspace. |
+| **Container Apps** | no | **yes** | **Yes, when VendorPath moves.** This is the programme's primary compute — the Next.js app and the n8n runtime in one environment, scale-to-zero in DEV. Needs a Container Registry alongside it (§4.1). |
+| **Service Bus** | no | **yes, phase 2** | **Yes, when SAP / D365 sync goes live.** Today VendorPath fires a webhook at n8n and hopes. For purchase orders and invoices that is too fragile — a sync that fails at 02:00 should land in a dead-letter queue, not vanish. Basic tier costs cents. |
+| **API Management** | no | not yet | **No.** Nothing publishes an API to multiple consumers. Container Apps plus Front Door already covers ingress; APIM is for third-party API lifecycle, keys and quotas. Revisit when a second system consumes a VendorPath API. Developer tier is ~€45/month with no SLA; Basic ~€135. |
+| **Azure OpenAI** | plausible | plausible | **Request it as Microsoft Foundry instead** — see §4.2. Not provisioned day one, but the approval and regional quota started now, because that path is slow and entirely separate from provisioning. |
+| **Azure AI Services** | no | **later — Document Intelligence** | **Folded into the same Foundry request** (§4.2). The dashboard's PDF parsing is deterministic text extraction and needs no AI. VendorPath collects supplier certificates, insurance documents and bank letters and processes invoices — extracting fields and expiry dates from those is precisely Document Intelligence's job. A realistic phase-three item. |
+| **VNet integration** | no | **yes** | **Yes, when VendorPath moves — one programme VNet with a subnet per project.** Required for private Postgres, private Key Vault, private Storage and SAP reachability. Do not build a VNet per project. |
+| **Private Endpoints** | no | **yes, data plane only** | **Yes — 3 or 4 in VendorPath PROD: Postgres, Key Vault, Storage. Explicitly not on the supplier portal**, which has to stay reachable by external companies, and not on the dashboard, for the reason given in the sizing response. |
+
+### 4.1 Services the list did not mention that we will still need
+
+| Service | Why |
+| --- | --- |
+| **Azure Database for PostgreSQL Flexible Server** | The largest omission — VendorPath's entire data layer. Not Azure SQL: the schema is Postgres via Prisma. |
+| **Azure Container Registry** | Container Apps needs somewhere to pull images from. Basic tier ~€5/month. Easy to forget until the first deploy fails. |
+| **Front Door + WAF** | The supplier portal is internet-facing and accepts bank-detail changes (§5.5). |
+| **Microsoft Entra External ID** | Suppliers are not employees and will never exist in the corporate tenant (§5.1). |
+| **Managed identities** | Free, but worth requesting explicitly as the pattern — app to Key Vault, app to Storage, app to Postgres, with no secret in configuration. |
+| **Defender for Cloud** | Likely mandated by policy rather than chosen. Budget for it: roughly €15 per server per month across the database and container plans. |
+| **Self-hosted CI runners** | Only if egress is restricted enough that hosted runners cannot reach the subscription — worth confirming alongside §2.2. |
+
+### 4.2 Microsoft Foundry — the right vehicle for both AI line items
+
+Microsoft Foundry (formerly Azure AI Foundry / Azure AI Studio) is the unified
+platform over Azure OpenAI and Azure AI Services: model catalogue, deployments,
+the agent service, evaluations, content safety and tracing in one place. If we
+are going to do anything with AI, **it replaces the separate "Azure OpenAI" and
+"Azure AI Services" line items on IT's list rather than adding to them.**
+
+Our position is unchanged: not provisioned day one, but **the approval started
+now**. What changes is what we ask for.
+
+**Three things to ask IT:**
+
+1. **Does a central Foundry or Azure OpenAI instance already exist?** Many
+   organisations run one and grant projects access. Consuming a central instance
+   is faster and cheaper than provisioning our own, and it is usually what the AI
+   governance policy expects.
+2. **Model quota in an EU region.** Tokens-per-minute quota is assigned per
+   subscription per region, and it is the slow part of the request — not the
+   resource itself.
+3. **Whether AI use is permitted against our data classification** (§5.4). Azure
+   OpenAI does not train on customer data and the EU Data Boundary applies to EU
+   deployments, but with supplier PII and bank details in scope this needs to be
+   written down rather than assumed.
+
+**What it drags in.** A Foundry hub is not a single resource. Depending on the
+project type it wants its own **Storage Account** and **Key Vault**, and
+optionally a **Container Registry** and **Application Insights**. IT should size
+for three to five resources, not one. The newer resource-based Foundry project is
+lighter than the classic hub — worth asking which pattern their catalogue
+supports.
+
+**Cost shape.** The platform itself is close to free; spend is token-based
+inference plus any content-safety and evaluation usage. That makes it one of the
+few services genuinely safe to have provisioned before it is used, and a good fit
+for the budget-envelope approach in §6.
+
+**Credible first uses, in priority order:**
+
+| Use | Project | Why it is a good first move |
+| --- | --- | --- |
+| **Translating quarterly commentary into the eight non-English languages** | Dashboard | The strongest starting point. The SPA is already fully multilingual, but analyst prose ships in English with a "written in English" note because hand-translating it every quarter is not realistic. Bounded, reviewable, and the content is published market commentary with no sensitivity. |
+| Drafting trend analysis from 113 commodity movements | Dashboard | The analyst reviews and edits; the model does the first pass. |
+| Supplier document extraction — certificates, insurance, bank letters | VendorPath | Document Intelligence rather than a language model. Expiry dates already drive the app's auto-suspend logic. |
+| Invoice and PO matching assistance | VendorPath | The three-way match exists; AI assists on exceptions only. |
+| Natural-language questions over procurement data | VendorPath | Highest sensitivity — needs §5.4 signed off first. |
+
+---
+
+## 5. The five long-lead items — start these now
 
 These are not provisioning tasks. Each one is an organisational decision or
 approval that takes weeks of calendar time and is entirely independent of
 spinning up a resource. **They are what will actually delay VendorPath**, not
 the compute.
 
-### 3.1 External identity for the supplier portal
+### 5.1 External identity for the supplier portal
 
 VendorPath's suppliers log in to confirm receipts and maintain their own company
 records. They are **not employees and will never exist in the corporate Entra ID
@@ -111,7 +260,7 @@ Three options, and the choice has to be made before the identity layer is built:
 **Ask IT now:** which of these is acceptable, and does a supplier-facing external
 identity tenant already exist anywhere in the organisation?
 
-### 3.2 SAP and D365 connectivity
+### 5.2 SAP and D365 connectivity
 
 `exportToSap` currently stamps a placeholder reference. Making it real requires
 network reachability to SAP, which is almost certainly not on the public
@@ -125,7 +274,7 @@ basis team, the network team and probably a firewall change request.
 **Ask IT now:** what is the sanctioned pattern for an Azure-hosted application to
 reach SAP and D365, and who owns it?
 
-### 3.3 PostgreSQL as the programme database standard
+### 5.3 PostgreSQL as the programme database standard
 
 Many corporate Azure catalogues default to Azure SQL. VendorPath's schema is
 PostgreSQL via Prisma — moving it to SQL Server would mean a schema and ORM
@@ -136,7 +285,7 @@ this subscription? If it is not, the approval path needs starting immediately,
 and it is worth setting Postgres as the programme standard so both this and
 future projects use one engine.
 
-### 3.4 Data classification and security review
+### 5.4 Data classification and security review
 
 VendorPath holds supplier PII, sanctions status and — the item that will draw the
 most attention — **supplier bank account change requests**. Fraudulent bank-detail
@@ -150,7 +299,7 @@ requirements after the architecture is built is the expensive path.
 **Ask IT now:** what data classification applies, what does it mandate, and can
 the security review be scheduled early rather than as a go-live gate?
 
-### 3.5 Internet-facing policy and WAF
+### 5.5 Internet-facing policy and WAF
 
 The supplier portal must be reachable by external companies, so it cannot sit
 behind a private endpoint or a VPN. Most corporate policies require a WAF in
@@ -162,7 +311,7 @@ should publish through?
 
 ---
 
-## 4. What to ask IT for now
+## 6. What to ask IT for now
 
 Combining this with §8.1 of the dashboard response:
 
@@ -176,7 +325,7 @@ Combining this with §8.1 of the dashboard response:
 | **Shared Log Analytics workspace** | ~€0 | Telemetry not collected cannot be backfilled |
 | **Programme VNet with a subnet per project** | Zero until used | Retrofitting a VNet around a live database is painful |
 | **Parent DNS domain** | Zero | Hostnames are hard to change once bookmarked |
-| **The five decisions in §3** | Zero | Weeks of calendar time each |
+| **The five decisions in §5** | Zero | Weeks of calendar time each |
 
 **And explicitly say there are two projects.** The single most valuable sentence
 to send IT is that the programme contains both a static dashboard and a
@@ -185,7 +334,7 @@ changes how they design everything else.
 
 ---
 
-## 5. What not to ask for yet
+## 7. What not to ask for yet
 
 Consistent with the dashboard response: do not pre-provision compute or
 databases. Specifically:
@@ -207,7 +356,7 @@ request harder to defend.
 
 ---
 
-## 6. Outstanding items in VendorPath itself
+## 8. Outstanding items in VendorPath itself
 
 These are not Azure questions, but they block any migration and two of them are
 security matters. Recorded here so they are not lost.
@@ -231,23 +380,23 @@ security matters. Recorded here so they are not lost.
 5. **Decide where n8n runs.** It is a dependency of the core PO workflow, not an
    optional extra. If it stays on a personal or third-party instance it becomes a
    single point of failure outside IT's control; if it moves to Azure it is a
-   Container App plus a database, sized in §2.
+   Container App plus a database, sized in §3.
 
 ---
 
-## 7. Suggested sequence
+## 9. Suggested sequence
 
 | Phase | Work | Blocked by |
 | --- | --- | --- |
 | **Now** | Declare both projects to IT. Settle subscription, RG layout, naming, RBAC, budget, tagging | — |
-| **Now** | Raise the five §3 decisions — they run in parallel and cost nothing to start | — |
+| **Now** | Raise the five §5 decisions — they run in parallel and cost nothing to start | — |
 | **Next** | Migrate PMO EU Procurement. Small, low risk, proves the landing zone and the CI/CD pattern end to end | RG + RBAC |
 | **Then** | Fix VendorPath's database connection and rotate its secrets, still on Vercel | Nothing |
 | **Then** | Replace `db push` with versioned migrations | Nothing |
-| **Then** | Stand up VendorPath DEV in Azure — Container Apps, PostgreSQL, Key Vault | §3.3 approval |
-| **Then** | Wire Entra ID SSO for internal staff, then external identity for suppliers | §3.1 decision |
-| **Later** | SAP and D365 connectivity | §3.2 — start early, lands late |
-| **Later** | PROD with WAF, private endpoints and the security review signed off | §3.4, §3.5 |
+| **Then** | Stand up VendorPath DEV in Azure — Container Apps, PostgreSQL, Key Vault | §5.3 approval |
+| **Then** | Wire Entra ID SSO for internal staff, then external identity for suppliers | §5.1 decision |
+| **Later** | SAP and D365 connectivity | §5.2 — start early, lands late |
+| **Later** | PROD with WAF, private endpoints and the security review signed off | §5.4, §5.5 |
 
 Migrating the dashboard first is deliberate. It is a genuinely low-risk workload
 that exercises the whole path — resource group, naming, CI/CD, SSO, custom
