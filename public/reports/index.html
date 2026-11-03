@@ -67,6 +67,8 @@
   .topbar{position:sticky;top:0;z-index:20;background:#000064;border-bottom:3px solid var(--gold);color:#fff;
     --ink:#FFFFFF; --muted:#C9D6F2; --dim:#A9B8DD; --blue:#8CDCDC; --onaccent:#000064; --down:#7EE0A6;
     --up:#FF9B9B; --warn:#E6D3A0; --bg:rgba(255,255,255,.08); --border:rgba(255,255,255,.28); --tint:rgba(255,255,255,.16); --card:rgba(255,255,255,.08)}
+  .logo img{height:26px;width:auto;display:block}
+  .logo-hero{height:36px;width:auto;display:block;margin:0 0 20px}
   .topbar .langsel select option{background:#fff;color:#000064}
   .topbar-in{max-width:1280px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
   .back{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:9px;border:1px solid var(--border);background:var(--bg);color:var(--blue);font-size:12.5px;font-weight:600;cursor:pointer}
@@ -379,7 +381,7 @@ function menuHTML(){
   return '<div class="wrap">'
     +'<header>'
       +'<div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">'
-        +'<div style="flex:1;min-width:260px"><p class="eyebrow">'+esc(t('brand.eyebrow'))+'</p>'
+        +'<div style="flex:1;min-width:260px">'+'<img class="logo-hero" src="./brand/gategroup-logo-white.png" alt="gategroup" onerror="this.style.display=\'none\'">'+'<p class="eyebrow">'+esc(t('brand.eyebrow'))+'</p>'
         +'<h1 class="h1">'+esc(t('brand.title'))+'</h1></div>'
         +langPickerHTML()
       +'</div>'
@@ -450,6 +452,7 @@ function reportHTML(){
 
   return '<div style="animation:cdFade .3s ease">'
     +'<div class="topbar"><div class="topbar-in">'
+      +'<a href="#/" class="logo" aria-label="gategroup"><img src="./brand/gategroup-logo-white.png" alt="gategroup" onerror="this.parentNode.style.display=\'none\'"></a>'+''
       +'<button class="back" data-go="#/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>'+esc(t('common.allQuarters'))+'</button>'
       +'<div style="display:flex;align-items:center;gap:9px"><span class="qbadge" style="font-size:13px">'+esc(qLabel(meta.qn,meta.fy,meta.q))+'</span>'
         +'<div><div style="font-size:14px;font-weight:700;line-height:1.1">'+esc(tPhrase(meta.title))+'</div>'
@@ -798,6 +801,7 @@ function indirectHTML(){
   var net=divColor(ind.net);
   return '<div style="animation:cdFade .3s ease">'
     +'<div class="topbar"><div class="topbar-in">'
+      +'<a href="#/" class="logo" aria-label="gategroup"><img src="./brand/gategroup-logo-white.png" alt="gategroup" onerror="this.parentNode.style.display=\'none\'"></a>'+''
       +'<button class="back" data-go="#/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>'+esc(t('common.allQuarters'))+'</button>'
       +'<button class="back" data-go="#/q/'+state.slug+'">'+esc(t('common.quarterReport'))+'</button>'
       +'<div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">⚙️</span>'
@@ -866,6 +870,7 @@ function germanyHTML(){
   var b=function(s){return '<b style="color:var(--ink2)">'+esc(s)+'</b>';};
   return '<div style="animation:cdFade .3s ease">'
     +'<div class="topbar"><div class="topbar-in">'
+      +'<a href="#/" class="logo" aria-label="gategroup"><img src="./brand/gategroup-logo-white.png" alt="gategroup" onerror="this.parentNode.style.display=\'none\'"></a>'+''
       +'<button class="back" data-go="#/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>'+esc(t('common.allQuarters'))+'</button>'
       +'<button class="back" data-go="#/q/'+state.slug+'">'+esc(t('common.quarterReport'))+'</button>'
       +'<div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">🇩🇪</span>'

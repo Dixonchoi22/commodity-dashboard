@@ -128,8 +128,8 @@ GERMANY_DRILLDOWN_DISPLAY = {
 }
 
 PALETTE = [
-    "#F87171", "#FB923C", "#FACC15", "#34D399", "#60A5FA",
-    "#A78BFA", "#F472B6", "#22D3EE", "#FB7185", "#84CC16",
+    "#0078C8", "#A99667", "#36424A", "#2BA6A6", "#7A5AA6",
+    "#D2691E", "#4C9F70", "#B83B7D", "#5B8DB8", "#8A6D1E",
 ]
 
 
@@ -176,7 +176,7 @@ def _germany_drilldowns_from_destatis(destatis: dict) -> dict[str, dict]:
             rows.append({
                 "coicop": parent_code,
                 "label": parent_label,
-                "colour": "#F8FAFC",
+                "colour": "#000064",
                 "is_parent": True,
                 "series": parent_s["series"],
                 "latest": parent_s["latest"],
@@ -791,15 +791,15 @@ def build(period: str) -> tuple[str, str | None]:
     data: {{
       labels: G.labels,
       datasets: [
-        {{ label: 'Germany — Food & non-alcoholic beverages (CP01)', data: G.de, borderColor: '#FACC15', backgroundColor: 'rgba(250,204,21,0.18)', borderWidth: 3, tension: 0.3, pointRadius: 3, fill: false }},
+        {{ label: 'Germany — Food & non-alcoholic beverages (CP01)', data: G.de, borderColor: '#A99667', backgroundColor: 'rgba(169,150,103,0.18)', borderWidth: 3, tension: 0.3, pointRadius: 3, fill: false }},
       ]
     }},
     options: {{
       responsive: true, maintainAspectRatio: false,
-      plugins: {{ legend: {{ labels: {{ color: '#94A3B8' }} }} }},
+      plugins: {{ legend: {{ labels: {{ color: '#6B7682' }} }} }},
       scales: {{
-        x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
-        y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }}, title: {{ display: true, text: 'Index ({headline_base_label})', color: '#94A3B8' }} }}
+        x: {{ ticks: {{ color: '#6B7682' }}, grid: {{ color: '#E4E8F0' }} }},
+        y: {{ ticks: {{ color: '#6B7682' }}, grid: {{ color: '#E4E8F0' }}, title: {{ display: true, text: 'Index ({headline_base_label})', color: '#6B7682' }} }}
       }}
     }}
   }});
@@ -828,10 +828,10 @@ def build(period: str) -> tuple[str, str | None]:
       }},
       options: {{
         responsive: true, maintainAspectRatio: false,
-        plugins: {{ legend: {{ position: 'bottom', labels: {{ color: '#94A3B8', boxWidth: 12 }} }} }},
+        plugins: {{ legend: {{ position: 'bottom', labels: {{ color: '#6B7682', boxWidth: 12 }} }} }},
         scales: {{
-          x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
-          y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }}, title: {{ display: true, text: 'Index ({sub_base_label})', color: '#94A3B8' }} }}
+          x: {{ ticks: {{ color: '#6B7682' }}, grid: {{ color: '#E4E8F0' }} }},
+          y: {{ ticks: {{ color: '#6B7682' }}, grid: {{ color: '#E4E8F0' }}, title: {{ display: true, text: 'Index ({sub_base_label})', color: '#6B7682' }} }}
         }}
       }}
     }});
@@ -846,8 +846,8 @@ def build(period: str) -> tuple[str, str | None]:
       datasets: [{{
         label: 'Index ({sub_base_label})',
         data: SB.indices,
-        backgroundColor: SB.yoy.map(v => v > 0 ? 'rgba(248,113,113,0.7)' : 'rgba(74,222,128,0.7)'),
-        borderColor:     SB.yoy.map(v => v > 0 ? '#F87171' : '#4ADE80'),
+        backgroundColor: SB.yoy.map(v => v > 0 ? 'rgba(198,40,40,0.7)' : 'rgba(30,138,76,0.7)'),
+        borderColor:     SB.yoy.map(v => v > 0 ? '#C62828' : '#1E8A4C'),
         borderWidth: 1,
       }}]
     }},
@@ -869,10 +869,10 @@ def build(period: str) -> tuple[str, str | None]:
       }},
       scales: {{
         x: {{
-          ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }},
-          title: {{ display: true, text: 'Index ({sub_base_label})', color: '#94A3B8' }},
+          ticks: {{ color: '#6B7682' }}, grid: {{ color: '#E4E8F0' }},
+          title: {{ display: true, text: 'Index ({sub_base_label})', color: '#6B7682' }},
         }},
-        y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ display: false }} }}
+        y: {{ ticks: {{ color: '#6B7682' }}, grid: {{ display: false }} }}
       }}
     }}
   }});
@@ -887,45 +887,47 @@ def build(period: str) -> tuple[str, str | None]:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{_html.escape(meta['title'])} — {_html.escape(meta['period'])}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script>
     tailwind.config = {{
       theme: {{ extend: {{
-        fontFamily: {{ sans: ['Inter', 'sans-serif'] }},
+        fontFamily: {{ sans: ['gategroup Effra', 'Calibri', 'Carlito', 'sans-serif'] }},
         colors: {{
-          'primary-blue': '#60A5FA',
-          'secondary-red': '#F87171',
-          'accent-green': '#4ADE80',
-          'text-warning': '#FACC15',
-          'soft-red-bg': 'rgba(248,113,113,0.15)',
-          'soft-green-bg': 'rgba(74,222,128,0.15)',
-          'dark-bg': '#0F172A',
-          'dark-card': '#1E293B',
-          'dark-text': '#F8FAFC',
-          'dark-muted': '#94A3B8'
+          'primary-blue': '#0078C8',
+          'secondary-red': '#C62828',
+          'accent-green': '#1E8A4C',
+          'text-warning': '#8A6D1E',
+          'soft-red-bg': 'rgba(198,40,40,0.15)',
+          'soft-green-bg': 'rgba(30,138,76,0.15)',
+          'dark-bg': '#F3F5F9',
+          'dark-card': '#FFFFFF',
+          'dark-text': '#000064',
+          'dark-muted': '#6B7682'
         }},
         boxShadow: {{
-          '3xl': '0 35px 60px -15px rgba(0,0,0,0.5)',
-          'xl-dark': '0 20px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3)'
+          '3xl': '0 20px 40px -10px rgba(0,0,100,0.25)',
+          'xl-dark': '0 4px 14px rgba(0,0,100,0.12)'
         }}
       }}}}
     }};
   </script>
   <style>
-    body {{ background:#0F172A; font-family:Inter,sans-serif; color:#F8FAFC; }}
-    .card {{ background:#1E293B; border-radius:0.75rem; padding:1.5rem; box-shadow:0 10px 15px -3px rgba(0,0,0,0.4); transition:all .2s; }}
-    .modal-overlay {{ position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:50; backdrop-filter:blur(5px); }}
+    body {{ background:#F3F5F9; font-family:'gategroup Effra',Calibri,Carlito,'Segoe UI',sans-serif; font-size:15px; color:#000064; }}
+    .text-gray-300{{color:#36424A!important}} .text-gray-400{{color:#4F5B66!important}} .text-gray-500{{color:#6B7682!important}} .border-gray-700,.border-gray-600{{border-color:#D5DBE6!important}} .divide-gray-700>:not([hidden])~:not([hidden]){{border-color:#E4E8F0!important}} .placeholder-gray-500::placeholder{{color:#6B7682!important}} .text-blue-300{{color:#0078C8!important}}
+    .card {{ background:#FFFFFF; border-radius:0.75rem; padding:1.5rem; box-shadow:0 1px 3px rgba(0,0,100,0.10); transition:all .2s; }}
+    .modal-overlay {{ position:fixed; inset:0; background:rgba(0,0,100,0.55); display:none; align-items:center; justify-content:center; z-index:50; backdrop-filter:blur(5px); }}
     .modal-overlay.open {{ display:flex; }}
-    .modal-content {{ background:#1E293B; padding:2rem; border-radius:0.75rem; width:min(900px,92vw); max-height:90vh; overflow-y:auto; }}
+    .modal-content {{ background:#FFFFFF; padding:2rem; border-radius:0.75rem; width:min(900px,92vw); max-height:90vh; overflow-y:auto; }}
   </style>
 </head>
 <body class="p-4 sm:p-8">
   <div class="max-w-7xl mx-auto">
 
     <header class="mb-5">
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary-blue to-blue-300">
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-dark-text">
         {_html.escape(meta['title'])}
       </h1>
       <p class="text-xl text-dark-muted mt-2">{_html.escape(meta['subtitle'])}</p>
@@ -1009,7 +1011,7 @@ def build(period: str) -> tuple[str, str | None]:
       <div class="modal-content">
         <div class="flex justify-between items-start mb-6 pb-4 border-b border-gray-700">
           <h3 id="cm-title" class="text-2xl font-bold text-dark-text"></h3>
-          <button onclick="closeCommodity()" class="text-dark-muted hover:text-white text-2xl leading-none">✕</button>
+          <button onclick="closeCommodity()" class="text-dark-muted hover:text-dark-text text-2xl leading-none">✕</button>
         </div>
 
         <!-- Info strip: Category / Price / MoM / YoY / Source -->
@@ -1088,14 +1090,14 @@ def build(period: str) -> tuple[str, str | None]:
       datasets: [{{
         label: hicpIsIndex ? 'EU Food HICP Index (2015=100)' : 'EU Food HICP (YoY %)',
         data: hicp.values,
-        borderColor: '#60A5FA',
-        backgroundColor: 'rgba(96,165,250,0.18)',
+        borderColor: '#0078C8',
+        backgroundColor: 'rgba(0,120,200,0.18)',
         fill: true,
         tension: 0.3,
         borderWidth: 3,
         pointRadius: 4,
-        pointBackgroundColor: '#60A5FA',
-        pointBorderColor: '#0F172A',
+        pointBackgroundColor: '#0078C8',
+        pointBorderColor: '#FFFFFF',
         pointBorderWidth: 2,
       }}]
     }},
@@ -1112,17 +1114,17 @@ def build(period: str) -> tuple[str, str | None]:
         }}
       }},
       scales: {{
-        x: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }},
+        x: {{ ticks: {{ color: '#6B7682' }}, grid: {{ color: '#E4E8F0' }} }},
         y: {{
           ticks: {{
-            color: '#94A3B8',
+            color: '#6B7682',
             callback: v => hicpIsIndex ? v.toFixed(1) : v + '%'
           }},
-          grid: {{ color: '#334155' }},
+          grid: {{ color: '#E4E8F0' }},
           title: {{
             display: true,
             text: hicpIsIndex ? 'Index (2015 = 100)' : 'YoY % change',
-            color: '#94A3B8'
+            color: '#6B7682'
           }}
         }}
       }}
@@ -1194,17 +1196,17 @@ def build(period: str) -> tuple[str, str | None]:
           datasets: [{{
             label: d.forecast.description,
             data: d.forecast.points.map(p => p.value),
-            borderColor: '#60A5FA',
-            backgroundColor: 'rgba(96,165,250,0.15)',
+            borderColor: '#0078C8',
+            backgroundColor: 'rgba(0,120,200,0.15)',
             fill: true, tension: 0.2, pointRadius: 0, borderWidth: 2
           }}]
         }},
         options: {{
           responsive: true, maintainAspectRatio: false,
-          plugins: {{ legend: {{ labels: {{ color: '#94A3B8' }} }} }},
+          plugins: {{ legend: {{ labels: {{ color: '#6B7682' }} }} }},
           scales: {{
-            x: {{ ticks: {{ color: '#94A3B8', maxTicksLimit: 12 }}, grid: {{ color: '#334155' }} }},
-            y: {{ ticks: {{ color: '#94A3B8' }}, grid: {{ color: '#334155' }} }}
+            x: {{ ticks: {{ color: '#6B7682', maxTicksLimit: 12 }}, grid: {{ color: '#E4E8F0' }} }},
+            y: {{ ticks: {{ color: '#6B7682' }}, grid: {{ color: '#E4E8F0' }} }}
           }}
         }}
       }});
@@ -1354,42 +1356,44 @@ def build_germany_page(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🇩🇪 Germany Food Market — {period_label}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script>
     tailwind.config = {{
       theme: {{ extend: {{
-        fontFamily: {{ sans: ['Inter', 'sans-serif'] }},
+        fontFamily: {{ sans: ['gategroup Effra', 'Calibri', 'Carlito', 'sans-serif'] }},
         colors: {{
-          'primary-blue': '#60A5FA',
-          'secondary-red': '#F87171',
-          'accent-green': '#4ADE80',
-          'text-warning': '#FACC15',
-          'soft-red-bg': 'rgba(248,113,113,0.15)',
-          'soft-green-bg': 'rgba(74,222,128,0.15)',
-          'dark-bg': '#0F172A',
-          'dark-card': '#1E293B',
-          'dark-text': '#F8FAFC',
-          'dark-muted': '#94A3B8'
+          'primary-blue': '#0078C8',
+          'secondary-red': '#C62828',
+          'accent-green': '#1E8A4C',
+          'text-warning': '#8A6D1E',
+          'soft-red-bg': 'rgba(198,40,40,0.15)',
+          'soft-green-bg': 'rgba(30,138,76,0.15)',
+          'dark-bg': '#F3F5F9',
+          'dark-card': '#FFFFFF',
+          'dark-text': '#000064',
+          'dark-muted': '#6B7682'
         }},
         boxShadow: {{
-          '3xl': '0 35px 60px -15px rgba(0,0,0,0.5)',
-          'xl-dark': '0 20px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3)'
+          '3xl': '0 20px 40px -10px rgba(0,0,100,0.25)',
+          'xl-dark': '0 4px 14px rgba(0,0,100,0.12)'
         }}
       }}}}
     }};
   </script>
   <style>
-    body {{ background:#0F172A; font-family:Inter,sans-serif; color:#F8FAFC; }}
-    .card {{ background:#1E293B; border-radius:0.75rem; padding:1.5rem; box-shadow:0 10px 15px -3px rgba(0,0,0,0.4); transition:all .2s; }}
+    body {{ background:#F3F5F9; font-family:'gategroup Effra',Calibri,Carlito,'Segoe UI',sans-serif; font-size:15px; color:#000064; }}
+    .text-gray-300{{color:#36424A!important}} .text-gray-400{{color:#4F5B66!important}} .text-gray-500{{color:#6B7682!important}} .border-gray-700,.border-gray-600{{border-color:#D5DBE6!important}} .divide-gray-700>:not([hidden])~:not([hidden]){{border-color:#E4E8F0!important}} .placeholder-gray-500::placeholder{{color:#6B7682!important}} .text-blue-300{{color:#0078C8!important}}
+    .card {{ background:#FFFFFF; border-radius:0.75rem; padding:1.5rem; box-shadow:0 1px 3px rgba(0,0,100,0.10); transition:all .2s; }}
   </style>
 </head>
 <body class="p-4 sm:p-8">
   <div class="max-w-7xl mx-auto">
 
     <header class="mb-5">
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary-blue to-blue-300">
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-dark-text">
         🇩🇪 Germany Food Market
       </h1>
       <p class="text-xl text-dark-muted mt-2">{period_label} — German food sector deep-dive</p>

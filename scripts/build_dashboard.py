@@ -136,17 +136,18 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
 <div {SWITCHER_MARKER} class="cd-shell" style="margin: -1rem -1rem 1.5rem">
   <style>
     .cd-shell {{
-      font-family: Inter, system-ui, sans-serif;
-      color: #F8FAFC;
+      font-family: 'gategroup Effra', Calibri, Carlito, 'Segoe UI', system-ui, sans-serif;
+      color: #000064;
     }}
     @media (min-width: 640px) {{
       [{SWITCHER_MARKER}].cd-shell {{ margin: -2rem -2rem 2rem !important; }}
     }}
     .cd-shell * {{ box-sizing: border-box; }}
     .cd-shell-header {{
-      background: #1E293B;
-      border-bottom: 1px solid #334155;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      background: #000064;
+      border-bottom: 3px solid #A99667;
+      box-shadow: 0 4px 12px rgba(0,0,100,0.18);
+      color: #FFFFFF;
     }}
     .cd-header-inner {{
       max-width: 80rem; margin: 0 auto;
@@ -159,19 +160,19 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
     .cd-home-link {{
       display: inline-flex; align-items: center; gap: 0.35rem;
       font-size: 0.75rem; font-weight: 600; text-decoration: none;
-      color: #60A5FA; border: 1px solid rgba(96,165,250,0.3);
-      background: rgba(15,23,42,0.5); padding: 0.4rem 0.7rem;
+      color: #FFFFFF; border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08); padding: 0.4rem 0.7rem;
       border-radius: 0.5rem; transition: all 0.15s; white-space: nowrap;
     }}
-    .cd-home-link:hover {{ background: rgba(96,165,250,0.2); }}
+    .cd-home-link:hover {{ background: rgba(255,255,255,0.18); }}
+    .cd-logo {{ height: 28px; width: auto; display: block; margin-right: 0.25rem; }}
     .cd-title-block h1 {{
       font-size: 1.125rem; font-weight: 800; margin: 0;
-      background: linear-gradient(to right, #60A5FA, #93c5fd);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+      color: #FFFFFF;
       letter-spacing: -0.025em;
     }}
     .cd-title-block .cd-subtitle {{
-      color: #94A3B8; font-size: 0.75rem; margin: 2px 0 0;
+      color: #C9D6F2; font-size: 0.75rem; margin: 2px 0 0;
     }}
     .cd-period-bar {{ display: flex; gap: 0.5rem; flex-wrap: wrap; }}
     .cd-shell .period-btn {{
@@ -179,17 +180,17 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
       min-width: 120px;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
-      border: 1px solid rgba(96,165,250,0.3);
-      background: rgba(15,23,42,0.5);
-      color: #60A5FA;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+      color: #FFFFFF;
       font-family: inherit; font-size: 0.875rem; font-weight: 600;
       cursor: pointer; text-decoration: none;
       transition: all 0.15s;
     }}
-    .cd-shell .period-btn:hover {{ background: rgba(96,165,250,0.2); }}
+    .cd-shell .period-btn:hover {{ background: rgba(255,255,255,0.18); }}
     .cd-shell .period-btn.active {{
-      background: #60A5FA; color: #0F172A; border-color: #60A5FA;
-      box-shadow: 0 4px 14px rgba(96,165,250,0.45);
+      background: #8CDCDC; color: #000064; border-color: #8CDCDC;
+      box-shadow: 0 4px 14px rgba(140,220,220,0.4);
       transform: translateY(-1px);
     }}
     .cd-shell .period-btn-month {{ font-size: 0.95rem; letter-spacing: -0.01em; }}
@@ -199,8 +200,8 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
     }}
     .cd-shell .period-btn.active .period-btn-hint {{ opacity: 1; }}
     .cd-viewing-banner {{
-      background: linear-gradient(to right, rgba(96,165,250,0.12), rgba(96,165,250,0.02));
-      border-bottom: 1px solid rgba(96,165,250,0.25);
+      background: #EEF2F8;
+      border-bottom: 1px solid #D5DBE6;
       padding: 0.75rem 1.5rem;
     }}
     .cd-viewing-inner {{
@@ -210,28 +211,28 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
     .cd-viewing-tag {{
       display: inline-flex; align-items: center; gap: 0.375rem;
       font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #60A5FA;
-      background: rgba(96,165,250,0.18);
+      text-transform: uppercase; color: #0078C8;
+      background: rgba(0,120,200,0.12);
       padding: 0.25rem 0.5rem; border-radius: 0.25rem;
     }}
     .cd-viewing-tag::before {{
       content: ""; width: 6px; height: 6px; border-radius: 50%;
-      background: #4ADE80; box-shadow: 0 0 0 3px rgba(74,222,128,0.25);
+      background: #1E8A4C; box-shadow: 0 0 0 3px rgba(30,138,76,0.22);
     }}
     .cd-viewing-quarter {{
       font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #0F172A; background: #60A5FA;
+      text-transform: uppercase; color: #FFFFFF; background: #0078C8;
       padding: 0.25rem 0.5rem; border-radius: 0.25rem;
     }}
-    .cd-viewing-title {{ font-size: 1rem; font-weight: 700; color: #F8FAFC; }}
+    .cd-viewing-title {{ font-size: 1rem; font-weight: 700; color: #000064; }}
     .cd-viewing-period {{
-      font-size: 1.5rem; font-weight: 800; color: #60A5FA; letter-spacing: -0.02em;
+      font-size: 1.5rem; font-weight: 800; color: #0078C8; letter-spacing: -0.02em;
     }}
-    .cd-viewing-meta {{ font-size: 0.75rem; color: #94A3B8; }}
+    .cd-viewing-meta {{ font-size: 0.75rem; color: #4F5B66; }}
     .cd-viewing-legacy {{
       display: inline-flex; align-items: center; gap: 0.375rem;
-      background: rgba(250,204,21,0.15); color: #FACC15;
-      border: 1px solid rgba(250,204,21,0.4);
+      background: rgba(169,150,103,0.15); color: #8A6D1E;
+      border: 1px solid rgba(169,150,103,0.5);
       padding: 0.2rem 0.5rem; border-radius: 0.25rem;
       font-size: 0.625rem; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -240,6 +241,7 @@ def shell_html(reports: list[dict], active_slug: str, default_slug: str) -> str:
   <div class="cd-shell-header">
     <div class="cd-header-inner">
       <div class="cd-title-block">
+        <a href="index.html" aria-label="gategroup"><img class="cd-logo" src="brand/gategroup-logo-white.png" alt="gategroup" onerror="this.style.display='none'"></a>
         <a class="cd-home-link" href="index.html" title="Back to all quarters">&larr; All quarters</a>
         <div>
           <h1>Procurement PMO - Europe</h1>

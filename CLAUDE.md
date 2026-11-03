@@ -22,7 +22,10 @@ tokens in `:root` of `app.html` (primary `#000064`, secondary `#0078C8` /
 Calibri-compatible font stack (gategroup Effra is not bundled; Carlito is loaded
 as the web fallback). Category colours live in `CATEGORY_COLORS` in
 `build_app_data.py`. The logo must come from the supplied files, never a retyped
-wordmark. The static `{slug}.html` reports still use the old dark styling.
+wordmark. Logo files are in `public/reports/brand/` (cropped from the brand-guide
+screenshot; replace with the official SVG/PNG when available). The static
+`{slug}.html` reports use the same palette via the Tailwind token overrides in
+`build_html.py` and the shell in `build_dashboard.py`.
 
 **Languages.** The SPA is multilingual — English, German, French, Italian,
 Spanish, Polish, Dutch, Portuguese and Romanian — via the language picker in
