@@ -1,0 +1,29 @@
+{
+  "slug": "2026-10",
+  "title": "Commodity Intelligence: EU Outlook",
+  "subtitle": "October 2026 — key cost drivers for food & catering procurement",
+  "region": "European Union",
+  "period": "October 2026",
+  "period_mom": "September 2026 vs August 2026",
+  "period_yoy": "September 2026 vs September 2025",
+  "source": "Expana (Mintec) Commodity Price Change Overview Report",
+  "output_html": "/reports/2026-10.html",
+  "trend_analysis": "The EU Food HICP index (Eurostat teicp010) stood at 100.91 in September 2026 (base 2025 = 100), with food inflation over the trailing twelve months subdued at +0.39% — well below the +1.48% seen in the July report. Beneath the calm headline, category swings are sharp: Tomato EU jumped +110.8% MoM, Potato processing EU +33.3% and Onion India +38.8%, while Sunflower Seed Russia and Prawn Norway both fell -31.0% MoM and Arabica Coffee ICE New York dropped -22.2%. Forward curves are carried over from the July Mintec export and will be refreshed when the new export arrives.",
+  "highlights": [
+    {
+      "tone": "red",
+      "label": "Extreme price risk",
+      "body": "Fresh produce leads the spikes: Tomato EU +110.8% MoM, Onion India +38.8% MoM and Potato processing EU +33.3% MoM (+300.0% YoY). Onion EU +100.0% and Onion India +116.5% YoY, Chilli India +75.8% and Turmeric India +59.4% YoY. Packaging resins stay elevated YoY — PP EU +46.1%, HDPE EU +37.9%, LDPE EU +34.1% — and grains are firm (Wheat CBOT +33.5%, Wheat Euronext +23.9% YoY)."
+    },
+    {
+      "tone": "green",
+      "label": "Major opportunity",
+      "body": "Deep YoY deflation opens contract-lock windows: Egg US -57.9%, Orange South Africa -57.3%, Hazelnuts Turkey -50.0%, Orange Juice Brazil -42.9% and Sunflower Seed Russia -41.2%. Dairy fats and cocoa are also lower (Butter EU -27.2%, Cocoa Bean ICE New York -22.3% YoY)."
+    },
+    {
+      "tone": "blue",
+      "label": "Oilseeds & coffee softening",
+      "body": "Oilseed and coffee markets eased sharply on the month: Sunflower Seed Ukraine -27.1% MoM, Sunflower Oil Ukraine -13.6%, Palm Oil EU -10.1% and Arabica Coffee ICE New York -22.2%, while Apple US rose +13.1% MoM."
+    }
+  ]
+}

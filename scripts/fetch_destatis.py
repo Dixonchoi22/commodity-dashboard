@@ -91,26 +91,38 @@ def parse_header(rows: list[list[str]]) -> tuple[int, list[str]]:
     return month_row_idx + 1, months
 
 
+def parse_flat(text: str) -> list[tuple[str, str, list[tuple[str, float]]]]:
+    """Parse the flat CSV served by the Genesis web-service API
+    (one observation per line, header row starts with statistics_code).
+    Returns [(code, label, [(YYYY-MM, value), ...])]."""
+    rd = csv.DictReader(text.splitlines(), delimiter=";")
+    acc: dict[str, tuple[str, dict[str, float]]] = {}
+    for r in rd:
+        code = (r.get("3_variable_attribute_code") or "").strip()
+        mon = (r.get("1_variable_attribute_code") or "")
+        mm = re.match(r"MONAT(\d\d)", mon)
+        if not code.startswith("CC13") or not mm:
+            continue
+        try:
+            v = float((r.get("value") or "").replace(",", "."))
+        except ValueError:
+            continue
+        ym = f"{int(r['time']):04d}-{mm.group(1)}"
+        label = (r.get("3_variable_attribute_label") or "").strip()
+        acc.setdefault(code, (label, {}))[1][ym] = v
+    return [(c, l, sorted(d.items())) for c, (l, d) in acc.items()]
+
+
 def parse_destatis(text: str) -> dict:
+    if "statistics_code" in text[:200]:
+        return build_payload(parse_flat(text))
     rows = [r for r in csv.reader(text.splitlines(), delimiter=";")]
     data_start, month_cols = parse_header(rows)
-    series: list[dict] = []
-
+    items = []
     for row in rows[data_start:]:
         if len(row) < 3 or not row[0].strip():
             continue
-        code_raw = row[0].strip()              # e.g. CC13-01121
-        label = row[1].strip()
-        # Normalise: drop the "CC13-" prefix → "01121"; convert to Eurostat
-        # form "CP01121" so we can join against existing canonical codes.
-        m = re.match(r"CC13-?(\d+)", code_raw)
-        if not m:
-            continue
-        digits = m.group(1)
-        coicop = "CP" + digits
-
-        # Build a {YYYY-MM: index_value} map from the row
-        values: list[tuple[str, float]] = []
+        values = []
         for col_idx, month_str in enumerate(month_cols):
             if not month_str:
                 continue
@@ -118,14 +130,22 @@ def parse_destatis(text: str) -> dict:
             if not cell or cell == "...":
                 continue
             try:
-                v = float(cell.replace(",", "."))
+                values.append((month_str, float(cell.replace(",", "."))))
             except ValueError:
                 continue
-            values.append((month_str, v))
-        if not values:
-            continue
-        values.sort(key=lambda kv: kv[0])
+        items.append((row[0].strip(), row[1].strip(), values))
+    return build_payload(items)
 
+
+def build_payload(items) -> dict:
+    series: list[dict] = []
+    for code_raw, label, values in items:
+        m = re.match(r"CC13-?(\d+)", code_raw)
+        if not m or not values:
+            continue
+        digits = m.group(1)
+        coicop = "CP" + digits
+        values = sorted(values, key=lambda kv: kv[0])
         # Trailing 12 months
         last_12 = values[-12:]
         first_idx = last_12[0][1]
