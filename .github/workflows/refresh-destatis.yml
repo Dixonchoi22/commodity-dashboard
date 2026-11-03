@@ -1,14 +1,18 @@
-name: Refresh Destatis data (manual)
+name: Refresh Destatis data (monthly)
 
 # Downloads the latest Destatis 61111-0004 table through the Genesis API,
 # rebuilds the affected quarter's report and redeploys Pages.
 # Needs the repository secret GENESIS_TOKEN
 # (Settings -> Secrets and variables -> Actions).
 #
-# Manual only on purpose: a quarter's report is a snapshot, so it should not
-# change underneath readers on a timer.
+# Runs automatically on the 16th of every month (Destatis publishes the final
+# monthly CPI around the 10th-13th) and can also be started by hand. Only the
+# newest quarter in the manifest is refreshed, and only the Germany data
+# changes - the Expana commodity figures stay a quarterly snapshot.
 
 on:
+  schedule:
+    - cron: "23 7 16 * *"   # 07:23 UTC on the 16th
   workflow_dispatch:
     inputs:
       slug:
@@ -69,8 +73,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
-            echo "No changes - Destatis data already up to date."
+          SLUG="${{ steps.q.outputs.slug }}"
+          # The downloaded zip differs byte-for-byte on every run, so decide
+          # on the parsed data instead.
+          if git diff --quiet -- "data/$SLUG/destatis.json"; then
+            echo "No new Destatis data for $SLUG - nothing to publish."
             exit 0
           fi
           git config user.name "github-actions[bot]"

@@ -214,6 +214,12 @@ with only the Destatis zip and no `germany.json`, the report ships with no
 Germany page. Always run `fetch_germany.py`; if Eurostat is firewalled,
 copy the previous quarter's `germany.json` as a fallback.
 
+**Monthly refresh.** `.github/workflows/refresh-destatis.yml` pulls table
+61111-0004 from the Genesis API on the 16th of every month (and on demand from
+the Actions tab), using the repository secret `GENESIS_TOKEN`. It refreshes only
+the newest quarter in `manifest.json`, rebuilds, commits to `main` and starts the
+Pages deploy. Locally: `GENESIS_TOKEN=... py scripts/fetch_destatis.py {slug} --api`.
+
 Each drilldown panel includes the parent COICOP series (e.g. CP0122) as
 the first row + a white dashed line, alongside its 5-digit children
 (CP01221, CP01222, …).
