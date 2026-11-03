@@ -208,6 +208,28 @@
       "pt": "{name} · líquido {pct} {yoy}",
       "ro": "{name} · net {pct} {yoy}"
     },
+    "menu.germanyMonthly": {
+      "en": "Germany — food prices by month",
+      "de": "Deutschland — Lebensmittelpreise nach Monat",
+      "fr": "Allemagne — prix alimentaires par mois",
+      "it": "Germania — prezzi alimentari per mese",
+      "es": "Alemania — precios de alimentos por mes",
+      "pl": "Niemcy — ceny żywności według miesięcy",
+      "nl": "Duitsland — voedselprijzen per maand",
+      "pt": "Alemanha — preços dos alimentos por mês",
+      "ro": "Germania — prețurile alimentelor pe luni"
+    },
+    "menu.germanyMonthlySub": {
+      "en": "Destatis CP01 breakdown · {from} – {to}",
+      "de": "Destatis CP01 nach Gruppen · {from} – {to}",
+      "fr": "Détail Destatis CP01 · {from} – {to}",
+      "it": "Dettaglio Destatis CP01 · {from} – {to}",
+      "es": "Desglose Destatis CP01 · {from} – {to}",
+      "pl": "Podział Destatis CP01 · {from} – {to}",
+      "nl": "Destatis CP01-uitsplitsing · {from} – {to}",
+      "pt": "Detalhe Destatis CP01 · {from} – {to}",
+      "ro": "Detaliere Destatis CP01 · {from} – {to}"
+    },
     "menu.germanyCard": {
       "en": "Germany — {q}", "de": "Deutschland — {q}", "fr": "Allemagne — {q}",
       "it": "Germania — {q}", "es": "Alemania — {q}", "pl": "Niemcy — {q}",
@@ -859,6 +881,72 @@
       "en": "not comparable", "de": "nicht vergleichbar", "fr": "ne sont pas comparables",
       "it": "non sono confrontabili", "es": "no son comparables", "pl": "nie są porównywalne",
       "nl": "niet vergelijkbaar", "pt": "não são comparáveis", "ro": "nu sunt comparabile"
+    },
+    "de.monthPick": {
+      "en": "Month",
+      "de": "Monat",
+      "fr": "Mois",
+      "it": "Mese",
+      "es": "Mes",
+      "pl": "Miesiąc",
+      "nl": "Maand",
+      "pt": "Mês",
+      "ro": "Luna"
+    },
+    "de.monthHint": {
+      "en": "{n} months of Destatis data · pick a month to see its index, MoM and YoY",
+      "de": "{n} Monate Destatis-Daten · Monat wählen für Index, MoM und YoY",
+      "fr": "{n} mois de données Destatis · choisissez un mois pour voir indice, MoM et YoY",
+      "it": "{n} mesi di dati Destatis · scegli un mese per indice, MoM e YoY",
+      "es": "{n} meses de datos de Destatis · elija un mes para ver índice, MoM y YoY",
+      "pl": "{n} mies. danych Destatis · wybierz miesiąc, aby zobaczyć indeks, MoM i YoY",
+      "nl": "{n} maanden Destatis-data · kies een maand voor index, MoM en YoY",
+      "pt": "{n} meses de dados do Destatis · escolha um mês para ver índice, MoM e YoY",
+      "ro": "{n} luni de date Destatis · alegeți o lună pentru indice, MoM și YoY"
+    },
+    "de.trendTitleM": {
+      "en": "German food prices — monthly index",
+      "de": "Lebensmittelpreise in Deutschland — Monatsindex",
+      "fr": "Prix alimentaires en Allemagne — indice mensuel",
+      "it": "Prezzi alimentari in Germania — indice mensile",
+      "es": "Precios de alimentos en Alemania — índice mensual",
+      "pl": "Ceny żywności w Niemczech — indeks miesięczny",
+      "nl": "Voedselprijzen in Duitsland — maandindex",
+      "pt": "Preços dos alimentos na Alemanha — índice mensal",
+      "ro": "Prețurile alimentelor în Germania — indice lunar"
+    },
+    "de.trendSubM": {
+      "en": "Destatis CP01 · food & non-alcoholic beverages · {n} months · selected month marked",
+      "de": "Destatis CP01 · Nahrungsmittel und alkoholfreie Getränke · {n} Monate · gewählter Monat markiert",
+      "fr": "Destatis CP01 · produits alimentaires et boissons non alcoolisées · {n} mois · mois choisi marqué",
+      "it": "Destatis CP01 · alimentari e bevande analcoliche · {n} mesi · mese scelto evidenziato",
+      "es": "Destatis CP01 · alimentos y bebidas no alcohólicas · {n} meses · mes elegido marcado",
+      "pl": "Destatis CP01 · żywność i napoje bezalkoholowe · {n} mies. · wybrany miesiąc zaznaczony",
+      "nl": "Destatis CP01 · voeding en alcoholvrije dranken · {n} maanden · gekozen maand gemarkeerd",
+      "pt": "Destatis CP01 · alimentos e bebidas não alcoólicas · {n} meses · mês escolhido marcado",
+      "ro": "Destatis CP01 · alimente și băuturi nealcoolice · {n} luni · luna aleasă marcată"
+    },
+    "de.groupsTitleM": {
+      "en": "Food groups — index for {month}",
+      "de": "Nahrungsmittelgruppen — Index für {month}",
+      "fr": "Groupes alimentaires — indice de {month}",
+      "it": "Gruppi alimentari — indice di {month}",
+      "es": "Grupos de alimentos — índice de {month}",
+      "pl": "Grupy żywności — indeks za {month}",
+      "nl": "Voedingsgroepen — index voor {month}",
+      "pt": "Grupos alimentares — índice de {month}",
+      "ro": "Grupe alimentare — indice pentru {month}"
+    },
+    "de.groupTrendTitle": {
+      "en": "Monthly index",
+      "de": "Monatsindex",
+      "fr": "Indice mensuel",
+      "it": "Indice mensile",
+      "es": "Índice mensual",
+      "pl": "Indeks miesięczny",
+      "nl": "Maandindex",
+      "pt": "Índice mensal",
+      "ro": "Indice lunar"
     },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",

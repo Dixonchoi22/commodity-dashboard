@@ -49,6 +49,9 @@ MONTH_NAMES = [
 MONTH_NUM = {n: i + 1 for i, n in enumerate(MONTH_NAMES)}
 
 
+# Pull from 2024 so every month shown (from 2025 on) has a true year-on-year.
+START_YEAR = 2024
+
 API_URL = "https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
 
 
@@ -61,7 +64,7 @@ def download_api(raw_dir: Path) -> Path:
     body = urllib.parse.urlencode({
         "name": "61111-0004", "area": "all", "format": "ffcsv",
         "language": "en", "compress": "false", "job": "false",
-        "startyear": str(dt.date.today().year - 2),
+        "startyear": str(START_YEAR),
     }).encode()
     # POST only (GET and SOAP are switched off); token goes in the username
     # header with an empty password.
@@ -195,7 +198,14 @@ def build_payload(items) -> dict:
         first_idx = last_12[0][1]
         last_idx = last_12[-1][1]
         prev_idx = values[-2][1] if len(values) >= 2 else last_idx
-        yoy = (last_idx / first_idx - 1) * 100 if first_idx else None
+        # True year-on-year = latest month vs the same month a year earlier;
+        # fall back to the oldest point in the window only when that month is
+        # not in the export.
+        by_month = dict(values)
+        ly, lm = last_12[-1][0].split("-")
+        year_ago = by_month.get(f"{int(ly) - 1:04d}-{lm}")
+        base_idx = year_ago if year_ago else first_idx
+        yoy = (last_idx / base_idx - 1) * 100 if base_idx else None
         mom = (last_idx / prev_idx - 1) * 100 if prev_idx else None
 
         # COICOP digits → "depth" (number of digits after CP). 2 = top-level
@@ -210,6 +220,7 @@ def build_payload(items) -> dict:
             "series": [
                 {"month": pretty_month(m), "index": v} for m, v in last_12
             ],
+            "history": [{"month": pretty_month(m), "index": v} for m, v in values],
             "latest": {"month": pretty_month(last_12[-1][0]), "index": last_idx},
             "yoy_pct": round(yoy, 2) if yoy is not None else None,
             "mom_pct": round(mom, 2) if mom is not None else None,

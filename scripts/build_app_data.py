@@ -241,6 +241,24 @@ def build_germany(destatis: dict) -> dict | None:
             })
     groups.sort(key=lambda g: (g["index"] is None, -(g["index"] or 0)))
 
+    # Monthly history for the month picker. `history` (every month in the
+    # export, from 2024 so YoY works for 2025) falls back to the 12-month
+    # `series` for older quarters that were built before it existed.
+    def _hist(s):
+        return s.get("history") or s.get("series") or []
+    months = [p["month"] for p in _hist(cp01)]
+    pos = {m: i for i, m in enumerate(months)}
+
+    def _aligned(s):
+        vals = [None] * len(months)
+        for p in _hist(s):
+            if p["month"] in pos:
+                vals[pos[p["month"]]] = p["index"]
+        return vals
+
+    for grp in groups:
+        grp["hist"] = _aligned(by_coicop[grp["coicop"]])
+    first_shown = next((i for i, m in enumerate(months) if m.endswith(" 2025") or int(m.split()[-1]) >= 2025), 0)
     base = destatis.get("base_year", "2020 = 100")
     kpis = [
         {"k": "menu.deIndex", "type": "num", "num": head["latest"],
@@ -260,6 +278,9 @@ def build_germany(destatis: dict) -> dict | None:
                   "values": [p["index"] for p in trend],
                   "base": base},
         "groups": groups,
+        "months": months,
+        "firstShown": first_shown,
+        "hist": _aligned(cp01),
     }
 
 
