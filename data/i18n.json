@@ -1388,6 +1388,72 @@
       "pt": "Rubricas acompanhadas",
       "ro": "Poziții urmărite"
     },
+    "de.itemHistory": {
+      "en": "Monthly history — {n} months",
+      "de": "Monatsverlauf — {n} Monate",
+      "fr": "Historique mensuel — {n} mois",
+      "it": "Storico mensile — {n} mesi",
+      "es": "Historial mensual — {n} meses",
+      "pl": "Historia miesięczna — {n} mies.",
+      "nl": "Maandverloop — {n} maanden",
+      "pt": "Histórico mensal — {n} meses",
+      "ro": "Istoric lunar — {n} luni"
+    },
+    "de.colMonth": {
+      "en": "Month",
+      "de": "Monat",
+      "fr": "Mois",
+      "it": "Mese",
+      "es": "Mes",
+      "pl": "Miesiąc",
+      "nl": "Maand",
+      "pt": "Mês",
+      "ro": "Luna"
+    },
+    "de.annualAvgTitle": {
+      "en": "Annual averages vs {year} YTD",
+      "de": "Jahresdurchschnitte gegenüber {year} (laufend)",
+      "fr": "Moyennes annuelles par rapport à {year} à ce jour",
+      "it": "Medie annue rispetto a {year} da inizio anno",
+      "es": "Medias anuales frente a {year} hasta hoy",
+      "pl": "Średnie roczne wobec {year} od początku roku",
+      "nl": "Jaargemiddelden tegenover {year} tot nu",
+      "pt": "Médias anuais face a {year} até à data",
+      "ro": "Medii anuale față de {year} de la începutul anului"
+    },
+    "de.histOnlyAnnual": {
+      "en": "Monthly values are only available for the main items; this detail item has annual averages only.",
+      "de": "Monatswerte liegen nur für die Hauptpositionen vor; diese Detailposition hat nur Jahresdurchschnitte.",
+      "fr": "Les valeurs mensuelles n’existent que pour les postes principaux ; ce poste détaillé n’a que des moyennes annuelles.",
+      "it": "I valori mensili sono disponibili solo per le voci principali; questa voce di dettaglio ha solo medie annue.",
+      "es": "Los valores mensuales solo existen para las partidas principales; esta partida de detalle solo tiene medias anuales.",
+      "pl": "Wartości miesięczne są dostępne tylko dla głównych pozycji; ta pozycja szczegółowa ma tylko średnie roczne.",
+      "nl": "Maandwaarden zijn alleen beschikbaar voor de hoofdposten; deze detailpost heeft alleen jaargemiddelden.",
+      "pt": "Os valores mensais só existem para as rubricas principais; esta rubrica de detalhe só tem médias anuais.",
+      "ro": "Valorile lunare există doar pentru pozițiile principale; această poziție de detaliu are doar medii anuale."
+    },
+    "de.colPeriod": {
+      "en": "Period",
+      "de": "Zeitraum",
+      "fr": "Période",
+      "it": "Periodo",
+      "es": "Período",
+      "pl": "Okres",
+      "nl": "Periode",
+      "pt": "Período",
+      "ro": "Perioadă"
+    },
+    "de.colYtdVs": {
+      "en": "{year} YTD vs period",
+      "de": "{year} lfd. ggü. Zeitraum",
+      "fr": "{year} à ce jour vs période",
+      "it": "{year} da inizio anno vs periodo",
+      "es": "{year} hasta hoy vs período",
+      "pl": "{year} od pocz. roku vs okres",
+      "nl": "{year} tot nu t.o.v. periode",
+      "pt": "{year} até à data vs período",
+      "ro": "{year} de la început vs perioadă"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",
