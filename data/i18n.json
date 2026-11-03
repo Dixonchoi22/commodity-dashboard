@@ -308,15 +308,15 @@
       "ro": "{name} · net {pct} {yoy}"
     },
     "menu.germanyMonthly": {
-      "en": "Germany — food prices by month",
-      "de": "Deutschland — Lebensmittelpreise nach Monat",
-      "fr": "Allemagne — prix alimentaires par mois",
-      "it": "Germania — prezzi alimentari per mese",
-      "es": "Alemania — precios de alimentos por mes",
-      "pl": "Niemcy — ceny żywności według miesięcy",
-      "nl": "Duitsland — voedselprijzen per maand",
-      "pt": "Alemanha — preços dos alimentos por mês",
-      "ro": "Germania — prețurile alimentelor pe luni"
+      "en": "Germany — prices by month",
+      "de": "Deutschland — Preise nach Monat",
+      "fr": "Allemagne — prix par mois",
+      "it": "Germania — prezzi per mese",
+      "es": "Alemania — precios por mes",
+      "pl": "Niemcy — ceny według miesięcy",
+      "nl": "Duitsland — prijzen per maand",
+      "pt": "Alemanha — preços por mês",
+      "ro": "Germania — prețuri pe luni"
     },
     "menu.germanyMonthlySub": {
       "en": "Destatis CP01 breakdown · {from} – {to}",
@@ -905,9 +905,15 @@
       "nl": "Duitse voedingsgroep", "pt": "Grupo alimentar alemão", "ro": "Grup alimentar german"
     },
     "de.foodOverview": {
-      "en": "Food overview", "de": "Überblick Nahrungsmittel", "fr": "Vue d'ensemble alimentaire",
-      "it": "Panoramica alimentare", "es": "Visión general de alimentos", "pl": "Przegląd żywności",
-      "nl": "Overzicht voeding", "pt": "Visão geral alimentar", "ro": "Prezentare generală alimente"
+      "en": "Overview",
+      "de": "Überblick",
+      "fr": "Aperçu",
+      "it": "Panoramica",
+      "es": "Resumen",
+      "pl": "Przegląd",
+      "nl": "Overzicht",
+      "pt": "Visão geral",
+      "ro": "Prezentare generală"
     },
     "de.kpiIndexSub": {
       "en": "Destatis CP01 · latest {month}",
@@ -1004,15 +1010,15 @@
       "ro": "{n} luni de date Destatis · alegeți o lună pentru indice, MoM și YoY"
     },
     "de.trendTitleM": {
-      "en": "German food prices — monthly index",
-      "de": "Lebensmittelpreise in Deutschland — Monatsindex",
-      "fr": "Prix alimentaires en Allemagne — indice mensuel",
-      "it": "Prezzi alimentari in Germania — indice mensile",
-      "es": "Precios de alimentos en Alemania — índice mensual",
-      "pl": "Ceny żywności w Niemczech — indeks miesięczny",
-      "nl": "Voedselprijzen in Duitsland — maandindex",
-      "pt": "Preços dos alimentos na Alemanha — índice mensal",
-      "ro": "Prețurile alimentelor în Germania — indice lunar"
+      "en": "Food & non-alcoholic beverages — monthly index",
+      "de": "Nahrungsmittel und alkoholfreie Getränke — Monatsindex",
+      "fr": "Produits alimentaires et boissons non alcoolisées — indice mensuel",
+      "it": "Alimentari e bevande analcoliche — indice mensile",
+      "es": "Alimentos y bebidas no alcohólicas — índice mensual",
+      "pl": "Żywność i napoje bezalkoholowe — indeks miesięczny",
+      "nl": "Voeding en alcoholvrije dranken — maandindex",
+      "pt": "Alimentos e bebidas não alcoólicas — índice mensal",
+      "ro": "Alimente și băuturi nealcoolice — indice lunar"
     },
     "de.trendSubM": {
       "en": "Destatis CP01 · food & non-alcoholic beverages · {n} months · selected month marked",
@@ -1453,6 +1459,17 @@
       "nl": "{year} tot nu t.o.v. periode",
       "pt": "{year} até à data vs período",
       "ro": "{year} de la început vs perioadă"
+    },
+    "common.home": {
+      "en": "Home",
+      "de": "Startseite",
+      "fr": "Accueil",
+      "it": "Home",
+      "es": "Inicio",
+      "pl": "Strona główna",
+      "nl": "Home",
+      "pt": "Início",
+      "ro": "Acasă"
     },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
