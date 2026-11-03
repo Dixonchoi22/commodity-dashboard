@@ -102,6 +102,105 @@
       "pt": "Escolha o seu trimestre de reporte — e vá diretamente para a sua categoria.",
       "ro": "Alegeți trimestrul de raportare — apoi mergeți direct la categoria dvs."
     },
+    "menu.leadYear": {
+      "en": "Pick a reporting year — then choose a quarter and jump straight to your category.",
+      "de": "Wählen Sie ein Berichtsjahr — dann ein Quartal, und springen Sie direkt zu Ihrer Kategorie.",
+      "fr": "Choisissez une année de reporting — puis un trimestre, et accédez directement à votre catégorie.",
+      "it": "Scegli un anno di reporting — poi un trimestre, e vai direttamente alla tua categoria.",
+      "es": "Elija un año de reporting — después un trimestre y vaya directamente a su categoría.",
+      "pl": "Wybierz rok raportowy — następnie kwartał i przejdź prosto do swojej kategorii.",
+      "nl": "Kies een rapportagejaar — dan een kwartaal, en ga direct naar uw categorie.",
+      "pt": "Escolha um ano de reporte — depois um trimestre e vá diretamente à sua categoria.",
+      "ro": "Alegeți un an de raportare — apoi un trimestru și mergeți direct la categoria dvs."
+    },
+    "menu.years": {
+      "en": "Reporting years",
+      "de": "Berichtsjahre",
+      "fr": "Années de reporting",
+      "it": "Anni di reporting",
+      "es": "Años de reporting",
+      "pl": "Lata raportowe",
+      "nl": "Rapportagejaren",
+      "pt": "Anos de reporte",
+      "ro": "Ani de raportare"
+    },
+    "menu.yearTitle": {
+      "en": "Reporting year {y}",
+      "de": "Berichtsjahr {y}",
+      "fr": "Année de reporting {y}",
+      "it": "Anno di reporting {y}",
+      "es": "Año de reporting {y}",
+      "pl": "Rok raportowy {y}",
+      "nl": "Rapportagejaar {y}",
+      "pt": "Ano de reporte {y}",
+      "ro": "Anul de raportare {y}"
+    },
+    "menu.yearQuartersN": {
+      "en": "{n} quarters of reports",
+      "de": "{n} Quartalsberichte",
+      "fr": "{n} rapports trimestriels",
+      "it": "{n} report trimestrali",
+      "es": "{n} informes trimestrales",
+      "pl": "{n} raportów kwartalnych",
+      "nl": "{n} kwartaalrapporten",
+      "pt": "{n} relatórios trimestrais",
+      "ro": "{n} rapoarte trimestriale"
+    },
+    "menu.yearLatest": {
+      "en": "Latest: {q}",
+      "de": "Aktuell: {q}",
+      "fr": "Dernier : {q}",
+      "it": "Ultimo: {q}",
+      "es": "Último: {q}",
+      "pl": "Najnowszy: {q}",
+      "nl": "Laatste: {q}",
+      "pt": "Último: {q}",
+      "ro": "Ultimul: {q}"
+    },
+    "menu.openYear": {
+      "en": "Open {y}",
+      "de": "{y} öffnen",
+      "fr": "Ouvrir {y}",
+      "it": "Apri {y}",
+      "es": "Abrir {y}",
+      "pl": "Otwórz {y}",
+      "nl": "Open {y}",
+      "pt": "Abrir {y}",
+      "ro": "Deschide {y}"
+    },
+    "menu.quartersOf": {
+      "en": "Quarters in {y}",
+      "de": "Quartale {y}",
+      "fr": "Trimestres {y}",
+      "it": "Trimestri {y}",
+      "es": "Trimestres de {y}",
+      "pl": "Kwartały {y}",
+      "nl": "Kwartalen {y}",
+      "pt": "Trimestres de {y}",
+      "ro": "Trimestre {y}"
+    },
+    "menu.fyNote": {
+      "en": "Fiscal year {y}: April {y} – March {y1}",
+      "de": "Geschäftsjahr {y}: April {y} – März {y1}",
+      "fr": "Exercice {y} : avril {y} – mars {y1}",
+      "it": "Anno fiscale {y}: aprile {y} – marzo {y1}",
+      "es": "Año fiscal {y}: abril {y} – marzo {y1}",
+      "pl": "Rok obrotowy {y}: kwiecień {y} – marzec {y1}",
+      "nl": "Boekjaar {y}: april {y} – maart {y1}",
+      "pt": "Ano fiscal {y}: abril {y} – março {y1}",
+      "ro": "An fiscal {y}: aprilie {y} – martie {y1}"
+    },
+    "common.allYears": {
+      "en": "All years",
+      "de": "Alle Jahre",
+      "fr": "Toutes les années",
+      "it": "Tutti gli anni",
+      "es": "Todos los años",
+      "pl": "Wszystkie lata",
+      "nl": "Alle jaren",
+      "pt": "Todos os anos",
+      "ro": "Toți anii"
+    },
     "menu.quarters": {
       "en": "Reporting quarters",
       "de": "Berichtsquartale",
