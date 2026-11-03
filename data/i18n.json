@@ -948,6 +948,72 @@
       "pt": "Índice mensal",
       "ro": "Indice lunar"
     },
+    "de.itemsTitle": {
+      "en": "Items in this group · {month}",
+      "de": "Artikel in dieser Gruppe · {month}",
+      "fr": "Articles de ce groupe · {month}",
+      "it": "Voci di questo gruppo · {month}",
+      "es": "Artículos de este grupo · {month}",
+      "pl": "Pozycje w tej grupie · {month}",
+      "nl": "Artikelen in deze groep · {month}",
+      "pt": "Artigos deste grupo · {month}",
+      "ro": "Articole din acest grup · {month}"
+    },
+    "de.colItem": {
+      "en": "Item",
+      "de": "Artikel",
+      "fr": "Article",
+      "it": "Voce",
+      "es": "Artículo",
+      "pl": "Pozycja",
+      "nl": "Artikel",
+      "pt": "Artigo",
+      "ro": "Articol"
+    },
+    "de.colTrend": {
+      "en": "Trend",
+      "de": "Verlauf",
+      "fr": "Tendance",
+      "it": "Andamento",
+      "es": "Evolución",
+      "pl": "Trend",
+      "nl": "Verloop",
+      "pt": "Evolução",
+      "ro": "Evoluție"
+    },
+    "de.itemsUp": {
+      "en": "Steepest item rises ({yoy})",
+      "de": "Stärkste Preisanstiege ({yoy})",
+      "fr": "Plus fortes hausses ({yoy})",
+      "it": "Rincari maggiori ({yoy})",
+      "es": "Mayores subidas ({yoy})",
+      "pl": "Największe wzrosty ({yoy})",
+      "nl": "Sterkste stijgingen ({yoy})",
+      "pt": "Maiores subidas ({yoy})",
+      "ro": "Cele mai mari creșteri ({yoy})"
+    },
+    "de.itemsDown": {
+      "en": "Steepest item drops ({yoy})",
+      "de": "Stärkste Preisrückgänge ({yoy})",
+      "fr": "Plus fortes baisses ({yoy})",
+      "it": "Cali maggiori ({yoy})",
+      "es": "Mayores bajadas ({yoy})",
+      "pl": "Największe spadki ({yoy})",
+      "nl": "Sterkste dalingen ({yoy})",
+      "pt": "Maiores descidas ({yoy})",
+      "ro": "Cele mai mari scăderi ({yoy})"
+    },
+    "de.itemsMoversSub": {
+      "en": "{n} individual food items · {month} · click one to open its group",
+      "de": "{n} einzelne Lebensmittelpositionen · {month} · anklicken, um die Gruppe zu öffnen",
+      "fr": "{n} produits alimentaires individuels · {month} · cliquez pour ouvrir son groupe",
+      "it": "{n} singoli prodotti alimentari · {month} · clicca per aprire il gruppo",
+      "es": "{n} productos alimentarios individuales · {month} · haga clic para abrir su grupo",
+      "pl": "{n} pojedynczych pozycji żywności · {month} · kliknij, aby otworzyć grupę",
+      "nl": "{n} afzonderlijke voedingsartikelen · {month} · klik om de groep te openen",
+      "pt": "{n} artigos alimentares individuais · {month} · clique para abrir o grupo",
+      "ro": "{n} produse alimentare individuale · {month} · faceți clic pentru a deschide grupul"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",

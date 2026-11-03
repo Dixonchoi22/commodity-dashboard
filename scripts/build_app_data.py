@@ -258,6 +258,16 @@ def build_germany(destatis: dict) -> dict | None:
 
     for grp in groups:
         grp["hist"] = _aligned(by_coicop[grp["coicop"]])
+        # The individual 5-digit items under this group (CP0111 -> CP01111 ...).
+        items = []
+        for c2, s2 in by_coicop.items():
+            if re.fullmatch(grp["coicop"] + r"\d", c2):
+                h2 = _head_of(s2)
+                items.append({"coicop": c2, "label": s2.get("label", c2),
+                              "index": h2["latest"], "yoy": h2["yoy"], "mom": h2["mom"],
+                              "hist": _aligned(s2)})
+        items.sort(key=lambda x: x["coicop"])
+        grp["items"] = items
     first_shown = next((i for i, m in enumerate(months) if m.endswith(" 2025") or int(m.split()[-1]) >= 2025), 0)
     base = destatis.get("base_year", "2020 = 100")
     kpis = [
