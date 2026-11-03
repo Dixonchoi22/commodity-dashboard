@@ -214,6 +214,14 @@ with only the Destatis zip and no `germany.json`, the report ships with no
 Germany page. Always run `fetch_germany.py`; if Eurostat is firewalled,
 copy the previous quarter's `germany.json` as a fallback.
 
+**Annual-baseline view.** `data/{slug}/cpi_baselines.json` feeds the Germany
+page's *Annual baselines* tab (159 Destatis CPI series: 2023/24/25 annual
+averages vs the 2026 YTD average). It is extracted from the index-tracker
+workbook with `py scripts/extract_cpi_baselines.py {slug} tracker.xlsx` (needs
+openpyxl). Only public Destatis figures are read - never the workbook's
+settlement-index parents, procurement mappings or thresholds - and the workbook
+itself is not committed (public repo / public site).
+
 **Monthly refresh.** `.github/workflows/refresh-destatis.yml` pulls table
 61111-0004 from the Genesis API on the 16th of every month (and on demand from
 the Actions tab), using the repository secret `GENESIS_TOKEN`. It refreshes only

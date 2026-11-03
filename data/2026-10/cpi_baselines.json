@@ -1,0 +1,1922 @@
+{
+ "source": "Destatis Genesis Online - CPI (2020 = 100), annual averages",
+ "years": [
+  2023,
+  2024,
+  2025
+ ],
+ "ytd": {
+  "year": 2026,
+  "months": 6
+ },
+ "series": [
+  {
+   "coicop": "CP011",
+   "label": "Food",
+   "base": [
+    131.4,
+    133.2,
+    135.9
+   ],
+   "ytd": 137.367,
+   "parent": null,
+   "depth": 3
+  },
+  {
+   "coicop": "CP0111",
+   "label": "Bread and cereal products",
+   "base": [
+    135.9,
+    138.5,
+    139.6
+   ],
+   "ytd": 140.733,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01111",
+   "label": "Rice, including rice preparations",
+   "base": [
+    135.5,
+    137.7,
+    140.1
+   ],
+   "ytd": 131.343,
+   "parent": "CP0111",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0111101100",
+   "label": "Rice",
+   "base": [
+    135.3,
+    137.55,
+    140.275
+   ],
+   "ytd": 128.914,
+   "parent": "CP01111",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01112",
+   "label": "Flour and other cereal products",
+   "base": [
+    157.6,
+    148.0,
+    147.0
+   ],
+   "ytd": 147.0,
+   "parent": "CP0111",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0111201100",
+   "label": "Wheat flour",
+   "base": [
+    170.717,
+    157.517,
+    151.683
+   ],
+   "ytd": 153.657,
+   "parent": "CP01112",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01113",
+   "label": "Bread and rolls",
+   "base": [
+    132.5,
+    135.4,
+    138.1
+   ],
+   "ytd": 139.871,
+   "parent": "CP0111",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0111320200",
+   "label": "Bake-at-home bread rolls",
+   "base": [
+    149.775,
+    154.167,
+    153.758
+   ],
+   "ytd": 154.357,
+   "parent": "CP01113",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01114",
+   "label": "Other bakery products",
+   "base": [
+    137.8,
+    142.7,
+    144.7
+   ],
+   "ytd": 146.843,
+   "parent": "CP0111",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0111423100",
+   "label": "Frozen cake or gateau",
+   "base": [
+    141.233,
+    145.892,
+    152.808
+   ],
+   "ytd": 160.3,
+   "parent": "CP01114",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01115",
+   "label": "Pizza, quiches or similar products",
+   "base": [
+    124.7,
+    130.0,
+    132.0
+   ],
+   "ytd": 133.4,
+   "parent": "CP0111",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01116",
+   "label": "Pasta products",
+   "base": [
+    139.6,
+    143.5,
+    145.2
+   ],
+   "ytd": 146.957,
+   "parent": "CP0111",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01117",
+   "label": "Breakfast preparations",
+   "base": [
+    121.2,
+    126.6,
+    128.9
+   ],
+   "ytd": 130.843,
+   "parent": "CP0111",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01118",
+   "label": "Other cereal products",
+   "base": [
+    114.7,
+    117.3,
+    118.8
+   ],
+   "ytd": 119.771,
+   "parent": "CP0111",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0112",
+   "label": "Meat and meat products",
+   "base": [
+    127.5,
+    129.2,
+    132.2
+   ],
+   "ytd": 134.967,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01121",
+   "label": "Beef and veal",
+   "base": [
+    132.6,
+    140.5,
+    148.4
+   ],
+   "ytd": 157.657,
+   "parent": "CP0112",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0112101100",
+   "label": "Beef for cooking",
+   "base": [
+    142.375,
+    145.733,
+    153.325
+   ],
+   "ytd": 169.371,
+   "parent": "CP01121",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112109100",
+   "label": "Veal",
+   "base": [
+    115.358,
+    117.625,
+    124.375
+   ],
+   "ytd": 130.586,
+   "parent": "CP01121",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01122",
+   "label": "Pork",
+   "base": [
+    116.5,
+    118.1,
+    129.2
+   ],
+   "ytd": 137.243,
+   "parent": "CP0112",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01123",
+   "label": "Lamb, mutton and goat meat",
+   "base": [
+    133.0,
+    133.0,
+    135.3
+   ],
+   "ytd": 136.514,
+   "parent": "CP0112",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01124",
+   "label": "Poultry",
+   "base": [
+    122.5,
+    123.4,
+    139.3
+   ],
+   "ytd": 151.843,
+   "parent": "CP0112",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0112410100",
+   "label": "Fresh poultry meat",
+   "base": [
+    129.183,
+    130.383,
+    139.975
+   ],
+   "ytd": 149.086,
+   "parent": "CP01124",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112410200",
+   "label": "Frozen poultry meat",
+   "base": [
+    125.058,
+    128.492,
+    150.042
+   ],
+   "ytd": 163.071,
+   "parent": "CP01124",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01125",
+   "label": "Other meat products",
+   "base": [
+    131.1,
+    131.2,
+    132.4
+   ],
+   "ytd": 132.714,
+   "parent": "CP0112",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01126",
+   "label": "Liver or other offal",
+   "base": [
+    116.7,
+    119.8,
+    124.3
+   ],
+   "ytd": 126.843,
+   "parent": "CP0112",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01127",
+   "label": "Meat and sausage products",
+   "base": [
+    118.5,
+    121.3,
+    123.4
+   ],
+   "ytd": 123.957,
+   "parent": "CP0112",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0112710300",
+   "label": "Cured ham, bacon, or pork belly",
+   "base": [
+    121.8,
+    123.2,
+    126.1
+   ],
+   "ytd": 126.1,
+   "parent": "CP01127",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112721100",
+   "label": "Bologna-style sausage",
+   "base": [
+    112.6,
+    115.1,
+    119.1
+   ],
+   "ytd": 119.1,
+   "parent": "CP01127",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112721200",
+   "label": "Bratwurst",
+   "base": [
+    122.5,
+    125.0,
+    127.3
+   ],
+   "ytd": 129.471,
+   "parent": "CP01127",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01128",
+   "label": "Other processed and prepared meat",
+   "base": [
+    126.3,
+    128.1,
+    132.3
+   ],
+   "ytd": 134.129,
+   "parent": "CP0112",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0113",
+   "label": "Fish, fish products and seafood",
+   "base": [
+    129.1,
+    129.4,
+    130.2
+   ],
+   "ytd": 132.2,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01131",
+   "label": "Fresh or chilled fish and fish fillets",
+   "base": [
+    126.5,
+    128.5,
+    134.1
+   ],
+   "ytd": 136.986,
+   "parent": "CP0113",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0113100100",
+   "label": "Fish fillet, fresh or chilled",
+   "base": [
+    133.7,
+    135.3,
+    138.9
+   ],
+   "ytd": 139.757,
+   "parent": "CP01131",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0113100200",
+   "label": "Cod or salmon, fresh or chilled",
+   "base": [
+    124.9,
+    128.2,
+    134.7
+   ],
+   "ytd": 134.7,
+   "parent": "CP01131",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01132",
+   "label": "Frozen fish and fish fillets",
+   "base": [
+    124.9,
+    126.9,
+    129.1
+   ],
+   "ytd": 132.257,
+   "parent": "CP0113",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0113200100",
+   "label": "Frozen fish fillet",
+   "base": [
+    124.4,
+    126.4,
+    129.3
+   ],
+   "ytd": 132.743,
+   "parent": "CP01132",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01133",
+   "label": "Fresh or chilled seafood",
+   "base": [
+    116.4,
+    116.9,
+    117.3
+   ],
+   "ytd": 116.157,
+   "parent": "CP0113",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01134",
+   "label": "Frozen seafood",
+   "base": [
+    111.9,
+    111.4,
+    113.2
+   ],
+   "ytd": 108.086,
+   "parent": "CP0113",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0113400100",
+   "label": "Frozen seafood",
+   "base": [
+    112.1,
+    110.8,
+    113.3
+   ],
+   "ytd": 107.886,
+   "parent": "CP01134",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01135",
+   "label": "Dried, smoked or salted fish",
+   "base": [
+    121.3,
+    122.5,
+    126.0
+   ],
+   "ytd": 127.843,
+   "parent": "CP0113",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0113500100",
+   "label": "Smoked fish",
+   "base": [
+    122.5,
+    124.0,
+    127.7
+   ],
+   "ytd": 129.686,
+   "parent": "CP01135",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01136",
+   "label": "Canned fish and other fish preparations",
+   "base": [
+    128.1,
+    131.5,
+    135.3
+   ],
+   "ytd": 138.3,
+   "parent": "CP0113",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0114",
+   "label": "Dairy products and eggs",
+   "base": [
+    143.7,
+    141.2,
+    145.2
+   ],
+   "ytd": 141.5,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01141",
+   "label": "Whole milk",
+   "base": [
+    117.3,
+    120.3,
+    129.9
+   ],
+   "ytd": 130.229,
+   "parent": "CP0114",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01142",
+   "label": "Semi-skimmed milk",
+   "base": [
+    118.2,
+    121.3,
+    131.2
+   ],
+   "ytd": 131.8,
+   "parent": "CP0114",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01143",
+   "label": "Condensed milk",
+   "base": [
+    141.4,
+    144.6,
+    158.4
+   ],
+   "ytd": 162.857,
+   "parent": "CP0114",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01144",
+   "label": "Yoghurt",
+   "base": [
+    119.1,
+    121.5,
+    132.7
+   ],
+   "ytd": 133.614,
+   "parent": "CP0114",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0114400200",
+   "label": "Yogurt",
+   "base": [
+    119.4,
+    121.8,
+    132.5
+   ],
+   "ytd": 133.643,
+   "parent": "CP01144",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01145",
+   "label": "Cheese and curd",
+   "base": [
+    129.5,
+    130.3,
+    142.0
+   ],
+   "ytd": 142.614,
+   "parent": "CP0114",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0114501100",
+   "label": "Hard cheese",
+   "base": [
+    125.3,
+    125.4,
+    136.8
+   ],
+   "ytd": 137.371,
+   "parent": "CP01145",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01146",
+   "label": "Other dairy products",
+   "base": [
+    125.2,
+    127.1,
+    136.1
+   ],
+   "ytd": 136.757,
+   "parent": "CP0114",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01147",
+   "label": "Eggs",
+   "base": [
+    132.9,
+    129.4,
+    141.7
+   ],
+   "ytd": 160.457,
+   "parent": "CP0114",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0114701100",
+   "label": "Eggs",
+   "base": [
+    134.3,
+    130.4,
+    142.3
+   ],
+   "ytd": 162.0,
+   "parent": "CP01147",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0115",
+   "label": "Edible fats and oils",
+   "base": [
+    139.9,
+    154.3,
+    152.7
+   ],
+   "ytd": 131.233,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01151",
+   "label": "Butter",
+   "base": [
+    151.1,
+    158.8,
+    158.5
+   ],
+   "ytd": 109.657,
+   "parent": "CP0115",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01152",
+   "label": "Margarine or vegetable fat",
+   "base": [
+    135.1,
+    135.5,
+    151.4
+   ],
+   "ytd": 158.857,
+   "parent": "CP0115",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01153",
+   "label": "Olive oil",
+   "base": [
+    127.6,
+    138.4,
+    168.1
+   ],
+   "ytd": 156.971,
+   "parent": "CP0115",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0115300100",
+   "label": "Olive oil",
+   "base": [
+    128.208,
+    139.108,
+    168.842
+   ],
+   "ytd": 157.157,
+   "parent": "CP01153",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01154",
+   "label": "Sunflower oil, rapeseed oil or similar",
+   "base": [
+    136.7,
+    137.0,
+    150.3
+   ],
+   "ytd": 158.857,
+   "parent": "CP0115",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01155",
+   "label": "Lard or other animal cooking fat",
+   "base": [
+    131.5,
+    135.8,
+    149.1
+   ],
+   "ytd": 149.829,
+   "parent": "CP0115",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0116",
+   "label": "Fruit",
+   "base": [
+    114.4,
+    118.7,
+    124.5
+   ],
+   "ytd": 128.933,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01161",
+   "label": "Fresh or chilled fruit",
+   "base": [
+    120.1,
+    118.1,
+    118.7
+   ],
+   "ytd": 123.371,
+   "parent": "CP0116",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0116111000",
+   "label": "Citrus fruit",
+   "base": [
+    105.6,
+    110.1,
+    114.4
+   ],
+   "ytd": 113.286,
+   "parent": "CP01161",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116120100",
+   "label": "Bananas",
+   "base": [
+    110.8,
+    108.2,
+    112.0
+   ],
+   "ytd": 120.6,
+   "parent": "CP01161",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116130200",
+   "label": "Apples",
+   "base": [
+    116.5,
+    114.8,
+    116.0
+   ],
+   "ytd": 110.5,
+   "parent": "CP01161",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116161100",
+   "label": "Strawberries, raspberries, gooseberries or similar",
+   "base": [
+    143.8,
+    134.4,
+    131.8
+   ],
+   "ytd": 168.771,
+   "parent": "CP01161",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116165100",
+   "label": "Grapes",
+   "base": [
+    119.0,
+    120.2,
+    125.5
+   ],
+   "ytd": 120.143,
+   "parent": "CP01161",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01162",
+   "label": "Frozen fruit",
+   "base": [
+    118.7,
+    133.2,
+    133.3
+   ],
+   "ytd": 158.629,
+   "parent": "CP0116",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01163",
+   "label": "Dried fruit, nuts and similar products",
+   "base": [
+    126.7,
+    129.4,
+    132.0
+   ],
+   "ytd": 134.871,
+   "parent": "CP0116",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0116303100",
+   "label": "Peanuts, trail mix, or similar",
+   "base": [
+    123.192,
+    126.742,
+    130.058
+   ],
+   "ytd": 132.186,
+   "parent": "CP01163",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01164",
+   "label": "Canned fruit",
+   "base": [
+    132.4,
+    143.0,
+    155.9
+   ],
+   "ytd": 184.057,
+   "parent": "CP0116",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0117",
+   "label": "Vegetables",
+   "base": [
+    132.2,
+    130.2,
+    129.8
+   ],
+   "ytd": 136.9,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01171",
+   "label": "Fresh or chilled vegetables (excluding potatoes)",
+   "base": [
+    125.4,
+    124.6,
+    130.8
+   ],
+   "ytd": 138.557,
+   "parent": "CP0117",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0117121000",
+   "label": "Cauliflower, savoy cabbage, or other cabbage",
+   "base": [
+    124.5,
+    121.7,
+    126.8
+   ],
+   "ytd": 122.529,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117142100",
+   "label": "Mushrooms or other fungi",
+   "base": [
+    118.9,
+    121.1,
+    124.4
+   ],
+   "ytd": 125.414,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117149200",
+   "label": "Legumes, asparagus, radishes, or similar",
+   "base": [
+    124.9,
+    122.8,
+    127.5
+   ],
+   "ytd": 127.5,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01172",
+   "label": "Frozen vegetables (excluding potatoes)",
+   "base": [
+    128.5,
+    137.6,
+    143.8
+   ],
+   "ytd": 153.271,
+   "parent": "CP0117",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01173",
+   "label": "Dried and preserved vegetables",
+   "base": [
+    126.9,
+    132.6,
+    143.5
+   ],
+   "ytd": 148.271,
+   "parent": "CP0117",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01174",
+   "label": "Fresh, chilled and processed potatoes",
+   "base": [
+    116.1,
+    118.9,
+    115.9
+   ],
+   "ytd": 110.071,
+   "parent": "CP0117",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01175",
+   "label": "Crisps and potato sticks",
+   "base": [
+    125.2,
+    132.0,
+    149.1
+   ],
+   "ytd": 143.014,
+   "parent": "CP0117",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0117500200",
+   "label": "Potato chips or potato sticks",
+   "base": [
+    122.8,
+    131.4,
+    146.8
+   ],
+   "ytd": 140.429,
+   "parent": "CP01175",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0118",
+   "label": "Sugar, jam, honey and other confectionery",
+   "base": [
+    127.0,
+    135.1,
+    143.1
+   ],
+   "ytd": 148.5,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01181",
+   "label": "Sugar",
+   "base": [
+    117.6,
+    130.8,
+    132.3
+   ],
+   "ytd": 133.371,
+   "parent": "CP0118",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01182",
+   "label": "Jam, marmalade, honey and similar products",
+   "base": [
+    115.9,
+    119.4,
+    127.3
+   ],
+   "ytd": 130.229,
+   "parent": "CP0118",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0118201100",
+   "label": "Jam, preserves or jelly",
+   "base": [
+    118.2,
+    123.6,
+    133.3
+   ],
+   "ytd": 141.9,
+   "parent": "CP01182",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0118203100",
+   "label": "Honey",
+   "base": [
+    110.6,
+    111.6,
+    112.2
+   ],
+   "ytd": 112.071,
+   "parent": "CP01182",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0118205100",
+   "label": "Nougat-based spread",
+   "base": [
+    122.4,
+    127.4,
+    136.7
+   ],
+   "ytd": 139.329,
+   "parent": "CP01182",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01183",
+   "label": "Chocolate",
+   "base": [
+    125.5,
+    138.6,
+    160.7
+   ],
+   "ytd": 173.586,
+   "parent": "CP0118",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0118301100",
+   "label": "Chocolate bar",
+   "base": [
+    119.8,
+    133.7,
+    157.4
+   ],
+   "ytd": 171.371,
+   "parent": "CP01183",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01184",
+   "label": "Confectionery",
+   "base": [
+    118.8,
+    124.1,
+    134.1
+   ],
+   "ytd": 138.9,
+   "parent": "CP0118",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01185",
+   "label": "Ice cream",
+   "base": [
+    116.4,
+    119.9,
+    128.7
+   ],
+   "ytd": 130.814,
+   "parent": "CP0118",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01186",
+   "label": "Sweeteners and other sugar substitutes",
+   "base": [
+    107.6,
+    110.1,
+    113.8
+   ],
+   "ytd": 114.529,
+   "parent": "CP0118",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0119",
+   "label": "Food products, n.e.c.",
+   "base": [
+    129.5,
+    132.5,
+    132.0
+   ],
+   "ytd": 133.0,
+   "parent": "CP011",
+   "depth": 4
+  },
+  {
+   "coicop": "CP01191",
+   "label": "Sauces, seasonings and condiments",
+   "base": [
+    128.4,
+    134.1,
+    140.2
+   ],
+   "ytd": 143.543,
+   "parent": "CP0119",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01192",
+   "label": "Table salt, culinary herbs and spices",
+   "base": [
+    113.3,
+    117.4,
+    122.8
+   ],
+   "ytd": 124.157,
+   "parent": "CP0119",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01193",
+   "label": "Baby and infant food",
+   "base": [
+    119.3,
+    123.5,
+    128.3
+   ],
+   "ytd": 130.071,
+   "parent": "CP0119",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01194",
+   "label": "Ready meals, n.e.c.",
+   "base": [
+    113.5,
+    117.2,
+    123.7
+   ],
+   "ytd": 125.057,
+   "parent": "CP0119",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01199",
+   "label": "Soups and other food preparations",
+   "base": [
+    116.6,
+    120.6,
+    128.5
+   ],
+   "ytd": 130.4,
+   "parent": "CP0119",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0121",
+   "label": "Coffee, tea and cocoa",
+   "base": [
+    120.5,
+    122.7,
+    139.5
+   ],
+   "ytd": 148.533,
+   "parent": null,
+   "depth": 4
+  },
+  {
+   "coicop": "CP01211",
+   "label": "Coffee and similar products",
+   "base": [
+    123.4,
+    126.2,
+    140.6
+   ],
+   "ytd": 154.843,
+   "parent": "CP0121",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0121110200",
+   "label": "Coffee pods or coffee capsules",
+   "base": [
+    130.2,
+    134.1,
+    141.7
+   ],
+   "ytd": 152.014,
+   "parent": "CP01211",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0121121100",
+   "label": "Instant coffee or similar",
+   "base": [
+    120.4,
+    123.5,
+    137.9
+   ],
+   "ytd": 137.9,
+   "parent": "CP01211",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01212",
+   "label": "Tea and tea-like products",
+   "base": [
+    112.5,
+    113.1,
+    117.3
+   ],
+   "ytd": 121.071,
+   "parent": "CP0121",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01213",
+   "label": "Cocoa powder or similar products",
+   "base": [
+    112.2,
+    113.5,
+    140.9
+   ],
+   "ytd": 176.671,
+   "parent": "CP0121",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0122",
+   "label": "Mineral water, soft drinks and juices",
+   "base": [
+    122.2,
+    132.5,
+    138.2
+   ],
+   "ytd": 138.3,
+   "parent": null,
+   "depth": 4
+  },
+  {
+   "coicop": "CP01221",
+   "label": "Mineral water",
+   "base": [
+    119.0,
+    123.5,
+    130.9
+   ],
+   "ytd": 133.071,
+   "parent": "CP0122",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0122100100",
+   "label": "Sparkling mineral water",
+   "base": [
+    120.1,
+    124.5,
+    132.3
+   ],
+   "ytd": 134.614,
+   "parent": "CP01221",
+   "depth": 6
+  },
+  {
+   "coicop": "CP01222",
+   "label": "Soft drinks (excluding mineral water)",
+   "base": [
+    120.8,
+    124.6,
+    129.6
+   ],
+   "ytd": 133.671,
+   "parent": "CP0122",
+   "depth": 5
+  },
+  {
+   "coicop": "CP01223",
+   "label": "Fruit and vegetable juices",
+   "base": [
+    123.9,
+    130.3,
+    147.2
+   ],
+   "ytd": 151.914,
+   "parent": "CP0122",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0122312200",
+   "label": "Orange juice or similar fruit juice",
+   "base": [
+    136.5,
+    151.4,
+    162.8
+   ],
+   "ytd": 166.6,
+   "parent": "CP01223",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0122320300",
+   "label": "Vegetable juice",
+   "base": [
+    115.9,
+    118.6,
+    125.1
+   ],
+   "ytd": 125.1,
+   "parent": "CP01223",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0211",
+   "label": "Spirits",
+   "base": [
+    113.0,
+    115.9,
+    116.6
+   ],
+   "ytd": 116.733,
+   "parent": null,
+   "depth": 4
+  },
+  {
+   "coicop": "CP02111",
+   "label": "Liqueurs and other spirits",
+   "base": [
+    106.0,
+    109.5,
+    113.0
+   ],
+   "ytd": 116.357,
+   "parent": "CP0211",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0211140100",
+   "label": "Other spirits",
+   "base": [
+    102.5,
+    105.5,
+    111.6
+   ],
+   "ytd": 114.457,
+   "parent": "CP02111",
+   "depth": 6
+  },
+  {
+   "coicop": "CP02112",
+   "label": "Mixed soft drink with less than 6% alcohol",
+   "base": [
+    112.7,
+    115.6,
+    120.4
+   ],
+   "ytd": 124.671,
+   "parent": "CP0211",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0212",
+   "label": "Wine",
+   "base": [
+    115.4,
+    117.8,
+    117.8
+   ],
+   "ytd": 118.6,
+   "parent": null,
+   "depth": 4
+  },
+  {
+   "coicop": "CP02121",
+   "label": "Grape wine",
+   "base": [
+    108.9,
+    111.8,
+    115.3
+   ],
+   "ytd": 118.257,
+   "parent": "CP0212",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0212120100",
+   "label": "White wine",
+   "base": [
+    108.1,
+    111.3,
+    115.6
+   ],
+   "ytd": 118.3,
+   "parent": "CP02121",
+   "depth": 6
+  },
+  {
+   "coicop": "CP02122",
+   "label": "Cider or other fruit wine",
+   "base": [
+    107.3,
+    111.8,
+    124.5
+   ],
+   "ytd": 130.657,
+   "parent": "CP0212",
+   "depth": 5
+  },
+  {
+   "coicop": "CP02123",
+   "label": "Wine with more than 15% alcohol",
+   "base": [
+    109.2,
+    111.3,
+    114.4
+   ],
+   "ytd": 115.543,
+   "parent": "CP0212",
+   "depth": 5
+  },
+  {
+   "coicop": "CP02124",
+   "label": "Other wine-based beverages",
+   "base": [
+    106.6,
+    111.0,
+    116.1
+   ],
+   "ytd": 122.329,
+   "parent": "CP0212",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0213",
+   "label": "Beer",
+   "base": [
+    118.5,
+    122.4,
+    125.1
+   ],
+   "ytd": 127.767,
+   "parent": null,
+   "depth": 4
+  },
+  {
+   "coicop": "CP02131",
+   "label": "Pilsner, lager, dark beer or other bottom-fermented beer",
+   "base": [
+    118.3,
+    121.8,
+    124.4
+   ],
+   "ytd": 127.0,
+   "parent": "CP0213",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0213100100",
+   "label": "Pilsner, lager, dark beer, or other bottom-fermented beer",
+   "base": [
+    118.292,
+    121.758,
+    124.408
+   ],
+   "ytd": 127.586,
+   "parent": "CP02131",
+   "depth": 6
+  },
+  {
+   "coicop": "CP02132",
+   "label": "Wheat beer, Altbier or other top-fermented beer",
+   "base": [
+    117.0,
+    121.1,
+    125.0
+   ],
+   "ytd": 127.1,
+   "parent": "CP0213",
+   "depth": 5
+  },
+  {
+   "coicop": "CP02133",
+   "label": "Non-alcoholic beer, malt beer or similar",
+   "base": [
+    119.9,
+    125.0,
+    127.5
+   ],
+   "ytd": 130.571,
+   "parent": "CP0213",
+   "depth": 5
+  },
+  {
+   "coicop": "CP02134",
+   "label": "Beer-based mixed drink",
+   "base": [
+    119.9,
+    125.7,
+    128.3
+   ],
+   "ytd": 131.729,
+   "parent": "CP0213",
+   "depth": 5
+  },
+  {
+   "coicop": "CP0111431200",
+   "label": "Biscuits/Cookies",
+   "base": [
+    154.817,
+    174.35,
+    180.067
+   ],
+   "ytd": 182.543,
+   "parent": "CP01114",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0111450100",
+   "label": "Savoury biscuits and crackers",
+   "base": [
+    124.683,
+    134.567,
+    139.308
+   ],
+   "ytd": 142.043,
+   "parent": "CP01114",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0111703100",
+   "label": "Cornflakes, muesli or similar cereals",
+   "base": [
+    116.367,
+    125.367,
+    128.225
+   ],
+   "ytd": 129.8,
+   "parent": "CP01117",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112107100",
+   "label": "Beef roulade or beef loin",
+   "base": [
+    127.508,
+    130.942,
+    143.367
+   ],
+   "ytd": 151.543,
+   "parent": "CP01121",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112107200",
+   "label": "Beef for braising or roasting",
+   "base": [
+    127.692,
+    131.083,
+    143.917
+   ],
+   "ytd": 154.057,
+   "parent": "CP01121",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112107300",
+   "label": "Minced beef",
+   "base": [
+    137.558,
+    145.458,
+    160.675
+   ],
+   "ytd": 181.114,
+   "parent": "CP01121",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112200200",
+   "label": "Minced pork, including mixed minced meat",
+   "base": [
+    136.958,
+    137.5,
+    152.992
+   ],
+   "ytd": 161.3,
+   "parent": "CP01122",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112805100",
+   "label": "Frozen, ready-to-serve prepared meat",
+   "base": [
+    132.633,
+    133.192,
+    150.533
+   ],
+   "ytd": 163.529,
+   "parent": "CP01128",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0112808200",
+   "label": "Prepared minced meat",
+   "base": [
+    126.675,
+    134.692,
+    150.45
+   ],
+   "ytd": 151.386,
+   "parent": "CP01128",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0114110100",
+   "label": "Whole milk",
+   "base": [
+    117.3,
+    120.3,
+    129.9
+   ],
+   "ytd": 130.229,
+   "parent": "CP01141",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0115400100",
+   "label": "Sunflower oil, rapeseed oil or similar",
+   "base": [
+    136.65,
+    136.983,
+    150.333
+   ],
+   "ytd": 158.857,
+   "parent": "CP01154",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116150000",
+   "label": "Peaches, cherries or other stone or pome fruit",
+   "base": [
+    120.45,
+    124.733,
+    126.842
+   ],
+   "ytd": 135.957,
+   "parent": "CP01161",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116200200",
+   "label": "Frozen fruit",
+   "base": [
+    119.067,
+    133.975,
+    133.533
+   ],
+   "ytd": 158.671,
+   "parent": "CP01162",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116301100",
+   "label": "Dried fruit",
+   "base": [
+    121.875,
+    123.825,
+    134.675
+   ],
+   "ytd": 140.243,
+   "parent": "CP01163",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116402100",
+   "label": "Preserved sour cherries or other preserved stone fruit",
+   "base": [
+    124.492,
+    139.433,
+    162.583
+   ],
+   "ytd": 213.543,
+   "parent": "CP01164",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0116403100",
+   "label": "Preserved pineapple, strawberries or similar",
+   "base": [
+    127.958,
+    133.75,
+    169.283
+   ],
+   "ytd": 175.114,
+   "parent": "CP01164",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117111100",
+   "label": "Lettuce or iceberg lettuce",
+   "base": [
+    119.158,
+    119.925,
+    117.867
+   ],
+   "ytd": 123.471,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117131100",
+   "label": "Tomatoes",
+   "base": [
+    117.467,
+    113.45,
+    132.758
+   ],
+   "ytd": 142.057,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117133100",
+   "label": "Bell peppers",
+   "base": [
+    124.708,
+    121.492,
+    148.392
+   ],
+   "ytd": 162.529,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117134100",
+   "label": "Cucumbers",
+   "base": [
+    129.558,
+    126.183,
+    166.908
+   ],
+   "ytd": 170.843,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117139000",
+   "label": "Pumpkins, aubergines or corn",
+   "base": [
+    114.517,
+    120.183,
+    121.083
+   ],
+   "ytd": 139.257,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117141100",
+   "label": "Onions, garlic or similar",
+   "base": [
+    125.267,
+    133.092,
+    128.95
+   ],
+   "ytd": 119.329,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117145100",
+   "label": "Carrots",
+   "base": [
+    112.192,
+    112.883,
+    96.758
+   ],
+   "ytd": 112.243,
+   "parent": "CP01171",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117201100",
+   "label": "Frozen spinach",
+   "base": [
+    138.3,
+    146.367,
+    153.792
+   ],
+   "ytd": 163.157,
+   "parent": "CP01172",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0117401300",
+   "label": "Potatoes",
+   "base": [
+    99.933,
+    110.325,
+    110.45
+   ],
+   "ytd": 102.914,
+   "parent": "CP01174",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0118100100",
+   "label": "Sugar",
+   "base": [
+    117.6,
+    130.8,
+    132.3
+   ],
+   "ytd": 133.371,
+   "parent": "CP01181",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0118309100",
+   "label": "Bars or other chocolate products",
+   "base": [
+    124.258,
+    139.492,
+    162.133
+   ],
+   "ytd": 175.429,
+   "parent": "CP01183",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0118401100",
+   "label": "Pralines",
+   "base": [
+    129.592,
+    139.15,
+    148.575
+   ],
+   "ytd": 152.086,
+   "parent": "CP01184",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0119103400",
+   "label": "BBQ sauce, soy sauce, salad dressing or similar",
+   "base": [
+    121.267,
+    128.483,
+    140.875
+   ],
+   "ytd": 146.086,
+   "parent": "CP01191",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0122211100",
+   "label": "Cola drink",
+   "base": [
+    125.117,
+    127.817,
+    133.667
+   ],
+   "ytd": 138.786,
+   "parent": "CP01222",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0122219100",
+   "label": "Caffeine-free soft drink",
+   "base": [
+    119.458,
+    122.817,
+    125.817
+   ],
+   "ytd": 133.343,
+   "parent": "CP01222",
+   "depth": 6
+  },
+  {
+   "coicop": "CP0122311100",
+   "label": "Apple juice or similar fruit juice",
+   "base": [
+    121.042,
+    125.558,
+    134.833
+   ],
+   "ytd": 140.843,
+   "parent": "CP01223",
+   "depth": 6
+  }
+ ]
+}

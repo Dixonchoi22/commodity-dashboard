@@ -217,7 +217,7 @@ def _head_of(s: dict) -> dict:
             "yoy": s.get("yoy_pct"), "mom": s.get("mom_pct")}
 
 
-def build_germany(destatis: dict) -> dict | None:
+def build_germany(destatis: dict, baselines: dict | None = None) -> dict | None:
     if not destatis:
         return None
     by_coicop = {s["coicop"]: s for s in destatis.get("series", [])}
@@ -291,6 +291,9 @@ def build_germany(destatis: dict) -> dict | None:
         "months": months,
         "firstShown": first_shown,
         "hist": _aligned(cp01),
+        # Annual-average baselines vs the year-to-date average (Destatis only).
+        "baselines": ({"years": baselines["years"], "ytd": baselines["ytd"],
+                       "series": baselines["series"]} if baselines else None),
     }
 
 
@@ -469,7 +472,7 @@ def build_report(slug: str, lang_codes: list[str]) -> dict:
         "trend": meta.get("trend_analysis", ""),
         "categories": categories,
         "rows": rows,
-        "germany": build_germany(destatis),
+        "germany": build_germany(destatis, load(slug, "cpi_baselines.json")),
         "indirect": build_indirect(indirect),
     }
 
