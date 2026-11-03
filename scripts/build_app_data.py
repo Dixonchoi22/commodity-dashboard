@@ -31,23 +31,23 @@ OUT = ROOT / "public" / "reports" / "app-data.js"
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
-# Fixed categorical colour order (assigned once, never cycled). Dark-theme
-# hues chosen to stay distinguishable side by side.
+# Fixed categorical colour order (assigned once, never cycled). gategroup
+# brand colours first, then supporting hues that stay distinguishable on white.
 CATEGORY_COLORS = {
-    "Meat & Poultry": "#F87171",
-    "Dairy & Eggs": "#FBBF24",
-    "Grains & Feed": "#A3E635",
-    "Oilseeds & Vegetable Oils": "#34D399",
-    "Fish & Seafood": "#22D3EE",
-    "Fruit & Vegetables": "#60A5FA",
-    "Packaging": "#A78BFA",
-    "Softs": "#F472B6",
-    "Nuts & Dried Fruit": "#FB923C",
-    "Herbs & Spices": "#2DD4BF",
-    "Juices": "#C084FC",
-    "Textiles": "#E879F9",
+    "Meat & Poultry": "#B83B7D",
+    "Dairy & Eggs": "#A99667",
+    "Grains & Feed": "#D2691E",
+    "Oilseeds & Vegetable Oils": "#4C9F70",
+    "Fish & Seafood": "#2BA6A6",
+    "Fruit & Vegetables": "#0078C8",
+    "Packaging": "#36424A",
+    "Softs": "#7A5AA6",
+    "Nuts & Dried Fruit": "#8A6D1E",
+    "Herbs & Spices": "#5B8DB8",
+    "Juices": "#000064",
+    "Textiles": "#6B7682",
 }
-FALLBACK_COLOR = "#94A3B8"
+FALLBACK_COLOR = "#6B7682"
 
 
 def cat_color(name: str) -> str:

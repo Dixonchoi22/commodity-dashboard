@@ -16,6 +16,14 @@ procurement actions, commodity modal), and the Germany deep-dive.
 into `index.html` on every run. The per-quarter static `{slug}.html` reports
 still build and remain reachable directly (English only).
 
+**Branding.** The SPA follows the gategroup brand guide: light theme, colour
+tokens in `:root` of `app.html` (primary `#000064`, secondary `#0078C8` /
+`#36424A` / `#A99667`, complementary `#8CDCDC`), navy top bar and landing hero,
+Calibri-compatible font stack (gategroup Effra is not bundled; Carlito is loaded
+as the web fallback). Category colours live in `CATEGORY_COLORS` in
+`build_app_data.py`. The logo must come from the supplied files, never a retyped
+wordmark. The static `{slug}.html` reports still use the old dark styling.
+
 **Languages.** The SPA is multilingual — English, German, French, Italian,
 Spanish, Polish, Dutch, Portuguese and Romanian — via the language picker in
 the header. See **Translations** below.
