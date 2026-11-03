@@ -1664,15 +1664,15 @@
       "ro": "Aceste serii se publică cu decalaje diferite, așa că fiecare indicator arată ultima sa valoare, nu o lună comună. Procentele sunt {mom}, cu excepția rândurilor marcate {qoq}."
     },
     "ind.summaryTitle": {
-      "en": "The quarter in one paragraph",
-      "de": "Das Quartal in einem Absatz",
-      "fr": "Le trimestre en un paragraphe",
-      "it": "Il trimestre in un paragrafo",
-      "es": "El trimestre en un párrafo",
-      "pl": "Kwartał w jednym akapicie",
-      "nl": "Het kwartaal in één alinea",
-      "pt": "O trimestre num parágrafo",
-      "ro": "Trimestrul într-un paragraf"
+      "en": "In one paragraph",
+      "de": "In einem Absatz",
+      "fr": "En un paragraphe",
+      "it": "In un paragrafo",
+      "es": "En un párrafo",
+      "pl": "W jednym akapicie",
+      "nl": "In één alinea",
+      "pt": "Num parágrafo",
+      "ro": "Într-un paragraf"
     },
     "ind.pillar.energy": {
       "en": "Energy",
@@ -1840,15 +1840,15 @@
       "ro": "Ce înseamnă pentru achiziții"
     },
     "ind.actionsSub": {
-      "en": "Read alongside the commodity-level actions on the quarter report",
-      "de": "Zusammen mit den rohstoffbezogenen Maßnahmen im Quartalsbericht zu lesen",
-      "fr": "À lire avec les actions par matière première du rapport trimestriel",
-      "it": "Da leggere insieme alle azioni per materia prima del report trimestrale",
-      "es": "Léase junto con las acciones por materia prima del informe del trimestre",
-      "pl": "Do czytania razem z działaniami surowcowymi w raporcie kwartalnym",
-      "nl": "Te lezen naast de grondstofacties in het kwartaalrapport",
-      "pt": "A ler em conjunto com as ações por matéria-prima do relatório do trimestre",
-      "ro": "De citit împreună cu acțiunile pe materii prime din raportul trimestrial"
+      "en": "Read alongside the commodity-level actions in the commodity reports",
+      "de": "Zusammen mit den Maßnahmen auf Rohstoffebene in den Rohstoffberichten lesen",
+      "fr": "À lire avec les actions au niveau des matières premières dans les rapports matières",
+      "it": "Da leggere insieme alle azioni a livello di materia prima nei report sulle materie prime",
+      "es": "Léalo junto con las acciones por materia prima de los informes de materias primas",
+      "pl": "Czytać razem z działaniami na poziomie surowców w raportach surowcowych",
+      "nl": "Lees samen met de acties op grondstofniveau in de grondstoffenrapporten",
+      "pt": "Leia em conjunto com as ações ao nível das matérias-primas nos relatórios de matérias-primas",
+      "ro": "A se citi împreună cu acțiunile la nivel de materie primă din rapoartele de materii prime"
     },
     "ind.sourcesTitle": {
       "en": "Sources",
