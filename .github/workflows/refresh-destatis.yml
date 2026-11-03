@@ -1,0 +1,83 @@
+name: Refresh Destatis data (manual)
+
+# Downloads the latest Destatis 61111-0004 table through the Genesis API,
+# rebuilds the affected quarter's report and redeploys Pages.
+# Needs the repository secret GENESIS_TOKEN
+# (Settings -> Secrets and variables -> Actions).
+#
+# Manual only on purpose: a quarter's report is a snapshot, so it should not
+# change underneath readers on a timer.
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Quarter slug to refresh, e.g. 2026-10 (blank = newest in manifest)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: refresh-destatis
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pick quarter
+        id: q
+        env:
+          INPUT_SLUG: ${{ inputs.slug }}
+        run: |
+          SLUG="$INPUT_SLUG"
+          if [ -z "$SLUG" ]; then
+            SLUG=$(python3 -c "import json;print(json.load(open('data/manifest.json'))['reports'][0]['slug'])")
+          fi
+          case "$SLUG" in
+            [0-9][0-9][0-9][0-9]-[0-9][0-9]) ;;
+            *) echo "bad slug: $SLUG"; exit 1 ;;
+          esac
+          test -d "data/$SLUG" || { echo "data/$SLUG does not exist"; exit 1; }
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch Destatis via API
+        env:
+          GENESIS_TOKEN: ${{ secrets.GENESIS_TOKEN }}
+          PYTHONUTF8: "1"
+        run: python3 scripts/fetch_destatis.py "${{ steps.q.outputs.slug }}" --api
+
+      - name: Rebuild report and menu
+        env:
+          PYTHONUTF8: "1"
+        run: |
+          python3 scripts/build_html.py "${{ steps.q.outputs.slug }}"
+          python3 scripts/build_dashboard.py
+
+      - name: Commit and redeploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "No changes - Destatis data already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data public
+          git commit -m "Refresh Destatis data for ${{ steps.q.outputs.slug }}"
+          git push origin HEAD:main
+          # Pushes made with GITHUB_TOKEN do not trigger other workflows,
+          # so start the Pages deploy explicitly.
+          gh workflow run pages.yml --ref main
