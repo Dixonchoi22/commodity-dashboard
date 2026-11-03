@@ -19,14 +19,24 @@ this in mind when comparing levels).
 Output: data/{period}/destatis.json
 
 Usage:
-  python scripts/fetch_destatis.py 2026-04
+  python scripts/fetch_destatis.py 2026-04          # parse a manual export in raw/
+  python scripts/fetch_destatis.py 2026-10 --api    # download via the Genesis API
+
+--api reads the personal API token from the GENESIS_TOKEN environment
+variable (never put it in the repo) and saves the zip to
+data/{period}/raw/61111-0004_en_api.zip before parsing it.
 """
 from __future__ import annotations
 
 import csv
+import datetime as dt
 import json
+import os
 import re
 import sys
+import urllib.error
+import urllib.parse
+import urllib.request
 import zipfile
 from pathlib import Path
 
@@ -37,6 +47,39 @@ MONTH_NAMES = [
     "July", "August", "September", "October", "November", "December",
 ]
 MONTH_NUM = {n: i + 1 for i, n in enumerate(MONTH_NAMES)}
+
+
+API_URL = "https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
+
+
+def download_api(raw_dir: Path) -> Path:
+    """Download table 61111-0004 (flat CSV, zipped) from the Genesis API."""
+    token = os.environ.get("GENESIS_TOKEN", "").strip()
+    if not token:
+        sys.exit("GENESIS_TOKEN is not set. Add your Genesis-Online API token "
+                 "as an environment variable / secret named GENESIS_TOKEN.")
+    body = urllib.parse.urlencode({
+        "name": "61111-0004", "area": "all", "format": "ffcsv",
+        "language": "en", "compress": "false", "job": "false",
+        "startyear": str(dt.date.today().year - 2),
+    }).encode()
+    # POST only (GET and SOAP are switched off); token goes in the username
+    # header with an empty password.
+    req = urllib.request.Request(API_URL, data=body, method="POST", headers={
+        "username": token, "password": "",
+        "Content-Type": "application/x-www-form-urlencoded",
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            data = r.read()
+    except urllib.error.HTTPError as e:
+        sys.exit(f"Genesis API HTTP {e.code} — check GENESIS_TOKEN is valid")
+    if not data.startswith(b"PK"):
+        sys.exit("Genesis API did not return a zip: " + data[:300].decode("utf-8", "replace"))
+    raw_dir.mkdir(parents=True, exist_ok=True)
+    out = raw_dir / "61111-0004_en_api.zip"
+    out.write_bytes(data)
+    return out
 
 
 def find_source(raw_dir: Path) -> Path | None:
@@ -110,7 +153,8 @@ def parse_flat(text: str) -> list[tuple[str, str, list[tuple[str, float]]]]:
         ym = f"{int(r['time']):04d}-{mm.group(1)}"
         label = (r.get("3_variable_attribute_label") or "").strip()
         acc.setdefault(code, (label, {}))[1][ym] = v
-    return [(c, l, sorted(d.items())) for c, (l, d) in acc.items()]
+    # API rows arrive unordered; put them in COICOP hierarchy order like the manual export
+    return [(c, l, sorted(d.items())) for c, (l, d) in sorted(acc.items(), key=lambda kv: kv[0].replace("CC13-", "").ljust(6, "0"))]
 
 
 def parse_destatis(text: str) -> dict:
@@ -191,6 +235,8 @@ def main() -> None:
         sys.exit("usage: python scripts/fetch_destatis.py <period-slug>")
     period = sys.argv[1]
     raw_dir = ROOT / "data" / period / "raw"
+    if "--api" in sys.argv[2:]:
+        download_api(raw_dir)
     source = find_source(raw_dir)
     if not source:
         print("=" * 70)
