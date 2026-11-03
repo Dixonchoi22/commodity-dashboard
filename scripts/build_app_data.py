@@ -217,6 +217,28 @@ def _head_of(s: dict) -> dict:
             "yoy": s.get("yoy_pct"), "mom": s.get("mom_pct")}
 
 
+def _category_items(by_coicop, baselines, aligned):
+    cat_of = {x["coicop"]: x["cat"] for x in baselines["series"] if x.get("cat")}
+
+    def cat_for(code):
+        c = code
+        while len(c) > 3:
+            if c in cat_of:
+                return cat_of[c]
+            c = c[:-1]
+        return None
+
+    items = []
+    for code, s in by_coicop.items():
+        if not re.fullmatch(r"CP01[12]\d\d|CP021\d\d", code):
+            continue
+        h = _head_of(s)
+        items.append({"coicop": code, "label": s.get("label", code), "cat": cat_for(code),
+                      "index": h["latest"], "yoy": h["yoy"], "mom": h["mom"], "hist": aligned(s)})
+    items.sort(key=lambda x: x["coicop"])
+    return items
+
+
 def build_germany(destatis: dict, baselines: dict | None = None) -> dict | None:
     if not destatis:
         return None
@@ -293,7 +315,11 @@ def build_germany(destatis: dict, baselines: dict | None = None) -> dict | None:
         "hist": _aligned(cp01),
         # Annual-average baselines vs the year-to-date average (Destatis only).
         "baselines": ({"years": baselines["years"], "ytd": baselines["ytd"],
+                       "categories": baselines.get("categories", []),
                        "series": baselines["series"]} if baselines else None),
+        # Category view: every 5-digit food / beverage / alcohol item from the
+        # monthly Destatis pull, filed under the catalogue's category.
+        "items": _category_items(by_coicop, baselines, _aligned) if baselines else [],
     }
 
 

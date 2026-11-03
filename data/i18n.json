@@ -1256,6 +1256,138 @@
       "pt": "{year} até à data = média dos primeiros {n} meses de {year}. Variação = essa média face à média anual do ano-base. «vs grupo» = variação da rubrica menos a do grupo principal, em pontos percentuais.",
       "ro": "{year} de la început = media primelor {n} luni din {year}. Variație = această medie față de media anuală a anului de bază. „vs grup” = variația poziției minus variația grupului părinte, în puncte procentuale."
     },
+    "de.railCat": {
+      "en": "Category",
+      "de": "Kategorie",
+      "fr": "Catégorie",
+      "it": "Categoria",
+      "es": "Categoría",
+      "pl": "Kategoria",
+      "nl": "Categorie",
+      "pt": "Categoria",
+      "ro": "Categorie"
+    },
+    "de.itemsN": {
+      "en": "{n} items",
+      "de": "{n} Positionen",
+      "fr": "{n} postes",
+      "it": "{n} voci",
+      "es": "{n} partidas",
+      "pl": "{n} pozycji",
+      "nl": "{n} posten",
+      "pt": "{n} rubricas",
+      "ro": "{n} poziții"
+    },
+    "de.catsTitle": {
+      "en": "Categories — {month}",
+      "de": "Kategorien — {month}",
+      "fr": "Catégories — {month}",
+      "it": "Categorie — {month}",
+      "es": "Categorías — {month}",
+      "pl": "Kategorie — {month}",
+      "nl": "Categorieën — {month}",
+      "pt": "Categorias — {month}",
+      "ro": "Categorii — {month}"
+    },
+    "de.catsSub": {
+      "en": "Average {yoy} of each category's items · sorted high → low",
+      "de": "Durchschnittliche {yoy} der Positionen je Kategorie · sortiert hoch → niedrig",
+      "fr": "{yoy} moyen des postes de chaque catégorie · trié du plus haut au plus bas",
+      "it": "{yoy} medio delle voci di ogni categoria · ordinato dal più alto al più basso",
+      "es": "{yoy} medio de las partidas de cada categoría · ordenado de mayor a menor",
+      "pl": "Średnia {yoy} pozycji w każdej kategorii · od najwyższej do najniższej",
+      "nl": "Gemiddelde {yoy} van de posten per categorie · gesorteerd van hoog naar laag",
+      "pt": "{yoy} médio das rubricas de cada categoria · ordenado de alto para baixo",
+      "ro": "{yoy} mediu al pozițiilor din fiecare categorie · sortat descrescător"
+    },
+    "de.catBasket": {
+      "en": "Basket of its items, equal-weighted ({month} = 100)",
+      "de": "Warenkorb seiner Positionen, gleichgewichtet ({month} = 100)",
+      "fr": "Panier de ses postes, pondération égale ({month} = 100)",
+      "it": "Paniere delle sue voci, pesi uguali ({month} = 100)",
+      "es": "Cesta de sus partidas, ponderación igual ({month} = 100)",
+      "pl": "Koszyk jego pozycji, równe wagi ({month} = 100)",
+      "nl": "Mandje van de posten, gelijk gewogen ({month} = 100)",
+      "pt": "Cabaz das suas rubricas, ponderação igual ({month} = 100)",
+      "ro": "Coș al pozițiilor sale, ponderi egale ({month} = 100)"
+    },
+    "de.avgOf": {
+      "en": "Average {m}",
+      "de": "Durchschnitt {m}",
+      "fr": "{m} moyen",
+      "it": "{m} medio",
+      "es": "{m} medio",
+      "pl": "Średnia {m}",
+      "nl": "Gemiddelde {m}",
+      "pt": "{m} médio",
+      "ro": "{m} mediu"
+    },
+    "de.itemsCount": {
+      "en": "Items",
+      "de": "Positionen",
+      "fr": "Postes",
+      "it": "Voci",
+      "es": "Partidas",
+      "pl": "Pozycje",
+      "nl": "Posten",
+      "pt": "Rubricas",
+      "ro": "Poziții"
+    },
+    "de.sortCat": {
+      "en": "By category",
+      "de": "Nach Kategorie",
+      "fr": "Par catégorie",
+      "it": "Per categoria",
+      "es": "Por categoría",
+      "pl": "Wg kategorii",
+      "nl": "Per categorie",
+      "pt": "Por categoria",
+      "ro": "Pe categorii"
+    },
+    "de.allCats": {
+      "en": "All categories",
+      "de": "Alle Kategorien",
+      "fr": "Toutes les catégories",
+      "it": "Tutte le categorie",
+      "es": "Todas las categorías",
+      "pl": "Wszystkie kategorie",
+      "nl": "Alle categorieën",
+      "pt": "Todas as categorias",
+      "ro": "Toate categoriile"
+    },
+    "de.detailTitle": {
+      "en": "All items — {month}",
+      "de": "Alle Positionen — {month}",
+      "fr": "Tous les postes — {month}",
+      "it": "Tutte le voci — {month}",
+      "es": "Todas las partidas — {month}",
+      "pl": "Wszystkie pozycje — {month}",
+      "nl": "Alle posten — {month}",
+      "pt": "Todas as rubricas — {month}",
+      "ro": "Toate pozițiile — {month}"
+    },
+    "de.detailSub": {
+      "en": "{n} Destatis items grouped by category · index, change and trend for the selected month",
+      "de": "{n} Destatis-Positionen nach Kategorie · Index, Veränderung und Verlauf für den gewählten Monat",
+      "fr": "{n} postes Destatis par catégorie · indice, variation et tendance du mois choisi",
+      "it": "{n} voci Destatis per categoria · indice, variazione e andamento del mese scelto",
+      "es": "{n} partidas de Destatis por categoría · índice, variación y evolución del mes elegido",
+      "pl": "{n} pozycji Destatis wg kategorii · indeks, zmiana i trend dla wybranego miesiąca",
+      "nl": "{n} Destatis-posten per categorie · index, verandering en verloop voor de gekozen maand",
+      "pt": "{n} rubricas do Destatis por categoria · índice, variação e evolução do mês escolhido",
+      "ro": "{n} poziții Destatis pe categorii · indice, variație și evoluție pentru luna aleasă"
+    },
+    "de.kpiItems": {
+      "en": "Items tracked",
+      "de": "Erfasste Positionen",
+      "fr": "Postes suivis",
+      "it": "Voci monitorate",
+      "es": "Partidas seguidas",
+      "pl": "Śledzone pozycje",
+      "nl": "Gevolgde posten",
+      "pt": "Rubricas acompanhadas",
+      "ro": "Poziții urmărite"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",

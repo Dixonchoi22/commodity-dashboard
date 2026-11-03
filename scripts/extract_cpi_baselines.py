@@ -1,10 +1,11 @@
 """Extract the Destatis CPI annual baselines from the index-tracker workbook
 (sheet "CPI Catalogue") into data/{period}/cpi_baselines.json.
 
-Only public Destatis figures are kept: CPI code, English label, the 2023 / 2024 /
-2025 annual averages and the 2026 year-to-date average. Settlement-index parents,
-procurement-category (GMC) mappings, thresholds and everything else in the
-workbook are deliberately NOT read - the dashboard is a public site.
+Kept: CPI code, English label, the category column (the workbook's parent
+group, e.g. "Meat", "Vegetables"), the 2023 / 2024 / 2025 annual averages and the
+2026 year-to-date average. Procurement (GMC) mappings, contract thresholds and
+everything else in the workbook are deliberately NOT read - the dashboard is a
+public site, and the category is shown as a plain grouping label.
 
 The workbook itself is not committed to the repo.
 
@@ -58,8 +59,17 @@ def main() -> None:
         ytd = r[5 + len(years)]
         if not isinstance(ytd, (int, float)) or any(not isinstance(v, (int, float)) for v in vals):
             continue
+        pm = re.match(r"CC13-?(\d+)$", str(r[0]).strip())
+        cat_name = str(r[1]).strip()
+        cat_name = {"Oliveoil": "Olive oil"}.get(cat_name, cat_name)
         out.append({"coicop": "CP" + m.group(1), "label": str(r[3]).strip(),
+                    "cat": ("CP" + pm.group(1)) if pm else None, "catName": cat_name,
                     "base": [round(float(v), 3) for v in vals], "ytd": round(float(ytd), 3)})
+    cats, seen = [], set()
+    for x in out:                                  # catalogue order = display order
+        if x["cat"] and x["cat"] not in seen:
+            seen.add(x["cat"]); cats.append({"code": x["cat"], "name": x["catName"]})
+        x.pop("catName")
     known = {x["coicop"] for x in out}
     for x in out:
         x["parent"] = parent_of(x["coicop"], known)
@@ -71,7 +81,7 @@ def main() -> None:
     ytd_year = int(re.search(r"(20\d\d)", ytd_note).group(1)) if re.search(r"(20\d\d)", ytd_note) else 2026
     payload = {
         "source": "Destatis Genesis Online - CPI (2020 = 100), annual averages",
-        "years": years, "ytd": {"year": ytd_year, "months": ytd_n}, "series": out,
+        "years": years, "ytd": {"year": ytd_year, "months": ytd_n}, "categories": cats, "series": out,
     }
     dest = ROOT / "data" / period / "cpi_baselines.json"
     dest.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
