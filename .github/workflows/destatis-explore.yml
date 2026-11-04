@@ -14,6 +14,10 @@ on:
         description: "find: comma-separated search terms; table: table code, e.g. 61241-0004"
         required: true
         default: "Erzeugerpreise"
+      pat:
+        description: "regex: only print matching lines"
+        required: false
+        default: "."
 
 permissions:
   contents: read
@@ -27,6 +31,7 @@ jobs:
           GENESIS_TOKEN: ${{ secrets.GENESIS_TOKEN }}
           STEP: ${{ inputs.step }}
           ARG: ${{ inputs.arg }}
+          PAT: ${{ inputs.pat }}
         run: |
           python3 - <<'PY'
           import os, json, urllib.request, urllib.parse, io, zipfile, re, sys
@@ -44,8 +49,10 @@ jobs:
                   tabs = d.get("Tables")
                   if not tabs:
                       print("NO TABLES; response:", json.dumps(d, ensure_ascii=False)[:600]); continue
+                  pat = re.compile(os.environ.get("PAT", "."), re.I)
                   for x in tabs:
-                      print(x.get("Code"), "|", x.get("Content"), "|", x.get("Time"))
+                      line = x.get("Code") + " | " + " ".join((x.get("Content") or "").split())
+                      if pat.search(line): print(line)
           else:
               raw = post("data/tablefile", name=arg, area="all", format="ffcsv", language="de", compress="false", job="false", startyear="2025")
               if not raw.startswith(b"PK"):
@@ -61,6 +68,10 @@ jobs:
                   seen[key] = seen.get(key, 0) + 1
               print("distinct series:", len(seen))
               pat = re.compile(os.environ.get("PAT", "."), re.I)
+              n = 0
               for k in sorted(seen):
-                  print(" | ".join(k))
+                  line = " | ".join(k)
+                  if pat.search(line):
+                      print(line); n += 1
+                      if n >= 250: print("... truncated"); break
           PY
