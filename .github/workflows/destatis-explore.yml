@@ -40,10 +40,11 @@ jobs:
           if step == "find":
               for term in [t.strip() for t in arg.split(",") if t.strip()]:
                   print("=== FIND:", term)
-                  d = json.loads(post("find/find", term=term, category="tables", pagelength="15", language="de"))
-                  if "Tables" not in d:
-                      print(json.dumps(d)[:300]); continue
-                  for x in d["Tables"]:
+                  d = json.loads(post("find/find", term=term, category="tables", pagelength="30", language="de"))
+                  tabs = d.get("Tables")
+                  if not tabs:
+                      print("NO TABLES; response:", json.dumps(d, ensure_ascii=False)[:600]); continue
+                  for x in tabs:
                       print(x.get("Code"), "|", x.get("Content"), "|", x.get("Time"))
           else:
               raw = post("data/tablefile", name=arg, area="all", format="ffcsv", language="de", compress="false", job="false", startyear="2025")
