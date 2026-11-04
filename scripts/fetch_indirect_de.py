@@ -34,7 +34,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "indirect_de.json"
 API = "https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
-START_YEAR = 2024          # two full years so every 2025+ month has a year-on-year
+# The monthly producer-price table is too big for a synchronous download beyond
+# one full year plus the current one; the small quarterly services table can go back further.
+START_YEAR = {"61241-0006": 2025, "61311-0006": 2024}
 SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 # key, topic, label, source ("cpi" | table code), code, freq
@@ -72,7 +74,7 @@ def fnum(s: str):
 def download(table: str, token: str) -> list[dict]:
     body = urllib.parse.urlencode({
         "name": table, "area": "all", "format": "ffcsv", "language": "en",
-        "compress": "false", "job": "false", "startyear": str(START_YEAR),
+        "compress": "false", "job": "false", "startyear": str(START_YEAR.get(table, 2025)),
     }).encode()
     req = urllib.request.Request(API, data=body, method="POST", headers={
         "username": token, "password": "", "Content-Type": "application/x-www-form-urlencoded"})
