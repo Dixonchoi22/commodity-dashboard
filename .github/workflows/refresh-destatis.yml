@@ -68,6 +68,11 @@ jobs:
           PYTHONUTF8: "1"
         run: python3 scripts/fetch_indirect_de.py --api
 
+      - name: Fetch UK / IE / DK / SE / NO / NL / IT price series (public APIs, no token)
+        env:
+          PYTHONUTF8: "1"
+        run: python3 scripts/fetch_indirect_countries.py
+
       - name: Rebuild report and menu
         env:
           PYTHONUTF8: "1"
@@ -82,7 +87,7 @@ jobs:
           SLUG="${{ steps.q.outputs.slug }}"
           # The downloaded zip differs byte-for-byte on every run, so decide
           # on the parsed data instead.
-          if git diff --quiet -- "data/$SLUG/destatis.json" data/indirect_de.json; then
+          if git diff --quiet -- "data/$SLUG/destatis.json" data/indirect_de.json data/indirect_countries.json; then
             echo "No new Destatis data for $SLUG - nothing to publish."
             exit 0
           fi

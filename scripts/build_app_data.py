@@ -615,6 +615,7 @@ def main() -> None:
         "categoryColors": CATEGORY_COLORS,
         # Germany price series for the indirect-inflation screen (not per quarter).
         "indirectDE": _read_json(ROOT / "data" / "indirect_de.json"),
+        "indirectCountries": _read_json(ROOT / "data" / "indirect_countries.json"),
         "i18n": i18n,
     }
 

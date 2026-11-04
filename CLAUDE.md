@@ -232,6 +232,18 @@ series list lives in `SERIES` at the top of the script. The producer-price table
 is too big for a synchronous download beyond 2025 onward, so those series start in
 Jan 2025. The monthly workflow refreshes this file too.
 
+**Other markets on the indirect screen.** `data/indirect_countries.json` (built by
+`scripts/fetch_indirect_countries.py`, public APIs, no token) adds UK, Ireland,
+Denmark, Sweden, Norway, Netherlands and Italy next to Germany at
+`#/q/{slug}/indirect/countries/{CC}`. Eurostat supplies IE DK SE NO NL IT
+(`prc_hicp_minr` consumer prices, `sts_inppd_m` producer prices, `sts_sepp_q`
+services) and the ONS time-series API supplies the UK (CPI MM23, PPI, SPPI;
+the ONS API rejects requests without a User-Agent). Eurostat does not publish
+every NACE class per country, so the script falls back to the next wider class
+(C1721 -> C172 -> C17, C222 -> C22, D351/D352 -> D35) and the series label says
+which one was used. Eurostat road-freight services (H494) are not published for
+these countries, so logistics uses H52 (warehousing & transport support).
+
 **Monthly refresh.** `.github/workflows/refresh-destatis.yml` pulls table
 61111-0004 from the Genesis API on the 16th of every month (and on demand from
 the Actions tab), using the repository secret `GENESIS_TOKEN`. It refreshes only
