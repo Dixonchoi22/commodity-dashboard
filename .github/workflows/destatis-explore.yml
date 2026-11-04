@@ -1,0 +1,65 @@
+name: Destatis explore (temporary)
+
+# Throwaway helper: searches the Genesis catalogue with the GENESIS_TOKEN secret
+# and prints table codes / item labels to the job log. Delete after use.
+
+on:
+  workflow_dispatch:
+    inputs:
+      step:
+        description: "find | table"
+        required: true
+        default: "find"
+      arg:
+        description: "find: comma-separated search terms; table: table code, e.g. 61241-0004"
+        required: true
+        default: "Erzeugerpreise"
+
+permissions:
+  contents: read
+
+jobs:
+  explore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query Genesis
+        env:
+          GENESIS_TOKEN: ${{ secrets.GENESIS_TOKEN }}
+          STEP: ${{ inputs.step }}
+          ARG: ${{ inputs.arg }}
+        run: |
+          python3 - <<'PY'
+          import os, json, urllib.request, urllib.parse, io, zipfile, re, sys
+          tok = os.environ["GENESIS_TOKEN"]; step = os.environ["STEP"]; arg = os.environ["ARG"]
+          base = "https://genesis.destatis.de/genesisWS/rest/2020/"
+          def post(path, **kw):
+              req = urllib.request.Request(base + path, data=urllib.parse.urlencode(kw).encode(), method="POST",
+                  headers={"username": tok, "password": "", "Content-Type": "application/x-www-form-urlencoded"})
+              with urllib.request.urlopen(req, timeout=120) as r:
+                  return r.read()
+          if step == "find":
+              for term in [t.strip() for t in arg.split(",") if t.strip()]:
+                  print("=== FIND:", term)
+                  d = json.loads(post("find/find", term=term, category="tables", pagelength="15", language="de"))
+                  if "Tables" not in d:
+                      print(json.dumps(d)[:300]); continue
+                  for x in d["Tables"]:
+                      print(x.get("Code"), "|", x.get("Content"), "|", x.get("Time"))
+          else:
+              raw = post("data/tablefile", name=arg, area="all", format="ffcsv", language="de", compress="false", job="false", startyear="2025")
+              if not raw.startswith(b"PK"):
+                  print(raw[:500]); sys.exit(0)
+              z = zipfile.ZipFile(io.BytesIO(raw)); txt = z.read(z.namelist()[0]).decode("utf-8-sig")
+              lines = txt.splitlines(); hdr = lines[0].split(";")
+              print("columns:", hdr)
+              seen = {}
+              for ln in lines[1:]:
+                  c = ln.split(";")
+                  if len(c) < len(hdr): continue
+                  key = tuple(c[i] for i, h in enumerate(hdr) if h.endswith("_attribute_code") or h.endswith("_attribute_label"))
+                  seen[key] = seen.get(key, 0) + 1
+              print("distinct series:", len(seen))
+              pat = re.compile(os.environ.get("PAT", "."), re.I)
+              for k in sorted(seen):
+                  print(" | ".join(k))
+          PY
