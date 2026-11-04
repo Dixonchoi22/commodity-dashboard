@@ -222,11 +222,21 @@ openpyxl). Only public Destatis figures are read - never the workbook's
 settlement-index parents, procurement mappings or thresholds - and the workbook
 itself is not committed (public repo / public site).
 
+**Germany price series on the indirect screen.** `data/indirect_de.json` (built by
+`scripts/fetch_indirect_de.py --api`, not per quarter) feeds the *Germany* area of
+`#/q/{slug}/indirect/germany`: electricity, gas, fuel, cardboard boxes, PPE &
+plastic and logistics. Producer prices come from Destatis 61241-0006 (monthly,
+GP2019 codes), logistics services from 61311-0006 (quarterly, CPA codes) and the
+consumer-price items from the 61111-0004 pull already in `destatis.json`. The
+series list lives in `SERIES` at the top of the script. The producer-price table
+is too big for a synchronous download beyond 2025 onward, so those series start in
+Jan 2025. The monthly workflow refreshes this file too.
+
 **Monthly refresh.** `.github/workflows/refresh-destatis.yml` pulls table
 61111-0004 from the Genesis API on the 16th of every month (and on demand from
 the Actions tab), using the repository secret `GENESIS_TOKEN`. It refreshes only
-the newest quarter in `manifest.json`, rebuilds, commits to `main` and starts the
-Pages deploy. Locally: `GENESIS_TOKEN=... py scripts/fetch_destatis.py {slug} --api`.
+the newest quarter in `manifest.json` (plus `data/indirect_de.json`), rebuilds,
+commits to `main` and starts the Pages deploy. Locally: `GENESIS_TOKEN=... py scripts/fetch_destatis.py {slug} --api`.
 
 Each drilldown panel includes the parent COICOP series (e.g. CP0122) as
 the first row + a white dashed line, alongside its 5-digit children
