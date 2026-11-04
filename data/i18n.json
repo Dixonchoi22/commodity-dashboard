@@ -1779,6 +1779,83 @@
       "pt": "Itália",
       "ro": "Italia"
     },
+    "ind.deTopic.labour": {
+      "en": "Labour cost",
+      "de": "Arbeitskosten",
+      "fr": "Coûts salariaux",
+      "it": "Costo del lavoro",
+      "es": "Costes laborales",
+      "pl": "Koszty pracy",
+      "nl": "Arbeidskosten",
+      "pt": "Custos de mão de obra",
+      "ro": "Costuri cu forța de muncă"
+    },
+    "ind.deTopic.fx": {
+      "en": "Exchange rate",
+      "de": "Wechselkurs",
+      "fr": "Taux de change",
+      "it": "Tasso di cambio",
+      "es": "Tipo de cambio",
+      "pl": "Kurs walutowy",
+      "nl": "Wisselkoers",
+      "pt": "Taxa de câmbio",
+      "ro": "Curs de schimb"
+    },
+    "ind.deBasis.bus": {
+      "en": "Business price",
+      "de": "Gewerbepreis",
+      "fr": "Prix professionnel",
+      "it": "Prezzo per utenze business",
+      "es": "Precio empresarial",
+      "pl": "Cena dla firm",
+      "nl": "Zakelijke prijs",
+      "pt": "Preço empresarial",
+      "ro": "Preț pentru firme"
+    },
+    "ind.deBasis.lci": {
+      "en": "Labour cost",
+      "de": "Arbeitskosten",
+      "fr": "Coût du travail",
+      "it": "Costo del lavoro",
+      "es": "Coste laboral",
+      "pl": "Koszt pracy",
+      "nl": "Arbeidskosten",
+      "pt": "Custo do trabalho",
+      "ro": "Cost al muncii"
+    },
+    "ind.deBasis.fx": {
+      "en": "Exchange rate",
+      "de": "Wechselkurs",
+      "fr": "Taux de change",
+      "it": "Tasso di cambio",
+      "es": "Tipo de cambio",
+      "pl": "Kurs walutowy",
+      "nl": "Wisselkoers",
+      "pt": "Taxa de câmbio",
+      "ro": "Curs de schimb"
+    },
+    "ind.deHoH": {
+      "en": "HoH",
+      "de": "HJ",
+      "fr": "S/S",
+      "it": "sem.",
+      "es": "sem.",
+      "pl": "półr.",
+      "nl": "halfj.",
+      "pt": "sem.",
+      "ro": "sem."
+    },
+    "ind.deLevel": {
+      "en": "Level",
+      "de": "Stand",
+      "fr": "Niveau",
+      "it": "Livello",
+      "es": "Nivel",
+      "pl": "Poziom",
+      "nl": "Niveau",
+      "pt": "Nível",
+      "ro": "Nivel"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",

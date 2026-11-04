@@ -9,8 +9,12 @@ PPE & plastic, logistics), but from the public APIs - no key or token needed:
       sts_inppd_m     producer prices, domestic market (2021 = 100): paper / corrugated
                       board, plastics, refined petroleum, electricity & gas supply
       sts_sepp_q      services producer prices (quarterly): warehousing & transport support
+      lc_lci_r2_q     hourly labour cost index (quarterly): accommodation & food, whole economy
+      nrg_pc_205/203  electricity and gas prices for non-household (business) users, half-yearly
+  ECB data API                 DKK / GBP / NOK / SEK per euro, monthly average
   ONS time-series API          UK
       MM23 (CPI), PPI (producer prices), SPPI (services producer prices)  - 2015 = 100
+      EMP (average weekly earnings: accommodation & food services, whole economy)
 
 Eurostat does not publish every NACE class for every country. Where the narrow
 class is missing the next wider one is used and the label says so; where nothing
@@ -27,7 +31,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "indirect_countries.json"
 EUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
-ONS = "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/{cdid}/{ds}/data"
+ONS = "https://www.ons.gov.uk/{path}/timeseries/{cdid}/{ds}/data"
+ECB = "https://data-api.ecb.europa.eu/service/data/EXR/M.{ccy}.EUR.SP00.A?format=jsondata&startPeriod=2024-01"
+INFL = "economy/inflationandpriceindices"
+EARN = "employmentandlabourmarket/peopleinwork/earningsandworkinghours"
 UA = {"User-Agent": "commodity-dashboard/1.0"}
 SINCE = "2024-01"
 SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -47,7 +54,10 @@ def get_json(url: str, retries: int = 3) -> dict:
 
 
 def label(period: str) -> str:
-    """'2026-09' -> 'Sep 2026'; '2026-Q2' -> 'Jun 2026' (quarter-end month)."""
+    """'2026-09' -> 'Sep 2026'; '2026-Q2' -> 'Jun 2026' (quarter-end); '2026-S1' -> 'Jun 2026' (half-year end)."""
+    if "-S" in period:
+        y, h = period.split("-S")
+        return f"{SHORT[int(h) * 6 - 1]} {y}"
     if "-Q" in period:
         y, q = period.split("-Q")
         return f"{SHORT[int(q) * 3 - 1]} {y}"
@@ -55,8 +65,8 @@ def label(period: str) -> str:
     return f"{SHORT[int(m) - 1]} {y}"
 
 
-def eurostat(dataset: str, params: dict) -> dict[tuple, dict[str, float]]:
-    """Return {(geo, dim_value): {period: value}} from a JSON-stat response."""
+def eurostat(dataset: str, params: dict, dims: tuple[str, ...] | None = None) -> dict[tuple, dict[str, float]]:
+    """Return {(geo, *dim_values): {period: value}} from a JSON-stat response."""
     q = urllib.parse.urlencode({"format": "JSON", **params}, doseq=True)
     d = get_json(EUROSTAT + dataset + "?" + q)
     ids, size = d["id"], d["size"]
@@ -64,20 +74,30 @@ def eurostat(dataset: str, params: dict) -> dict[tuple, dict[str, float]]:
     strides = [1] * len(ids)
     for k in range(len(ids) - 2, -1, -1):
         strides[k] = strides[k + 1] * size[k + 1]
-    key_dim = next(i for i in ("coicop18", "nace_r2") if i in ids)
+    if dims is None:
+        dims = (next(i for i in ("coicop18", "nace_r2") if i in ids),)
     out: dict[tuple, dict[str, float]] = {}
     for pos, v in d.get("value", {}).items():
         pos = int(pos)
         idx = [(pos // strides[k]) % size[k] for k in range(len(ids))]
         geo = cats["geo"][idx[ids.index("geo")]]
-        dim = cats[key_dim][idx[ids.index(key_dim)]]
+        dim = tuple(cats[k][idx[ids.index(k)]] for k in dims)
         per = cats["time"][idx[ids.index("time")]]
-        out.setdefault((geo, dim), {})[per] = float(v)
+        out.setdefault((geo, *dim), {})[per] = float(v)
     return out
 
 
-def ons(cdid: str, dataset: str, freq: str) -> tuple[list[str], list[float]]:
-    d = get_json(ONS.format(cdid=cdid.lower(), ds=dataset.lower()))
+def ecb_fx(ccy: str) -> tuple[list[str], list[float]]:
+    d = get_json(ECB.format(ccy=ccy))
+    obs = next(iter(d["dataSets"][0]["series"].values()))["observations"]
+    times = [v["id"] for v in d["structure"]["dimensions"]["observation"][0]["values"]]
+    per = [label(times[int(i)]) for i in sorted(obs, key=int)]
+    val = [float(obs[i][0]) for i in sorted(obs, key=int)]
+    return per, val
+
+
+def ons(cdid: str, dataset: str, freq: str, path: str = INFL) -> tuple[list[str], list[float]]:
+    d = get_json(ONS.format(path=path, cdid=cdid.lower(), ds=dataset.lower()))
     rows = d["months"] if freq == "m" else d["quarters"]
     per, val = [], []
     for r in rows:
@@ -97,7 +117,7 @@ def ons(cdid: str, dataset: str, freq: str) -> tuple[list[str], list[float]]:
 
 
 def main() -> None:
-    countries: dict[str, list[dict]] = {c: [] for c in ORDER}
+    countries: dict[str, list[dict]] = {c: [] for c in ["DE"] + ORDER}
 
     def add(country, key, topic, lab, basis, freq, table, code, unit, per, val):
         if per and val:
@@ -154,6 +174,47 @@ def main() -> None:
                 add(g, key, "logistics", lab + " — producer price", "ppi", "q", "sts_sepp_q", code, "2021 = 100",
                     [label(p) for p in ps], [s[p] for p in ps])
 
+    # ---------------- labour cost, business energy, FX ----------------
+    ALL = ["DE"] + EU_COUNTRIES
+    print("Eurostat: labour cost index ...")
+    lci = eurostat("lc_lci_r2_q", {"unit": "I20", "geo": ALL, "lcstruct": "D1_D4_MD5", "s_adj": ["SCA", "NSA"],
+                                   "nace_r2": ["I", "G-N", "B-S"], "sinceTimePeriod": "2024-Q1"}, dims=("nace_r2", "s_adj"))
+    for g in ALL:
+        for key, topic, codes, lab in (("lab_acc", "labour", ["I", "G-N"], "Hourly labour cost — accommodation & food services"),
+                                       ("lab_all", "labour", ["B-S"], "Hourly labour cost — whole business economy")):
+            for code in codes:
+                hit = next(((code, a) for a in ("SCA", "NSA") if lci.get((g, code, a))), None)
+                if hit:
+                    s_ = lci[(g, *hit)]
+                    ps = sorted(s_)
+                    name = lab if code != "G-N" else "Hourly labour cost — trade, transport, accommodation & services"
+                    add(g, key, topic, name + ("" if hit[1] == "SCA" else " (not seasonally adjusted)"), "lci", "q",
+                        "lc_lci_r2_q", code, "2020 = 100", [label(p) for p in ps], [s_[p] for p in ps])
+                    break
+
+    print("Eurostat: business energy prices ...")
+    el = eurostat("nrg_pc_205", {"geo": ALL, "nrg_cons": "MWH500-1999", "tax": "X_VAT", "currency": "EUR",
+                                 "sinceTimePeriod": "2024-S1"}, dims=())
+    gas = eurostat("nrg_pc_203", {"geo": ALL, "nrg_cons": "GJ1000-9999", "tax": "X_VAT", "currency": "EUR",
+                                  "unit": "KWH", "sinceTimePeriod": "2024-S1"}, dims=())
+    for g in ALL:
+        for key, topic, data, lab, tb, code in (
+                ("el_bus", "electricity", el, "Electricity — business users, 500–1,999 MWh/yr, excl. VAT", "nrg_pc_205", "MWH500-1999"),
+                ("gas_bus", "gas", gas, "Natural gas — business users, 1,000–9,999 GJ/yr, excl. VAT", "nrg_pc_203", "GJ1000-9999")):
+            s_ = data.get((g,))
+            if s_:
+                ps = sorted(s_)
+                add(g, key, topic, lab, "bus", "s", tb, code, "EUR/kWh", [label(p) for p in ps], [s_[p] for p in ps])
+
+    print("ECB: exchange rates ...")
+    for g, ccy in (("UK", "GBP"), ("DK", "DKK"), ("SE", "SEK"), ("NO", "NOK")):
+        try:
+            per, val = ecb_fx(ccy)
+        except Exception as e:                       # noqa: BLE001
+            print(f"  ! ECB {ccy}: {e}")
+            continue
+        add(g, "fx", "fx", f"{ccy} per 1 EUR — monthly average", "fx", "m", "ECB EXR", f"EUR/{ccy}", f"{ccy} per EUR", per, val)
+
     # ---------------- ONS (UK) ----------------
     print("ONS: UK ...")
     UK = [("el_cpi", "electricity", "Electricity — consumer price (CPI)", "cpi", "m", "D7DT", "MM23"),
@@ -164,19 +225,21 @@ def main() -> None:
           ("plastic_ppi", "ppe_plastic", "Plastic products — producer price", "ppi", "m", "G32D", "PPI"),
           ("road_freight", "logistics", "Road freight transport & removals — producer price", "ppi", "q", "HQDV", "SPPI"),
           ("warehousing", "logistics", "Warehousing & storage — producer price", "ppi", "q", "HQRC", "SPPI")]
+    UK += [("lab_acc", "labour", "Average weekly earnings — accommodation & food services (total pay)", "lci", "m", "K5B6", "EMP"),
+           ("lab_all", "labour", "Average weekly earnings — whole economy (total pay)", "lci", "m", "KA5Q", "EMP")]
     for key, topic, lab, basis, freq, cdid, ds in UK:
         try:
-            per, val = ons(cdid, ds, freq)
+            per, val = ons(cdid, ds, freq, EARN if ds == "EMP" else INFL)
         except Exception as e:                       # noqa: BLE001
             print(f"  ! ONS {cdid}: {e}")
             continue
         add("UK", key, topic, lab, basis, freq, f"ONS {ds}", cdid, "2015 = 100", per, val)
 
     payload = {"source": "Eurostat dissemination API (IE DK SE NO NL IT) and ONS time-series API (UK)",
-               "countries": [{"code": c, "series": countries[c]} for c in ORDER]}
+               "countries": [{"code": c, "series": countries[c]} for c in ["DE"] + ORDER]}
     OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"Wrote {OUT.relative_to(ROOT)}")
-    for c in ORDER:
+    for c in ["DE"] + ORDER:
         print(f"  {c}: {len(countries[c])} series ->", ", ".join(f"{s['key']}({len(s['values'])})" for s in countries[c]))
 
 

@@ -244,6 +244,16 @@ every NACE class per country, so the script falls back to the next wider class
 which one was used. Eurostat road-freight services (H494) are not published for
 these countries, so logistics uses H52 (warehousing & transport support).
 
+**Labour, business energy and FX (same file).** `fetch_indirect_countries.py` also pulls:
+hourly labour cost index (Eurostat `lc_lci_r2_q`, accommodation & food with
+fallbacks; UK uses ONS average weekly earnings from the EMP dataset, whose URL
+path differs from the price datasets), business-user electricity and gas prices
+(Eurostat `nrg_pc_205` band 500-1,999 MWh and `nrg_pc_203` band 1,000-9,999 GJ,
+excl. VAT, half-yearly, EUR/kWh; no UK equivalent) and monthly ECB exchange rates
+for GBP, DKK, SEK and NOK. Germany's extra series come from the same file and are
+merged into the Destatis ones in the client. FX series are shown without
+risk/opportunity colouring - a weaker local currency is not "bad" in itself.
+
 **Monthly refresh.** `.github/workflows/refresh-destatis.yml` pulls table
 61111-0004 from the Genesis API on the 16th of every month (and on demand from
 the Actions tab), using the repository secret `GENESIS_TOKEN`. It refreshes only

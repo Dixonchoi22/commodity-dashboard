@@ -118,7 +118,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=2522b0211d"></script>
+<script src="./app-data.js?v=9188261798"></script>
 <script>
 (function(){
 "use strict";
@@ -757,18 +757,20 @@ function indPillarPanel(p,commentary){
 }
 
 /* ---------------- INDIRECT: COUNTRY PRICE SERIES ---------------- */
-var DE_TOPIC_COL={electricity:'#0078C8',gas:'#2BA6A6',fuel:'#D2691E',cardboard:'#A99667',ppe_plastic:'#7A5AA6',logistics:'#36424A'};
-var DE_TOPICS=['electricity','gas','fuel','cardboard','ppe_plastic','logistics'];
+var DE_TOPIC_COL={electricity:'#0078C8',gas:'#2BA6A6',fuel:'#D2691E',cardboard:'#A99667',ppe_plastic:'#7A5AA6',logistics:'#36424A',labour:'#B83B7D',fx:'#4C9F70'};
+var DE_TOPICS=['electricity','gas','fuel','cardboard','ppe_plastic','logistics','labour','fx'];
+var DE_STEP={m:12,q:4,s:2}, DE_SPARK={m:24,q:9,s:5};
+function deNum(v){ return (typeof v==='number'&&Math.abs(v)<10)?numf(v,2,3):numf(v); }
 var COUNTRY_ORDER=['DE','UK','IE','DK','SE','NO','NL','IT'];
 function countryData(){
   var m={};
   if(D.indirectDE&&(D.indirectDE.series||[]).length) m.DE=D.indirectDE.series;
-  ((D.indirectCountries&&D.indirectCountries.countries)||[]).forEach(function(c){ if((c.series||[]).length) m[c.code]=c.series; });
+  ((D.indirectCountries&&D.indirectCountries.countries)||[]).forEach(function(c){ if((c.series||[]).length) m[c.code]=(m[c.code]||[]).concat(c.series); });
   return m;
 }
 function deMetrics(s){
   var v=s.values||[], n=v.length, isN=function(x){return typeof x==='number';};
-  var step=s.freq==='q'?4:12;
+  var step=DE_STEP[s.freq]||12;
   var ch=(n>=2&&isN(v[n-1])&&isN(v[n-2])&&v[n-2]!==0)?(v[n-1]/v[n-2]-1)*100:null;
   var yoy=(n>step&&isN(v[n-1])&&isN(v[n-1-step])&&v[n-1-step]!==0)?(v[n-1]/v[n-1-step]-1)*100:null;
   return {last:v[n-1],ch:ch,yoy:yoy,asOf:(s.periods||[])[n-1]};
@@ -786,17 +788,17 @@ function deSectionHTML(cc){
     var rows=ser.map(function(s){
       var m=deMetrics(s), dc=divColor(m.ch), dy=divColor(m.yoy);
       return '<tr data-deser="'+esc(cc+':'+s.key)+'" style="cursor:pointer"><td style="white-space:normal"><span style="font-weight:600">'+esc(s.label)+'</span>'
-        +'<div style="font-size:10.5px;color:var(--dim);margin-top:2px">'+esc(t('ind.deBasis.'+s.basis))+' · '+esc(locMonth(m.asOf))+(s.freq==='q'?' <span class="qoq">'+esc(t('common.qoq'))+'</span>':'')+'</div></td>'
-        +'<td class="num" style="text-align:right">'+esc(numf(m.last))+'</td>'
-        +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dc.c+';background:'+dc.bg+'">'+esc(pct(m.ch))+'</span></td>'
-        +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dy.c+';background:'+dy.bg+'">'+esc(pct(m.yoy))+'</span></td>'
-        +'<td>'+sparkSVG(s.values||[],Math.max(0,(s.values||[]).length-(s.freq==='q'?9:24)),(s.values||[]).length-1,col)+'</td></tr>';
+        +'<div style="font-size:10.5px;color:var(--dim);margin-top:2px">'+esc(t('ind.deBasis.'+s.basis))+' · '+esc(locMonth(m.asOf))+' · '+esc(s.unit)+(s.freq==='q'?' <span class="qoq">'+esc(t('common.qoq'))+'</span>':s.freq==='s'?' <span class="qoq">'+esc(t('ind.deHoH'))+'</span>':'')+'</div></td>'
+        +'<td class="num" style="text-align:right">'+esc(deNum(m.last))+'</td>'
+        +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+(s.basis==='fx'?'var(--ink2)':dc.c)+';background:'+(s.basis==='fx'?'var(--tint)':dc.bg)+'">'+esc(pct(m.ch))+'</span></td>'
+        +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+(s.basis==='fx'?'var(--ink2)':dy.c)+';background:'+(s.basis==='fx'?'var(--tint)':dy.bg)+'">'+esc(pct(m.yoy))+'</span></td>'
+        +'<td>'+sparkSVG(s.values||[],Math.max(0,(s.values||[]).length-(DE_SPARK[s.freq]||24)),(s.values||[]).length-1,col)+'</td></tr>';
     }).join('');
     return '<div class="panel" style="animation:cdFade .25s ease;border-top:3px solid '+col+'">'
       +'<div style="display:flex;align-items:center;gap:10px"><span class="dot" style="width:12px;height:12px;border-radius:3px;background:'+col+'"></span>'
       +'<h3 style="font-size:17px;font-weight:800;margin:0">'+esc(t('ind.deTopic.'+k))+'</h3></div>'
-      +'<div style="overflow-x:auto;margin-top:8px"><table><thead><tr><th>'+esc(t('de.colItem'))+'</th><th style="text-align:right">'+esc(t('ind.deIndex'))+'</th>'
-      +'<th style="text-align:center">'+esc(t('common.mom'))+' / '+esc(t('common.qoq'))+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th><th>'+esc(t('de.colTrend'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+      +'<div style="overflow-x:auto;margin-top:8px"><table><thead><tr><th>'+esc(t('de.colItem'))+'</th><th style="text-align:right">'+esc(t('ind.deLevel'))+'</th>'
+      +'<th style="text-align:center">'+esc(t('de.colChange'))+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th><th>'+esc(t('de.colTrend'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
   }).join('');
   var tables=[]; series.forEach(function(s){ if(tables.indexOf(s.table)<0) tables.push(s.table); });
   var src=(cc==='DE')?'Destatis Genesis Online':(cc==='UK'?'ONS':'Eurostat');
@@ -812,23 +814,24 @@ function openDESeriesModal(ref){
   var data=countryData(), series=data[cc]; if(!series) return;
   var s=series.filter(function(x){return x.key===key;})[0]; if(!s) return;
   var isN=function(v){return typeof v==='number';};
-  var v=s.values, P=s.periods, n=v.length, m=deMetrics(s), col=DE_TOPIC_COL[s.topic]||'#0078C8', step=s.freq==='q'?4:12;
+  var v=s.values, P=s.periods, n=v.length, m=deMetrics(s), col=DE_TOPIC_COL[s.topic]||'#0078C8', step=DE_STEP[s.freq]||12, chLab=(s.freq==='q'?t('common.qoq'):s.freq==='s'?t('ind.deHoH'):t('common.mom'));
   var tile=function(lab,val,c){return '<div style="padding:10px 13px;border-radius:10px;background:var(--bg);border:1px solid var(--border2)"><div style="font-size:10px;text-transform:uppercase;color:var(--dim);font-weight:700">'+esc(lab)+'</div><div class="num" style="font-size:19px;font-weight:800;margin-top:4px;color:'+(c||'var(--ink)')+'">'+esc(val)+'</div></div>';};
   var rows='';
   for(var i=n-1;i>=0;i--){ if(!isN(v[i])) continue;
     var c1=(i>=1&&isN(v[i-1]))?(v[i]/v[i-1]-1)*100:null, y1=(i>=step&&isN(v[i-step]))?(v[i]/v[i-step]-1)*100:null, d1=divColor(c1), d2=divColor(y1);
-    rows+='<tr style="cursor:default"><td>'+esc(locMonth(P[i],'long'))+'</td><td class="num" style="text-align:right">'+esc(numf(v[i]))+'</td>'
-      +'<td style="text-align:center"><span class="pill" style="min-width:66px;color:'+d1.c+';background:'+d1.bg+'">'+esc(pct(c1))+'</span></td>'
-      +'<td style="text-align:center"><span class="pill" style="min-width:66px;color:'+d2.c+';background:'+d2.bg+'">'+esc(pct(y1))+'</span></td></tr>'; }
+    var neu=(s.basis==='fx');
+    rows+='<tr style="cursor:default"><td>'+esc(locMonth(P[i],'long'))+'</td><td class="num" style="text-align:right">'+esc(deNum(v[i]))+'</td>'
+      +'<td style="text-align:center"><span class="pill" style="min-width:66px;color:'+(neu?'var(--ink2)':d1.c)+';background:'+(neu?'var(--tint)':d1.bg)+'">'+esc(pct(c1))+'</span></td>'
+      +'<td style="text-align:center"><span class="pill" style="min-width:66px;color:'+(neu?'var(--ink2)':d2.c)+';background:'+(neu?'var(--tint)':d2.bg)+'">'+esc(pct(y1))+'</span></td></tr>'; }
   var ovEl=document.createElement('div'); ovEl.className='overlay'; ovEl.id='ov';
   ovEl.innerHTML='<div class="modal" style="position:relative;max-width:700px"><button class="x" data-close title="'+esc(t('modal.close'))+'" aria-label="'+esc(t('modal.close'))+'">✕</button>'
     +'<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span class="dot" style="width:11px;height:11px;border-radius:3px;background:'+col+'"></span>'
       +'<h2 style="font-size:20px;font-weight:800;margin:0">'+esc(s.label)+'</h2></div>'
-    +'<div class="num" style="font-size:12px;color:var(--dim);margin-top:6px">'+esc(t('country.'+cc))+' · '+esc(t('ind.deTopic.'+s.topic))+' · '+esc(t('ind.deBasis.'+s.basis))+' · '+esc(s.table)+' · '+esc(s.code)+' · '+esc(s.unit)+(s.freq==='q'?' · '+esc(t('common.qoq')):'')+'</div>'
-    +'<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'+tile(t('ind.deIndex'),numf(m.last))+tile(s.freq==='q'?t('common.qoq'):t('common.mom'),pct(m.ch),divColor(m.ch).c)+tile(t('common.yoy'),pct(m.yoy),divColor(m.yoy).c)+'</div>'
+    +'<div class="num" style="font-size:12px;color:var(--dim);margin-top:6px">'+esc(t('country.'+cc))+' · '+esc(t('ind.deTopic.'+s.topic))+' · '+esc(t('ind.deBasis.'+s.basis))+' · '+esc(s.table)+' · '+esc(s.code)+' · '+esc(s.unit)+(s.freq==='q'||s.freq==='s'?' · '+esc(chLab):'')+'</div>'
+    +'<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'+tile(t('ind.deLevel'),deNum(m.last))+tile(chLab,pct(m.ch),s.basis==='fx'?'':divColor(m.ch).c)+tile(t('common.yoy'),pct(m.yoy),s.basis==='fx'?'':divColor(m.yoy).c)+'</div>'
     +'<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('ind.deHistory',{n:n}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="deSerChart"></canvas></div>'
-    +'<div style="overflow:auto;max-height:260px;margin-top:10px;border:1px solid var(--border2);border-radius:10px"><table><thead><tr><th>'+esc(t('de.colPeriod'))+'</th><th style="text-align:right">'+esc(t('ind.deIndex'))+'</th>'
-    +'<th style="text-align:center">'+esc(s.freq==='q'?t('common.qoq'):t('common.mom'))+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+    +'<div style="overflow:auto;max-height:260px;margin-top:10px;border:1px solid var(--border2);border-radius:10px"><table><thead><tr><th>'+esc(t('de.colPeriod'))+'</th><th style="text-align:right">'+esc(t('ind.deLevel'))+'</th>'
+    +'<th style="text-align:center">'+esc(chLab)+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
   ovEl.addEventListener('click',function(e){if(e.target===ovEl||e.target.hasAttribute('data-close'))closeModal();});
   document.body.appendChild(ovEl);
   lineChart('deSerChart',P.map(function(x){return locMonth(x);}),v,col,t('common.indexUnit'),n-1);
