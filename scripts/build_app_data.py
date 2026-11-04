@@ -158,6 +158,10 @@ def load(slug: str, name: str):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
+def _read_json(p):
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
 def num(v):
     return v if isinstance(v, (int, float)) else None
 
@@ -609,6 +613,8 @@ def main() -> None:
         "menu": menu,
         "reports": reports,
         "categoryColors": CATEGORY_COLORS,
+        # Germany price series for the indirect-inflation screen (not per quarter).
+        "indirectDE": _read_json(ROOT / "data" / "indirect_de.json"),
         "i18n": i18n,
     }
 

@@ -118,7 +118,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=c407a785bc"></script>
+<script src="./app-data.js?v=f5d3e2d8c7"></script>
 <script>
 (function(){
 "use strict";
@@ -756,13 +756,78 @@ function indPillarPanel(p,commentary){
   +'</div>';
 }
 
+/* ---------------- INDIRECT: GERMANY PRICE SERIES ---------------- */
+var DE_TOPIC_COL={electricity:'#0078C8',gas:'#2BA6A6',fuel:'#D2691E',cardboard:'#A99667',ppe_plastic:'#7A5AA6',logistics:'#36424A'};
+function deMetrics(s){
+  var v=s.values||[], n=v.length, isN=function(x){return typeof x==='number';};
+  var step=s.freq==='q'?4:12;
+  var ch=(n>=2&&isN(v[n-1])&&isN(v[n-2])&&v[n-2]!==0)?(v[n-1]/v[n-2]-1)*100:null;
+  var yoy=(n>step&&isN(v[n-1])&&isN(v[n-1-step])&&v[n-1-step]!==0)?(v[n-1]/v[n-1-step]-1)*100:null;
+  return {last:v[n-1],ch:ch,yoy:yoy,asOf:(s.periods||[])[n-1]};
+}
+function deSectionHTML(){
+  var X=D.indirectDE; if(!X||!(X.series||[]).length) return '';
+  var topics=(X.topics||[]).map(function(k){
+    var ser=X.series.filter(function(s){return s.topic===k;}); if(!ser.length) return '';
+    var col=DE_TOPIC_COL[k]||'var(--blue)';
+    var rows=ser.map(function(s){
+      var m=deMetrics(s), dc=divColor(m.ch), dy=divColor(m.yoy);
+      return '<tr data-deser="'+esc(s.key)+'" style="cursor:pointer"><td style="white-space:normal"><span style="font-weight:600">'+esc(s.label)+'</span>'
+        +'<div style="font-size:10.5px;color:var(--dim);margin-top:2px">'+esc(t('ind.deBasis.'+s.basis))+' · '+esc(locMonth(m.asOf))+(s.freq==='q'?' <span class="qoq">'+esc(t('common.qoq'))+'</span>':'')+'</div></td>'
+        +'<td class="num" style="text-align:right">'+esc(numf(m.last))+'</td>'
+        +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dc.c+';background:'+dc.bg+'">'+esc(pct(m.ch))+'</span></td>'
+        +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dy.c+';background:'+dy.bg+'">'+esc(pct(m.yoy))+'</span></td>'
+        +'<td>'+sparkSVG(s.values||[],Math.max(0,(s.values||[]).length-(s.freq==='q'?9:24)),(s.values||[]).length-1,col)+'</td></tr>';
+    }).join('');
+    return '<div class="panel" style="animation:cdFade .25s ease;border-top:3px solid '+col+'">'
+      +'<div style="display:flex;align-items:center;gap:10px"><span class="dot" style="width:12px;height:12px;border-radius:3px;background:'+col+'"></span>'
+      +'<h3 style="font-size:17px;font-weight:800;margin:0">'+esc(t('ind.deTopic.'+k))+'</h3></div>'
+      +'<div style="overflow-x:auto;margin-top:8px"><table><thead><tr><th>'+esc(t('de.colItem'))+'</th><th style="text-align:right">'+esc(t('ind.deIndex'))+'</th>'
+      +'<th style="text-align:center">'+esc(t('common.mom'))+' / '+esc(t('common.qoq'))+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th><th>'+esc(t('de.colTrend'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+  }).join('');
+  var tables=[]; X.series.forEach(function(s){ if(tables.indexOf(s.table)<0) tables.push(s.table); });
+  return '<div style="display:flex;flex-direction:column;gap:18px">'
+    +'<div><h2 style="font-size:20px;font-weight:800;margin:0;display:flex;align-items:center;gap:10px"><span style="font-size:24px">🇩🇪</span>'+esc(t('ind.deTitle'))+'</h2>'
+    +'<p class="cap" style="margin:6px 0 0;max-width:720px">'+esc(t('ind.deSub'))+'</p></div>'
+    +'<div class="note" style="border-color:rgba(169,150,103,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('ind.deNote'))+'</p></div>'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(520px,1fr));gap:18px">'+topics+'</div>'
+    +'<div class="note"><span style="color:var(--dim);flex:none">ⓘ</span><p>'+esc(t('ind.deSource',{tables:tables.join(' · ')}))+'</p></div></div>';
+}
+function openDESeriesModal(key){
+  var X=D.indirectDE; if(!X) return;
+  var s=X.series.filter(function(x){return x.key===key;})[0]; if(!s) return;
+  var isN=function(v){return typeof v==='number';};
+  var v=s.values, P=s.periods, n=v.length, m=deMetrics(s), col=DE_TOPIC_COL[s.topic]||'#0078C8', step=s.freq==='q'?4:12;
+  var tile=function(lab,val,c){return '<div style="padding:10px 13px;border-radius:10px;background:var(--bg);border:1px solid var(--border2)"><div style="font-size:10px;text-transform:uppercase;color:var(--dim);font-weight:700">'+esc(lab)+'</div><div class="num" style="font-size:19px;font-weight:800;margin-top:4px;color:'+(c||'var(--ink)')+'">'+esc(val)+'</div></div>';};
+  var rows='';
+  for(var i=n-1;i>=0;i--){ if(!isN(v[i])) continue;
+    var c1=(i>=1&&isN(v[i-1]))?(v[i]/v[i-1]-1)*100:null, y1=(i>=step&&isN(v[i-step]))?(v[i]/v[i-step]-1)*100:null, d1=divColor(c1), d2=divColor(y1);
+    rows+='<tr style="cursor:default"><td>'+esc(locMonth(P[i],'long'))+'</td><td class="num" style="text-align:right">'+esc(numf(v[i]))+'</td>'
+      +'<td style="text-align:center"><span class="pill" style="min-width:66px;color:'+d1.c+';background:'+d1.bg+'">'+esc(pct(c1))+'</span></td>'
+      +'<td style="text-align:center"><span class="pill" style="min-width:66px;color:'+d2.c+';background:'+d2.bg+'">'+esc(pct(y1))+'</span></td></tr>'; }
+  var ovEl=document.createElement('div'); ovEl.className='overlay'; ovEl.id='ov';
+  ovEl.innerHTML='<div class="modal" style="position:relative;max-width:700px"><button class="x" data-close title="'+esc(t('modal.close'))+'" aria-label="'+esc(t('modal.close'))+'">✕</button>'
+    +'<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span class="dot" style="width:11px;height:11px;border-radius:3px;background:'+col+'"></span>'
+      +'<h2 style="font-size:20px;font-weight:800;margin:0">'+esc(s.label)+'</h2></div>'
+    +'<div class="num" style="font-size:12px;color:var(--dim);margin-top:6px">'+esc(t('ind.deTopic.'+s.topic))+' · '+esc(t('ind.deBasis.'+s.basis))+' · '+esc(s.table)+' · '+esc(s.code)+' · '+esc(s.unit)+(s.freq==='q'?' · '+esc(t('common.qoq')):'')+'</div>'
+    +'<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'+tile(t('ind.deIndex'),numf(m.last))+tile(s.freq==='q'?t('common.qoq'):t('common.mom'),pct(m.ch),divColor(m.ch).c)+tile(t('common.yoy'),pct(m.yoy),divColor(m.yoy).c)+'</div>'
+    +'<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('ind.deHistory',{n:n}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="deSerChart"></canvas></div>'
+    +'<div style="overflow:auto;max-height:260px;margin-top:10px;border:1px solid var(--border2);border-radius:10px"><table><thead><tr><th>'+esc(t('de.colPeriod'))+'</th><th style="text-align:right">'+esc(t('ind.deIndex'))+'</th>'
+    +'<th style="text-align:center">'+esc(s.freq==='q'?t('common.qoq'):t('common.mom'))+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+  ovEl.addEventListener('click',function(e){if(e.target===ovEl||e.target.hasAttribute('data-close'))closeModal();});
+  document.body.appendChild(ovEl);
+  lineChart('deSerChart',P.map(function(x){return locMonth(x);}),v,col,t('common.indexUnit'),n-1);
+}
+
 function indirectHTML(){
   var rep=D.reports[state.slug], ind=rep.indirect;
   if(!ind) return '<div class="wrap">'+esc(t('ind.none'))+' <button class="back" data-go="#/">'+esc(t('common.back'))+'</button></div>';
   // an unknown pillar in the URL falls back to the full view rather than
   // rendering a screen with nothing under the KPIs
   var sel=state.iPillar;
-  if(sel && !ind.pillars.some(function(x){return x.key===sel;})) sel=null;
+  var hasDE=!!(D.indirectDE&&(D.indirectDE.series||[]).length);
+  if(sel && sel!=='germany' && !ind.pillars.some(function(x){return x.key===sel;})) sel=null;
+  if(sel==='germany' && !hasDE) sel=null;
   var railItem=function(key,color,net,count,active){
     var d=divColor(net);
     return '<button class="rail-item '+(active?'active':'')+'" data-go="#/q/'+state.slug+'/indirect'+(key?'/'+encodeURIComponent(key):'')+'">'
@@ -775,6 +840,10 @@ function indirectHTML(){
     +railItem(null,'linear-gradient(135deg,#A99667,#0078C8)',ind.net,null,!sel)
     +'<div style="height:1px;background:var(--border2);margin:5px 4px"></div>'
     +ind.pillars.map(function(p){return railItem(p.key,p.color,p.netYoY,p.count,sel===p.key);}).join('')
+    +(hasDE?'<div style="height:1px;background:var(--border2);margin:5px 4px"></div>'
+      +'<button class="rail-item '+(sel==='germany'?'active':'')+'" data-go="#/q/'+state.slug+'/indirect/germany">'
+      +'<span style="font-size:16px;width:9px;display:inline-flex;justify-content:center">🇩🇪</span>'
+      +'<span style="flex:1;min-width:0"><span class="nm">'+esc(t('ind.germany'))+'</span><span class="sub">'+esc(t('ind.indicators',{n:D.indirectDE.series.length}))+'</span></span></button>':'')
     ;
 
   // Pillar commentary, the summary paragraph and the actions are analyst-written.
@@ -821,7 +890,9 @@ function indirectHTML(){
         +esc(ind.meta.sources.join(' · '))+'</p></div>' : '';
 
   var body;
-  if(sel){
+  if(sel==='germany'){
+    body=deSectionHTML();
+  } else if(sel){
     var one=ind.pillars.filter(function(x){return x.key===sel;})[0];
     body=indPillarPanel(one,prose(one))
       +((LANG!=='en'&&one.commentary&&!opill[one.key])
@@ -829,6 +900,7 @@ function indirectHTML(){
   } else {
     body=summary
       +ind.pillars.map(function(x){return indPillarPanel(x,prose(x));}).join('')
+      +(hasDE?deSectionHTML():'')
       +actions+srcNote+sources;
   }
 
@@ -848,7 +920,7 @@ function indirectHTML(){
     +'<div class="wrapR layout"><aside class="rail">'+rail+'</aside><main class="content">'
       +'<div class="note" style="border-color:rgba(169,150,103,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p><b style="color:var(--ink2)">'
         +esc(t('ind.vintageKey'))+'</b> '+t('ind.vintage',{mom:indBold(t('common.mom')),qoq:indBold(t('common.qoq'))})+'</p></div>'
-      +'<div class="kpis">'+ind.kpis.map(kpiHTML).join('')+'</div>'
+      +(sel==='germany'?'':'<div class="kpis">'+ind.kpis.map(kpiHTML).join('')+'</div>')
       +body
     +'</main></div></div>';
 }
@@ -1273,13 +1345,14 @@ function render(){
 }
 document.getElementById('app').addEventListener('click',function(e){
   // NB: not named `t` — that is the translation helper.
-  var el=e.target.closest('[data-go],[data-open],[data-rank],[data-tab],[data-sort],[data-gtab],[data-gby],[data-gsort],[data-gcat],[data-item]');
+  var el=e.target.closest('[data-go],[data-open],[data-rank],[data-tab],[data-sort],[data-gtab],[data-gby],[data-gsort],[data-gcat],[data-item],[data-deser]');
   if(!el) return;
   if(el.hasAttribute('data-go')){go(el.getAttribute('data-go'));return;}
   if(el.hasAttribute('data-open')){openModal(el.getAttribute('data-open'));return;}
   if(el.hasAttribute('data-rank')){state.rankBy=el.getAttribute('data-rank');render();return;}
   if(el.hasAttribute('data-gtab')){state.gTab=el.getAttribute('data-gtab');render();return;}
   if(el.hasAttribute('data-gby')){state.gBY=parseInt(el.getAttribute('data-gby'),10);render();return;}
+  if(el.hasAttribute('data-deser')){openDESeriesModal(el.getAttribute('data-deser'));return;}
   if(el.hasAttribute('data-item')){openItemModal(el.getAttribute('data-item'));return;}
   if(el.hasAttribute('data-gcat')){state.gCat=el.getAttribute('data-gcat')||null;render();return;}
   if(el.hasAttribute('data-gsort')){state.gSort=el.getAttribute('data-gsort');render();return;}
