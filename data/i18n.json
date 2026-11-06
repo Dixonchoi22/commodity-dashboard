@@ -2230,6 +2230,17 @@
       "pt": "Conjuntos de dados de origem",
       "ro": "Seturi de date sursă"
     },
+    "food.colSource": {
+      "en": "Source",
+      "de": "Quelle",
+      "fr": "Source",
+      "it": "Fonte",
+      "es": "Fuente",
+      "pl": "Źródło",
+      "nl": "Bron",
+      "pt": "Fonte",
+      "ro": "Sursă"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",
