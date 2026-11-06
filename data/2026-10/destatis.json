@@ -17360,9 +17360,9 @@
       "mom_pct": 0.83
     },
     {
-      "coicop": "CP0220",
+      "coicop": "CP022",
       "label": "Tobacco",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -17555,9 +17555,9 @@
       "mom_pct": 0.21
     },
     {
-      "coicop": "CP022",
+      "coicop": "CP0220",
       "label": "Tobacco",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -18725,9 +18725,9 @@
       "mom_pct": 5.22
     },
     {
-      "coicop": "CP03110",
+      "coicop": "CP0311",
       "label": "Clothing materials",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -18920,9 +18920,9 @@
       "mom_pct": 0.54
     },
     {
-      "coicop": "CP0311",
+      "coicop": "CP03110",
       "label": "Clothing materials",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -22040,9 +22040,9 @@
       "mom_pct": 3.83
     },
     {
-      "coicop": "CP03220",
+      "coicop": "CP0322",
       "label": "Repair of footwear",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -22235,9 +22235,9 @@
       "mom_pct": 0.44
     },
     {
-      "coicop": "CP0322",
+      "coicop": "CP03220",
       "label": "Repair of footwear",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -22820,9 +22820,9 @@
       "mom_pct": 0.18
     },
     {
-      "coicop": "CP04110",
+      "coicop": "CP0411",
       "label": "Actual net rent",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -23015,9 +23015,9 @@
       "mom_pct": 0.18
     },
     {
-      "coicop": "CP0411",
+      "coicop": "CP04110",
       "label": "Actual net rent",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -23795,9 +23795,9 @@
       "mom_pct": 0.09
     },
     {
-      "coicop": "CP04210",
+      "coicop": "CP0421",
       "label": "Imputed net rent",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -23990,9 +23990,9 @@
       "mom_pct": 0.09
     },
     {
-      "coicop": "CP0421",
+      "coicop": "CP04210",
       "label": "Imputed net rent",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -24380,9 +24380,9 @@
       "mom_pct": -0.07
     },
     {
-      "coicop": "CP04310",
+      "coicop": "CP0431",
       "label": "Materials f. maintenance a. repair of the dwelling",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -24575,9 +24575,9 @@
       "mom_pct": -0.24
     },
     {
-      "coicop": "CP0431",
+      "coicop": "CP04310",
       "label": "Materials f. maintenance a. repair of the dwelling",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -26330,201 +26330,6 @@
       "mom_pct": 0.57
     },
     {
-      "coicop": "CP04410",
-      "label": "Water supply",
-      "depth": 5,
-      "series": [
-        {
-          "month": "Oct 2025",
-          "index": 124.6
-        },
-        {
-          "month": "Nov 2025",
-          "index": 124.8
-        },
-        {
-          "month": "Dec 2025",
-          "index": 124.8
-        },
-        {
-          "month": "Jan 2026",
-          "index": 128.2
-        },
-        {
-          "month": "Feb 2026",
-          "index": 128.7
-        },
-        {
-          "month": "Mar 2026",
-          "index": 129.0
-        },
-        {
-          "month": "Apr 2026",
-          "index": 129.2
-        },
-        {
-          "month": "May 2026",
-          "index": 129.3
-        },
-        {
-          "month": "Jun 2026",
-          "index": 129.3
-        },
-        {
-          "month": "Jul 2026",
-          "index": 130.1
-        },
-        {
-          "month": "Aug 2026",
-          "index": 130.2
-        },
-        {
-          "month": "Sep 2026",
-          "index": 130.4
-        }
-      ],
-      "history": [
-        {
-          "month": "Jan 2024",
-          "index": 115.8
-        },
-        {
-          "month": "Feb 2024",
-          "index": 115.8
-        },
-        {
-          "month": "Mar 2024",
-          "index": 115.9
-        },
-        {
-          "month": "Apr 2024",
-          "index": 116.1
-        },
-        {
-          "month": "May 2024",
-          "index": 116.1
-        },
-        {
-          "month": "Jun 2024",
-          "index": 116.1
-        },
-        {
-          "month": "Jul 2024",
-          "index": 116.9
-        },
-        {
-          "month": "Aug 2024",
-          "index": 117.2
-        },
-        {
-          "month": "Sep 2024",
-          "index": 117.4
-        },
-        {
-          "month": "Oct 2024",
-          "index": 117.8
-        },
-        {
-          "month": "Nov 2024",
-          "index": 117.8
-        },
-        {
-          "month": "Dec 2024",
-          "index": 117.8
-        },
-        {
-          "month": "Jan 2025",
-          "index": 122.7
-        },
-        {
-          "month": "Feb 2025",
-          "index": 123.2
-        },
-        {
-          "month": "Mar 2025",
-          "index": 123.2
-        },
-        {
-          "month": "Apr 2025",
-          "index": 123.6
-        },
-        {
-          "month": "May 2025",
-          "index": 123.8
-        },
-        {
-          "month": "Jun 2025",
-          "index": 123.8
-        },
-        {
-          "month": "Jul 2025",
-          "index": 124.3
-        },
-        {
-          "month": "Aug 2025",
-          "index": 124.3
-        },
-        {
-          "month": "Sep 2025",
-          "index": 124.4
-        },
-        {
-          "month": "Oct 2025",
-          "index": 124.6
-        },
-        {
-          "month": "Nov 2025",
-          "index": 124.8
-        },
-        {
-          "month": "Dec 2025",
-          "index": 124.8
-        },
-        {
-          "month": "Jan 2026",
-          "index": 128.2
-        },
-        {
-          "month": "Feb 2026",
-          "index": 128.7
-        },
-        {
-          "month": "Mar 2026",
-          "index": 129.0
-        },
-        {
-          "month": "Apr 2026",
-          "index": 129.2
-        },
-        {
-          "month": "May 2026",
-          "index": 129.3
-        },
-        {
-          "month": "Jun 2026",
-          "index": 129.3
-        },
-        {
-          "month": "Jul 2026",
-          "index": 130.1
-        },
-        {
-          "month": "Aug 2026",
-          "index": 130.2
-        },
-        {
-          "month": "Sep 2026",
-          "index": 130.4
-        }
-      ],
-      "latest": {
-        "month": "Sep 2026",
-        "index": 130.4
-      },
-      "yoy_pct": 4.82,
-      "mom_pct": 0.15
-    },
-    {
       "coicop": "CP0441",
       "label": "Water supply",
       "depth": 4,
@@ -26720,199 +26525,199 @@
       "mom_pct": 0.15
     },
     {
-      "coicop": "CP04420",
-      "label": "Refuse collection",
+      "coicop": "CP04410",
+      "label": "Water supply",
       "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
-          "index": 117.0
+          "index": 124.6
         },
         {
           "month": "Nov 2025",
-          "index": 117.0
+          "index": 124.8
         },
         {
           "month": "Dec 2025",
-          "index": 117.0
+          "index": 124.8
         },
         {
           "month": "Jan 2026",
-          "index": 120.8
+          "index": 128.2
         },
         {
           "month": "Feb 2026",
-          "index": 121.2
+          "index": 128.7
         },
         {
           "month": "Mar 2026",
-          "index": 121.2
+          "index": 129.0
         },
         {
           "month": "Apr 2026",
-          "index": 121.3
+          "index": 129.2
         },
         {
           "month": "May 2026",
-          "index": 121.4
+          "index": 129.3
         },
         {
           "month": "Jun 2026",
-          "index": 121.4
+          "index": 129.3
         },
         {
           "month": "Jul 2026",
-          "index": 121.5
+          "index": 130.1
         },
         {
           "month": "Aug 2026",
-          "index": 121.5
+          "index": 130.2
         },
         {
           "month": "Sep 2026",
-          "index": 121.5
+          "index": 130.4
         }
       ],
       "history": [
         {
           "month": "Jan 2024",
-          "index": 112.4
+          "index": 115.8
         },
         {
           "month": "Feb 2024",
-          "index": 112.4
+          "index": 115.8
         },
         {
           "month": "Mar 2024",
-          "index": 112.5
+          "index": 115.9
         },
         {
           "month": "Apr 2024",
-          "index": 112.6
+          "index": 116.1
         },
         {
           "month": "May 2024",
-          "index": 112.5
+          "index": 116.1
         },
         {
           "month": "Jun 2024",
-          "index": 112.5
+          "index": 116.1
         },
         {
           "month": "Jul 2024",
-          "index": 112.8
+          "index": 116.9
         },
         {
           "month": "Aug 2024",
-          "index": 112.8
+          "index": 117.2
         },
         {
           "month": "Sep 2024",
-          "index": 112.9
+          "index": 117.4
         },
         {
           "month": "Oct 2024",
-          "index": 112.9
+          "index": 117.8
         },
         {
           "month": "Nov 2024",
-          "index": 112.9
+          "index": 117.8
         },
         {
           "month": "Dec 2024",
-          "index": 113.0
+          "index": 117.8
         },
         {
           "month": "Jan 2025",
-          "index": 116.4
+          "index": 122.7
         },
         {
           "month": "Feb 2025",
-          "index": 116.6
+          "index": 123.2
         },
         {
           "month": "Mar 2025",
-          "index": 116.6
+          "index": 123.2
         },
         {
           "month": "Apr 2025",
-          "index": 116.7
+          "index": 123.6
         },
         {
           "month": "May 2025",
-          "index": 116.7
+          "index": 123.8
         },
         {
           "month": "Jun 2025",
-          "index": 116.7
+          "index": 123.8
         },
         {
           "month": "Jul 2025",
-          "index": 116.7
+          "index": 124.3
         },
         {
           "month": "Aug 2025",
-          "index": 116.8
+          "index": 124.3
         },
         {
           "month": "Sep 2025",
-          "index": 117.0
+          "index": 124.4
         },
         {
           "month": "Oct 2025",
-          "index": 117.0
+          "index": 124.6
         },
         {
           "month": "Nov 2025",
-          "index": 117.0
+          "index": 124.8
         },
         {
           "month": "Dec 2025",
-          "index": 117.0
+          "index": 124.8
         },
         {
           "month": "Jan 2026",
-          "index": 120.8
+          "index": 128.2
         },
         {
           "month": "Feb 2026",
-          "index": 121.2
+          "index": 128.7
         },
         {
           "month": "Mar 2026",
-          "index": 121.2
+          "index": 129.0
         },
         {
           "month": "Apr 2026",
-          "index": 121.3
+          "index": 129.2
         },
         {
           "month": "May 2026",
-          "index": 121.4
+          "index": 129.3
         },
         {
           "month": "Jun 2026",
-          "index": 121.4
+          "index": 129.3
         },
         {
           "month": "Jul 2026",
-          "index": 121.5
+          "index": 130.1
         },
         {
           "month": "Aug 2026",
-          "index": 121.5
+          "index": 130.2
         },
         {
           "month": "Sep 2026",
-          "index": 121.5
+          "index": 130.4
         }
       ],
       "latest": {
         "month": "Sep 2026",
-        "index": 121.5
+        "index": 130.4
       },
-      "yoy_pct": 3.85,
-      "mom_pct": 0.0
+      "yoy_pct": 4.82,
+      "mom_pct": 0.15
     },
     {
       "coicop": "CP0442",
@@ -27110,9 +26915,204 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP04430",
-      "label": "Sewage disposal",
+      "coicop": "CP04420",
+      "label": "Refuse collection",
       "depth": 5,
+      "series": [
+        {
+          "month": "Oct 2025",
+          "index": 117.0
+        },
+        {
+          "month": "Nov 2025",
+          "index": 117.0
+        },
+        {
+          "month": "Dec 2025",
+          "index": 117.0
+        },
+        {
+          "month": "Jan 2026",
+          "index": 120.8
+        },
+        {
+          "month": "Feb 2026",
+          "index": 121.2
+        },
+        {
+          "month": "Mar 2026",
+          "index": 121.2
+        },
+        {
+          "month": "Apr 2026",
+          "index": 121.3
+        },
+        {
+          "month": "May 2026",
+          "index": 121.4
+        },
+        {
+          "month": "Jun 2026",
+          "index": 121.4
+        },
+        {
+          "month": "Jul 2026",
+          "index": 121.5
+        },
+        {
+          "month": "Aug 2026",
+          "index": 121.5
+        },
+        {
+          "month": "Sep 2026",
+          "index": 121.5
+        }
+      ],
+      "history": [
+        {
+          "month": "Jan 2024",
+          "index": 112.4
+        },
+        {
+          "month": "Feb 2024",
+          "index": 112.4
+        },
+        {
+          "month": "Mar 2024",
+          "index": 112.5
+        },
+        {
+          "month": "Apr 2024",
+          "index": 112.6
+        },
+        {
+          "month": "May 2024",
+          "index": 112.5
+        },
+        {
+          "month": "Jun 2024",
+          "index": 112.5
+        },
+        {
+          "month": "Jul 2024",
+          "index": 112.8
+        },
+        {
+          "month": "Aug 2024",
+          "index": 112.8
+        },
+        {
+          "month": "Sep 2024",
+          "index": 112.9
+        },
+        {
+          "month": "Oct 2024",
+          "index": 112.9
+        },
+        {
+          "month": "Nov 2024",
+          "index": 112.9
+        },
+        {
+          "month": "Dec 2024",
+          "index": 113.0
+        },
+        {
+          "month": "Jan 2025",
+          "index": 116.4
+        },
+        {
+          "month": "Feb 2025",
+          "index": 116.6
+        },
+        {
+          "month": "Mar 2025",
+          "index": 116.6
+        },
+        {
+          "month": "Apr 2025",
+          "index": 116.7
+        },
+        {
+          "month": "May 2025",
+          "index": 116.7
+        },
+        {
+          "month": "Jun 2025",
+          "index": 116.7
+        },
+        {
+          "month": "Jul 2025",
+          "index": 116.7
+        },
+        {
+          "month": "Aug 2025",
+          "index": 116.8
+        },
+        {
+          "month": "Sep 2025",
+          "index": 117.0
+        },
+        {
+          "month": "Oct 2025",
+          "index": 117.0
+        },
+        {
+          "month": "Nov 2025",
+          "index": 117.0
+        },
+        {
+          "month": "Dec 2025",
+          "index": 117.0
+        },
+        {
+          "month": "Jan 2026",
+          "index": 120.8
+        },
+        {
+          "month": "Feb 2026",
+          "index": 121.2
+        },
+        {
+          "month": "Mar 2026",
+          "index": 121.2
+        },
+        {
+          "month": "Apr 2026",
+          "index": 121.3
+        },
+        {
+          "month": "May 2026",
+          "index": 121.4
+        },
+        {
+          "month": "Jun 2026",
+          "index": 121.4
+        },
+        {
+          "month": "Jul 2026",
+          "index": 121.5
+        },
+        {
+          "month": "Aug 2026",
+          "index": 121.5
+        },
+        {
+          "month": "Sep 2026",
+          "index": 121.5
+        }
+      ],
+      "latest": {
+        "month": "Sep 2026",
+        "index": 121.5
+      },
+      "yoy_pct": 3.85,
+      "mom_pct": 0.0
+    },
+    {
+      "coicop": "CP0443",
+      "label": "Sewage disposal",
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -27305,9 +27305,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP0443",
+      "coicop": "CP04430",
       "label": "Sewage disposal",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -28280,9 +28280,9 @@
       "mom_pct": 1.24
     },
     {
-      "coicop": "CP04510",
+      "coicop": "CP0451",
       "label": "Electricity",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -28475,9 +28475,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP0451",
+      "coicop": "CP04510",
       "label": "Electricity",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -29255,9 +29255,9 @@
       "mom_pct": 2.48
     },
     {
-      "coicop": "CP04530",
+      "coicop": "CP0453",
       "label": "Heating oil, including operating costs",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -29450,9 +29450,9 @@
       "mom_pct": 13.1
     },
     {
-      "coicop": "CP0453",
+      "coicop": "CP04530",
       "label": "Heating oil, including operating costs",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -30230,9 +30230,9 @@
       "mom_pct": 2.91
     },
     {
-      "coicop": "CP04550",
+      "coicop": "CP0455",
       "label": "District heating and others",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -30425,9 +30425,9 @@
       "mom_pct": -0.06
     },
     {
-      "coicop": "CP0455",
+      "coicop": "CP04550",
       "label": "District heating and others",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -32765,201 +32765,6 @@
       "mom_pct": 0.43
     },
     {
-      "coicop": "CP05130",
-      "label": "Repair of furniture, lighting equip., floor cover.",
-      "depth": 5,
-      "series": [
-        {
-          "month": "Oct 2025",
-          "index": 116.5
-        },
-        {
-          "month": "Nov 2025",
-          "index": 116.5
-        },
-        {
-          "month": "Dec 2025",
-          "index": 116.7
-        },
-        {
-          "month": "Jan 2026",
-          "index": 116.9
-        },
-        {
-          "month": "Feb 2026",
-          "index": 117.3
-        },
-        {
-          "month": "Mar 2026",
-          "index": 115.8
-        },
-        {
-          "month": "Apr 2026",
-          "index": 116.0
-        },
-        {
-          "month": "May 2026",
-          "index": 116.1
-        },
-        {
-          "month": "Jun 2026",
-          "index": 117.3
-        },
-        {
-          "month": "Jul 2026",
-          "index": 117.7
-        },
-        {
-          "month": "Aug 2026",
-          "index": 118.4
-        },
-        {
-          "month": "Sep 2026",
-          "index": 121.2
-        }
-      ],
-      "history": [
-        {
-          "month": "Jan 2024",
-          "index": 114.0
-        },
-        {
-          "month": "Feb 2024",
-          "index": 114.6
-        },
-        {
-          "month": "Mar 2024",
-          "index": 113.2
-        },
-        {
-          "month": "Apr 2024",
-          "index": 113.5
-        },
-        {
-          "month": "May 2024",
-          "index": 113.4
-        },
-        {
-          "month": "Jun 2024",
-          "index": 113.9
-        },
-        {
-          "month": "Jul 2024",
-          "index": 114.3
-        },
-        {
-          "month": "Aug 2024",
-          "index": 115.2
-        },
-        {
-          "month": "Sep 2024",
-          "index": 115.6
-        },
-        {
-          "month": "Oct 2024",
-          "index": 115.6
-        },
-        {
-          "month": "Nov 2024",
-          "index": 115.9
-        },
-        {
-          "month": "Dec 2024",
-          "index": 115.9
-        },
-        {
-          "month": "Jan 2025",
-          "index": 116.6
-        },
-        {
-          "month": "Feb 2025",
-          "index": 116.7
-        },
-        {
-          "month": "Mar 2025",
-          "index": 117.1
-        },
-        {
-          "month": "Apr 2025",
-          "index": 117.2
-        },
-        {
-          "month": "May 2025",
-          "index": 117.4
-        },
-        {
-          "month": "Jun 2025",
-          "index": 117.6
-        },
-        {
-          "month": "Jul 2025",
-          "index": 117.7
-        },
-        {
-          "month": "Aug 2025",
-          "index": 116.3
-        },
-        {
-          "month": "Sep 2025",
-          "index": 116.3
-        },
-        {
-          "month": "Oct 2025",
-          "index": 116.5
-        },
-        {
-          "month": "Nov 2025",
-          "index": 116.5
-        },
-        {
-          "month": "Dec 2025",
-          "index": 116.7
-        },
-        {
-          "month": "Jan 2026",
-          "index": 116.9
-        },
-        {
-          "month": "Feb 2026",
-          "index": 117.3
-        },
-        {
-          "month": "Mar 2026",
-          "index": 115.8
-        },
-        {
-          "month": "Apr 2026",
-          "index": 116.0
-        },
-        {
-          "month": "May 2026",
-          "index": 116.1
-        },
-        {
-          "month": "Jun 2026",
-          "index": 117.3
-        },
-        {
-          "month": "Jul 2026",
-          "index": 117.7
-        },
-        {
-          "month": "Aug 2026",
-          "index": 118.4
-        },
-        {
-          "month": "Sep 2026",
-          "index": 121.2
-        }
-      ],
-      "latest": {
-        "month": "Sep 2026",
-        "index": 121.2
-      },
-      "yoy_pct": 4.21,
-      "mom_pct": 2.36
-    },
-    {
       "coicop": "CP0513",
       "label": "Repair of furniture, lighting equip., floor cover.",
       "depth": 4,
@@ -33155,9 +32960,204 @@
       "mom_pct": 2.36
     },
     {
-      "coicop": "CP0520",
+      "coicop": "CP05130",
+      "label": "Repair of furniture, lighting equip., floor cover.",
+      "depth": 5,
+      "series": [
+        {
+          "month": "Oct 2025",
+          "index": 116.5
+        },
+        {
+          "month": "Nov 2025",
+          "index": 116.5
+        },
+        {
+          "month": "Dec 2025",
+          "index": 116.7
+        },
+        {
+          "month": "Jan 2026",
+          "index": 116.9
+        },
+        {
+          "month": "Feb 2026",
+          "index": 117.3
+        },
+        {
+          "month": "Mar 2026",
+          "index": 115.8
+        },
+        {
+          "month": "Apr 2026",
+          "index": 116.0
+        },
+        {
+          "month": "May 2026",
+          "index": 116.1
+        },
+        {
+          "month": "Jun 2026",
+          "index": 117.3
+        },
+        {
+          "month": "Jul 2026",
+          "index": 117.7
+        },
+        {
+          "month": "Aug 2026",
+          "index": 118.4
+        },
+        {
+          "month": "Sep 2026",
+          "index": 121.2
+        }
+      ],
+      "history": [
+        {
+          "month": "Jan 2024",
+          "index": 114.0
+        },
+        {
+          "month": "Feb 2024",
+          "index": 114.6
+        },
+        {
+          "month": "Mar 2024",
+          "index": 113.2
+        },
+        {
+          "month": "Apr 2024",
+          "index": 113.5
+        },
+        {
+          "month": "May 2024",
+          "index": 113.4
+        },
+        {
+          "month": "Jun 2024",
+          "index": 113.9
+        },
+        {
+          "month": "Jul 2024",
+          "index": 114.3
+        },
+        {
+          "month": "Aug 2024",
+          "index": 115.2
+        },
+        {
+          "month": "Sep 2024",
+          "index": 115.6
+        },
+        {
+          "month": "Oct 2024",
+          "index": 115.6
+        },
+        {
+          "month": "Nov 2024",
+          "index": 115.9
+        },
+        {
+          "month": "Dec 2024",
+          "index": 115.9
+        },
+        {
+          "month": "Jan 2025",
+          "index": 116.6
+        },
+        {
+          "month": "Feb 2025",
+          "index": 116.7
+        },
+        {
+          "month": "Mar 2025",
+          "index": 117.1
+        },
+        {
+          "month": "Apr 2025",
+          "index": 117.2
+        },
+        {
+          "month": "May 2025",
+          "index": 117.4
+        },
+        {
+          "month": "Jun 2025",
+          "index": 117.6
+        },
+        {
+          "month": "Jul 2025",
+          "index": 117.7
+        },
+        {
+          "month": "Aug 2025",
+          "index": 116.3
+        },
+        {
+          "month": "Sep 2025",
+          "index": 116.3
+        },
+        {
+          "month": "Oct 2025",
+          "index": 116.5
+        },
+        {
+          "month": "Nov 2025",
+          "index": 116.5
+        },
+        {
+          "month": "Dec 2025",
+          "index": 116.7
+        },
+        {
+          "month": "Jan 2026",
+          "index": 116.9
+        },
+        {
+          "month": "Feb 2026",
+          "index": 117.3
+        },
+        {
+          "month": "Mar 2026",
+          "index": 115.8
+        },
+        {
+          "month": "Apr 2026",
+          "index": 116.0
+        },
+        {
+          "month": "May 2026",
+          "index": 116.1
+        },
+        {
+          "month": "Jun 2026",
+          "index": 117.3
+        },
+        {
+          "month": "Jul 2026",
+          "index": 117.7
+        },
+        {
+          "month": "Aug 2026",
+          "index": 118.4
+        },
+        {
+          "month": "Sep 2026",
+          "index": 121.2
+        }
+      ],
+      "latest": {
+        "month": "Sep 2026",
+        "index": 121.2
+      },
+      "yoy_pct": 4.21,
+      "mom_pct": 2.36
+    },
+    {
+      "coicop": "CP052",
       "label": "Household textiles",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -33350,9 +33350,9 @@
       "mom_pct": 0.52
     },
     {
-      "coicop": "CP052",
+      "coicop": "CP0520",
       "label": "Household textiles",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -37055,201 +37055,6 @@
       "mom_pct": -1.32
     },
     {
-      "coicop": "CP05330",
-      "label": "Repair of household appliances",
-      "depth": 5,
-      "series": [
-        {
-          "month": "Oct 2025",
-          "index": 125.6
-        },
-        {
-          "month": "Nov 2025",
-          "index": 125.3
-        },
-        {
-          "month": "Dec 2025",
-          "index": 125.9
-        },
-        {
-          "month": "Jan 2026",
-          "index": 126.6
-        },
-        {
-          "month": "Feb 2026",
-          "index": 127.1
-        },
-        {
-          "month": "Mar 2026",
-          "index": 127.6
-        },
-        {
-          "month": "Apr 2026",
-          "index": 128.0
-        },
-        {
-          "month": "May 2026",
-          "index": 128.2
-        },
-        {
-          "month": "Jun 2026",
-          "index": 128.3
-        },
-        {
-          "month": "Jul 2026",
-          "index": 128.5
-        },
-        {
-          "month": "Aug 2026",
-          "index": 129.0
-        },
-        {
-          "month": "Sep 2026",
-          "index": 129.7
-        }
-      ],
-      "history": [
-        {
-          "month": "Jan 2024",
-          "index": 117.2
-        },
-        {
-          "month": "Feb 2024",
-          "index": 117.7
-        },
-        {
-          "month": "Mar 2024",
-          "index": 117.8
-        },
-        {
-          "month": "Apr 2024",
-          "index": 117.5
-        },
-        {
-          "month": "May 2024",
-          "index": 117.9
-        },
-        {
-          "month": "Jun 2024",
-          "index": 119.0
-        },
-        {
-          "month": "Jul 2024",
-          "index": 119.5
-        },
-        {
-          "month": "Aug 2024",
-          "index": 119.7
-        },
-        {
-          "month": "Sep 2024",
-          "index": 120.3
-        },
-        {
-          "month": "Oct 2024",
-          "index": 120.8
-        },
-        {
-          "month": "Nov 2024",
-          "index": 121.0
-        },
-        {
-          "month": "Dec 2024",
-          "index": 121.0
-        },
-        {
-          "month": "Jan 2025",
-          "index": 121.7
-        },
-        {
-          "month": "Feb 2025",
-          "index": 122.1
-        },
-        {
-          "month": "Mar 2025",
-          "index": 122.5
-        },
-        {
-          "month": "Apr 2025",
-          "index": 123.4
-        },
-        {
-          "month": "May 2025",
-          "index": 123.8
-        },
-        {
-          "month": "Jun 2025",
-          "index": 124.7
-        },
-        {
-          "month": "Jul 2025",
-          "index": 124.7
-        },
-        {
-          "month": "Aug 2025",
-          "index": 125.0
-        },
-        {
-          "month": "Sep 2025",
-          "index": 125.3
-        },
-        {
-          "month": "Oct 2025",
-          "index": 125.6
-        },
-        {
-          "month": "Nov 2025",
-          "index": 125.3
-        },
-        {
-          "month": "Dec 2025",
-          "index": 125.9
-        },
-        {
-          "month": "Jan 2026",
-          "index": 126.6
-        },
-        {
-          "month": "Feb 2026",
-          "index": 127.1
-        },
-        {
-          "month": "Mar 2026",
-          "index": 127.6
-        },
-        {
-          "month": "Apr 2026",
-          "index": 128.0
-        },
-        {
-          "month": "May 2026",
-          "index": 128.2
-        },
-        {
-          "month": "Jun 2026",
-          "index": 128.3
-        },
-        {
-          "month": "Jul 2026",
-          "index": 128.5
-        },
-        {
-          "month": "Aug 2026",
-          "index": 129.0
-        },
-        {
-          "month": "Sep 2026",
-          "index": 129.7
-        }
-      ],
-      "latest": {
-        "month": "Sep 2026",
-        "index": 129.7
-      },
-      "yoy_pct": 3.51,
-      "mom_pct": 0.54
-    },
-    {
       "coicop": "CP0533",
       "label": "Repair of household appliances",
       "depth": 4,
@@ -37445,9 +37250,204 @@
       "mom_pct": 0.54
     },
     {
-      "coicop": "CP0540",
+      "coicop": "CP05330",
+      "label": "Repair of household appliances",
+      "depth": 5,
+      "series": [
+        {
+          "month": "Oct 2025",
+          "index": 125.6
+        },
+        {
+          "month": "Nov 2025",
+          "index": 125.3
+        },
+        {
+          "month": "Dec 2025",
+          "index": 125.9
+        },
+        {
+          "month": "Jan 2026",
+          "index": 126.6
+        },
+        {
+          "month": "Feb 2026",
+          "index": 127.1
+        },
+        {
+          "month": "Mar 2026",
+          "index": 127.6
+        },
+        {
+          "month": "Apr 2026",
+          "index": 128.0
+        },
+        {
+          "month": "May 2026",
+          "index": 128.2
+        },
+        {
+          "month": "Jun 2026",
+          "index": 128.3
+        },
+        {
+          "month": "Jul 2026",
+          "index": 128.5
+        },
+        {
+          "month": "Aug 2026",
+          "index": 129.0
+        },
+        {
+          "month": "Sep 2026",
+          "index": 129.7
+        }
+      ],
+      "history": [
+        {
+          "month": "Jan 2024",
+          "index": 117.2
+        },
+        {
+          "month": "Feb 2024",
+          "index": 117.7
+        },
+        {
+          "month": "Mar 2024",
+          "index": 117.8
+        },
+        {
+          "month": "Apr 2024",
+          "index": 117.5
+        },
+        {
+          "month": "May 2024",
+          "index": 117.9
+        },
+        {
+          "month": "Jun 2024",
+          "index": 119.0
+        },
+        {
+          "month": "Jul 2024",
+          "index": 119.5
+        },
+        {
+          "month": "Aug 2024",
+          "index": 119.7
+        },
+        {
+          "month": "Sep 2024",
+          "index": 120.3
+        },
+        {
+          "month": "Oct 2024",
+          "index": 120.8
+        },
+        {
+          "month": "Nov 2024",
+          "index": 121.0
+        },
+        {
+          "month": "Dec 2024",
+          "index": 121.0
+        },
+        {
+          "month": "Jan 2025",
+          "index": 121.7
+        },
+        {
+          "month": "Feb 2025",
+          "index": 122.1
+        },
+        {
+          "month": "Mar 2025",
+          "index": 122.5
+        },
+        {
+          "month": "Apr 2025",
+          "index": 123.4
+        },
+        {
+          "month": "May 2025",
+          "index": 123.8
+        },
+        {
+          "month": "Jun 2025",
+          "index": 124.7
+        },
+        {
+          "month": "Jul 2025",
+          "index": 124.7
+        },
+        {
+          "month": "Aug 2025",
+          "index": 125.0
+        },
+        {
+          "month": "Sep 2025",
+          "index": 125.3
+        },
+        {
+          "month": "Oct 2025",
+          "index": 125.6
+        },
+        {
+          "month": "Nov 2025",
+          "index": 125.3
+        },
+        {
+          "month": "Dec 2025",
+          "index": 125.9
+        },
+        {
+          "month": "Jan 2026",
+          "index": 126.6
+        },
+        {
+          "month": "Feb 2026",
+          "index": 127.1
+        },
+        {
+          "month": "Mar 2026",
+          "index": 127.6
+        },
+        {
+          "month": "Apr 2026",
+          "index": 128.0
+        },
+        {
+          "month": "May 2026",
+          "index": 128.2
+        },
+        {
+          "month": "Jun 2026",
+          "index": 128.3
+        },
+        {
+          "month": "Jul 2026",
+          "index": 128.5
+        },
+        {
+          "month": "Aug 2026",
+          "index": 129.0
+        },
+        {
+          "month": "Sep 2026",
+          "index": 129.7
+        }
+      ],
+      "latest": {
+        "month": "Sep 2026",
+        "index": 129.7
+      },
+      "yoy_pct": 3.51,
+      "mom_pct": 0.54
+    },
+    {
+      "coicop": "CP054",
       "label": "Glassware, tableware, other semi-durables,durables",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -37640,9 +37640,9 @@
       "mom_pct": -0.27
     },
     {
-      "coicop": "CP054",
+      "coicop": "CP0540",
       "label": "Glassware, tableware, other semi-durables,durables",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -41735,9 +41735,9 @@
       "mom_pct": 0.33
     },
     {
-      "coicop": "CP06110",
+      "coicop": "CP0611",
       "label": "Pharmaceutical products",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -41930,9 +41930,9 @@
       "mom_pct": -0.07
     },
     {
-      "coicop": "CP0611",
+      "coicop": "CP06110",
       "label": "Pharmaceutical products",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -44465,9 +44465,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP06220",
+      "coicop": "CP0622",
       "label": "Dental services",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -44660,9 +44660,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP0622",
+      "coicop": "CP06220",
       "label": "Dental services",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -45635,9 +45635,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP06300",
+      "coicop": "CP063",
       "label": "Hospital services",
-      "depth": 5,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -46025,9 +46025,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP063",
+      "coicop": "CP06300",
       "label": "Hospital services",
-      "depth": 3,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -47195,201 +47195,6 @@
       "mom_pct": -0.27
     },
     {
-      "coicop": "CP07120",
-      "label": "Motorcycles",
-      "depth": 5,
-      "series": [
-        {
-          "month": "Oct 2025",
-          "index": 112.9
-        },
-        {
-          "month": "Nov 2025",
-          "index": 111.7
-        },
-        {
-          "month": "Dec 2025",
-          "index": 111.8
-        },
-        {
-          "month": "Jan 2026",
-          "index": 111.9
-        },
-        {
-          "month": "Feb 2026",
-          "index": 111.6
-        },
-        {
-          "month": "Mar 2026",
-          "index": 111.5
-        },
-        {
-          "month": "Apr 2026",
-          "index": 111.6
-        },
-        {
-          "month": "May 2026",
-          "index": 112.4
-        },
-        {
-          "month": "Jun 2026",
-          "index": 112.4
-        },
-        {
-          "month": "Jul 2026",
-          "index": 112.3
-        },
-        {
-          "month": "Aug 2026",
-          "index": 112.5
-        },
-        {
-          "month": "Sep 2026",
-          "index": 111.9
-        }
-      ],
-      "history": [
-        {
-          "month": "Jan 2024",
-          "index": 112.3
-        },
-        {
-          "month": "Feb 2024",
-          "index": 113.2
-        },
-        {
-          "month": "Mar 2024",
-          "index": 114.3
-        },
-        {
-          "month": "Apr 2024",
-          "index": 114.2
-        },
-        {
-          "month": "May 2024",
-          "index": 114.9
-        },
-        {
-          "month": "Jun 2024",
-          "index": 115.1
-        },
-        {
-          "month": "Jul 2024",
-          "index": 114.7
-        },
-        {
-          "month": "Aug 2024",
-          "index": 114.5
-        },
-        {
-          "month": "Sep 2024",
-          "index": 114.1
-        },
-        {
-          "month": "Oct 2024",
-          "index": 113.9
-        },
-        {
-          "month": "Nov 2024",
-          "index": 113.8
-        },
-        {
-          "month": "Dec 2024",
-          "index": 114.7
-        },
-        {
-          "month": "Jan 2025",
-          "index": 113.5
-        },
-        {
-          "month": "Feb 2025",
-          "index": 114.0
-        },
-        {
-          "month": "Mar 2025",
-          "index": 114.1
-        },
-        {
-          "month": "Apr 2025",
-          "index": 114.1
-        },
-        {
-          "month": "May 2025",
-          "index": 113.6
-        },
-        {
-          "month": "Jun 2025",
-          "index": 114.0
-        },
-        {
-          "month": "Jul 2025",
-          "index": 114.2
-        },
-        {
-          "month": "Aug 2025",
-          "index": 113.8
-        },
-        {
-          "month": "Sep 2025",
-          "index": 113.7
-        },
-        {
-          "month": "Oct 2025",
-          "index": 112.9
-        },
-        {
-          "month": "Nov 2025",
-          "index": 111.7
-        },
-        {
-          "month": "Dec 2025",
-          "index": 111.8
-        },
-        {
-          "month": "Jan 2026",
-          "index": 111.9
-        },
-        {
-          "month": "Feb 2026",
-          "index": 111.6
-        },
-        {
-          "month": "Mar 2026",
-          "index": 111.5
-        },
-        {
-          "month": "Apr 2026",
-          "index": 111.6
-        },
-        {
-          "month": "May 2026",
-          "index": 112.4
-        },
-        {
-          "month": "Jun 2026",
-          "index": 112.4
-        },
-        {
-          "month": "Jul 2026",
-          "index": 112.3
-        },
-        {
-          "month": "Aug 2026",
-          "index": 112.5
-        },
-        {
-          "month": "Sep 2026",
-          "index": 111.9
-        }
-      ],
-      "latest": {
-        "month": "Sep 2026",
-        "index": 111.9
-      },
-      "yoy_pct": -1.58,
-      "mom_pct": -0.53
-    },
-    {
       "coicop": "CP0712",
       "label": "Motorcycles",
       "depth": 4,
@@ -47585,9 +47390,204 @@
       "mom_pct": -0.53
     },
     {
-      "coicop": "CP07130",
-      "label": "Bicycle",
+      "coicop": "CP07120",
+      "label": "Motorcycles",
       "depth": 5,
+      "series": [
+        {
+          "month": "Oct 2025",
+          "index": 112.9
+        },
+        {
+          "month": "Nov 2025",
+          "index": 111.7
+        },
+        {
+          "month": "Dec 2025",
+          "index": 111.8
+        },
+        {
+          "month": "Jan 2026",
+          "index": 111.9
+        },
+        {
+          "month": "Feb 2026",
+          "index": 111.6
+        },
+        {
+          "month": "Mar 2026",
+          "index": 111.5
+        },
+        {
+          "month": "Apr 2026",
+          "index": 111.6
+        },
+        {
+          "month": "May 2026",
+          "index": 112.4
+        },
+        {
+          "month": "Jun 2026",
+          "index": 112.4
+        },
+        {
+          "month": "Jul 2026",
+          "index": 112.3
+        },
+        {
+          "month": "Aug 2026",
+          "index": 112.5
+        },
+        {
+          "month": "Sep 2026",
+          "index": 111.9
+        }
+      ],
+      "history": [
+        {
+          "month": "Jan 2024",
+          "index": 112.3
+        },
+        {
+          "month": "Feb 2024",
+          "index": 113.2
+        },
+        {
+          "month": "Mar 2024",
+          "index": 114.3
+        },
+        {
+          "month": "Apr 2024",
+          "index": 114.2
+        },
+        {
+          "month": "May 2024",
+          "index": 114.9
+        },
+        {
+          "month": "Jun 2024",
+          "index": 115.1
+        },
+        {
+          "month": "Jul 2024",
+          "index": 114.7
+        },
+        {
+          "month": "Aug 2024",
+          "index": 114.5
+        },
+        {
+          "month": "Sep 2024",
+          "index": 114.1
+        },
+        {
+          "month": "Oct 2024",
+          "index": 113.9
+        },
+        {
+          "month": "Nov 2024",
+          "index": 113.8
+        },
+        {
+          "month": "Dec 2024",
+          "index": 114.7
+        },
+        {
+          "month": "Jan 2025",
+          "index": 113.5
+        },
+        {
+          "month": "Feb 2025",
+          "index": 114.0
+        },
+        {
+          "month": "Mar 2025",
+          "index": 114.1
+        },
+        {
+          "month": "Apr 2025",
+          "index": 114.1
+        },
+        {
+          "month": "May 2025",
+          "index": 113.6
+        },
+        {
+          "month": "Jun 2025",
+          "index": 114.0
+        },
+        {
+          "month": "Jul 2025",
+          "index": 114.2
+        },
+        {
+          "month": "Aug 2025",
+          "index": 113.8
+        },
+        {
+          "month": "Sep 2025",
+          "index": 113.7
+        },
+        {
+          "month": "Oct 2025",
+          "index": 112.9
+        },
+        {
+          "month": "Nov 2025",
+          "index": 111.7
+        },
+        {
+          "month": "Dec 2025",
+          "index": 111.8
+        },
+        {
+          "month": "Jan 2026",
+          "index": 111.9
+        },
+        {
+          "month": "Feb 2026",
+          "index": 111.6
+        },
+        {
+          "month": "Mar 2026",
+          "index": 111.5
+        },
+        {
+          "month": "Apr 2026",
+          "index": 111.6
+        },
+        {
+          "month": "May 2026",
+          "index": 112.4
+        },
+        {
+          "month": "Jun 2026",
+          "index": 112.4
+        },
+        {
+          "month": "Jul 2026",
+          "index": 112.3
+        },
+        {
+          "month": "Aug 2026",
+          "index": 112.5
+        },
+        {
+          "month": "Sep 2026",
+          "index": 111.9
+        }
+      ],
+      "latest": {
+        "month": "Sep 2026",
+        "index": 111.9
+      },
+      "yoy_pct": -1.58,
+      "mom_pct": -0.53
+    },
+    {
+      "coicop": "CP0713",
+      "label": "Bicycles",
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -47780,9 +47780,9 @@
       "mom_pct": 0.35
     },
     {
-      "coicop": "CP0713",
-      "label": "Bicycles",
-      "depth": 4,
+      "coicop": "CP07130",
+      "label": "Bicycle",
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -49925,9 +49925,9 @@
       "mom_pct": 0.07
     },
     {
-      "coicop": "CP07230",
+      "coicop": "CP0723",
       "label": "Maintenance and repair of vehicles",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -50120,9 +50120,9 @@
       "mom_pct": 0.28
     },
     {
-      "coicop": "CP0723",
+      "coicop": "CP07230",
       "label": "Maintenance and repair of vehicles",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -53045,9 +53045,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP07350",
+      "coicop": "CP0735",
       "label": "Combined passenger transport services",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -53240,9 +53240,9 @@
       "mom_pct": 0.1
     },
     {
-      "coicop": "CP0735",
+      "coicop": "CP07350",
       "label": "Combined passenger transport services",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -54020,9 +54020,9 @@
       "mom_pct": 0.5
     },
     {
-      "coicop": "CP0810",
+      "coicop": "CP081",
       "label": "Postal and parcel services",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -54215,9 +54215,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP081",
+      "coicop": "CP0810",
       "label": "Postal and parcel services",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -54800,9 +54800,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP0820",
+      "coicop": "CP082",
       "label": "Telephones and other communication devices",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -54995,9 +54995,9 @@
       "mom_pct": 2.76
     },
     {
-      "coicop": "CP082",
+      "coicop": "CP0820",
       "label": "Telephones and other communication devices",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -55970,9 +55970,9 @@
       "mom_pct": 0.1
     },
     {
-      "coicop": "CP0830",
+      "coicop": "CP083",
       "label": "Telecommunication services",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -56165,9 +56165,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP083",
+      "coicop": "CP0830",
       "label": "Telecommunication services",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -60845,9 +60845,9 @@
       "mom_pct": 1.01
     },
     {
-      "coicop": "CP09150",
-      "label": "Repair of entertainment electronics",
-      "depth": 5,
+      "coicop": "CP0915",
+      "label": "Repair of audio-,photo-,inf. proc. equip.",
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -61040,9 +61040,9 @@
       "mom_pct": 1.14
     },
     {
-      "coicop": "CP0915",
-      "label": "Repair of audio-,photo-,inf. proc. equip.",
-      "depth": 4,
+      "coicop": "CP09150",
+      "label": "Repair of entertainment electronics",
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -62795,9 +62795,9 @@
       "mom_pct": 0.1
     },
     {
-      "coicop": "CP09230",
+      "coicop": "CP0923",
       "label": "Repair of durables for recreation and culture",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -62990,9 +62990,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP0923",
+      "coicop": "CP09230",
       "label": "Repair of durables for recreation and culture",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -65720,9 +65720,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP09350",
+      "coicop": "CP0935",
       "label": "Veterinary and other services for pets",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -65915,9 +65915,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP0935",
+      "coicop": "CP09350",
       "label": "Veterinary and other services for pets",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -67865,9 +67865,9 @@
       "mom_pct": 1.55
     },
     {
-      "coicop": "CP09430",
-      "label": "Service charge for games of chance",
-      "depth": 5,
+      "coicop": "CP0943",
+      "label": "Games of chance",
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -68060,9 +68060,9 @@
       "mom_pct": -0.18
     },
     {
-      "coicop": "CP0943",
-      "label": "Games of chance",
-      "depth": 4,
+      "coicop": "CP09430",
+      "label": "Service charge for games of chance",
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -70010,9 +70010,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP09530",
+      "coicop": "CP0953",
       "label": "Miscellaneous printed matter",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -70205,9 +70205,9 @@
       "mom_pct": -0.62
     },
     {
-      "coicop": "CP0953",
+      "coicop": "CP09530",
       "label": "Miscellaneous printed matter",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -70985,9 +70985,9 @@
       "mom_pct": -0.08
     },
     {
-      "coicop": "CP0960",
+      "coicop": "CP096",
       "label": "Package holidays",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -71180,9 +71180,9 @@
       "mom_pct": -3.45
     },
     {
-      "coicop": "CP096",
+      "coicop": "CP0960",
       "label": "Package holidays",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -71960,9 +71960,9 @@
       "mom_pct": 0.8
     },
     {
-      "coicop": "CP1010",
+      "coicop": "CP101",
       "label": "Services of pre-primary and primary education",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -72155,9 +72155,9 @@
       "mom_pct": 1.45
     },
     {
-      "coicop": "CP101",
+      "coicop": "CP1010",
       "label": "Services of pre-primary and primary education",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -72740,9 +72740,9 @@
       "mom_pct": 1.3
     },
     {
-      "coicop": "CP10200",
-      "label": "Fee for secondary school",
-      "depth": 5,
+      "coicop": "CP102",
+      "label": "Services of secondary education",
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -73130,9 +73130,9 @@
       "mom_pct": 0.69
     },
     {
-      "coicop": "CP102",
-      "label": "Services of secondary education",
-      "depth": 3,
+      "coicop": "CP10200",
+      "label": "Fee for secondary school",
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -73325,9 +73325,9 @@
       "mom_pct": 0.69
     },
     {
-      "coicop": "CP10400",
-      "label": "University tuition fee and/or registration fee",
-      "depth": 5,
+      "coicop": "CP104",
+      "label": "Services of tertiary education",
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -73715,9 +73715,9 @@
       "mom_pct": -0.25
     },
     {
-      "coicop": "CP104",
-      "label": "Services of tertiary education",
-      "depth": 3,
+      "coicop": "CP10400",
+      "label": "University tuition fee and/or registration fee",
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -73910,9 +73910,9 @@
       "mom_pct": -0.25
     },
     {
-      "coicop": "CP10500",
+      "coicop": "CP105",
       "label": "Education services not definable by level",
-      "depth": 5,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -74300,9 +74300,9 @@
       "mom_pct": 0.17
     },
     {
-      "coicop": "CP105",
+      "coicop": "CP10500",
       "label": "Education services not definable by level",
-      "depth": 3,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -75470,201 +75470,6 @@
       "mom_pct": 0.14
     },
     {
-      "coicop": "CP11120",
-      "label": "Services in canteens",
-      "depth": 5,
-      "series": [
-        {
-          "month": "Oct 2025",
-          "index": 128.5
-        },
-        {
-          "month": "Nov 2025",
-          "index": 129.0
-        },
-        {
-          "month": "Dec 2025",
-          "index": 129.1
-        },
-        {
-          "month": "Jan 2026",
-          "index": 129.9
-        },
-        {
-          "month": "Feb 2026",
-          "index": 130.0
-        },
-        {
-          "month": "Mar 2026",
-          "index": 130.6
-        },
-        {
-          "month": "Apr 2026",
-          "index": 131.0
-        },
-        {
-          "month": "May 2026",
-          "index": 131.2
-        },
-        {
-          "month": "Jun 2026",
-          "index": 131.4
-        },
-        {
-          "month": "Jul 2026",
-          "index": 131.3
-        },
-        {
-          "month": "Aug 2026",
-          "index": 132.1
-        },
-        {
-          "month": "Sep 2026",
-          "index": 132.1
-        }
-      ],
-      "history": [
-        {
-          "month": "Jan 2024",
-          "index": 120.1
-        },
-        {
-          "month": "Feb 2024",
-          "index": 120.9
-        },
-        {
-          "month": "Mar 2024",
-          "index": 121.2
-        },
-        {
-          "month": "Apr 2024",
-          "index": 121.9
-        },
-        {
-          "month": "May 2024",
-          "index": 122.3
-        },
-        {
-          "month": "Jun 2024",
-          "index": 122.4
-        },
-        {
-          "month": "Jul 2024",
-          "index": 122.3
-        },
-        {
-          "month": "Aug 2024",
-          "index": 122.8
-        },
-        {
-          "month": "Sep 2024",
-          "index": 123.5
-        },
-        {
-          "month": "Oct 2024",
-          "index": 123.9
-        },
-        {
-          "month": "Nov 2024",
-          "index": 124.3
-        },
-        {
-          "month": "Dec 2024",
-          "index": 124.3
-        },
-        {
-          "month": "Jan 2025",
-          "index": 125.2
-        },
-        {
-          "month": "Feb 2025",
-          "index": 125.7
-        },
-        {
-          "month": "Mar 2025",
-          "index": 126.1
-        },
-        {
-          "month": "Apr 2025",
-          "index": 126.8
-        },
-        {
-          "month": "May 2025",
-          "index": 126.8
-        },
-        {
-          "month": "Jun 2025",
-          "index": 127.3
-        },
-        {
-          "month": "Jul 2025",
-          "index": 127.4
-        },
-        {
-          "month": "Aug 2025",
-          "index": 127.7
-        },
-        {
-          "month": "Sep 2025",
-          "index": 128.1
-        },
-        {
-          "month": "Oct 2025",
-          "index": 128.5
-        },
-        {
-          "month": "Nov 2025",
-          "index": 129.0
-        },
-        {
-          "month": "Dec 2025",
-          "index": 129.1
-        },
-        {
-          "month": "Jan 2026",
-          "index": 129.9
-        },
-        {
-          "month": "Feb 2026",
-          "index": 130.0
-        },
-        {
-          "month": "Mar 2026",
-          "index": 130.6
-        },
-        {
-          "month": "Apr 2026",
-          "index": 131.0
-        },
-        {
-          "month": "May 2026",
-          "index": 131.2
-        },
-        {
-          "month": "Jun 2026",
-          "index": 131.4
-        },
-        {
-          "month": "Jul 2026",
-          "index": 131.3
-        },
-        {
-          "month": "Aug 2026",
-          "index": 132.1
-        },
-        {
-          "month": "Sep 2026",
-          "index": 132.1
-        }
-      ],
-      "latest": {
-        "month": "Sep 2026",
-        "index": 132.1
-      },
-      "yoy_pct": 3.12,
-      "mom_pct": 0.0
-    },
-    {
       "coicop": "CP1112",
       "label": "Services in canteens",
       "depth": 4,
@@ -75860,9 +75665,204 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP1120",
+      "coicop": "CP11120",
+      "label": "Services in canteens",
+      "depth": 5,
+      "series": [
+        {
+          "month": "Oct 2025",
+          "index": 128.5
+        },
+        {
+          "month": "Nov 2025",
+          "index": 129.0
+        },
+        {
+          "month": "Dec 2025",
+          "index": 129.1
+        },
+        {
+          "month": "Jan 2026",
+          "index": 129.9
+        },
+        {
+          "month": "Feb 2026",
+          "index": 130.0
+        },
+        {
+          "month": "Mar 2026",
+          "index": 130.6
+        },
+        {
+          "month": "Apr 2026",
+          "index": 131.0
+        },
+        {
+          "month": "May 2026",
+          "index": 131.2
+        },
+        {
+          "month": "Jun 2026",
+          "index": 131.4
+        },
+        {
+          "month": "Jul 2026",
+          "index": 131.3
+        },
+        {
+          "month": "Aug 2026",
+          "index": 132.1
+        },
+        {
+          "month": "Sep 2026",
+          "index": 132.1
+        }
+      ],
+      "history": [
+        {
+          "month": "Jan 2024",
+          "index": 120.1
+        },
+        {
+          "month": "Feb 2024",
+          "index": 120.9
+        },
+        {
+          "month": "Mar 2024",
+          "index": 121.2
+        },
+        {
+          "month": "Apr 2024",
+          "index": 121.9
+        },
+        {
+          "month": "May 2024",
+          "index": 122.3
+        },
+        {
+          "month": "Jun 2024",
+          "index": 122.4
+        },
+        {
+          "month": "Jul 2024",
+          "index": 122.3
+        },
+        {
+          "month": "Aug 2024",
+          "index": 122.8
+        },
+        {
+          "month": "Sep 2024",
+          "index": 123.5
+        },
+        {
+          "month": "Oct 2024",
+          "index": 123.9
+        },
+        {
+          "month": "Nov 2024",
+          "index": 124.3
+        },
+        {
+          "month": "Dec 2024",
+          "index": 124.3
+        },
+        {
+          "month": "Jan 2025",
+          "index": 125.2
+        },
+        {
+          "month": "Feb 2025",
+          "index": 125.7
+        },
+        {
+          "month": "Mar 2025",
+          "index": 126.1
+        },
+        {
+          "month": "Apr 2025",
+          "index": 126.8
+        },
+        {
+          "month": "May 2025",
+          "index": 126.8
+        },
+        {
+          "month": "Jun 2025",
+          "index": 127.3
+        },
+        {
+          "month": "Jul 2025",
+          "index": 127.4
+        },
+        {
+          "month": "Aug 2025",
+          "index": 127.7
+        },
+        {
+          "month": "Sep 2025",
+          "index": 128.1
+        },
+        {
+          "month": "Oct 2025",
+          "index": 128.5
+        },
+        {
+          "month": "Nov 2025",
+          "index": 129.0
+        },
+        {
+          "month": "Dec 2025",
+          "index": 129.1
+        },
+        {
+          "month": "Jan 2026",
+          "index": 129.9
+        },
+        {
+          "month": "Feb 2026",
+          "index": 130.0
+        },
+        {
+          "month": "Mar 2026",
+          "index": 130.6
+        },
+        {
+          "month": "Apr 2026",
+          "index": 131.0
+        },
+        {
+          "month": "May 2026",
+          "index": 131.2
+        },
+        {
+          "month": "Jun 2026",
+          "index": 131.4
+        },
+        {
+          "month": "Jul 2026",
+          "index": 131.3
+        },
+        {
+          "month": "Aug 2026",
+          "index": 132.1
+        },
+        {
+          "month": "Sep 2026",
+          "index": 132.1
+        }
+      ],
+      "latest": {
+        "month": "Sep 2026",
+        "index": 132.1
+      },
+      "yoy_pct": 3.12,
+      "mom_pct": 0.0
+    },
+    {
+      "coicop": "CP112",
       "label": "Accommodation",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -76055,9 +76055,9 @@
       "mom_pct": 1.88
     },
     {
-      "coicop": "CP112",
+      "coicop": "CP1120",
       "label": "Accommodation",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -80735,9 +80735,9 @@
       "mom_pct": -0.09
     },
     {
-      "coicop": "CP1240",
+      "coicop": "CP124",
       "label": "Social protection services",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -80930,9 +80930,9 @@
       "mom_pct": 0.42
     },
     {
-      "coicop": "CP124",
+      "coicop": "CP1240",
       "label": "Social protection services",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -81905,9 +81905,9 @@
       "mom_pct": -0.45
     },
     {
-      "coicop": "CP12520",
-      "label": "Premium for home contents insurance",
-      "depth": 5,
+      "coicop": "CP1252",
+      "label": "Insurance services connected with the dwelling",
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -82100,9 +82100,9 @@
       "mom_pct": -6.73
     },
     {
-      "coicop": "CP1252",
-      "label": "Insurance services connected with the dwelling",
-      "depth": 4,
+      "coicop": "CP12520",
+      "label": "Premium for home contents insurance",
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -83270,9 +83270,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP12550",
+      "coicop": "CP1255",
       "label": "Other insurance services",
-      "depth": 5,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
@@ -83465,9 +83465,9 @@
       "mom_pct": -0.25
     },
     {
-      "coicop": "CP1255",
+      "coicop": "CP12550",
       "label": "Other insurance services",
-      "depth": 4,
+      "depth": 5,
       "series": [
         {
           "month": "Oct 2025",
@@ -84440,9 +84440,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP1270",
+      "coicop": "CP127",
       "label": "Other services n.e.c.",
-      "depth": 4,
+      "depth": 3,
       "series": [
         {
           "month": "Oct 2025",
@@ -84635,9 +84635,9 @@
       "mom_pct": 0.0
     },
     {
-      "coicop": "CP127",
+      "coicop": "CP1270",
       "label": "Other services n.e.c.",
-      "depth": 3,
+      "depth": 4,
       "series": [
         {
           "month": "Oct 2025",
