@@ -269,6 +269,26 @@ Each drilldown panel includes the parent COICOP series (e.g. CP0122) as
 the first row + a white dashed line, alongside its 5-digit children
 (CP01221, CP01222, …).
 
+## Food CPI dashboard
+
+`data/food_cpi.json` (built by `scripts/fetch_food_cpi.py`, public APIs, no token, not per
+quarter) drives the SPA's **Food CPI** screens: `#/food` (markets x product-group
+heat table with YoY/MoM toggle and month picker, key-product rows, multi-market trend)
+and `#/food/{CC}[/{code}]` (all food series of one market: category rail, chart,
+indented product table, search, history modal). Markets: UK, IE, DK, SE, NO, NL, IT,
+DE, FR, ES, PL, PT, RO, EU27, euro area. Sources: Eurostat `prc_hicp_minr`
+(ECOICOP v2, 2025 = 100, every `CP01*` code, 101 per market, names also fetched in
+de/fr) and ONS MM23 (UK CPI, 2015 = 100, 63 series; the CDID list `UK` is hard-coded in
+the fetch script, and `F_UKMAP` in `app.html` maps EU classes to them for the comparison
+table). Compare changes, never index levels, across markets (different bases).
+
+**Germany is merged in:** `#/food/DE` renders the existing Germany deep-dive (Destatis
+national CPI, 60 items, categories, annual baselines) inside the food dashboard; the
+comparison table uses the Eurostat HICP for Germany so it lines up with the others.
+`#/q/{slug}/germany` still works. Product names come from the source taxonomy (English,
+with de/fr from Eurostat) - not in `i18n.json`; UI strings are `food.*` keys. The weekly
+refresh workflow runs the fetch and includes the file in its change check.
+
 ## Common edit recipes
 
 ### Remove a category / commodity from the dashboard
