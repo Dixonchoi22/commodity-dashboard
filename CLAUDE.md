@@ -254,11 +254,16 @@ for GBP, DKK, SEK and NOK. Germany's extra series come from the same file and ar
 merged into the Destatis ones in the client. FX series are shown without
 risk/opportunity colouring - a weaker local currency is not "bad" in itself.
 
-**Monthly refresh.** `.github/workflows/refresh-destatis.yml` pulls table
-61111-0004 from the Genesis API on the 16th of every month (and on demand from
-the Actions tab), using the repository secret `GENESIS_TOKEN`. It refreshes only
-the newest quarter in `manifest.json` (plus `data/indirect_de.json`), rebuilds,
-commits to `main` and starts the Pages deploy. Locally: `GENESIS_TOKEN=... py scripts/fetch_destatis.py {slug} --api`.
+**Automatic refresh.** `.github/workflows/refresh-destatis.yml` ("Refresh data
+(automatic)") runs by itself every Monday 06:17 UTC and on demand from the Actions
+tab. It downloads Destatis 61111-0004 via the Genesis API (repository secret
+`GENESIS_TOKEN`), rebuilds the German series and the country series (Eurostat, ONS,
+ECB - no token), refreshes the newest quarter in `manifest.json`, commits to `main`
+only if a number changed, and starts the Pages deploy. A failed run opens or
+updates an issue titled "Automatic data refresh failed". Not automatic by nature:
+the Expana overview PDF, the Mintec forecast and the Expana indirect-inflation
+PDFs (licensed files someone has to drop in `input/`). Locally:
+`GENESIS_TOKEN=... py scripts/fetch_destatis.py {slug} --api`.
 
 Each drilldown panel includes the parent COICOP series (e.g. CP0122) as
 the first row + a white dashed line, alongside its 5-digit children

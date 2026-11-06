@@ -1,18 +1,23 @@
-name: Refresh Destatis data (monthly)
+name: Refresh data (automatic)
 
 # Downloads the latest Destatis 61111-0004 table through the Genesis API,
 # rebuilds the affected quarter's report and redeploys Pages.
 # Needs the repository secret GENESIS_TOKEN
 # (Settings -> Secrets and variables -> Actions).
 #
-# Runs automatically on the 16th of every month (Destatis publishes the final
-# monthly CPI around the 10th-13th) and can also be started by hand. Only the
-# newest quarter in the manifest is refreshed, and only the Germany data
-# changes - the Expana commodity figures stay a quarterly snapshot.
+# Runs by itself every Monday morning (no one needs to start it). Every source
+# publishes on its own calendar - Destatis around the 10th-13th, ONS and Eurostat
+# at different dates, ECB early in the month - so a weekly check picks each new
+# release up within days. It only commits and redeploys when a number actually
+# changed. It can also be started by hand from the Actions tab.
+# Only the newest quarter in the manifest is refreshed, and only the country
+# price data changes - the Expana commodity figures stay a quarterly snapshot.
+# If a run fails it opens (or comments on) a GitHub issue, which e-mails the
+# repository owner.
 
 on:
   schedule:
-    - cron: "23 7 16 * *"   # 07:23 UTC on the 16th
+    - cron: "17 6 * * 1"    # 06:17 UTC every Monday
   workflow_dispatch:
     inputs:
       slug:
@@ -23,6 +28,7 @@ on:
 permissions:
   contents: write
   actions: write
+  issues: write
 
 concurrency:
   group: refresh-destatis
@@ -31,6 +37,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -99,3 +106,17 @@ jobs:
           # Pushes made with GITHUB_TOKEN do not trigger other workflows,
           # so start the Pages deploy explicitly.
           gh workflow run pages.yml --ref main
+
+      - name: Open an issue if the refresh failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Automatic data refresh failed"
+          body="The scheduled data refresh did not finish. Log: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
