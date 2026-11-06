@@ -118,7 +118,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=01d246dcbb"></script>
+<script src="./app-data.js?v=271cd16602"></script>
 <script>
 (function(){
 "use strict";
@@ -1490,11 +1490,44 @@ function foodMarketBody(cc,mi){
   var deLink=(cc==='DE')?'':'';
   return '<div class="layout"><aside class="rail">'+rail+'</aside><main class="content">'
     +'<div class="kpis">'+kpis+'</div>'
-    +'<div class="filters">'+fMonthPicker()+'<div class="search"><span aria-hidden="true">🔍</span><input id="fq" type="search" placeholder="'+esc(t('food.search'))+'" value="'+esc(state.fQ||'')+'"></div></div>'
-    +'<div class="panel"><h3 style="font-size:15px;font-weight:700;margin:0 0 10px">'+esc(fLabel(top))+'</h3><div style="height:240px"><canvas id="fGroupChart"></canvas></div></div>'
+    +'<div class="filters"><label for="fmonth" style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)">'+esc(t('de.monthPick'))+'</label>'+fMonthPicker()
+      +'<span class="cap">'+esc(t('food.history',{n:M.length}))+' · '+esc(t('de.monthHint',{n:M.length-12}).replace(/^[^·]*·\s*/,''))+'</span></div>'
+    +'<div class="filters"><div class="search"><span aria-hidden="true">🔍</span><input id="fq" type="search" placeholder="'+esc(t('food.search'))+'" value="'+esc(state.fQ||'')+'"></div></div>'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px">'
+    +'<div class="panel"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(fLabel(top))+'</h3><p style="font-size:12px;color:var(--muted);margin:5px 0 10px">'+esc(t('food.history',{n:M.length}))+'</p><div style="height:300px"><canvas id="fGroupChart"></canvas></div></div>'
+    +fBars(cc,tree,sel,mi)+'</div>'
+    +fMovers(cc,tree,mi)
     +table
     +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.source',{src:C.source,base:C.base}))+' '+esc(t('food.autoNote'))+'<br><span style="display:block;margin-top:6px">'+fSrcLinks()+'</span></p></div>'
     +'</main></div>';
+}
+function fBars(cc,tree,sel,mi){
+  var C=D.food.countries[cc];
+  var rows=tree.filter(function(x){return sel?x.parent===sel:x.depth===2;}).map(function(x){return {code:x.code,yoy:fChg(C.series[x.code],mi,12)};}).filter(function(o){return fNum(o.yoy);});
+  if(!rows.length) return '';
+  rows.sort(function(a,b){return b.yoy-a.yoy;});
+  var mx=Math.max.apply(null,rows.map(function(o){return Math.abs(o.yoy);}).concat([1]));
+  var bars=rows.map(function(o){var d=divColor(o.yoy), w=Math.max(2,Math.abs(o.yoy)/mx*100);
+    return '<button class="rail-item" data-fitem="'+esc(cc+'|'+o.code)+'" style="display:grid;grid-template-columns:150px 1fr auto;align-items:center;gap:10px;padding:3px 4px">'
+      +'<span style="font-size:11.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(fLabel(o.code))+'</span>'
+      +'<span style="height:14px;background:var(--bg);border-radius:4px;overflow:hidden;position:relative;display:block"><span style="position:absolute;left:0;top:0;bottom:0;border-radius:4px;width:'+w+'%;background:'+d.c+';opacity:.75"></span></span>'
+      +'<span class="num" style="font-size:12px;font-weight:700;color:'+d.c+';min-width:56px;text-align:right">'+esc(pct(o.yoy))+'</span></button>';}).join('');
+  return '<div class="panel"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('de.catsTitle',{month:fMonthLbl(D.food.months[mi],'long')}))+'</h3>'
+    +'<p style="font-size:12px;color:var(--muted);margin:5px 0 12px">'+esc(t('food.groupsSub'))+'</p><div style="display:flex;flex-direction:column;gap:3px;max-height:340px;overflow-y:auto">'+bars+'</div></div>';
+}
+function fMovers(cc,tree,mi){
+  var C=D.food.countries[cc], parents={};
+  tree.forEach(function(x){ if(x.parent) parents[x.parent]=1; });
+  var all=tree.filter(function(x){return !parents[x.code]&&x.depth>=2;}).map(function(x){return {code:x.code,yoy:fChg(C.series[x.code],mi,12)};}).filter(function(o){return fNum(o.yoy);});
+  if(all.length<10) return '';
+  all.sort(function(a,b){return b.yoy-a.yoy;});
+  var row=function(o){var d=divColor(o.yoy);
+    return '<button class="rail-item" data-fitem="'+esc(cc+'|'+o.code)+'" style="padding:7px 8px"><span style="flex:1;min-width:0"><span class="nm">'+esc(fLabel(o.code))+'</span></span>'
+      +'<span class="num" style="font-size:12px;font-weight:700;color:'+d.c+'">'+esc(pct(o.yoy))+'</span></button>';};
+  var col=function(title,list){return '<div><h4 style="font-size:13.5px;font-weight:700;margin:0 0 6px">'+esc(title)+'</h4>'+list.map(row).join('')+'</div>';};
+  return '<div class="panel"><p style="font-size:12px;color:var(--muted);margin:0 0 12px">'+esc(t('de.itemsMoversSub',{n:all.length,month:fMonthLbl(D.food.months[mi],'long')}))+'</p>'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px">'
+    +col(t('de.itemsUp',{yoy:t('common.yoy')}),all.slice(0,6))+col(t('de.itemsDown',{yoy:t('common.yoy')}),all.slice(-6).reverse())+'</div></div>';
 }
 function drawFood(){
   var F=D.food; if(!F||!window.Chart) return;

@@ -2241,6 +2241,17 @@
       "pt": "Fonte",
       "ro": "Sursă"
     },
+    "food.groupsSub": {
+      "en": "Annual change of each product group, sorted high → low",
+      "de": "Jahresveränderung jeder Produktgruppe, absteigend sortiert",
+      "fr": "Variation annuelle de chaque groupe de produits, du plus haut au plus bas",
+      "it": "Variazione annua di ogni gruppo di prodotti, dal più alto al più basso",
+      "es": "Variación anual de cada grupo de productos, de mayor a menor",
+      "pl": "Zmiana roczna każdej grupy produktów, od najwyższej do najniższej",
+      "nl": "Jaarmutatie per productgroep, van hoog naar laag",
+      "pt": "Variação anual de cada grupo de produtos, do mais alto ao mais baixo",
+      "ro": "Variația anuală a fiecărui grup de produse, de la cea mai mare la cea mai mică"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",
