@@ -276,7 +276,7 @@ quarter) drives the SPA's **Food CPI** screens: `#/food` (markets x product-grou
 heat table with YoY/MoM toggle and month picker, key-product rows, multi-market trend)
 and `#/food/{CC}[/{code}]` (all food series of one market: category rail, chart,
 indented product table, search, history modal). Markets: UK, IE, DK, SE, NO, NL, IT,
-DE, FR, ES, PL, PT, RO, EU27, euro area. Sources: Eurostat `prc_hicp_minr`
+DE, plus EU27 and euro-area benchmarks (FR/ES/PL/PT/RO were dropped on request). Sources: Eurostat `prc_hicp_minr`
 (ECOICOP v2, 2025 = 100, every `CP01*` code, 101 per market, names also fetched in
 de/fr) and ONS MM23 (UK CPI, 2015 = 100, 63 series; the CDID list `UK` is hard-coded in
 the fetch script, and `F_UKMAP` in `app.html` maps EU classes to them for the comparison

@@ -4,7 +4,7 @@ Everything food related (COICOP division 01 "Food and non-alcoholic beverages", 
 the most detailed level a source publishes) from public APIs, no key needed:
 
   Eurostat dissemination API   prc_hicp_minr (HICP, ECOICOP v2, 2025 = 100)
-      EU27, euro area, and DE FR IT ES PL NL PT RO IE DK SE NO  - 101 food codes each
+      EU27, euro area, and DE IT NL IE DK SE NO  - 101 food codes each
   ONS time-series API          UK CPI (dataset MM23, 2015 = 100) - 63 food series
 
 The UK is no longer in Eurostat HICP, so it keeps ONS' own (older COICOP) tree.
@@ -25,7 +25,7 @@ from fetch_indirect_countries import EUROSTAT, INFL, ONS, SHORT, get_json  # noq
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "food_cpi.json"
 SINCE = "2024-01"
-GEOS = ["EU27_2020", "EA", "DE", "FR", "IT", "ES", "PL", "NL", "PT", "RO", "IE", "DK", "SE", "NO"]
+GEOS = ["EU27_2020", "EA", "DE", "IT", "NL", "IE", "DK", "SE", "NO"]
 
 # ONS CPI index series for COICOP 01 (MM23). CDID, dotted COICOP code, label.
 UK = [
