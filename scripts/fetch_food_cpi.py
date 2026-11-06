@@ -146,7 +146,7 @@ def main() -> None:
     for _, code, lab in UK:
         k = "uk:" + code
         p = parent_of(k, ukcodes)
-        nodes[k] = {"label": lab, "parent": p}
+        nodes[k] = {"label": lab, "parent": p, "cdid": next(c for c, cd, _ in UK if cd == code)}
 
     def row(s: dict[str, float]) -> list:
         return [s.get(m) for m in months]

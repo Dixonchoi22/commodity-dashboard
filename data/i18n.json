@@ -2208,6 +2208,28 @@
       "pt": "Índice ({base})",
       "ro": "Indice ({base})"
     },
+    "food.viewSource": {
+      "en": "View source data",
+      "de": "Quelldaten ansehen",
+      "fr": "Voir les données source",
+      "it": "Vedi i dati di origine",
+      "es": "Ver datos de origen",
+      "pl": "Zobacz dane źródłowe",
+      "nl": "Brongegevens bekijken",
+      "pt": "Ver dados de origem",
+      "ro": "Vezi datele sursă"
+    },
+    "food.srcDatasets": {
+      "en": "Source datasets",
+      "de": "Quelldatensätze",
+      "fr": "Jeux de données source",
+      "it": "Dataset di origine",
+      "es": "Conjuntos de datos de origen",
+      "pl": "Zbiory danych źródłowych",
+      "nl": "Brondatasets",
+      "pt": "Conjuntos de dados de origem",
+      "ro": "Seturi de date sursă"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",

@@ -1359,6 +1359,16 @@ function fChg(a,i,lag){ if(!a||i-lag<0||!fNum(a[i])||!fNum(a[i-lag])) return nul
 function fSeries(cc,code){ var C=D.food.countries[cc]; if(!C) return null; return C.series[cc==='UK'&&code.indexOf('uk:')!==0?F_UKMAP[code]:code]||null; }
 function fMi(){ var L=D.food.months.length-1; return (state.fMonth==null||state.fMonth>L||state.fMonth<12)?L:state.fMonth; }
 function fRootOf(cc){ return cc==='UK'?'uk:01':'CP01'; }
+function fSrcUrl(cc,code){
+  var n=D.food.nodes[code]||{};
+  if(cc==='UK') return n.cdid?'https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/'+n.cdid.toLowerCase()+'/mm23':'https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices';
+  return 'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?format=JSON&unit=I25&geo='+cc+'&coicop18='+code;
+}
+function fSrcLinks(){
+  return '<b>'+esc(t('food.srcDatasets'))+':</b> <a href="https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table?lang=en" target="_blank" rel="noopener">Eurostat prc_hicp_minr</a> · '
+    +'<a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices" target="_blank" rel="noopener">ONS CPI (MM23)</a> · '
+    +'<a href="https://www-genesis.destatis.de/datenbank/online/statistic/61111/table/61111-0004" target="_blank" rel="noopener">Destatis 61111-0004</a>';
+}
 function fHeat(v){
   if(!fNum(v)) return 'background:var(--tint);color:var(--dim)';
   var a=Math.min(.07+Math.abs(v)/10*.36,.45);
@@ -1429,7 +1439,7 @@ function foodCompareBody(mk,mi){
       +'<span class="cap" style="flex-basis:100%">'+esc(t('food.heatSub',{kind:state.fKind==='mom'?t('common.momLong'):t('common.yoyLong'),month:fMonthLbl(M[mi],'long')}))+'</span></div>'
     +table
     +'<div class="panel"><h3 style="font-size:15px;font-weight:700;margin:0 0 10px">'+esc(t('food.trendTitle'))+'</h3><div style="height:300px"><canvas id="fTrend"></canvas></div></div>'
-    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.ukNote'))+' '+esc(t('food.deNote'))+' '+esc(t('food.autoNote'))+'</p></div>'+deCard;
+    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.ukNote'))+' '+esc(t('food.deNote'))+' '+esc(t('food.autoNote'))+'<br><span style="display:block;margin-top:6px">'+fSrcLinks()+'</span></p></div>'+deCard;
 }
 function fTree(cc){
   var C=D.food.countries[cc], have=C.series, N=D.food.nodes, out=[];
@@ -1478,7 +1488,7 @@ function foodMarketBody(cc,mi){
     +'<div class="filters">'+fMonthPicker()+'<div class="search"><span aria-hidden="true">🔍</span><input id="fq" type="search" placeholder="'+esc(t('food.search'))+'" value="'+esc(state.fQ||'')+'"></div></div>'
     +'<div class="panel"><h3 style="font-size:15px;font-weight:700;margin:0 0 10px">'+esc(fLabel(top))+'</h3><div style="height:240px"><canvas id="fGroupChart"></canvas></div></div>'
     +table
-    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.source',{src:C.source,base:C.base}))+' '+esc(t('food.autoNote'))+'</p></div>'
+    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.source',{src:C.source,base:C.base}))+' '+esc(t('food.autoNote'))+'<br><span style="display:block;margin-top:6px">'+fSrcLinks()+'</span></p></div>'
     +'</main></div>';
 }
 function drawFood(){
@@ -1518,7 +1528,7 @@ function openFoodModal(ref){
     +'<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'+tile(t('food.index',{base:C.base}),numf(s[mi]))+tile(t('common.mom'),pct(mom),divColor(mom).c)+tile(t('common.yoy'),pct(yoy),divColor(yoy).c)+'</div>'
     +'<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('de.itemHistory',{n:M.length}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="itemChart"></canvas></div>'
     +'<div style="overflow:auto;max-height:260px;margin-top:10px;border:1px solid var(--border2);border-radius:10px"><table><thead><tr><th>'+esc(t('de.colMonth'))+'</th><th style="text-align:right">'+esc(t('food.index',{base:C.base}))+'</th><th style="text-align:center">'+esc(t('common.mom'))+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
-    +'<p class="cap" style="margin:12px 0 0">'+esc(t('food.source',{src:C.source,base:C.base}))+'</p></div>';
+    +'<p class="cap" style="margin:12px 0 0">'+esc(t('food.source',{src:C.source,base:C.base}))+' <a href="'+esc(fSrcUrl(cc,code))+'" target="_blank" rel="noopener" style="font-weight:700">'+esc(t('food.viewSource'))+' ↗</a></p></div>';
   ovEl.addEventListener('click',function(e){if(e.target===ovEl||e.target.hasAttribute('data-close'))closeModal();});
   document.body.appendChild(ovEl);
   lineChart('itemChart',M.map(function(m){return fMonthLbl(m);}),s,col,'',mi);
