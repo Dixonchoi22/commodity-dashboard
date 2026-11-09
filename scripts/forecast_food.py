@@ -1,6 +1,6 @@
 """Statistical 6-month projection of the food CPI series -> data/food_forecast.json
 
-For the total food index and every product group (COICOP class level) of each market:
+For EVERY series of the food dashboard (total, groups and detailed products of each market):
 the full monthly history since 2015 is fetched (Eurostat prc_hicp_minr; ONS MM23 for
 the UK), an exponential-smoothing (ETS) model is fitted to the log index - the best of
 four variants (with / without damped trend, with / without 12-month seasonality) by AICc -
@@ -10,7 +10,9 @@ This is a mechanical extrapolation of the past, NOT an official forecast: it can
 shocks (energy, tax changes). To say how far to trust it, the script back-tests the total
 food index of every market (rolling origins over the last 30 months, 6 months ahead,
 year-on-year error) against a naive "inflation stays where it is" baseline and stores that
-error in `backtest`. The back-test only covers the total, not the individual groups.
+error in `backtest`. Every other series gets a lighter track record (8 rolling origins, 6 months
+ahead, the chosen model variant only) stored as `bt`; series with under 5 years of history
+(e.g. some Norwegian detail codes) are skipped.
 
 Germany: the Germany screen uses the Destatis national CPI (a different, shorter series).
 Its projection uses the Eurostat HICP series for Germany, rebased to the Destatis last value
@@ -42,27 +44,48 @@ H = 6
 CFGS = [(None, False, None), ("add", True, None), (None, False, "add"), ("add", True, "add")]
 
 
-def fit_best(y: np.ndarray):
-    best = None
-    for tr, damped, se in CFGS:
+def fit_best(y, with_cfg: bool = False):
+    best, best_cfg = None, None
+    for cfg in CFGS:
+        tr, damped, se = cfg
         try:
             res = ETSModel(y, error="add", trend=tr, damped_trend=damped, seasonal=se,
                            seasonal_periods=12 if se else None).fit(disp=False)
         except Exception:                                   # noqa: BLE001 - skip variants that do not converge
             continue
         if best is None or res.aicc < best.aicc:
-            best = res
-    return best
+            best, best_cfg = res, cfg
+    return (best, best_cfg) if with_cfg else best
 
 
 def project(vals: list[float]):
     y = pd.Series(np.log(np.array(vals, dtype=float)), index=pd.date_range("2000-01-01", periods=len(vals), freq="MS"))
-    res = fit_best(y)
+    res, cfg = fit_best(y, with_cfg=True)
     if res is None:
         return None
     sf = res.get_prediction(start=len(y), end=len(y) + H - 1).summary_frame(alpha=0.2)
     f = lambda col: [round(float(np.exp(v)), 2) for v in sf[col]]    # noqa: E731
-    return {"fc": f("mean"), "lo": f("pi_lower"), "hi": f("pi_upper")}
+    return {"fc": f("mean"), "lo": f("pi_lower")[-1], "hi": f("pi_upper")[-1], "_cfg": cfg}
+
+
+def quick_bt(vals: list[float], cfg) -> dict | None:
+    """Light track record: refit only the variant already chosen for this series."""
+    y = np.log(np.array(vals, dtype=float))
+    em, nv = [], []
+    for o in range(len(y) - H - 15, len(y) - H, 2):
+        try:
+            res = ETSModel(y[: o + 1], error="add", trend=cfg[0], damped_trend=cfg[1], seasonal=cfg[2],
+                           seasonal_periods=12 if cfg[2] else None).fit(disp=False)
+        except Exception:                                   # noqa: BLE001
+            continue
+        tgt = o + H
+        fc = float(res.forecast(H)[-1])
+        actual = (np.exp(y[tgt] - y[tgt - 12]) - 1) * 100
+        em.append(abs((np.exp(fc - y[tgt - 12]) - 1) * 100 - actual))
+        nv.append(abs((np.exp(y[o] - y[o - 12]) - 1) * 100 - actual))
+    if not em:
+        return None
+    return [round(float(np.mean(em)), 1), round(float(np.mean(nv)), 1)]
 
 
 def backtest(vals: list[float]):
@@ -82,25 +105,24 @@ def backtest(vals: list[float]):
 
 def main() -> None:
     nodes = json.loads((ROOT / "data" / "food_cpi.json").read_text(encoding="utf-8"))["nodes"]
-    codes = sorted(c for c in nodes if c.startswith("CP") and len(c) <= 6)
-    print(f"Eurostat history since {SINCE}: {len(codes)} codes x {len(GEOS)} markets ...")
-    q = urlencode({"format": "JSON", "unit": "I25", "geo": GEOS, "coicop18": codes, "sinceTimePeriod": SINCE}, doseq=True)
-    d = get_json(EUROSTAT + "prc_hicp_minr?" + q)
-    ids, size = d["id"], d["size"]
-    cats = {i: list(d["dimension"][i]["category"]["index"]) for i in ids}
-    st = [1] * len(ids)
-    for k in range(len(ids) - 2, -1, -1):
-        st[k] = st[k + 1] * size[k + 1]
+    codes = sorted(c for c in nodes if c.startswith("CP"))
+    print(f"Eurostat history since {SINCE}: {len(codes)} codes x {len(GEOS)} markets (one call per market) ...")
     hist: dict[tuple[str, str], dict[str, float]] = {}
-    for pos, v in d.get("value", {}).items():
-        pos = int(pos)
-        ix = {ids[k]: (pos // st[k]) % size[k] for k in range(len(ids))}
-        hist.setdefault((cats["geo"][ix["geo"]], cats["coicop18"][ix["coicop18"]]), {})[cats["time"][ix["time"]]] = float(v)
+    for geo in GEOS:
+        q = urlencode({"format": "JSON", "unit": "I25", "geo": geo, "coicop18": codes, "sinceTimePeriod": SINCE}, doseq=True)
+        d = get_json(EUROSTAT + "prc_hicp_minr?" + q)
+        ids, size = d["id"], d["size"]
+        cats = {i: list(d["dimension"][i]["category"]["index"]) for i in ids}
+        st = [1] * len(ids)
+        for k in range(len(ids) - 2, -1, -1):
+            st[k] = st[k + 1] * size[k + 1]
+        for pos, v in d.get("value", {}).items():
+            pos = int(pos)
+            ix = {ids[k]: (pos // st[k]) % size[k] for k in range(len(ids))}
+            hist.setdefault((geo, cats["coicop18"][ix["coicop18"]]), {})[cats["time"][ix["time"]]] = float(v)
 
     print("ONS history (UK) ...")
     for cdid, code, _ in UK:
-        if code.count(".") > 2:
-            continue
         j = get_json(ONS.format(path=INFL, cdid=cdid.lower(), ds="mm23"))
         s: dict[str, float] = {}
         for r in j["months"]:
@@ -115,15 +137,25 @@ def main() -> None:
         if s:
             hist[("UK", "uk:" + code)] = s
 
+    newest = {g: max(p for (gg, _), ss in hist.items() if gg == g for p in ss) for g in {g for g, _ in hist}}
     series: dict[str, dict] = {}
-    for (g, c), s in sorted(hist.items()):
+    skipped = 0
+    for n, ((g, c), s) in enumerate(sorted(hist.items()), 1):
         ps = sorted(s)
-        if len(ps) < 60 or ps[-1] != max(p for (gg, _), ss in hist.items() if gg == g for p in ss):
-            continue                                          # need 5+ years and an up-to-date series
-        out = project([s[p] for p in ps])
-        if out:
-            series[f"{g}|{c}"] = {"last": ps[-1], **out}
-    print(f"projected {len(series)} series")
+        if len(ps) < 60 or ps[-1] != newest[g] or len(ps) != len(set(ps)):
+            skipped += 1
+            continue
+        vals = [s[p] for p in ps]
+        out = project(vals)
+        if not out:
+            skipped += 1
+            continue
+        cfg = out.pop("_cfg")
+        bt1 = quick_bt(vals, cfg)
+        series[f"{g}|{c}"] = {"last": ps[-1], **out, **({"bt": bt1} if bt1 else {})}
+        if n % 100 == 0:
+            print(f"  {n}/{len(hist)} ...")
+    print(f"projected {len(series)} series, skipped {skipped} (too short or not current)")
 
     bt = {}
     for (g, c), s in sorted(hist.items()):

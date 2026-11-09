@@ -2319,15 +2319,15 @@
       "ro": "{month}: {yoy} anual (interval de 80% între {lo} și {hi})"
     },
     "food.fcNote": {
-      "en": "Statistical projection of the past trend and seasonality (history since 2015), not an official forecast. It cannot anticipate shocks such as energy prices or tax changes. Dashed line = projection, shaded band = 80% range.",
-      "de": "Statistische Fortschreibung von Trend und Saisonmuster der Vergangenheit (Daten seit 2015), keine amtliche Prognose. Schocks wie Energiepreise oder Steueränderungen kann sie nicht vorhersehen. Gestrichelte Linie = Projektion, schattierter Bereich = 80-%-Bereich.",
-      "fr": "Projection statistique de la tendance et de la saisonnalité passées (historique depuis 2015), et non une prévision officielle. Elle ne peut pas anticiper des chocs tels que les prix de l'énergie ou des changements fiscaux. Ligne pointillée = projection, zone grisée = fourchette à 80 %.",
-      "it": "Proiezione statistica di tendenza e stagionalità passate (storico dal 2015), non una previsione ufficiale. Non può anticipare shock come i prezzi dell'energia o modifiche fiscali. Linea tratteggiata = proiezione, area ombreggiata = intervallo all'80%.",
-      "es": "Proyección estadística de la tendencia y la estacionalidad pasadas (historial desde 2015), no una previsión oficial. No puede anticipar shocks como los precios de la energía o cambios fiscales. Línea discontinua = proyección, banda sombreada = rango del 80 %.",
-      "pl": "Statystyczna projekcja dotychczasowego trendu i sezonowości (dane od 2015 r.), a nie oficjalna prognoza. Nie przewidzi szoków, takich jak ceny energii czy zmiany podatków. Linia przerywana = projekcja, zacieniony pas = przedział 80%.",
-      "nl": "Statistische projectie van de trend en het seizoenspatroon uit het verleden (historie sinds 2015), geen officiële prognose. Schokken zoals energieprijzen of belastingwijzigingen kan ze niet voorzien. Stippellijn = projectie, gearceerde band = 80%-bandbreedte.",
-      "pt": "Projeção estatística da tendência e da sazonalidade passadas (histórico desde 2015), não uma previsão oficial. Não consegue antecipar choques como os preços da energia ou alterações fiscais. Linha tracejada = projeção, faixa sombreada = intervalo de 80%.",
-      "ro": "Proiecție statistică a tendinței și sezonalității din trecut (istoric din 2015), nu o prognoză oficială. Nu poate anticipa șocuri precum prețurile energiei sau modificările fiscale. Linia punctată = proiecție, banda umbrită = interval de 80%."
+      "en": "Statistical projection of the past trend and seasonality (history since 2015), not an official forecast. It cannot anticipate shocks such as energy prices or tax changes. Open circles = projection for the next 6 months (the larger one is month 6); the 80% range is stated in the text.",
+      "de": "Statistische Fortschreibung von Trend und Saisonmuster der Vergangenheit (Daten seit 2015), keine amtliche Prognose. Schocks wie Energiepreise oder Steueränderungen kann sie nicht vorhersehen. Offene Kreise = Projektion für die nächsten 6 Monate (der größere ist Monat 6); der 80-%-Bereich steht im Text.",
+      "fr": "Projection statistique de la tendance et de la saisonnalité passées (historique depuis 2015), et non une prévision officielle. Elle ne peut pas anticiper des chocs tels que les prix de l'énergie ou des changements fiscaux. Cercles ouverts = projection des 6 prochains mois (le plus grand est le mois 6) ; la fourchette à 80 % figure dans le texte.",
+      "it": "Proiezione statistica di tendenza e stagionalità passate (storico dal 2015), non una previsione ufficiale. Non può anticipare shock come i prezzi dell'energia o modifiche fiscali. Cerchi vuoti = proiezione dei prossimi 6 mesi (il più grande è il mese 6); l'intervallo all'80% è indicato nel testo.",
+      "es": "Proyección estadística de la tendencia y la estacionalidad pasadas (historial desde 2015), no una previsión oficial. No puede anticipar shocks como los precios de la energía o cambios fiscales. Círculos vacíos = proyección de los próximos 6 meses (el más grande es el mes 6); el rango del 80 % se indica en el texto.",
+      "pl": "Statystyczna projekcja dotychczasowego trendu i sezonowości (dane od 2015 r.), a nie oficjalna prognoza. Nie przewidzi szoków, takich jak ceny energii czy zmiany podatków. Puste kółka = projekcja na kolejne 6 miesięcy (największe to miesiąc 6); przedział 80% podano w tekście.",
+      "nl": "Statistische projectie van de trend en het seizoenspatroon uit het verleden (historie sinds 2015), geen officiële prognose. Schokken zoals energieprijzen of belastingwijzigingen kan ze niet voorzien. Open cirkels = projectie voor de komende 6 maanden (de grootste is maand 6); de 80%-bandbreedte staat in de tekst.",
+      "pt": "Projeção estatística da tendência e da sazonalidade passadas (histórico desde 2015), não uma previsão oficial. Não consegue antecipar choques como os preços da energia ou alterações fiscais. Círculos vazios = projeção dos próximos 6 meses (o maior é o mês 6); o intervalo de 80% vem indicado no texto.",
+      "ro": "Proiecție statistică a tendinței și sezonalității din trecut (istoric din 2015), nu o prognoză oficială. Nu poate anticipa șocuri precum prețurile energiei sau modificările fiscale. Cercuri goale = proiecție pentru următoarele 6 luni (cel mai mare este luna 6); intervalul de 80% este indicat în text."
     },
     "food.fcBt": {
       "en": "Track record: over the last 30 months this method's 6-month-ahead year-on-year error averaged {ets} pp, against {naive} pp for simply assuming inflation stays unchanged.",
@@ -2416,6 +2416,17 @@
       "nl": "Projectie",
       "pt": "Projeção",
       "ro": "Proiecție"
+    },
+    "food.fcBtLight": {
+      "en": "Track record for this series: over 8 tests across the last 15 months, the 6-month-ahead year-on-year error averaged {ets} pp (assuming no change: {naive} pp).",
+      "de": "Trefferquote dieser Reihe: In 8 Tests über die letzten 15 Monate lag der Fehler bei der 6-Monats-Vorausschau (Jahresvergleich) im Mittel bei {ets} Prozentpunkten (bei unveränderter Annahme: {naive}).",
+      "fr": "Historique de cette série : sur 8 tests répartis sur les 15 derniers mois, l'erreur moyenne à 6 mois (sur un an) a été de {ets} pt (en supposant aucun changement : {naive} pt).",
+      "it": "Storico di questa serie: in 8 test negli ultimi 15 mesi l'errore medio a 6 mesi (su base annua) è stato di {ets} pp (assumendo nessun cambiamento: {naive} pp).",
+      "es": "Historial de esta serie: en 8 pruebas durante los últimos 15 meses el error medio a 6 meses (interanual) fue de {ets} pp (suponiendo que nada cambia: {naive} pp).",
+      "pl": "Skuteczność dla tej serii: w 8 testach z ostatnich 15 miesięcy średni błąd na 6 miesięcy (r/r) wyniósł {ets} pp (przy założeniu braku zmian: {naive} pp).",
+      "nl": "Staat van dienst van deze reeks: in 8 tests over de afgelopen 15 maanden bedroeg de gemiddelde fout op 6 maanden vooruit (jaar op jaar) {ets} pp (uitgaande van geen verandering: {naive} pp).",
+      "pt": "Historial desta série: em 8 testes nos últimos 15 meses o erro médio a 6 meses (homólogo) foi de {ets} pp (assumindo que nada muda: {naive} pp).",
+      "ro": "Istoric pentru această serie: în 8 teste din ultimele 15 luni eroarea medie la 6 luni (anual) a fost de {ets} pp (presupunând nicio schimbare: {naive} pp)."
     },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",

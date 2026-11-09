@@ -125,7 +125,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=ca6c1583c2"></script>
+<script src="./app-data.js?v=32ced5feac"></script>
 <script>
 (function(){
 "use strict";
@@ -1290,7 +1290,9 @@ function openItemModal(code){
     var cur=h[last], mom=(isN(h[last])&&isN(h[last-1]))?(h[last]/h[last-1]-1)*100:it.mom, yoy=(isN(h[last])&&isN(h[last-12]))?(h[last]/h[last-12]-1)*100:it.yoy;
     var tile=function(lab,val,col){return '<div style="padding:10px 13px;border-radius:10px;background:var(--bg);border:1px solid var(--border2)"><div style="font-size:10px;text-transform:uppercase;color:var(--dim);font-weight:700">'+esc(lab)+'</div><div class="num" style="font-size:19px;font-weight:800;margin-top:4px;color:'+(col||'var(--ink)')+'">'+esc(val)+'</div></div>';};
     tiles='<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'+tile(t('de.indexLabel'),numf(cur))+tile(t('common.mom'),pct(mom),divColor(mom).c)+tile(t('common.yoy'),pct(yoy),divColor(yoy).c)+'</div>';
-    chart='<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('de.itemHistory',{n:M.length}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="itemChart"></canvas></div>';
+    var gfo=gFcPrep(code,h,M);
+    chart='<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('de.itemHistory',{n:M.length}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="itemChart"></canvas></div>'
+      +(gfo?fFcInfoHTML(gfo,h,last,null,t('food.fcDE')):'');
     var rows='';
     for(var i=last;i>=0;i--){ if(!isN(h[i])) continue;
       var m1=(i>=1&&isN(h[i-1]))?(h[i]/h[i-1]-1)*100:null, y1=(i>=12&&isN(h[i-12]))?(h[i]/h[i-12]-1)*100:null, dm=divColor(m1), dy=divColor(y1);
@@ -1317,7 +1319,11 @@ function openItemModal(code){
     +tiles+chart+histTable+annual+'</div>';
   ovEl.addEventListener('click',function(e){if(e.target===ovEl||e.target.hasAttribute('data-close'))closeModal();});
   document.body.appendChild(ovEl);
-  if(it&&h) lineChart('itemChart',M.map(function(m){return locMonth(m);}),h,color.charAt(0)==='#'?color:'#0078C8',t('common.indexUnit'),last);
+  if(it&&h){
+    var gfo2=gFcPrep(code,h,M), ccol=color.charAt(0)==='#'?color:'#0078C8';
+    if(gfo2) fcChart('itemChart',M.map(function(m){return locMonth(m);}),h,ccol,last,gfo2);
+    else lineChart('itemChart',M.map(function(m){return locMonth(m);}),h,ccol,t('common.indexUnit'),last);
+  }
 }
 function closeModal(){var o=document.getElementById('ov');if(o)o.remove();}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
@@ -1353,27 +1359,32 @@ function fAddM(iso,k){ var p=iso.split('-'), y=+p[0], m=+p[1]-1+k; y+=Math.floor
 function fcChart(id,labels,values,color,hiIdx,fc){
   var el=document.getElementById(id); if(!el||!window.Chart) return;
   var n=values.length, N=fc.mid.length, pad=function(k){var a=[],i;for(i=0;i<k;i++)a.push(null);return a;};
-  var last=values[n-1], join=function(a){return pad(n-1).concat([last],a);};
-  var all=labels.concat(fc.labels);
+  var last=values[n-1], all=labels.concat(fc.labels);
   var pr=values.map(function(_,i){return i===hiIdx?5:0;}).concat(pad(N).map(function(){return 0;}));
+  var fpr=pad(n-1).map(function(){return 0;}).concat([0]).concat(fc.mid.map(function(_,i){return i===N-1?7:4.5;}));
   _charts.push(new Chart(el.getContext('2d'),{type:'line',data:{labels:all,datasets:[
     {data:values.concat(pad(N)),borderColor:color,backgroundColor:color+'22',borderWidth:2,fill:true,tension:.32,pointRadius:pr,pointHoverRadius:5,pointBackgroundColor:color},
-    {data:join(fc.mid),borderColor:color,borderWidth:2,borderDash:[6,4],fill:false,tension:.32,pointRadius:0,pointHoverRadius:4},
-    {data:join(fc.lo),borderWidth:0,pointRadius:0,fill:false,tension:.32},
-    {data:join(fc.hi),borderWidth:0,pointRadius:0,backgroundColor:color+'26',fill:'-1',tension:.32}]},
+    {data:pad(n-1).concat([last],fc.mid),borderColor:color+'88',borderWidth:1.2,borderDash:[3,4],fill:false,tension:0,pointRadius:fpr,pointHoverRadius:7,pointBackgroundColor:'#fff',pointBorderColor:color,pointBorderWidth:2}]},
     options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-      plugins:{legend:{display:false},tooltip:{filter:function(i){return i.datasetIndex<2&&i.parsed.y!=null;},backgroundColor:'#000064',displayColors:false,padding:10,
+      plugins:{legend:{display:false},tooltip:{filter:function(i){return i.parsed.y!=null;},backgroundColor:'#000064',displayColors:false,padding:10,
         callbacks:{label:function(c){return (c.datasetIndex===1?t('food.fcLegend')+': ':'')+numf(c.parsed.y,1,2);}}}},
       scales:{x:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},maxRotation:0,autoSkip:false,callback:function(v,i){var L=this.chart.data.labels;var step=Math.max(1,Math.ceil(L.length/7));return (L.length-1-i)%step===0?L[i]:'';}}},
         y:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},callback:function(v){return numf(v,0,2);}}}}}}));
 }
-function fFcObj(f,scale,lblFn){ var o={labels:[],mid:[],lo:[],hi:[]}; f.fc.forEach(function(v,k){ o.labels.push(lblFn(fAddM(f.last,k+1))); o.mid.push(v*scale); o.lo.push(f.lo[k]*scale); o.hi.push(f.hi[k]*scale); }); return o; }
+function fFcObj(f,scale,lblFn){ var o={labels:[],mid:[],lo6:f.lo*scale,hi6:f.hi*scale,bt:f.bt||null}; f.fc.forEach(function(v,k){ o.labels.push(lblFn(fAddM(f.last,k+1))); o.mid.push(v*scale); }); return o; }
 // year-on-year at +6 months: projected index over the actual index 6 months before the last data point
-function fFcYoY(o,hist,L){ var base=hist[L-6]; if(!fNum(base)||base===0) return null; return {mid:(o.mid[5]/base-1)*100,lo:(o.lo[5]/base-1)*100,hi:(o.hi[5]/base-1)*100}; }
+function fFcYoY(o,hist,L){ var base=hist[L-6]; if(!fNum(base)||base===0) return null; return {mid:(o.mid[5]/base-1)*100,lo:(o.lo6/base-1)*100,hi:(o.hi6/base-1)*100}; }
+// projected year-on-year in 6 months for one product row (dotted pill = projection, not data)
+function fProjPill(cc,code,s){
+  var f=fFc(cc,code), M=D.food.months, L=M.length-1; if(!f||f.last!==M[L]) return '<span style="color:var(--dim)">—</span>';
+  var y=fFcYoY(fFcObj(f,1,function(i){return i;}),s,L); if(!y) return '<span style="color:var(--dim)">—</span>';
+  var d=divColor(y.mid);
+  return '<span class="pill" style="min-width:66px;color:'+d.c+';background:transparent;border:1.5px dotted '+d.c+'" title="'+esc(t('food.fcLine',{month:fMonthLbl(fAddM(f.last,6)),yoy:pct(y.mid),lo:pct(y.lo),hi:pct(y.hi)}))+'">'+esc(pct(y.mid))+'</span>';
+}
 function fFcInfoHTML(o,hist,L,bt,extra){
   var y=fFcYoY(o,hist,L); if(!y) return '';
   return '<p class="cap" style="margin:10px 0 0"><b>'+esc(t('food.fcTitle'))+'</b> · '+esc(t('food.fcLine',{month:o.labels[5],yoy:pct(y.mid),lo:pct(y.lo),hi:pct(y.hi)}))+'</p>'
-    +'<p class="cap" style="margin:4px 0 0">'+esc(t('food.fcNote'))+(bt?' '+esc(t('food.fcBt',{ets:numf(bt.ets,1,1),naive:numf(bt.naive,1,1)})):'')+(extra?' '+esc(extra):'')+'</p>';
+    +'<p class="cap" style="margin:4px 0 0">'+esc(t('food.fcNote'))+(bt?' '+esc(t('food.fcBt',{ets:numf(bt.ets,1,1),naive:numf(bt.naive,1,1)})):(o.bt?' '+esc(t('food.fcBtLight',{ets:numf(o.bt[0],1,1),naive:numf(o.bt[1],1,1)})):''))+(extra?' '+esc(extra):'')+'</p>';
 }
 var F_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 // Destatis series projected with the Eurostat HICP projection for Germany (same code), rebased to the Destatis last value
@@ -1553,12 +1564,13 @@ function foodMarketBody(cc,mi){
       +'<td class="num" style="text-align:right">'+esc(numf(s[mi]))+'</td>'
       +'<td style="text-align:center"><span class="pill" style="min-width:66px;color:'+dm.c+';background:'+dm.bg+'">'+esc(pct(mom))+'</span></td>'
       +'<td style="text-align:center"><span class="pill" style="min-width:66px;color:'+d.c+';background:'+d.bg+'">'+esc(pct(yoy))+'</span></td>'
+      +'<td style="text-align:center">'+fProjPill(cc,x.code,s)+'</td>'
       +'<td style="text-align:center">'+sparkSVG(s,0,mi,F_COLORS[cc]==='#8CDCDC'?'#0078C8':F_COLORS[cc])+'</td>'
       +'<td style="white-space:nowrap"><a href="'+esc(fSrcUrl(cc,x.code))+'" target="_blank" rel="noopener" title="'+esc(t('food.viewSource'))+'" style="font-size:11.5px;font-weight:600">'+esc(fSrcName(cc,x.code))+' ↗</a></td></tr>';
   }).join('');
   var table='<div class="panel" style="padding:0;overflow:auto"><table><thead><tr><th style="cursor:default">'+esc(t('food.colProduct'))+'</th><th style="text-align:right;cursor:default">'+esc(t('food.index',{base:C.base}))+'</th>'
-    +'<th style="text-align:center;cursor:default">'+esc(t('common.mom'))+'</th><th style="text-align:center;cursor:default">'+esc(t('common.yoy'))+'</th><th style="cursor:default">'+esc(t('food.colSource'))+'</th></tr></thead><tbody>'
-    +(body||'<tr style="cursor:default"><td colspan="6" class="cap" style="padding:18px">'+esc(t('food.noMatch'))+'</td></tr>')+'</tbody></table></div>';
+    +'<th style="text-align:center;cursor:default">'+esc(t('common.mom'))+'</th><th style="text-align:center;cursor:default">'+esc(t('common.yoy'))+'</th><th style="text-align:center;cursor:default">'+esc(t('food.fcColProj'))+'</th><th style="cursor:default"></th><th style="cursor:default">'+esc(t('food.colSource'))+'</th></tr></thead><tbody>'
+    +(body||'<tr style="cursor:default"><td colspan="7" class="cap" style="padding:18px">'+esc(t('food.noMatch'))+'</td></tr>')+'</tbody></table></div>';
   var deLink=(cc==='DE')?'':'';
   return '<div class="layout"><aside class="rail">'+rail+'</aside><main class="content">'
     +'<div class="kpis">'+kpis+'</div>'
@@ -1646,12 +1658,19 @@ function openFoodModal(ref){
     +'<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span style="font-size:20px">'+fFlag(cc)+'</span><h2 style="font-size:20px;font-weight:800;margin:0">'+esc(fLabel(code))+'</h2>'
     +'<span class="num" style="font-size:12px;color:var(--dim)">'+esc(code.replace('uk:','').replace('CP',''))+'</span><span style="font-size:12px;color:var(--muted)">'+esc(fMkt(cc))+'</span></div>'
     +'<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'+tile(t('food.index',{base:C.base}),numf(s[mi]))+tile(t('common.mom'),pct(mom),divColor(mom).c)+tile(t('common.yoy'),pct(yoy),divColor(yoy).c)+'</div>'
-    +'<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('de.itemHistory',{n:M.length}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="itemChart"></canvas></div>'
+    +'<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('de.itemHistory',{n:M.length}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="itemChart"></canvas></div>'+fModalFcNote(cc,code,s)
     +'<div style="overflow:auto;max-height:260px;margin-top:10px;border:1px solid var(--border2);border-radius:10px"><table><thead><tr><th>'+esc(t('de.colMonth'))+'</th><th style="text-align:right">'+esc(t('food.index',{base:C.base}))+'</th><th style="text-align:center">'+esc(t('common.mom'))+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
     +'<p class="cap" style="margin:12px 0 0">'+esc(t('food.source',{src:C.source,base:C.base}))+' <a href="'+esc(fSrcUrl(cc,code))+'" target="_blank" rel="noopener" style="font-weight:700">'+esc(t('food.viewSource'))+' ↗</a></p></div>';
   ovEl.addEventListener('click',function(e){if(e.target===ovEl||e.target.hasAttribute('data-close'))closeModal();});
   document.body.appendChild(ovEl);
-  lineChart('itemChart',M.map(function(m){return fMonthLbl(m);}),s,col,'',mi);
+  var mf=fFc(cc,code);
+  if(mf&&mf.last===M[M.length-1]) fcChart('itemChart',M.map(function(m){return fMonthLbl(m);}),s,col,mi,fFcObj(mf,1,function(i){return fMonthLbl(i);}));
+  else lineChart('itemChart',M.map(function(m){return fMonthLbl(m);}),s,col,'',mi);
+}
+function fModalFcNote(cc,code,s){
+  var f=fFc(cc,code), M=D.food.months; if(!f||f.last!==M[M.length-1]) return '';
+  var bt=code===fRootOf(cc)?(D.foodForecast.backtest||{})[cc]:null;
+  return fFcInfoHTML(fFcObj(f,1,function(i){return fMonthLbl(i);}),s,M.length-1,bt);
 }
 
 /* ---------------- MOUNT + EVENTS ---------------- */
