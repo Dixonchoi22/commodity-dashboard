@@ -289,20 +289,38 @@ comparison table uses the Eurostat HICP for Germany so it lines up with the othe
 with de/fr from Eurostat) - not in `i18n.json`; UI strings are `food.*` keys. The weekly
 refresh workflow runs the fetch and includes the file in its change check.
 
-**Food CPI projection.** `data/food_forecast.json` (built by `scripts/forecast_food.py`,
-run weekly by the refresh workflow, needs `pip install statsmodels pandas numpy`) holds a
-6-month statistical projection with an 80 % band for the total food index and every
-COICOP class of each market. Full history since 2015 is fetched (Eurostat `prc_hicp_minr`,
-ONS MM23) and an ETS model on the log index is fitted - best of 4 variants by AICc (damped
-trend yes/no x 12-month seasonality yes/no). It is a mechanical extrapolation, labelled as such
-in the UI, not an official forecast. The script back-tests the *total* food index of each
-market (30 rolling origins, 6 months ahead, YoY error) against a naive "inflation unchanged"
-baseline and stores both in `backtest`; the UI prints this track record (Norway is currently
-worse than naive - that is shown, not hidden). Germany's Destatis series is projected with the
-Eurostat HICP-DE projection of the same code, rebased to the Destatis last value
-(`gFcPrep` in `app.html`). Workbook categories and individual items are not projected.
-Projection shown on: market page chart, the `#/food` "6-month outlook" table, the Germany charts.
-Strings are `food.fc*` keys in `i18n.json`.
+**Two forecasts coexist.** (1) The CPI pages (`#/food/{CC}`, history modal, Germany items, outlook
+table) carry the original ETS projection as *points* for all 742 series, read from
+`data/food_forecast_ets.json` (`scripts/forecast_food_ets.py`, `D.foodForecastEts`). (2) The separate
+Forecast tab below reads `data/food_forecast.json` (`scripts/forecast_food.py`, `D.foodForecast`). Both
+are rebuilt weekly by the refresh workflow and both files are in its change check.
+
+**Food CPI forecast tab.** `#/food/forecast[/{CC}]` ("📈 Forecast" chip, shown only when
+`data/food_forecast.json` exists) is separate from the data pages on purpose: the CPI screens show
+data only, the Forecast tab shows "now" and the projection side by side. The file is built by
+`scripts/forecast_food.py` (weekly in the refresh workflow; needs `pip install statsmodels pandas
+numpy`; ~5 min on 4 cores, it sets one BLAS thread per worker - without that the pool thrashes).
+
+* **Series:** total food, food, non-alcoholic beverages and the nine 011x classes of each market
+  (12 x 10 = 120), as year-on-year inflation; the index is rebuilt as index(t+h-12) x (1 + YoY).
+  Individual products are NOT projected.
+* **Raw drivers:** food-manufacturing producer prices - Eurostat `sts_inppd_m` (NACE C10 plus the
+  matching sub-industry C101-C108/C11), UK ONS PPI series `G6SI` in dataset `ppi` (the old `mm22`
+  copy stops in Jan 2025). Farm-gate prices are not used: the EU agri-food API is suspended and no
+  monthly Eurostat farm price dataset was found.
+* **Models** (direct h-step OLS on the change in YoY, features: base effect of last year's growth,
+  3-month momentum, current YoY, producer-price momentum/YoY): naive, own, ppi_own, ppi_c10, plus
+  damped-trend seasonal ETS. **Published = equal-weight average of ETS and the producer-price model
+  (`ets+ppi`), ETS alone where there is no PPI.** That rule was fixed after a first test run - say so;
+  only the live record from now on is clean evidence. Per-model test-window errors for total food are
+  stored in `compare_total` and shown in the UI; they show the average is NOT always best (ETS alone
+  wins in DK, IE, NL, NO), and that ETS alone beats the producer-price regression everywhere.
+* **Evaluation:** rolling-origin expanding window, test window = targets from 2024-01 (`bt` per
+  series: mae, naive, n, cover = 80 % interval coverage with selection-window errors, dm = Diebold-
+  Mariano p-value vs naive). Intervals are empirical 10/90 % quantiles of out-of-sample errors.
+* **Not done yet:** a weekly frozen archive of forecasts scored against actuals (the proper live
+  test), Eurostat flash-estimate nowcasting, MinT reconciliation to HICP weights, VAT-change
+  overlays (Sweden), ECB/BoE projections as an outside benchmark.
 
 ## Common edit recipes
 

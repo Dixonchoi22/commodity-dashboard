@@ -280,7 +280,7 @@ function langPickerHTML(){
 // translated analyst text for the active quarter/language, when supplied
 function overrides(rep){ return (rep && rep.tr && rep.tr[LANG]) || null; }
 
-var state={screen:'menu',slug:D.defaultSlug,cat:null,rankBy:'yoy',tab:'movers',q:'',sortKey:'yoy',sortDir:-1,year:null,iCountry:'DE',gGroup:null,gMonth:null,gTab:null,gBY:null,gSort:'cat',gQ:'',gCat:null,gDQ:'',iPillar:null,fCC:null,fCode:null,fMonth:null,fKind:'yoy',fQ:''};
+var state={screen:'menu',slug:D.defaultSlug,cat:null,rankBy:'yoy',tab:'movers',q:'',sortKey:'yoy',sortDir:-1,year:null,iCountry:'DE',gGroup:null,gMonth:null,gTab:null,gBY:null,gSort:'cat',gQ:'',gCat:null,gDQ:'',iPillar:null,fCC:null,fCode:null,fMonth:null,fKind:'yoy',fQ:'',fFc:false,fFcCC:null};
 
 /* ---------------- ROUTER ---------------- */
 function parseHash(){
@@ -288,6 +288,7 @@ function parseHash(){
   var p=h.split('/').filter(Boolean).map(decodeURIComponent);
   if(p[0]==='y'){ var yy=parseInt(p[1],10); return {screen:'menu',year:isNaN(yy)?null:yy}; }
   if(p[0]==='food'){
+    if(p[1]==='forecast') return {screen:'food',fCC:null,fFc:true,fFcCC:p[2]||null};
     if(p[1]==='DE') return {screen:'germany',slug:D.defaultSlug,gGroup:p[2]||null,viaFood:true};
     if(p[1]&&D.food&&D.food.countries[p[1]]) return {screen:'food',fCC:p[1],fCode:p[2]||null};
     return {screen:'food',fCC:null};
@@ -306,6 +307,7 @@ function route(){
   state.screen=r.screen; state.slug=r.slug||D.defaultSlug; state.year=r.year||null;
   // reset per-view controls on navigation
   state.cat=r.cat||null; state.gGroup=r.gGroup||null; state.gMonth=null; state.gTab=null; state.gQ=''; state.gDQ=''; state.gCat=null; state.iPillar=r.iPillar||null; state.iCountry=r.iCountry||'DE';
+  state.fFc=!!r.fFc; state.fFcCC=r.fFcCC||null;
   state.fCC=r.fCC||null; state.fCode=r.fCode||null; state.fMonth=null; state.fQ='';
   state.q=''; state.tab='movers';
   state.sortKey='yoy'; state.sortDir=-1;
@@ -1353,7 +1355,7 @@ var F_KEY_ROWS=['CP011131','CP01115','CP011221','CP011222','CP011224','CP01145',
 var F_UKMAP={CP01:'uk:01',CP011:'uk:01.1',CP0111:'uk:01.1.1',CP0112:'uk:01.1.2',CP0113:'uk:01.1.3',CP0114:'uk:01.1.4',CP0115:'uk:01.1.5',CP0116:'uk:01.1.6',CP0117:'uk:01.1.7',CP0118:'uk:01.1.8',CP0119:'uk:01.1.9',CP012:'uk:01.2',
   CP011131:'uk:01.1.1.3',CP01115:'uk:01.1.1.6',CP011221:'uk:01.1.2.1',CP011222:'uk:01.1.2.2',CP011224:'uk:01.1.2.4',CP01145:'uk:01.1.4.5',CP01146:'uk:01.1.4.4',CP01148:'uk:01.1.4.7',CP01152:'uk:01.1.5.1',CP011513:'uk:01.1.5.3',CP011751:'uk:01.1.7.4',CP01181:'uk:01.1.8.1',CP01220:'uk:01.2.1.1',CP01230:'uk:01.2.1.2'};
 var F_ALIAS={beef:'bovine',veal:'bovine',pork:'pigs',lamb:'sheep',mutton:'sheep',chicken:'poultry',soda:'soft drinks',pasta:'macaroni',noodles:'macaroni',shrimp:'seafood',prawn:'seafood',yogurt:'yoghurt',spud:'potato',chips:'potato',cola:'soft drinks'};
-function fFc(cc,code){ var F=D.foodForecast; return (F&&F.series[cc+'|'+code])||null; }
+function fFc(cc,code){ var F=D.foodForecastEts; return (F&&F.series[cc+'|'+code])||null; }
 function fAddM(iso,k){ var p=iso.split('-'), y=+p[0], m=+p[1]-1+k; y+=Math.floor(m/12); m=((m%12)+12)%12; return y+'-'+('0'+(m+1)).slice(-2); }
 // history line + dashed projection + shaded 80% band. fc = {labels,mid,lo,hi}, same units as values
 function fcChart(id,labels,values,color,hiIdx,fc){
@@ -1400,7 +1402,7 @@ function gFcDraw(id,code,hist,gM,gLab,gF,color,hiIdx){
   var o=gFcPrep(code,hist,gM), note=document.getElementById('gFcNote');
   if(!o){ return false; }
   fcChart(id,gLab,hist.slice(gF),color,hiIdx,o);
-  if(note) note.innerHTML=fFcInfoHTML(o,hist,gM.length-1,(D.foodForecast.backtest||{}).DE,t('food.fcDE'));
+  if(note) note.innerHTML=fFcInfoHTML(o,hist,gM.length-1,(D.foodForecastEts.backtest||{}).DE,t('food.fcDE'));
   return true;
 }
 function fMarkets(){ return F_ORDER.filter(function(c){return D.food&&D.food.countries[c];}); }
@@ -1457,6 +1459,7 @@ function fTopbar(titleHtml){
 }
 function fMarketChips(active){
   return '<div style="display:flex;flex-wrap:wrap;gap:7px;align-items:center"><button class="chipbtn" data-go="#/food" style="'+(!active?'border-color:var(--blue);background:var(--tint);color:var(--ink)':'')+'">'+esc(t('food.compare'))+'</button>'
+    +(D.foodForecast?'<button class="chipbtn" data-go="#/food/forecast" style="font-weight:800;'+(active==='forecast'?'border-color:var(--blue);background:var(--tint);color:var(--ink)':'')+'">📈 '+esc(t('food.fcTab'))+'</button>':'')
     +fMarketsList().map(function(cc){
       return '<button class="chipbtn" data-go="#/food/'+cc+'" style="'+(active===cc?'border-color:var(--blue);background:var(--tint);color:var(--ink)':'')+'"><span>'+fFlag(cc)+'</span>'+esc(fMkt(cc))+'</button>';
     }).join('')+'</div>';
@@ -1472,16 +1475,16 @@ function foodHTML(){
   var cc=state.fCC, M=F.months, L=M.length-1, mi=fMi();
   var mk=fMarkets();
   var title='<div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">'+(cc?fFlag(cc):'🛒')+'</span><div><div style="font-size:14px;font-weight:700;line-height:1.1">'
-    +esc(t('food.title'))+(cc?' · '+esc(fMkt(cc)):'')+'</div><div style="font-size:11.5px;color:var(--muted)">'+esc(t('food.latestOn',{month:fMonthLbl(M[L],'long')}))+'</div></div></div>';
+    +esc(t('food.title'))+(state.fFc?' · '+esc(t('food.fcTab')):cc?' · '+esc(fMkt(cc)):'')+'</div><div style="font-size:11.5px;color:var(--muted)">'+esc(t('food.latestOn',{month:fMonthLbl(M[L],'long')}))+'</div></div></div>';
   return '<div style="animation:cdFade .3s ease">'+fTopbar(title)
-    +'<div class="wrapR" style="display:flex;flex-direction:column;gap:18px">'+fMarketChips(cc)
-    +(cc?foodMarketBody(cc,mi):foodCompareBody(mk,mi))+'</div></div>';
+    +'<div class="wrapR" style="display:flex;flex-direction:column;gap:18px">'+fMarketChips(state.fFc?'forecast':cc)
+    +(state.fFc?forecastBody():cc?foodMarketBody(cc,mi):foodCompareBody(mk,mi))+'</div></div>';
 }
 function fOutlookHTML(mk){
-  if(!D.foodForecast) return '';
+  if(!D.foodForecastEts) return '';
   var M=D.food.months, L=M.length-1, rows=mk.map(function(cc){
     var code=fRootOf(cc), f=fFc(cc,code), s=D.food.countries[cc].series[code]; if(!f||f.last!==M[L]||!s) return '';
-    var o=fFcObj(f,1,function(i){return fMonthLbl(i);}), y=fFcYoY(o,s,L), now=fChg(s,L,12), bt=(D.foodForecast.backtest||{})[cc];
+    var o=fFcObj(f,1,function(i){return fMonthLbl(i);}), y=fFcYoY(o,s,L), now=fChg(s,L,12), bt=(D.foodForecastEts.backtest||{})[cc];
     if(!y) return '';
     return '<tr style="cursor:default"><td style="font-weight:700"><span>'+fFlag(cc)+'</span> '+esc(fMkt(cc))+'</td>'
       +'<td class="num" style="text-align:center;'+fHeat(now)+'">'+esc(pct(now))+'</td>'
@@ -1590,7 +1593,7 @@ function fFcMarketNote(cc,top,mi){
   var f=fFc(cc,top), M=D.food.months, s=D.food.countries[cc].series[top];
   if(!f||f.last!==M[M.length-1]||!s) return '';
   var o=fFcObj(f,1,function(i){return fMonthLbl(i);});
-  var bt=(D.foodForecast.backtest||{})[cc]; if(top!==fRootOf(cc)) bt=null;
+  var bt=(D.foodForecastEts.backtest||{})[cc]; if(top!==fRootOf(cc)) bt=null;
   return fFcInfoHTML(o,s,M.length-1,bt);
 }
 function fBars(cc,tree,sel,mi){
@@ -1669,10 +1672,107 @@ function openFoodModal(ref){
 }
 function fModalFcNote(cc,code,s){
   var f=fFc(cc,code), M=D.food.months; if(!f||f.last!==M[M.length-1]) return '';
-  var bt=code===fRootOf(cc)?(D.foodForecast.backtest||{})[cc]:null;
+  var bt=code===fRootOf(cc)?(D.foodForecastEts.backtest||{})[cc]:null;
   return fFcInfoHTML(fFcObj(f,1,function(i){return fMonthLbl(i);}),s,M.length-1,bt);
 }
 
+/* ---------------- FOOD CPI · FORECAST TAB ---------------- */
+var FC_GROUPS=['CP01','CP011','CP012','CP0111','CP0112','CP0113','CP0114','CP0115','CP0116','CP0117','CP0118','CP0119'];
+function fcKey(cc,code){ return cc+'|'+(cc==='UK'?F_UKMAP[code]:code); }
+function fcGet(cc,code){ var F=D.foodForecast; return (F&&F.series[fcKey(cc,code)])||null; }
+function fcVerdict(bt){
+  if(!bt) return {k:'food.fcV.na',c:'var(--dim)'};
+  if(bt.mae>=bt.naive) return {k:'food.fcV.worse',c:'var(--up)'};
+  if(bt.dm!=null&&bt.dm<0.1) return {k:'food.fcV.better',c:'var(--down)'};
+  return {k:'food.fcV.betterNs',c:'var(--warn)'};
+}
+function fcMonthsOf(f,n){ var a=[],k; for(k=1;k<=n;k++) a.push(fAddM(f.last,k)); return a; }
+function fcAddM(iso,k){ var p=iso.split('-'), y=+p[0], m=+p[1]-1+k; y+=Math.floor(m/12); m=((m%12)+12)%12; return y+'-'+('0'+(m+1)).slice(-2); }
+function fcModelName(f){ return t(f.model==='ets+ppi'?'food.fcM.combo':'food.fcM.ets'); }
+function fcPill(v){ var d=divColor(v); return '<span class="pill" style="min-width:66px;color:'+d.c+';background:'+d.bg+'">'+esc(pct(v))+'</span>'; }
+function fcDots(v){ var d=divColor(v); return '<span class="pill" style="min-width:66px;color:'+d.c+';background:transparent;border:1.5px dotted '+d.c+'">'+esc(pct(v))+'</span>'; }
+
+function forecastBody(){
+  var FF=D.foodForecast, F=D.food;
+  if(!FF||!F) return '<div class="note"><p>'+esc(t('de.none'))+'</p></div>';
+  var M=F.months, L=M.length-1, mk=fMarkets();
+  var cc=(state.fFcCC&&F.countries[state.fFcCC])?state.fFcCC:'EU27_2020';
+  // ---- market summary
+  var rows=mk.map(function(m){
+    var f=fcGet(m,'CP01'), s=fSeries(m,'CP01'); if(!f||!s) return null;
+    return {cc:m,f:f,now:fChg(s,L,12),y3:f.yoy[2],y6:f.yoy[5],lo:f.lo[5],hi:f.hi[5],bt:f.bt};
+  }).filter(Boolean);
+  var eu=rows.filter(function(r){return r.cc==='EU27_2020';})[0];
+  var cty=rows.filter(function(r){return r.cc!=='EU27_2020'&&r.cc!=='EA';}).sort(function(a,b){return b.y6-a.y6;});
+  var nBeat=rows.filter(function(r){return r.bt&&r.bt.mae<r.bt.naive;}).length;
+  var lbl6=fMonthLbl(fcAddM(M[L],6),'long');
+  var kpis=(eu?fKpi(t('food.fcKpiNow'),esc(pct(eu.now)),fMonthLbl(M[L],'long'),fTone(eu.now))
+     +fKpi(t('food.fcKpiIn6'),esc(pct(eu.y6)),lbl6+' · '+pct(eu.lo)+' … '+pct(eu.hi),fTone(eu.y6)):'')
+    +(cty.length?fKpi(t('food.fcKpiHi'),esc(pct(cty[0].y6)),fMkt(cty[0].cc),'up')
+     +fKpi(t('food.fcKpiLo'),esc(pct(cty[cty.length-1].y6)),fMkt(cty[cty.length-1].cc),'down'):'');
+  var sumRows=rows.map(function(r){
+    var v=fcVerdict(r.bt), b=r.bt;
+    return '<tr data-go="#/food/forecast/'+r.cc+'" style="'+(r.cc===cc?'background:var(--tint)':'')+'"><td style="font-weight:700"><span>'+fFlag(r.cc)+'</span> '+esc(fMkt(r.cc))+'</td>'
+      +'<td style="text-align:center">'+fcPill(r.now)+'</td><td style="text-align:center">'+fcDots(r.y3)+'</td><td style="text-align:center">'+fcDots(r.y6)+'</td>'
+      +'<td class="num" style="text-align:center;color:var(--muted)">'+esc(pct(r.lo))+' … '+esc(pct(r.hi))+'</td>'
+      +'<td class="num" style="text-align:center">'+(b?esc(numf(b.mae,1,1)):'—')+'</td><td class="num" style="text-align:center;color:var(--muted)">'+(b?esc(numf(b.naive,1,1)):'—')+'</td>'
+      +'<td style="font-size:12px;font-weight:700;color:'+v.c+'">'+esc(t(v.k))+'</td></tr>';
+  }).join('');
+  var th=function(k,al){return '<th style="text-align:'+(al||'center')+';cursor:default">'+esc(t(k))+'</th>';};
+  var summary='<div class="panel" style="padding:0;overflow:auto"><div style="padding:16px 18px 4px"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcSumTitle',{month:lbl6}))+'</h3>'
+    +'<p class="cap" style="margin:6px 0 0">'+esc(t('food.fcSumSub'))+'</p></div>'
+    +'<table><thead><tr>'+th('food.group','left')+th('food.fcColNow')+th('food.fcCol3')+th('food.fcColProj')+th('food.fcColRange')+th('food.fcColMae')+th('food.fcColNaive')+th('food.fcColVerdict','left')+'</tr></thead><tbody>'+sumRows+'</tbody></table></div>';
+  // ---- selected market: chart + groups
+  var chips='<div style="display:flex;flex-wrap:wrap;gap:7px">'+mk.map(function(m){
+    return '<button class="chipbtn" data-go="#/food/forecast/'+m+'" style="'+(m===cc?'border-color:var(--blue);background:var(--tint);color:var(--ink)':'')+'"><span>'+fFlag(m)+'</span>'+esc(fMkt(m))+'</button>';}).join('')+'</div>';
+  var gRows=FC_GROUPS.map(function(code){
+    var f=fcGet(cc,code), s=fSeries(cc,code); if(!f||!s) return '';
+    var v=fcVerdict(f.bt), b=f.bt, now=fChg(s,L,12), top=(code==='CP01');
+    return '<tr style="cursor:default;'+(top?'background:var(--tint)':'')+'"><td style="font-weight:'+(top?800:600)+'">'+esc(fLabel(code))+'</td>'
+      +'<td style="text-align:center">'+fcPill(now)+'</td><td style="text-align:center">'+fcDots(f.yoy[2])+'</td><td style="text-align:center">'+fcDots(f.yoy[5])+'</td>'
+      +'<td class="num" style="text-align:center;color:var(--muted)">'+esc(pct(f.lo[5]))+' … '+esc(pct(f.hi[5]))+'</td>'
+      +'<td class="num" style="text-align:center">'+(b?esc(numf(b.mae,1,1)):'—')+' <span style="color:var(--dim)">('+(b?esc(numf(b.naive,1,1)):'—')+')</span></td>'
+      +'<td style="font-size:12px;font-weight:700;color:'+v.c+'">'+esc(t(v.k))+'</td>'
+      +'<td style="font-size:11.5px;color:var(--muted)">'+esc(fcModelName(f))+(f.driver?' · '+esc(f.driver):'')+'</td></tr>';
+  }).join('');
+  var groups='<div class="panel" style="padding:0;overflow:auto"><div style="padding:16px 18px 4px"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcGroupsTitle',{market:fMkt(cc)}))+'</h3></div>'
+    +'<table><thead><tr>'+th('food.group','left')+th('food.fcColNow')+th('food.fcCol3')+th('food.fcColProj')+th('food.fcColRange')+th('food.fcColMaeBoth')+th('food.fcColVerdict','left')+th('food.fcColModel','left')+'</tr></thead><tbody>'+gRows+'</tbody></table></div>';
+  var chart='<div class="panel"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcChartTitle',{market:fMkt(cc)}))+'</h3>'
+    +'<p class="cap" style="margin:5px 0 10px">'+esc(t('food.fcChartSub'))+'</p><div style="height:300px"><canvas id="fcYoY"></canvas></div></div>';
+  // ---- method + evidence
+  var cmp=FF.compare_total||{}, cmpRows=mk.map(function(m){
+    var c=cmp[m]; if(!c) return ''; var x=c.test_mae_h6||{};
+    var cell=function(k){var v=x[k]; var best=Math.min.apply(null,['naive','ppi_own','ets','ets+ppi'].map(function(q){return x[q];}).filter(fNum));
+      return '<td class="num" style="text-align:center;'+(fNum(v)&&v===best?'font-weight:800;background:rgba(30,138,76,.12)':'')+'">'+(fNum(v)?esc(numf(v,1,2)):'—')+'</td>';};
+    return '<tr style="cursor:default"><td style="font-weight:700"><span>'+fFlag(m)+'</span> '+esc(fMkt(m))+'</td>'+cell('naive')+cell('ppi_own')+cell('ets')+cell('ets+ppi')+'</tr>';
+  }).join('');
+  var method='<div class="panel"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcMethodTitle'))+'</h3>'
+    +['food.fcMethod1','food.fcMethod2','food.fcMethod3','food.fcMethod4'].map(function(k){return '<p style="font-size:13px;color:var(--ink2);line-height:1.55;margin:10px 0 0">'+esc(t(k))+'</p>';}).join('')
+    +'<h4 style="font-size:13.5px;font-weight:700;margin:18px 0 8px">'+esc(t('food.fcCmpTitle'))+'</h4>'
+    +'<div style="overflow:auto"><table><thead><tr>'+th('food.group','left')+th('food.fcCmpNaive')+th('food.fcCmpPpi')+th('food.fcCmpEts')+th('food.fcCmpCombo')+'</tr></thead><tbody>'+cmpRows+'</tbody></table></div>'
+    +'<p class="cap" style="margin:10px 0 0">'+esc(t('food.fcCmpNote'))+'</p></div>';
+  return '<div class="kpis">'+kpis+'</div>'
+    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.fcIntro'))+' '+esc(t('food.fcNote'))+'</p></div>'
+    +summary+chips+chart+groups+method;
+}
+function drawForecast(){
+  var FF=D.foodForecast, F=D.food; if(!FF||!F||!window.Chart) return;
+  var cc=(state.fFcCC&&F.countries[state.fFcCC])?state.fFcCC:'EU27_2020', el=document.getElementById('fcYoY'); if(!el) return;
+  var f=fcGet(cc,'CP01'), s=fSeries(cc,'CP01'); if(!f||!s) return;
+  var M=F.months, L=M.length-1, hist=[], labs=[], i;
+  for(i=12;i<=L;i++){ hist.push(fChg(s,i,12)); labs.push(fMonthLbl(M[i])); }
+  var pl=fcMonthsOf(f,6).map(function(m){return fMonthLbl(m);}), N=6, n=hist.length;
+  var pad=function(k){var a=[],j;for(j=0;j<k;j++)a.push(null);return a;};
+  var col=F_COLORS[cc]==='#8CDCDC'?'#0078C8':F_COLORS[cc], last=hist[n-1];
+  _charts.push(new Chart(el.getContext('2d'),{type:'line',data:{labels:labs.concat(pl),datasets:[
+    {data:hist.concat(pad(N)),borderColor:col,backgroundColor:col+'22',borderWidth:2,fill:true,tension:.3,pointRadius:0,pointHoverRadius:4},
+    {data:pad(n-1).concat([last],f.yoy),borderColor:col+'88',borderWidth:1.2,borderDash:[3,4],fill:false,tension:0,pointRadius:pad(n).map(function(){return 0;}).concat(f.yoy.map(function(_,k){return k===N-1?7:4.5;})),pointBackgroundColor:'#fff',pointBorderColor:col,pointBorderWidth:2,pointHoverRadius:7},
+    {data:pad(n-1).concat([null],f.hi),borderWidth:0,pointRadius:pad(n).map(function(){return 0;}).concat(f.hi.map(function(){return 2;})),pointBackgroundColor:col+'66',showLine:false},
+    {data:pad(n-1).concat([null],f.lo),borderWidth:0,pointRadius:pad(n).map(function(){return 0;}).concat(f.lo.map(function(){return 2;})),pointBackgroundColor:col+'66',showLine:false}]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},tooltip:{filter:function(i){return i.parsed.y!=null&&i.datasetIndex<2;},backgroundColor:'#000064',displayColors:false,padding:10,callbacks:{label:function(c){return (c.datasetIndex===1?t('food.fcLegend')+': ':'')+pct(c.parsed.y);}}}},
+      scales:{x:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},maxRotation:0,autoSkip:true,maxTicksLimit:8}},y:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},callback:function(v){return numf(v,0,0)+'%';}}}}}}));
+}
 /* ---------------- MOUNT + EVENTS ---------------- */
 function render(){
   killCharts();
@@ -1687,7 +1787,7 @@ function render(){
     var rep=D.reports[state.slug];
     lineChart('hicpChart',rep.hicp.labels.map(locMonth),rep.hicp.values,'#0078C8',t('common.indexUnit'));
   }
-  if(state.screen==='food') drawFood();
+  if(state.screen==='food'){ if(state.fFc) drawForecast(); else drawFood(); }
   if(state.screen==='germany'){
     var g=D.reports[state.slug].germany;
     if(g){
