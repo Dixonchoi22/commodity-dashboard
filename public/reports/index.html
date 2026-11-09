@@ -1342,6 +1342,7 @@ var F_KEY_ROWS=['CP011131','CP01115','CP011221','CP011222','CP011224','CP01145',
 // EU class -> the closest ONS (UK) series
 var F_UKMAP={CP01:'uk:01',CP011:'uk:01.1',CP0111:'uk:01.1.1',CP0112:'uk:01.1.2',CP0113:'uk:01.1.3',CP0114:'uk:01.1.4',CP0115:'uk:01.1.5',CP0116:'uk:01.1.6',CP0117:'uk:01.1.7',CP0118:'uk:01.1.8',CP0119:'uk:01.1.9',CP012:'uk:01.2',
   CP011131:'uk:01.1.1.3',CP01115:'uk:01.1.1.6',CP011221:'uk:01.1.2.1',CP011222:'uk:01.1.2.2',CP011224:'uk:01.1.2.4',CP01145:'uk:01.1.4.5',CP01146:'uk:01.1.4.4',CP01148:'uk:01.1.4.7',CP01152:'uk:01.1.5.1',CP011513:'uk:01.1.5.3',CP011751:'uk:01.1.7.4',CP01181:'uk:01.1.8.1',CP01220:'uk:01.2.1.1',CP01230:'uk:01.2.1.2'};
+var F_ALIAS={beef:'bovine',veal:'bovine',pork:'pigs',lamb:'sheep',mutton:'sheep',chicken:'poultry',soda:'soft drinks',pasta:'macaroni',noodles:'macaroni',shrimp:'seafood',prawn:'seafood',yogurt:'yoghurt',spud:'potato',chips:'potato',cola:'soft drinks'};
 function fMarkets(){ return F_ORDER.filter(function(c){return D.food&&D.food.countries[c];}); }
 function fNum(v){return typeof v==='number';}
 function fFlag(cc){
@@ -1470,7 +1471,7 @@ function foodMarketBody(cc,mi){
     +fKpi(t('food.kpiMarkets'),esc(numf(Object.keys(C.series).length,0,0)),t('food.nSeries',{n:numf(Object.keys(C.series).length,0,0)})+' · '+t('food.history',{n:M.length}),'');
   var q=(state.fQ||'').toLowerCase().trim();
   var rows=tree.filter(function(x){
-    if(q) return fLabel(x.code).toLowerCase().indexOf(q)>=0;
+    if(q){ var lb=fLabel(x.code).toLowerCase(), al=F_ALIAS[q]; return lb.indexOf(q)>=0||(al&&lb.indexOf(al)>=0)||(D.food.nodes[x.code].label||'').toLowerCase().indexOf(q)>=0; }
     return sel?isUnder(x.code,sel):true;
   });
   var body=rows.map(function(x){
