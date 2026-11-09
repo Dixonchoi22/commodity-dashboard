@@ -318,8 +318,14 @@ numpy`; ~5 min on 4 cores, it sets one BLAS thread per worker - without that the
 * **Evaluation:** rolling-origin expanding window, test window = targets from 2024-01 (`bt` per
   series: mae, naive, n, cover = 80 % interval coverage with selection-window errors, dm = Diebold-
   Mariano p-value vs naive). Intervals are empirical 10/90 % quantiles of out-of-sample errors.
-* **Not done yet:** a weekly frozen archive of forecasts scored against actuals (the proper live
-  test), Eurostat flash-estimate nowcasting, MinT reconciliation to HICP weights, VAT-change
+* **Live record (frozen archive):** `scripts/archive_food_forecast.py` appends the published
+  projections to `data/food_forecast_archive.json` once per origin month and never rewrites old
+  snapshots; `scripts/score_food_forecast.py` scores them against `food_cpi.json` into
+  `data/food_forecast_live.json` (model MAE vs "inflation stays put", per series and horizon). Shown
+  as "Live record" on the Forecast tab. Actual YoY needs the index 12 months earlier, which
+  `food_cpi.json` has from 2025-01 on. Both run in the weekly refresh. Until the first target month is
+  published the panel only says how many forecasts are frozen. First snapshot: origin 2026-09, made 2026-11-09.
+* **Not done yet:** Eurostat flash-estimate nowcasting, MinT reconciliation to HICP weights, VAT-change
   overlays (Sweden), ECB/BoE projections as an outside benchmark.
 
 ## Common edit recipes

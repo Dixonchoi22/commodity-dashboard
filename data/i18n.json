@@ -2813,6 +2813,61 @@
       "pt": "Projeção estatística da tendência e da sazonalidade passadas (histórico desde 2015), não uma previsão oficial. Não consegue antecipar choques como os preços da energia ou alterações fiscais. Círculos vazios = projeção dos próximos 6 meses (o maior é o mês 6); o intervalo de 80% vem indicado no texto.",
       "ro": "Proiecție statistică a tendinței și sezonalității din trecut (istoric din 2015), nu o prognoză oficială. Nu poate anticipa șocuri precum prețurile energiei sau modificările fiscale. Cercuri goale = proiecție pentru următoarele 6 luni (cel mai mare este luna 6); intervalul de 80% este indicat în text."
     },
+    "food.fcLiveTitle": {
+      "en": "Live record: frozen forecasts vs. what happened",
+      "de": "Live-Bilanz: eingefrorene Prognosen vs. Realität",
+      "fr": "Bilan en direct : prévisions figées vs réalité",
+      "it": "Bilancio dal vivo: previsioni congelate vs realtà",
+      "es": "Balance en vivo: previsiones congeladas vs realidad",
+      "pl": "Wyniki na żywo: zamrożone prognozy vs rzeczywistość",
+      "nl": "Live-resultaat: bevroren prognoses vs werkelijkheid",
+      "pt": "Resultado ao vivo: previsões congeladas vs realidade",
+      "ro": "Rezultat live: prognoze înghețate vs realitate"
+    },
+    "food.fcLiveSub": {
+      "en": "Every time new data arrives the projection is saved and never changed afterwards. Once the real figure is published it is scored here - the only test that cannot be tuned in hindsight.",
+      "de": "Sobald neue Daten vorliegen, wird die Prognose gespeichert und nie mehr verändert. Sobald der echte Wert erscheint, wird sie hier bewertet – der einzige Test, der sich nicht nachträglich zurechtbiegen lässt.",
+      "fr": "À chaque nouvelle donnée, la prévision est enregistrée et jamais modifiée. Dès que le chiffre réel paraît, elle est notée ici – le seul test impossible à ajuster après coup.",
+      "it": "A ogni nuovo dato la previsione viene salvata e mai modificata. Quando esce il dato reale viene valutata qui: l'unico test che non si può aggiustare a posteriori.",
+      "es": "Cada vez que llegan datos nuevos la proyección se guarda y no se cambia. Cuando se publica la cifra real se evalúa aquí: la única prueba que no se puede ajustar a posteriori.",
+      "pl": "Przy każdej nowej publikacji prognoza jest zapisywana i już nie zmieniana. Gdy pojawi się rzeczywista wartość, jest tu oceniana – jedyny test, którego nie da się dopasować po fakcie.",
+      "nl": "Bij elke nieuwe datareeks wordt de prognose opgeslagen en nooit meer aangepast. Zodra het echte cijfer verschijnt, wordt ze hier beoordeeld – de enige test die achteraf niet bijgesteld kan worden.",
+      "pt": "A cada novo dado a projeção é guardada e nunca alterada. Quando o valor real é publicado, é avaliada aqui – o único teste que não pode ser ajustado à posteriori.",
+      "ro": "La fiecare date noi, prognoza este salvată și nu mai este modificată. Când apare cifra reală, este evaluată aici – singurul test care nu poate fi ajustat retroactiv."
+    },
+    "food.fcLiveNone": {
+      "en": "{n} forecast(s) frozen since {date}. The first one can be scored when the data for {month} is published - no results yet.",
+      "de": "{n} Prognose(n) seit {date} eingefroren. Die erste lässt sich bewerten, sobald die Daten für {month} erscheinen – noch keine Ergebnisse.",
+      "fr": "{n} prévision(s) figée(s) depuis le {date}. La première pourra être notée à la publication des données de {month} – pas encore de résultats.",
+      "it": "{n} previsione/i congelata/e dal {date}. La prima si potrà valutare alla pubblicazione dei dati di {month} – ancora nessun risultato.",
+      "es": "{n} proyección(es) congelada(s) desde {date}. La primera se podrá evaluar cuando se publiquen los datos de {month}; aún no hay resultados.",
+      "pl": "{n} prognoz(a) zamrożono od {date}. Pierwszą będzie można ocenić po publikacji danych za {month} – brak wyników.",
+      "nl": "{n} prognose(s) bevroren sinds {date}. De eerste kan worden beoordeeld zodra de gegevens voor {month} verschijnen – nog geen resultaten.",
+      "pt": "{n} projeção(ões) congelada(s) desde {date}. A primeira poderá ser avaliada quando os dados de {month} forem publicados – ainda sem resultados.",
+      "ro": "{n} prognoză(e) înghețată(e) din {date}. Prima poate fi evaluată când apar datele pentru {month} – încă fără rezultate."
+    },
+    "food.fcLiveN": {
+      "en": "Scored forecasts",
+      "de": "Bewertete Prognosen",
+      "fr": "Prévisions notées",
+      "it": "Previsioni valutate",
+      "es": "Proyecciones evaluadas",
+      "pl": "Ocenione prognozy",
+      "nl": "Beoordeelde prognoses",
+      "pt": "Projeções avaliadas",
+      "ro": "Prognoze evaluate"
+    },
+    "food.fcLivePool": {
+      "en": "All markets, all groups",
+      "de": "Alle Märkte, alle Gruppen",
+      "fr": "Tous marchés, tous groupes",
+      "it": "Tutti i mercati e gruppi",
+      "es": "Todos los mercados y grupos",
+      "pl": "Wszystkie rynki i grupy",
+      "nl": "Alle markten, alle groepen",
+      "pt": "Todos os mercados e grupos",
+      "ro": "Toate piețele și grupele"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",

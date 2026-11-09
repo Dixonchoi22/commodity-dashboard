@@ -125,7 +125,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=0a389b59c0"></script>
+<script src="./app-data.js?v=cf245914a9"></script>
 <script>
 (function(){
 "use strict";
@@ -1751,9 +1751,25 @@ function forecastBody(){
     +'<h4 style="font-size:13.5px;font-weight:700;margin:18px 0 8px">'+esc(t('food.fcCmpTitle'))+'</h4>'
     +'<div style="overflow:auto"><table><thead><tr>'+th('food.group','left')+th('food.fcCmpNaive')+th('food.fcCmpPpi')+th('food.fcCmpEts')+th('food.fcCmpCombo')+'</tr></thead><tbody>'+cmpRows+'</tbody></table></div>'
     +'<p class="cap" style="margin:10px 0 0">'+esc(t('food.fcCmpNote'))+'</p></div>';
+  var LV=D.foodForecastLive, liveH='';
+  if(LV){
+    var nTot=(LV.pooled.n||[]).reduce(function(x,y){return x+y;},0), sn=LV.snapshots||[];
+    var liveBody;
+    if(!nTot&&sn.length){
+      var first=sn.slice().sort(function(x,y){return x.last<y.last?-1:1;})[0];
+      liveBody='<p style="font-size:13px;color:var(--ink2);margin:10px 0 0">'+esc(t('food.fcLiveNone',{n:sn.length,date:first.made,month:fMonthLbl(fcAddM(first.last,1),'long')}))+'</p>';
+    } else if(nTot){
+      var agg=function(o){var n=0,a=0,b=0,i; for(i=0;i<o.n.length;i++){ if(o.n[i]){n+=o.n[i];a+=o.mae[i]*o.n[i];b+=o.naive[i]*o.n[i];} } return n?{n:n,mae:a/n,naive:b/n}:null;};
+      var lrow=function(label,r){ if(!r) return ''; var win=r.mae<r.naive;
+        return '<tr style="cursor:default"><td style="font-weight:700">'+label+'</td><td class="num" style="text-align:center">'+r.n+'</td><td class="num" style="text-align:center;'+(win?'font-weight:800;background:rgba(30,138,76,.12)':'')+'">'+esc(numf(r.mae,1,2))+'</td><td class="num" style="text-align:center;'+(!win?'font-weight:800;background:rgba(30,138,76,.12)':'')+'">'+esc(numf(r.naive,1,2))+'</td></tr>'; };
+      var lr=mk.map(function(m){ var o=LV.series[fcKey(m,'CP01')]; return o?lrow('<span>'+fFlag(m)+'</span> '+esc(fMkt(m)),agg(o)):''; }).join('')+lrow(esc(t('food.fcLivePool')),agg(LV.pooled));
+      liveBody='<div style="overflow:auto;margin-top:10px"><table><thead><tr>'+th('food.group','left')+th('food.fcLiveN')+th('food.fcColMae')+th('food.fcColNaive')+'</tr></thead><tbody>'+lr+'</tbody></table></div>';
+    } else liveBody='';
+    liveH='<div class="panel"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcLiveTitle'))+'</h3><p class="cap" style="margin:6px 0 0">'+esc(t('food.fcLiveSub'))+'</p>'+liveBody+'</div>';
+  }
   return '<div class="kpis">'+kpis+'</div>'
     +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.fcIntro'))+' '+esc(t('food.fcNote'))+'</p></div>'
-    +summary+chips+chart+groups+method;
+    +summary+chips+chart+groups+liveH+method;
 }
 function drawForecast(){
   var FF=D.foodForecast, F=D.food; if(!FF||!F||!window.Chart) return;

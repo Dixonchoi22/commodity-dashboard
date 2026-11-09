@@ -618,6 +618,7 @@ def main() -> None:
         "indirectCountries": _read_json(ROOT / "data" / "indirect_countries.json"),
         "food": _read_json(ROOT / "data" / "food_cpi.json"),
         "foodForecast": _read_json(ROOT / "data" / "food_forecast.json"),
+        "foodForecastLive": _read_json(ROOT / "data" / "food_forecast_live.json"),
         "foodForecastEts": _read_json(ROOT / "data" / "food_forecast_ets.json"),
         "i18n": i18n,
     }
