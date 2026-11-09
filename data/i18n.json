@@ -2252,6 +2252,50 @@
       "pt": "Variação anual de cada grupo de produtos, do mais alto ao mais baixo",
       "ro": "Variația anuală a fiecărui grup de produse, de la cea mai mare la cea mai mică"
     },
+    "menu.directTitle": {
+      "en": "Direct · food",
+      "de": "Direkt · Lebensmittel",
+      "fr": "Direct · alimentation",
+      "it": "Diretti · alimentari",
+      "es": "Directo · alimentos",
+      "pl": "Bezpośrednie · żywność",
+      "nl": "Direct · voeding",
+      "pt": "Direto · alimentos",
+      "ro": "Direct · alimente"
+    },
+    "menu.directSub": {
+      "en": "The food products themselves: quarterly commodity prices and monthly consumer prices.",
+      "de": "Die Lebensmittel selbst: Rohstoffpreise im Quartal und Verbraucherpreise im Monat.",
+      "fr": "Les produits alimentaires eux-mêmes : prix des matières premières par trimestre et prix à la consommation par mois.",
+      "it": "I prodotti alimentari in sé: prezzi delle materie prime trimestrali e prezzi al consumo mensili.",
+      "es": "Los propios alimentos: precios trimestrales de materias primas y precios de consumo mensuales.",
+      "pl": "Same produkty spożywcze: kwartalne ceny surowców i miesięczne ceny konsumenckie.",
+      "nl": "De voedingsproducten zelf: grondstofprijzen per kwartaal en consumentenprijzen per maand.",
+      "pt": "Os próprios alimentos: preços trimestrais de matérias-primas e preços no consumidor mensais.",
+      "ro": "Produsele alimentare propriu-zise: prețuri trimestriale ale materiilor prime și prețuri lunare de consum."
+    },
+    "menu.indirectTitle": {
+      "en": "Indirect · non-food",
+      "de": "Indirekt · Nicht-Lebensmittel",
+      "fr": "Indirect · hors alimentation",
+      "it": "Indiretti · non alimentari",
+      "es": "Indirecto · no alimentos",
+      "pl": "Pośrednie · poza żywnością",
+      "nl": "Indirect · non-food",
+      "pt": "Indireto · não alimentar",
+      "ro": "Indirect · non-alimentar"
+    },
+    "menu.indirectSub2": {
+      "en": "Cost pressure outside the food itself: energy, freight, labour and packaging inputs that move a delivered price on their own.",
+      "de": "Kostendruck außerhalb der Lebensmittel selbst: Energie, Fracht, Arbeit und Verpackungsvorprodukte, die einen Lieferpreis für sich bewegen.",
+      "fr": "Pression sur les coûts hors produit alimentaire : énergie, fret, travail et intrants d'emballage qui font évoluer à eux seuls un prix livré.",
+      "it": "Pressione sui costi al di fuori del prodotto alimentare: energia, trasporto, lavoro e materie per l'imballaggio che da soli spostano un prezzo consegnato.",
+      "es": "Presión de costes ajena al alimento: energía, flete, mano de obra e insumos de envase que por sí solos mueven un precio entregado.",
+      "pl": "Presja kosztowa poza samą żywnością: energia, fracht, praca i materiały opakowaniowe, które same zmieniają cenę z dostawą.",
+      "nl": "Kostendruk buiten het voedsel zelf: energie, vracht, arbeid en verpakkingsgrondstoffen die op zichzelf een geleverde prijs bewegen.",
+      "pt": "Pressão de custos fora do próprio alimento: energia, frete, mão de obra e matérias de embalagem que, por si só, movem um preço entregue.",
+      "ro": "Presiune pe costuri în afara alimentului în sine: energie, transport, muncă și materii pentru ambalaje care schimbă singure un preț livrat."
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",

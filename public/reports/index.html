@@ -37,8 +37,13 @@
   .sec{display:flex;align-items:center;gap:10px;margin:26px 0 16px}
   .sec .lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   .sec .ln{flex:1;height:1px;background:var(--border2)}
-  .cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:0 28px;align-items:start}
-  .cols3 .grid-cards{grid-template-columns:1fr}
+  .split{display:grid;grid-template-columns:2fr 1fr;gap:34px;align-items:start;margin-top:26px}
+  .grp{min-width:0;padding:20px 22px 24px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.55)}
+  .grp-h{font-size:21px;font-weight:800;margin:0;color:var(--ink)}
+  .grp-s{margin:6px 0 18px;max-width:560px}
+  .split .grid-cards{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+  .split .grp:nth-child(2) .grid-cards{grid-template-columns:1fr}
+  @media(max-width:1000px){.split{grid-template-columns:1fr}}
   .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(430px,1fr));gap:20px}
   .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px;animation:cdIn .35s ease both}
   .card:hover{border-color:var(--blue)}
@@ -120,7 +125,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=28f6272770"></script>
+<script src="./app-data.js?v=9932e8c882"></script>
 <script>
 (function(){
 "use strict";
@@ -429,17 +434,12 @@ function menuHTML(){
         +'<span class="cap" style="margin:0">'+esc(t('menu.fyNote',{y:state.year,y1:state.year+1}))+'</span></div>'
         +'<div class="sec"><div class="lbl">'+esc(t('menu.quartersOf',{y:state.year}))+'</div><div class="ln"></div></div>'
         +'<div class="grid-cards">'+cards+'</div>'
-      : '<div class="cols3"><section><div class="sec"><div class="lbl">'+esc(t('menu.years'))+'</div><div class="ln"></div></div>'
-        +'<div class="grid-cards">'+yearCards+'</div></section>')
-    // Indirect inflation is a different cost story from the commodity quotes
-    // above, so it gets its own section rather than sharing one with them or
-    // with the regional deep-dive.
-    +(inds&&!state.year?'<section><div class="sec"><div class="lbl">'+esc(t('menu.indirectSection'))+'</div><div class="ln"></div></div>'
-       +'<p class="cap" style="margin:-6px 0 16px;max-width:640px">'+esc(t('menu.indirectSectionSub'))+'</p>'
-       +'<div class="grid-cards">'+inds+'</div></section>':'')
-    +(dds&&!state.year?'<section><div class="sec"><div class="lbl">'+esc(t('menu.deepdive'))+'</div><div class="ln"></div></div>'
-       +'<div class="grid-cards">'+dds+'</div></section>':'')
-    +(!state.year?'</div>':'')
+      : '<div class="split">'
+        +'<section class="grp"><h2 class="grp-h">'+esc(t('menu.directTitle'))+'</h2><p class="cap grp-s">'+esc(t('menu.directSub'))+'</p>'
+          +'<div class="grid-cards">'+yearCards+(dds||'')+'</div></section>'
+        +(inds?'<section class="grp"><h2 class="grp-h">'+esc(t('menu.indirectTitle'))+'</h2><p class="cap grp-s">'+esc(t('menu.indirectSub2'))+'</p>'
+          +'<div class="grid-cards">'+inds+'</div></section>':'')
+      +'</div>')
     +'<div class="note" style="margin-top:26px;max-width:760px"><span style="color:var(--dim);flex:none">ⓘ</span>'
       +'<p>'+t('menu.footnote',{base:b('2025 = 100'),gbase:b('2020 = 100'),notcomp:b(t('menu.notDirectlyComparable'))})+'</p></div>'
     +'</div>';
