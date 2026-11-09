@@ -110,6 +110,42 @@ def main() -> None:
         t = cats["time"][idx["time"]]
         series.setdefault(g, {}).setdefault(c, {})[t] = float(v)
 
+    # ---------------- legacy ECOICOP v1 gap-fillers ----------------
+    # The new classification (prc_hicp_minr) has no beef/pork/lamb/poultry/potato series for
+    # EU27 / euro area and no potatoes for NO / NL. The old one (prc_hicp_midx, 2015 = 100)
+    # has them but stops in Dec 2025, so they are added as separate "v1:" series, rebased to
+    # 2025 = 100 (mean of 2025) and labelled as discontinued.
+    LEGACY = {"CP01121": ("Beef and veal", "CP0112"), "CP01122": ("Pork", "CP0112"), "CP01123": ("Lamb and goat", "CP0112"),
+              "CP01124": ("Poultry", "CP0112"), "CP01172": ("Potatoes", "CP0117")}
+    legacy: dict[str, dict[str, dict[str, float]]] = {}
+    print("Eurostat HICP legacy (v1) gap-fillers ...")
+    q = urlencode({"format": "JSON", "unit": "I15", "geo": ["EU27_2020", "EA", "NO", "NL"], "coicop": list(LEGACY), "sinceTimePeriod": SINCE}, doseq=True)
+    d1 = get_json(EUROSTAT + "prc_hicp_midx?" + q)
+    ids1, size1 = d1["id"], d1["size"]
+    cats1 = {i: list(d1["dimension"][i]["category"]["index"]) for i in ids1}
+    st1 = [1] * len(ids1)
+    for k in range(len(ids1) - 2, -1, -1):
+        st1[k] = st1[k + 1] * size1[k + 1]
+    for pos, v in d1.get("value", {}).items():
+        pos = int(pos)
+        ix = {ids1[k]: (pos // st1[k]) % size1[k] for k in range(len(ids1))}
+        g, c, t = cats1["geo"][ix["geo"]], cats1["coicop"][ix["coicop"]], cats1["time"][ix["time"]]
+        legacy.setdefault(g, {}).setdefault(c, {})[t] = float(v)
+    for g, byc in legacy.items():
+        for c, ser in list(byc.items()):
+            y25 = [x for t, x in ser.items() if t.startswith("2025")]
+            if len(y25) < 12:
+                del byc[c]
+                continue
+            base = sum(y25) / len(y25)
+            byc[c] = {t: round(x / base * 100, 2) for t, x in ser.items()}
+    # only keep a legacy series where the new classification lacks the equivalent
+    V2EQ = {"CP01121": "CP011221", "CP01122": "CP011222", "CP01123": "CP011223", "CP01124": "CP011224", "CP01172": "CP011751"}
+    for g in list(legacy):
+        for c in list(legacy[g]):
+            if V2EQ[c] in series.get(g, {}):
+                del legacy[g][c]
+
     # ---------------- ONS ----------------
     print("ONS CPI food series ...")
     uk: dict[str, dict[str, float]] = {}
@@ -142,6 +178,8 @@ def main() -> None:
         nodes[c] = {"label": labels[c], "parent": parent_of(c, set(codes))}
         if c in tr:
             nodes[c]["tr"] = tr[c]
+    for c, (lab, par) in LEGACY.items():
+        nodes["v1:" + c] = {"label": lab + " (old classification, to Dec 2025)", "parent": par}
     ukcodes = {"uk:" + code for _, code, _ in UK}
     for _, code, lab in UK:
         k = "uk:" + code
@@ -156,6 +194,9 @@ def main() -> None:
         if g in series:
             countries[g] = {"source": "Eurostat HICP", "base": "2025 = 100",
                             "series": {c: row(s) for c, s in sorted(series[g].items())}}
+    for g, byc in legacy.items():
+        for c, ser in byc.items():
+            countries[g]["series"]["v1:" + c] = row(ser)
     countries["UK"] = {"source": "ONS CPI", "base": "2015 = 100", "series": {c: row(s) for c, s in sorted(uk.items())}}
 
     out = {"months": months, "nodes": nodes, "countries": countries}

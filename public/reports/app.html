@@ -1362,12 +1362,13 @@ function fMi(){ var L=D.food.months.length-1; return (state.fMonth==null||state.
 function fRootOf(cc){ return cc==='UK'?'uk:01':'CP01'; }
 function fSrcUrl(cc,code){
   var n=D.food.nodes[code]||{};
+  if(code.indexOf('v1:')===0) return 'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_midx?format=JSON&unit=I15&geo='+cc+'&coicop='+code.slice(3);
   if(cc==='UK') return n.cdid?'https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/'+n.cdid.toLowerCase()+'/mm23':'https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices';
   return 'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?format=JSON&unit=I25&geo='+cc+'&coicop18='+code;
 }
 function fSrcName(cc,code){
   if(cc==='UK'){ var n=D.food.nodes[code]||{}; return 'ONS '+(n.cdid||'MM23'); }
-  return 'Eurostat '+code;
+  return code.indexOf('v1:')===0?'Eurostat '+code.slice(3)+' (v1)':'Eurostat '+code;
 }
 function fSrcLinks(){
   return '<b>'+esc(t('food.srcDatasets'))+':</b> <a href="https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table?lang=en" target="_blank" rel="noopener">Eurostat prc_hicp_minr</a> · '
@@ -1450,7 +1451,8 @@ function fTree(cc){
   var C=D.food.countries[cc], have=C.series, N=D.food.nodes, out=[];
   var anc=function(code){ var p=N[code]&&N[code].parent; while(p&&!have[p]) p=N[p]&&N[p].parent; return p||null; };
   var depth=function(code){ var d=0,p=anc(code); while(p){d++;p=anc(p);} return d; };
-  Object.keys(have).sort().forEach(function(code){ out.push({code:code,depth:depth(code),parent:anc(code)}); });
+  var sk=function(c){ return c.indexOf('v1:')===0?(N[c].parent||'')+'~'+c:c; };
+  Object.keys(have).sort(function(a,b){var x=sk(a),y=sk(b);return x<y?-1:x>y?1:0;}).forEach(function(code){ out.push({code:code,depth:depth(code),parent:anc(code)}); });
   return out;
 }
 function foodMarketBody(cc,mi){
