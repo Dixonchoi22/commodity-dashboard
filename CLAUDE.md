@@ -289,6 +289,21 @@ comparison table uses the Eurostat HICP for Germany so it lines up with the othe
 with de/fr from Eurostat) - not in `i18n.json`; UI strings are `food.*` keys. The weekly
 refresh workflow runs the fetch and includes the file in its change check.
 
+**Food CPI projection.** `data/food_forecast.json` (built by `scripts/forecast_food.py`,
+run weekly by the refresh workflow, needs `pip install statsmodels pandas numpy`) holds a
+6-month statistical projection with an 80 % band for the total food index and every
+COICOP class of each market. Full history since 2015 is fetched (Eurostat `prc_hicp_minr`,
+ONS MM23) and an ETS model on the log index is fitted - best of 4 variants by AICc (damped
+trend yes/no x 12-month seasonality yes/no). It is a mechanical extrapolation, labelled as such
+in the UI, not an official forecast. The script back-tests the *total* food index of each
+market (30 rolling origins, 6 months ahead, YoY error) against a naive "inflation unchanged"
+baseline and stores both in `backtest`; the UI prints this track record (Norway is currently
+worse than naive - that is shown, not hidden). Germany's Destatis series is projected with the
+Eurostat HICP-DE projection of the same code, rebased to the Destatis last value
+(`gFcPrep` in `app.html`). Workbook categories and individual items are not projected.
+Projection shown on: market page chart, the `#/food` "6-month outlook" table, the Germany charts.
+Strings are `food.fc*` keys in `i18n.json`.
+
 ## Common edit recipes
 
 ### Remove a category / commodity from the dashboard

@@ -2296,6 +2296,127 @@
       "pt": "Pressão de custos fora do próprio alimento: energia, frete, mão de obra e matérias de embalagem que, por si só, movem um preço entregue.",
       "ro": "Presiune pe costuri în afara alimentului în sine: energie, transport, muncă și materii pentru ambalaje care schimbă singure un preț livrat."
     },
+    "food.fcTitle": {
+      "en": "6-month projection",
+      "de": "6-Monats-Projektion",
+      "fr": "Projection à 6 mois",
+      "it": "Proiezione a 6 mesi",
+      "es": "Proyección a 6 meses",
+      "pl": "Projekcja na 6 miesięcy",
+      "nl": "Projectie voor 6 maanden",
+      "pt": "Projeção a 6 meses",
+      "ro": "Proiecție pe 6 luni"
+    },
+    "food.fcLine": {
+      "en": "{month}: {yoy} year on year (80% range {lo} to {hi})",
+      "de": "{month}: {yoy} im Jahresvergleich (80-%-Bereich {lo} bis {hi})",
+      "fr": "{month} : {yoy} sur un an (fourchette à 80 % de {lo} à {hi})",
+      "it": "{month}: {yoy} su base annua (intervallo all'80% da {lo} a {hi})",
+      "es": "{month}: {yoy} interanual (rango del 80 % de {lo} a {hi})",
+      "pl": "{month}: {yoy} r/r (przedział 80% od {lo} do {hi})",
+      "nl": "{month}: {yoy} op jaarbasis (80%-bandbreedte {lo} tot {hi})",
+      "pt": "{month}: {yoy} homóloga (intervalo de 80% de {lo} a {hi})",
+      "ro": "{month}: {yoy} anual (interval de 80% între {lo} și {hi})"
+    },
+    "food.fcNote": {
+      "en": "Statistical projection of the past trend and seasonality (history since 2015), not an official forecast. It cannot anticipate shocks such as energy prices or tax changes. Dashed line = projection, shaded band = 80% range.",
+      "de": "Statistische Fortschreibung von Trend und Saisonmuster der Vergangenheit (Daten seit 2015), keine amtliche Prognose. Schocks wie Energiepreise oder Steueränderungen kann sie nicht vorhersehen. Gestrichelte Linie = Projektion, schattierter Bereich = 80-%-Bereich.",
+      "fr": "Projection statistique de la tendance et de la saisonnalité passées (historique depuis 2015), et non une prévision officielle. Elle ne peut pas anticiper des chocs tels que les prix de l'énergie ou des changements fiscaux. Ligne pointillée = projection, zone grisée = fourchette à 80 %.",
+      "it": "Proiezione statistica di tendenza e stagionalità passate (storico dal 2015), non una previsione ufficiale. Non può anticipare shock come i prezzi dell'energia o modifiche fiscali. Linea tratteggiata = proiezione, area ombreggiata = intervallo all'80%.",
+      "es": "Proyección estadística de la tendencia y la estacionalidad pasadas (historial desde 2015), no una previsión oficial. No puede anticipar shocks como los precios de la energía o cambios fiscales. Línea discontinua = proyección, banda sombreada = rango del 80 %.",
+      "pl": "Statystyczna projekcja dotychczasowego trendu i sezonowości (dane od 2015 r.), a nie oficjalna prognoza. Nie przewidzi szoków, takich jak ceny energii czy zmiany podatków. Linia przerywana = projekcja, zacieniony pas = przedział 80%.",
+      "nl": "Statistische projectie van de trend en het seizoenspatroon uit het verleden (historie sinds 2015), geen officiële prognose. Schokken zoals energieprijzen of belastingwijzigingen kan ze niet voorzien. Stippellijn = projectie, gearceerde band = 80%-bandbreedte.",
+      "pt": "Projeção estatística da tendência e da sazonalidade passadas (histórico desde 2015), não uma previsão oficial. Não consegue antecipar choques como os preços da energia ou alterações fiscais. Linha tracejada = projeção, faixa sombreada = intervalo de 80%.",
+      "ro": "Proiecție statistică a tendinței și sezonalității din trecut (istoric din 2015), nu o prognoză oficială. Nu poate anticipa șocuri precum prețurile energiei sau modificările fiscale. Linia punctată = proiecție, banda umbrită = interval de 80%."
+    },
+    "food.fcBt": {
+      "en": "Track record: over the last 30 months this method's 6-month-ahead year-on-year error averaged {ets} pp, against {naive} pp for simply assuming inflation stays unchanged.",
+      "de": "Trefferquote: In den letzten 30 Monaten lag der Fehler dieser Methode bei der 6-Monats-Vorausschau (Jahresvergleich) im Mittel bei {ets} Prozentpunkten, gegenüber {naive} Punkten bei der Annahme unveränderter Inflation.",
+      "fr": "Historique : sur les 30 derniers mois, l'erreur moyenne de cette méthode à 6 mois (sur un an) a été de {ets} pt, contre {naive} pt en supposant simplement que l'inflation reste inchangée.",
+      "it": "Storico: negli ultimi 30 mesi l'errore medio di questo metodo a 6 mesi (su base annua) è stato di {ets} pp, contro {naive} pp assumendo semplicemente che l'inflazione resti invariata.",
+      "es": "Historial: en los últimos 30 meses el error medio de este método a 6 meses (interanual) fue de {ets} pp, frente a {naive} pp suponiendo simplemente que la inflación no cambia.",
+      "pl": "Skuteczność: w ostatnich 30 miesiącach średni błąd tej metody na 6 miesięcy (r/r) wyniósł {ets} pp, wobec {naive} pp przy założeniu, że inflacja się nie zmieni.",
+      "nl": "Staat van dienst: de afgelopen 30 maanden bedroeg de gemiddelde fout van deze methode op 6 maanden vooruit (jaar op jaar) {ets} pp, tegen {naive} pp als je aanneemt dat de inflatie gelijk blijft.",
+      "pt": "Historial: nos últimos 30 meses o erro médio deste método a 6 meses (homólogo) foi de {ets} pp, contra {naive} pp ao assumir simplesmente que a inflação se mantém.",
+      "ro": "Istoric: în ultimele 30 de luni eroarea medie a acestei metode la 6 luni (anual) a fost de {ets} pp, față de {naive} pp presupunând pur și simplu că inflația rămâne neschimbată."
+    },
+    "food.fcOutlook": {
+      "en": "6-month outlook · total food",
+      "de": "Ausblick 6 Monate · Nahrungsmittel insgesamt",
+      "fr": "Perspective à 6 mois · alimentation totale",
+      "it": "Prospettiva a 6 mesi · alimentari totale",
+      "es": "Perspectiva a 6 meses · alimentos en total",
+      "pl": "Perspektywa na 6 miesięcy · żywność ogółem",
+      "nl": "Vooruitzicht 6 maanden · voeding totaal",
+      "pt": "Perspetiva a 6 meses · alimentos no total",
+      "ro": "Perspectivă pe 6 luni · alimente total"
+    },
+    "food.fcColNow": {
+      "en": "Now (YoY)",
+      "de": "Jetzt (Vorjahr)",
+      "fr": "Maintenant (sur un an)",
+      "it": "Ora (su base annua)",
+      "es": "Ahora (interanual)",
+      "pl": "Teraz (r/r)",
+      "nl": "Nu (jaar op jaar)",
+      "pt": "Agora (homóloga)",
+      "ro": "Acum (anual)"
+    },
+    "food.fcColProj": {
+      "en": "In 6 months (YoY)",
+      "de": "In 6 Monaten (Vorjahr)",
+      "fr": "Dans 6 mois (sur un an)",
+      "it": "Tra 6 mesi (su base annua)",
+      "es": "En 6 meses (interanual)",
+      "pl": "Za 6 miesięcy (r/r)",
+      "nl": "Over 6 maanden (jaar op jaar)",
+      "pt": "Daqui a 6 meses (homóloga)",
+      "ro": "Peste 6 luni (anual)"
+    },
+    "food.fcColRange": {
+      "en": "80% range",
+      "de": "80-%-Bereich",
+      "fr": "Fourchette à 80 %",
+      "it": "Intervallo all'80%",
+      "es": "Rango del 80 %",
+      "pl": "Przedział 80%",
+      "nl": "80%-bandbreedte",
+      "pt": "Intervalo de 80%",
+      "ro": "Interval de 80%"
+    },
+    "food.fcColErr": {
+      "en": "Past error (pp)",
+      "de": "Bisheriger Fehler (PP)",
+      "fr": "Erreur passée (pt)",
+      "it": "Errore passato (pp)",
+      "es": "Error pasado (pp)",
+      "pl": "Dotychczasowy błąd (pp)",
+      "nl": "Eerdere fout (pp)",
+      "pt": "Erro passado (pp)",
+      "ro": "Eroare anterioară (pp)"
+    },
+    "food.fcDE": {
+      "en": "The Germany projection is based on the Eurostat HICP series for Germany, applied to the Destatis index.",
+      "de": "Die Projektion für Deutschland basiert auf der Eurostat-HVPI-Reihe für Deutschland, angewandt auf den Destatis-Index.",
+      "fr": "La projection pour l'Allemagne repose sur la série IPCH d'Eurostat pour l'Allemagne, appliquée à l'indice Destatis.",
+      "it": "La proiezione per la Germania si basa sulla serie IPCA di Eurostat per la Germania, applicata all'indice Destatis.",
+      "es": "La proyección para Alemania se basa en la serie IPCA de Eurostat para Alemania, aplicada al índice de Destatis.",
+      "pl": "Projekcja dla Niemiec opiera się na serii HICP Eurostatu dla Niemiec, zastosowanej do indeksu Destatis.",
+      "nl": "De projectie voor Duitsland is gebaseerd op de Eurostat-HICP-reeks voor Duitsland, toegepast op de Destatis-index.",
+      "pt": "A projeção para a Alemanha baseia-se na série IHPC do Eurostat para a Alemanha, aplicada ao índice do Destatis.",
+      "ro": "Proiecția pentru Germania se bazează pe seria IPCA Eurostat pentru Germania, aplicată indicelui Destatis."
+    },
+    "food.fcLegend": {
+      "en": "Projection",
+      "de": "Projektion",
+      "fr": "Projection",
+      "it": "Proiezione",
+      "es": "Proyección",
+      "pl": "Projekcja",
+      "nl": "Projectie",
+      "pt": "Projeção",
+      "ro": "Proiecție"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",
