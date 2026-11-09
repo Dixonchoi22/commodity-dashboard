@@ -37,6 +37,8 @@
   .sec{display:flex;align-items:center;gap:10px;margin:26px 0 16px}
   .sec .lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   .sec .ln{flex:1;height:1px;background:var(--border2)}
+  .cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:0 28px;align-items:start}
+  .cols3 .grid-cards{grid-template-columns:1fr}
   .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(430px,1fr));gap:20px}
   .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px;animation:cdIn .35s ease both}
   .card:hover{border-color:var(--blue)}
@@ -392,29 +394,29 @@ function menuHTML(){
   var inds=(function(){
     var ms=D.menu.filter(function(m){return m.hasIndirect;});
     if(!ms.length) return '';
-    var rows=ms.map(function(m,k){
-      var d=divColor(m.iNet), q=qLabel(m.qn,m.fy,m.q);
-      var chips=(m.iPillars||[]).map(function(p){var pd=divColor(p.netYoY);
-        return '<span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted)"><span class="dot" style="width:7px;height:7px;background:'+p.color+'"></span>'+esc(t('ind.pillar.'+p.key))+' <b class="num" style="color:'+pd.c+'">'+esc(pct(p.netYoY))+'</b></span>';}).join('');
-      return '<button class="cta ghost" data-go="#/q/'+m.slug+'/indirect" style="display:flex;flex-direction:column;align-items:stretch;gap:9px;text-align:left;padding:14px 16px">'
-        +'<span style="display:flex;align-items:center;gap:10px"><span class="qbadge">'+esc(q)+'</span>'
-          +'<span class="tag '+(k===0?'latest':'arch')+'">'+esc(k===0?t('menu.latest'):t('menu.archive'))+'</span>'
-          +'<span style="flex:1"></span>'
-          +'<span style="display:flex;align-items:baseline;gap:6px"><span class="k" style="font-size:10.5px">'+esc(t('ind.netPressure'))+'</span>'
-          +'<span class="num" style="font-size:20px;font-weight:800;color:'+d.c+'">'+esc(pct(m.iNet))+'</span></span>'
-          +'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>'
-        +'<span style="display:flex;flex-wrap:wrap;gap:6px 14px">'+chips+'</span></button>';
-    }).join('');
+    var lm=ms[0], d=divColor(lm.iNet);
+    var qchips=ms.slice().reverse().map(function(m){
+      return '<button class="chipbtn" data-go="#/q/'+m.slug+'/indirect">'+esc(qLabel(m.qn,m.fy,m.q))+'</button>';}).join('');
+    var pchips=(lm.iPillars||[]).map(function(p){var pd=divColor(p.netYoY);
+      return '<button class="chipbtn" data-go="#/q/'+lm.slug+'/indirect/'+encodeURIComponent(p.key)+'"><span class="dot" style="width:8px;height:8px;background:'+p.color+'"></span>'+esc(t('ind.pillar.'+p.key))
+        +'<span class="num" style="color:'+pd.c+';font-weight:700">'+esc(pct(p.netYoY))+'</span></button>';}).join('');
     return '<div class="card">'
-      +'<div style="display:flex;align-items:center;gap:13px"><span style="font-size:28px">⚙️</span>'
-        +'<div><h2 style="font-size:19px;font-weight:700;margin:0">'+esc(t('ind.title'))+'</h2>'
-        +'<p style="font-size:13px;color:var(--muted);margin:4px 0 0">'+esc(t('menu.indirectSub'))+'</p></div></div>'
-      +'<div style="display:flex;flex-direction:column;gap:10px">'+rows+'</div>'
+      +'<div style="display:flex;align-items:center;gap:10px"><span style="font-size:24px">⚙️</span><span class="tag latest">'+esc(t('menu.latest'))+'</span>'
+        +'<span style="flex:1"></span><span style="font-size:12.5px;color:var(--muted)">'+esc(tPhrase(lm.region))+'</span></div>'
+      +'<div><h2 style="font-size:19px;font-weight:700;margin:0">'+esc(t('ind.title'))+'</h2>'
+        +'<p style="font-size:14px;font-weight:600;color:var(--blue);margin:5px 0 0">'+esc(t('menu.yearQuartersN',{n:ms.length}))+' · '+esc(t('menu.yearLatest',{q:qLabel(lm.qn,lm.fy,lm.q)}))+'</p></div>'
+      +'<div class="glance"><div style="flex:1;min-width:120px"><div class="k" title="'+esc(t('ind.netPressureTitle'))+'">'+esc(t('ind.netPressure'))+'</div>'
+        +'<div style="display:flex;align-items:baseline;gap:8px;margin-top:3px"><span class="num" style="font-size:22px;font-weight:800;color:'+d.c+'">'+esc(pct(lm.iNet))+'</span>'
+        +'<span style="font-size:12.5px;font-weight:700;color:var(--muted)">'+esc(t('common.yoy'))+'</span></div></div></div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:7px">'+pchips+'</div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:7px">'+qchips+'</div>'
+      +'<button class="cta" data-go="#/q/'+lm.slug+'/indirect"><span>'+esc(t('ind.openIndirect'))+'</span>'
+        +'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>'
     +'</div>';
   })();
 
   var b=function(s){return '<b style="color:var(--ink2)">'+esc(s)+'</b>';};
-  return '<div class="wrap">'
+  return '<div class="wrap" style="max-width:1500px">'
     +'<header>'
       +'<div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">'
         +'<div style="flex:1;min-width:260px">'+'<img class="logo-hero" src="./brand/gategroup-logo-white.png" alt="gategroup" onerror="this.style.display=\'none\'">'+'<p class="eyebrow">'+esc(t('brand.eyebrow'))+'</p>'
@@ -427,16 +429,17 @@ function menuHTML(){
         +'<span class="cap" style="margin:0">'+esc(t('menu.fyNote',{y:state.year,y1:state.year+1}))+'</span></div>'
         +'<div class="sec"><div class="lbl">'+esc(t('menu.quartersOf',{y:state.year}))+'</div><div class="ln"></div></div>'
         +'<div class="grid-cards">'+cards+'</div>'
-      : '<div class="sec"><div class="lbl">'+esc(t('menu.years'))+'</div><div class="ln"></div></div>'
-        +'<div class="grid-cards">'+yearCards+'</div>')
+      : '<div class="cols3"><section><div class="sec"><div class="lbl">'+esc(t('menu.years'))+'</div><div class="ln"></div></div>'
+        +'<div class="grid-cards">'+yearCards+'</div></section>')
     // Indirect inflation is a different cost story from the commodity quotes
     // above, so it gets its own section rather than sharing one with them or
     // with the regional deep-dive.
-    +(inds&&!state.year?'<div class="sec"><div class="lbl">'+esc(t('menu.indirectSection'))+'</div><div class="ln"></div></div>'
+    +(inds&&!state.year?'<section><div class="sec"><div class="lbl">'+esc(t('menu.indirectSection'))+'</div><div class="ln"></div></div>'
        +'<p class="cap" style="margin:-6px 0 16px;max-width:640px">'+esc(t('menu.indirectSectionSub'))+'</p>'
-       +'<div class="grid-cards">'+inds+'</div>':'')
-    +(dds&&!state.year?'<div class="sec"><div class="lbl">'+esc(t('menu.deepdive'))+'</div><div class="ln"></div></div>'
-       +'<div class="grid-cards">'+dds+'</div>':'')
+       +'<div class="grid-cards">'+inds+'</div></section>':'')
+    +(dds&&!state.year?'<section><div class="sec"><div class="lbl">'+esc(t('menu.deepdive'))+'</div><div class="ln"></div></div>'
+       +'<div class="grid-cards">'+dds+'</div></section>':'')
+    +(!state.year?'</div>':'')
     +'<div class="note" style="margin-top:26px;max-width:760px"><span style="color:var(--dim);flex:none">ⓘ</span>'
       +'<p>'+t('menu.footnote',{base:b('2025 = 100'),gbase:b('2020 = 100'),notcomp:b(t('menu.notDirectlyComparable'))})+'</p></div>'
     +'</div>';
