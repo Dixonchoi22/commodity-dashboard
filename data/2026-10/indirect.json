@@ -1,0 +1,335 @@
+{
+ "_readme": [
+  "Indirect inflation — the cost pressure that reaches a delivered price without",
+  "appearing in the commodity quote itself: the energy to process the goods, the",
+  "freight to move them, the labour to handle them, and the materials upstream of",
+  "the packaging they ship in.",
+  "",
+  "Hand-authored from the Expana monthly insight PDFs archived in raw/ (see",
+  "`sources` below). Consumed by scripts/build_app_data.py -> the SPA's",
+  "#/q/{slug}/indirect screen. A quarter without this file simply has no",
+  "indirect-inflation section — nothing else changes.",
+  "",
+  "Every driver carries its own `asOf`: these series publish on different lags,",
+  "so the section shows the latest available print per series rather than forcing",
+  "one common month. `basis` says what the first percentage compares against",
+  "('mom' or 'qoq'). Analyst prose (`commentary`, `actions`) stays in the language",
+  "it was written in — see the Translations section of CLAUDE.md.",
+  "",
+  "Finished packaging prices (resins, board) are NOT repeated here — they are",
+  "tracked directly in the Packaging category of commodities.json. This file",
+  "carries only what sits upstream of them (pulp, recovered paper, feedstocks).",
+  "",
+  "2026-10: Paper and Plastics insight reports were not supplied for this quarter, so the",
+  "packaging-inputs pillar is left out rather than carrying June figures forward."
+ ],
+ "slug": "2026-10",
+ "as_of": "October 2026",
+ "sources": [
+  "Expana — Global Monthly Energy, Freight and Labor Market Insight, October 2026",
+  "Expana — Global Monthly Energy Market Insight, November 2026",
+  "Expana — Global Monthly Macroeconomic Insight, November 2026"
+ ],
+ "summary": {
+  "headline": "The July split between oil and gas has closed: crude, European gas and power are now all rising together as attacks on commercial shipping in the Strait of Hormuz became more frequent through October. Brent is back at $107.89/barrel (+68.7% YoY), TTF gas is +169% YoY with EU storage at about 75% of capacity, the lowest since at least 2009, and the European electricity index is +114.5% YoY. Freight is the one pillar giving something back: ocean container rates are easing as Red Sea transits resume, though still more than double a year ago, while road freight keeps climbing on diesel. Labour is steady and legislated, but it is no longer ahead of headline inflation: euro-area HICP accelerated to 3.8% in September on energy.",
+  "gap": {
+   "labour_pct": 2.9,
+   "labour_label": "Labour cost, EU manufacturing",
+   "cpi_pct": 3.8,
+   "cpi_label": "Euro area HICP, all items"
+  }
+ },
+ "pillars": [
+  {
+   "key": "energy",
+   "color": "#F97316",
+   "commentary": "Every energy series rose again, and the annual comparisons are now extreme: Brent +68.7% YoY, German diesel +61%, Ghent marine gasoil +106%, US Gulf jet fuel +110%. September's crude rally ran on supply fears after the US and Iran failed to reach a deal, and October extended it as tanker attacks in the Strait of Hormuz became more frequent while pipelines in Saudi Arabia and the UAE could not compensate. Europe's gas and power are the sharper problem for processors: TTF reached €85.92/MWh (+14.0% MoM) and the European electricity index €178.97/MWh (+12.3% MoM), with lower solar output and EU gas storage near 75% heading into winter. German baseload power averaged €162.95/MWh in September (+89% YoY). For food and beverage processing — drying, chilling, sterilising — this is the input that bites hardest, and market participants see no immediate end to the conflict.",
+   "drivers": [
+    {
+     "name": "Brent crude oil",
+     "region": "Global",
+     "code": "BCRD",
+     "price": "$107.89/barrel",
+     "mom": 5.8,
+     "yoy": 68.7,
+     "basis": "mom",
+     "asOf": "October 2026",
+     "source": "ICE",
+     "ref": {
+      "doc": "Energy · Nov 2026",
+      "page": 1
+     }
+    },
+    {
+     "name": "Natural gas TTF",
+     "region": "European Union",
+     "code": "NGNL",
+     "price": "€85.92/MWh",
+     "mom": 14.0,
+     "yoy": 168.9,
+     "basis": "mom",
+     "asOf": "October 2026",
+     "source": "EEX",
+     "ref": {
+      "doc": "Energy · Nov 2026",
+      "page": 1
+     }
+    },
+    {
+     "name": "Electricity index",
+     "region": "European Union",
+     "code": "EFA1",
+     "price": "€178.97/MWh",
+     "mom": 12.3,
+     "yoy": 114.5,
+     "basis": "mom",
+     "asOf": "October 2026",
+     "source": "Expana",
+     "ref": {
+      "doc": "Energy · Nov 2026",
+      "page": 1
+     }
+    },
+    {
+     "name": "Electricity baseload",
+     "region": "Germany",
+     "code": "NR14",
+     "price": "€162.95/MWh",
+     "mom": 18.69,
+     "yoy": 89.23,
+     "basis": "mom",
+     "asOf": "September 2026",
+     "source": "Iberian Energy Derivatives Exchange, Marex Spectron",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 4
+     }
+    },
+    {
+     "name": "Diesel retail",
+     "region": "Germany",
+     "code": "DY32",
+     "price": "€2.53/L",
+     "mom": 4.5,
+     "yoy": 61.1,
+     "basis": "mom",
+     "asOf": "September 2026",
+     "source": "AMI",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 2
+     }
+    },
+    {
+     "name": "Marine gasoil",
+     "region": "Belgium",
+     "code": "FX64",
+     "price": "$1,410.07/MT",
+     "mom": 13.6,
+     "yoy": 105.7,
+     "basis": "mom",
+     "asOf": "September 2026",
+     "source": "Bunker Ex",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 2
+     }
+    },
+    {
+     "name": "Jet fuel",
+     "region": "United States",
+     "code": "OC19",
+     "price": "USc 438.82/gal",
+     "mom": 17.8,
+     "yoy": 110.0,
+     "basis": "mom",
+     "asOf": "September 2026",
+     "source": "EIA",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 2
+     }
+    }
+   ]
+  },
+  {
+   "key": "freight",
+   "color": "#38BDF8",
+   "commentary": "Ocean freight has turned: the 40ft global composite index fell 2.6% MoM to about $4,351/unit in the first week of October, and Shanghai-Rotterdam dropped 10.3% MoM to about $3,337/unit as easing demand and more Red Sea transits pulled Asia-Europe rates down. But the annual comparison is still severe — the composite is +154% YoY and Shanghai-Rotterdam +99% — and backlogs at Far East ports, plus elevated Transpacific rates (Shanghai to New York about $10,320/unit), mean the fall may be slow. Road is the stickier problem: the European road freight index is +10.7% YoY, driven by diesel, with carriers under severe cash-flow pressure, some passing costs on through surcharges, and Black Sea disruption pushing more grain onto trucks. Air freight firmed +5.3% MoM after China's Golden Week.",
+   "drivers": [
+    {
+     "name": "Ocean container, 40ft global composite",
+     "region": "Global",
+     "code": "ZB99",
+     "price": "",
+     "mom": -2.6,
+     "yoy": 154.0,
+     "basis": "mom",
+     "asOf": "October 2026",
+     "source": "Drewry",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 5
+     }
+    },
+    {
+     "name": "Ocean container, Shanghai to Rotterdam",
+     "region": "European Union",
+     "code": "ZQ34",
+     "price": "",
+     "mom": -10.3,
+     "yoy": 99.0,
+     "basis": "mom",
+     "asOf": "October 2026",
+     "source": "Drewry",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 5
+     }
+    },
+    {
+     "name": "Ocean container, US East Coast to North Europe",
+     "region": "European Union",
+     "code": "ZZ04",
+     "price": "",
+     "mom": -1.2,
+     "yoy": 31.0,
+     "basis": "mom",
+     "asOf": "October 2026",
+     "source": "Drewry",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 5
+     }
+    },
+    {
+     "name": "Air freight Baltic index",
+     "region": "Global",
+     "code": "BE09",
+     "price": "",
+     "mom": 5.3,
+     "yoy": 23.0,
+     "basis": "mom",
+     "asOf": "October 2026",
+     "source": "Baltic Exchange",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 5
+     }
+    },
+    {
+     "name": "Road freight index",
+     "region": "European Union",
+     "code": "GWAD",
+     "price": "",
+     "mom": 2.0,
+     "yoy": 10.7,
+     "basis": "mom",
+     "asOf": "September 2026",
+     "source": "Transport Market Monitor",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 5
+     }
+    },
+    {
+     "name": "Truckload linehaul index",
+     "region": "North America",
+     "code": "XI08",
+     "price": "",
+     "mom": 0.9,
+     "yoy": 10.1,
+     "basis": "mom",
+     "asOf": "September 2026",
+     "source": "Cass Information Systems",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 6
+     }
+    }
+   ]
+  },
+  {
+   "key": "labour",
+   "color": "#A78BFA",
+   "commentary": "Labour is the pillar that does not correct, but it has stopped accelerating. EU manufacturing labour costs rose 2.9% YoY in Q2 2026, down from 3.3% in Q1, accommodation and food services 3.2%, and UK food manufacturing earnings 4.2% YoY in July. Because energy has lifted euro-area headline inflation to 3.8%, labour now trails the all-items rate by 0.9pp — in July it led by 0.5pp. Against food prices the picture is the opposite: euro-area food, alcohol and tobacco inflation is only 1.3%, and Expana notes that manufacturers are struggling to recover wage costs through product pricing. The pressure is policy-driven rather than a labour shortage: unemployment is stable at 6.1% in the EU, about 4% in Germany and 8.2% in France, and the UK Real Living Wage rose 6.75% in May.",
+   "policy": [
+    {
+     "label": "United Kingdom — Real Living Wage (recommended)",
+     "value": "+6.75%",
+     "when": "May 2026",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 9
+     }
+    }
+   ],
+   "drivers": [
+    {
+     "name": "Labour cost, manufacturing",
+     "region": "European Union",
+     "code": "UQ27",
+     "price": "",
+     "mom": 13.1,
+     "yoy": 2.9,
+     "basis": "qoq",
+     "asOf": "Q2 2026",
+     "source": "Eurostat",
+     "note": "Not seasonally adjusted — the quarterly rise reflects the usual seasonal pattern in the unadjusted series, not an acceleration in wage costs.",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 9
+     }
+    },
+    {
+     "name": "Labour cost, accommodation & food services",
+     "region": "European Union",
+     "code": "UQ31",
+     "price": "",
+     "mom": 5.9,
+     "yoy": 3.2,
+     "basis": "qoq",
+     "asOf": "Q2 2026",
+     "source": "Eurostat",
+     "note": "Not seasonally adjusted.",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 9
+     }
+    },
+    {
+     "name": "Labour cost, food manufacturing",
+     "region": "United Kingdom",
+     "code": "2D50",
+     "price": "",
+     "mom": 0.5,
+     "yoy": 4.2,
+     "basis": "mom",
+     "asOf": "July 2026",
+     "source": "Office for National Statistics",
+     "ref": {
+      "doc": "Energy, Freight & Labor · Oct 2026",
+      "page": 9
+     }
+    }
+   ]
+  }
+ ],
+ "actions": [
+  {
+   "tone": "red",
+   "label": "Lock in energy pass-through rules before winter",
+   "body": "Gas and power are rising into the heating season: TTF +14.0% MoM and +168.9% YoY, the European electricity index +12.3% MoM, and EU gas storage near 75% of capacity, the lowest since at least 2009. Suppliers on energy-linked clauses will pass this through. Ask for the indexation formula and the reference month, apply it to the energy share of cost only, and do not accept surcharges anchored to a peak that has since moved."
+  },
+  {
+   "tone": "blue",
+   "label": "Book Asia-Europe volume while rates ease, and price road separately",
+   "body": "Ocean rates are falling (composite -2.6% MoM, Shanghai-Rotterdam -10.3% MoM) as Red Sea transits increase, which makes this a booking window for Q4 volumes — but both indices are still well above year-ago levels and port backlogs could slow the decline. Road freight is a separate story: with German diesel at €2.53/L and carriers under cash-flow strain, expect fuel-surcharge requests; tie them to a published diesel index and a base price."
+  },
+  {
+   "tone": "amber",
+   "label": "Index only the labour share of any wage-driven price request",
+   "body": "Wage pressure is policy-mandated, not a shortage of workers: the UK Real Living Wage rose 6.75% in May, and EU manufacturing labour costs are growing 2.9% YoY, slower than headline inflation but faster than food prices. In labour-heavy scopes such as packing, handling and catering services, ask for the labour share of cost in any repricing request and index only that share, rather than accepting a blended increase."
+  }
+ ]
+}
