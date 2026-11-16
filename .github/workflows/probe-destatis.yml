@@ -1,0 +1,17 @@
+name: Probe Destatis CPI tables (one-off)
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: List CPI tables and check for 10-digit codes
+        env:
+          GENESIS_TOKEN: ${{ secrets.GENESIS_TOKEN }}
+          PYTHONUTF8: "1"
+        run: python3 scripts/probe_destatis_tables.py
