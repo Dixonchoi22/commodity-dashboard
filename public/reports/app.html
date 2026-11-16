@@ -1868,7 +1868,7 @@ function forecastBody(){
   }
   return '<div class="kpis">'+kpis+'</div>'
     +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.fcIntro'))+' '+esc(t('food.fcNote'))+'</p></div>'
-    +summary+chips+chart+groups+liveH+method;
+    +summary+chips+chart+groups;
 }
 function drawForecast(){
   var FF=D.foodForecast, F=D.food; if(!FF||!F||!window.Chart) return;
