@@ -289,6 +289,16 @@ comparison table uses the Eurostat HICP for Germany so it lines up with the othe
 with de/fr from Eurostat) - not in `i18n.json`; UI strings are `food.*` keys. The weekly
 refresh workflow runs the fetch and includes the file in its change check.
 
+**History and CSV export.** `food_cpi.json` runs from **2015-01** (`SINCE` in `fetch_food_cpi.py`; Eurostat caps a
+query at 50k cells, so it is fetched one market at a time; series discontinued before 2024 are dropped). Every Food CPI
+page has a download bar (`exportBar`/`doExport` in `app.html`, client-side CSV with BOM): all data (one row per month with
+MoM/YoY and source), a wide table (index by month), and on the Germany screen also the Destatis table in the workbook layout
+(`CPI Index Code`, `CPI Sub-Category (English)`, one `Index YYYY-MM` column per month, codes as `CC13-...`, ordered like the
+workbook) plus the annual baselines and the "All items" table. The Destatis monthly table 61111-0004 only has codes up to 5
+digits; the 74 ten-digit items (e.g. `CC13-0111101100 Rice`) exist only as annual averages in `cpi_baselines.json`, so their
+month columns are blank. `fetch_destatis.py` tries to pull from 2015 (`DESTATIS_START_YEARS`, default `2015,2024`) and falls
+back to 2024 if the API refuses; the Germany month picker and charts handle either length.
+
 **Two forecasts coexist.** (1) The CPI pages (`#/food/{CC}`, history modal, Germany items, outlook
 table) carry the original ETS projection as *points* for all 742 series, read from
 `data/food_forecast_ets.json` (`scripts/forecast_food_ets.py`, `D.foodForecastEts`). (2) The separate

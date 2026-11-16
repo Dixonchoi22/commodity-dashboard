@@ -1083,7 +1083,7 @@ function germanyHTML(){
       +(D.food?fMarketChips('DE'):'')
       +'<div class="note" style="border-color:rgba(169,150,103,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p><b style="color:var(--ink2)">'
         +esc(t('de.baseNoteKey'))+'</b> '+t('de.baseNote',{gbase:b('2020 = 100'),base:b('2025 = 100'),notcomp:b(t('de.notComparable'))})+'</p></div>'
-      +tabsHTML+(state.gTab==='baseline'&&g.baselines?baselineHTML(g):picker+'<div class="kpis">'+kpis+'</div>'+right)
+      +tabsHTML+exportBar('de',!!g.baselines)+(state.gTab==='baseline'&&g.baselines?baselineHTML(g):picker+'<div class="kpis">'+kpis+'</div>'+right)
     +'</main></div></div>';
 }
 function sparkSVG(h,first,hi,color){
@@ -1203,7 +1203,9 @@ function catPanelHTML(c,g,monthLbl,first,hi){
     +itemsTableHTML({coicop:c.code,items:c.items},monthLbl,first,hi,c.color)
     +'<p class="cap" style="margin:14px 0 0">'+esc(t('de.groupFootnote'))+'</p></div>';
 }
+var _detailX=null;
 function detailTableHTML(cats,monthLbl,first,hi){
+  _detailX={cats:cats,hi:hi,label:monthLbl};
   var q=(state.gDQ||'').toLowerCase(), n=0, body='';
   cats.forEach(function(c){
     var mem=c.items.filter(function(x){return !q||x.label.toLowerCase().indexOf(q)>=0||tCoicop(x.coicop,x.label).toLowerCase().indexOf(q)>=0||c.name.toLowerCase().indexOf(q)>=0;});
@@ -1223,7 +1225,7 @@ function detailTableHTML(cats,monthLbl,first,hi){
   });
   return '<div class="panel" style="animation:cdFade .25s ease"><h3 style="font-size:17px;font-weight:700;margin:0">'+esc(t('de.detailTitle',{month:monthLbl}))+'</h3>'
     +'<p style="font-size:12px;color:var(--muted);margin:5px 0 12px">'+esc(t('de.detailSub',{n:cats.reduce(function(a,c){return a+c.items.length;},0)}))+'</p>'
-    +'<div class="search" style="max-width:320px;margin-bottom:12px"><input id="gdq" placeholder="'+esc(t('de.searchItems'))+'" value="'+esc(state.gDQ||'')+'" autocomplete="off"></div>'
+    +'<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px"><div class="search" style="max-width:320px;flex:1;min-width:220px"><input id="gdq" placeholder="'+esc(t('de.searchItems'))+'" value="'+esc(state.gDQ||'')+'" autocomplete="off"></div>'+'<button class="chipbtn" data-export="detail" data-ekind="de" style="font-weight:700">⬇ '+esc(t('food.dlTable'))+'</button></div>'
     +'<div style="overflow-x:auto;max-height:75vh;overflow-y:auto"><table><thead><tr><th>'+esc(t('de.colItem'))+'</th><th style="text-align:right">'+esc(t('de.indexLabel'))+'</th>'
     +'<th style="text-align:center">'+esc(t('common.yoy'))+'</th><th style="text-align:center">'+esc(t('common.mom'))+'</th><th>'+esc(t('de.colTrend'))+'</th></tr></thead><tbody>'+body+'</tbody></table></div></div>';
 }
@@ -1470,6 +1472,100 @@ function fKpi(lab,val,sub,tone){
 }
 function fTone(v){return !fNum(v)?'':v>=0?'up':'down';}
 
+
+/* ---------------- DATA EXPORT (CSV) ---------------- */
+function csvCell(v){ if(v==null||v!==v) return ''; v=String(v); return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; }
+function dlCSV(name,rows){
+  var txt='﻿'+rows.map(function(r){return r.map(csvCell).join(',');}).join('\r\n');
+  var blob=new Blob([txt],{type:'text/csv;charset=utf-8'}), url=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url; a.download=name; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},2000);
+}
+function xcc(c){ return String(c||'').replace(/^CP/,'CC13-'); }
+function xr(v){ return typeof v==='number'?Math.round(v*1e4)/1e4:''; }
+function xpct(a,i,lag){ var c=fChg(a,i,lag); return c==null?'':Math.round(c*1e4)/1e4; }
+var X_LONG=['Source','Market','Code','Product','Parent code','Month','Index','MoM %','YoY %'];
+// every series of one market -> list of {src,mkt,code,name,parent,vals}
+function xFoodSeries(cc){
+  var F=D.food, C=F.countries[cc], out=[];
+  fTree(cc).forEach(function(n){
+    var s=C.series[n.code]; if(!s) return;
+    out.push({src:(cc==='UK'?fSrcName(cc,n.code):'Eurostat HICP prc_hicp_minr (2025=100)'),mkt:fMkt(cc),code:n.code,name:(F.nodes[n.code]&&F.nodes[n.code].label)||n.code,parent:n.parent||'',vals:s,months:F.months});
+  });
+  return out;
+}
+function xDESeries(){
+  var rep=D.reports[state.slug], g=rep&&rep.germany; if(!g) return [];
+  var iso={}, mn={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+  var M=(g.months||[]).map(function(m){var p=m.split(' '); return p[1]+'-'+('0'+(mn[p[0]]||1)).slice(-2);});
+  var src='Destatis 61111-0004 (2020=100)', mkt='Germany', out=[];
+  if(g.hist) out.push({src:src,mkt:mkt,code:'CC13-01',name:'Food and non-alcoholic beverages (headline)',parent:'',vals:g.hist,months:M});
+  g.groups.forEach(function(s){ out.push({src:src,mkt:mkt,code:xcc(s.coicop),name:s.label,parent:'CC13-01',vals:s.hist,months:M}); });
+  var items=(g.items&&g.items.length)?g.items:[].concat.apply([],g.groups.map(function(s){return s.items||[];}));
+  items.forEach(function(s){ out.push({src:src,mkt:mkt,code:xcc(s.coicop),name:s.label,parent:xcc(s.cat||''),vals:s.hist,months:M}); });
+  return out;
+}
+function xRowsLong(list){
+  var rows=[X_LONG];
+  list.forEach(function(s){ (s.vals||[]).forEach(function(v,i){ if(typeof v!=='number') return;
+    rows.push([s.src,s.mkt,s.code,s.name,s.parent,s.months[i],xr(v),xpct(s.vals,i,1),xpct(s.vals,i,12)]); }); });
+  return rows;
+}
+function xRowsWide(list){
+  var all=[]; list.forEach(function(s){ s.months.forEach(function(m){ if(all.indexOf(m)<0) all.push(m); }); });
+  all.sort();
+  var rows=[['Source','Market','Code','Product','Parent code'].concat(all.map(function(m){return 'Index '+m;}))];
+  list.forEach(function(s){ var by={}; s.months.forEach(function(m,i){by[m]=s.vals&&s.vals[i];});
+    rows.push([s.src,s.mkt,s.code,s.name,s.parent].concat(all.map(function(m){return xr(by[m]);}))); });
+  return rows;
+}
+function xList(kind){
+  if(kind==='de') return xDESeries().concat(D.food&&D.food.countries.DE?xFoodSeries('DE'):[]);
+  if(kind==='all'){ var o=[]; fMarkets().forEach(function(cc){o=o.concat(xFoodSeries(cc));}); return o; }
+  return xFoodSeries(kind);
+}
+function doExport(what,kind){
+  var stamp=new Date().toISOString().slice(0,10), tag=(kind==='all'?'all-markets':kind==='de'?'germany':kind);
+  if(what==='base'){
+    var g=D.reports[state.slug].germany, B=g&&g.baselines; if(!B) return;
+    var yrs=B.years||[], rows=[['Code','Product','Parent code'].concat(yrs.map(function(y){return 'Annual average '+y;})).concat(['YTD average'])];
+    (B.series||[]).forEach(function(s){ rows.push([s.coicop,s.label,s.parent||''].concat(yrs.map(function(_,i){return xr(s.base&&s.base[i]);})).concat([xr(s.ytd)])); });
+    dlCSV('germany-annual-baselines-'+stamp+'.csv',rows); return;
+  }
+  if(what==='dest'){
+    var g3=D.reports[state.slug].germany, FU=g3&&g3.full; if(!FU) return;
+    var B3=g3.baselines, yrs3=(B3&&B3.years)||[], map={};
+    FU.series.forEach(function(s){ map[s.code]={code:s.code,label:s.label,hist:s.hist}; });
+    ((B3&&B3.series)||[]).forEach(function(s){ var c=xcc(s.coicop); var o=map[c]||(map[c]={code:c,label:s.label,hist:null}); o.base=s.base; o.ytd=s.ytd; });
+    var codes=Object.keys(map).filter(function(c){return c.indexOf('CC13-01')===0;}).sort(function(x,y){return x.slice(5)<y.slice(5)?-1:x.slice(5)>y.slice(5)?1:0;});
+    var head3=['CPI Index Code','CPI Sub-Category (English)'].concat(FU.months.map(function(m){return 'Index '+m;})).concat(yrs3.map(function(y){return 'Annual average '+y;})).concat(['YTD average']);
+    var rowsF=[head3];
+    codes.forEach(function(c){ var o=map[c];
+      rowsF.push([o.code,o.label].concat(FU.months.map(function(_,i){return xr(o.hist&&o.hist[i]);})).concat(yrs3.map(function(_,i){return xr(o.base&&o.base[i]);})).concat([xr(o.ytd)])); });
+    dlCSV('germany-destatis-cpi-food-'+FU.months[FU.months.length-1]+'.csv',rowsF); return;
+  }
+  if(what==='detail'){
+    var X=_detailX, g2=D.reports[state.slug].germany; if(!X||!g2) return;
+    var Mi=(g2.months||[]), mn2={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+    var iso=Mi.map(function(m){var q=m.split(' '); return q[1]+'-'+('0'+(mn2[q[0]]||1)).slice(-2);});
+    var head=['Category','Category code','CPI Index Code','Item','Index ('+(iso[X.hi]||'')+')','YoY %','MoM %'].concat(iso.map(function(m){return 'Index '+m;}));
+    var rowsD=[head];
+    X.cats.forEach(function(c){
+      rowsD.push([c.name,xcc(c.code),xcc(c.code),'(category average)','',xr(c.yoy),xr(c.mom)].concat(iso.map(function(){return '';})));
+      c.items.forEach(function(x){ rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(x.index),xr(x.yoy),xr(x.mom)].concat(iso.map(function(_,i){return xr(x.hist&&x.hist[i]);}))); });
+    });
+    dlCSV('germany-all-items-'+(iso[X.hi]||stamp)+'.csv',rowsD); return;
+  }
+  var list=xList(kind);
+  dlCSV('food-cpi-'+tag+'-'+(what==='wide'?'table':'all-data')+'-'+stamp+'.csv',what==='wide'?xRowsWide(list):xRowsLong(list));
+}
+function exportBar(kind,withBase){
+  var b=function(w,k){return '<button class="chipbtn" data-export="'+w+'" data-ekind="'+kind+'" style="font-weight:700">⬇ '+esc(t(k))+'</button>';};
+  return '<div class="panel" style="padding:12px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">'
+    +(kind==='de'?b('dest','food.dlDest'):'')+b('long','food.dlLong')+b('wide','food.dlWide')+(withBase?b('base','food.dlBase'):'')
+    +'<span class="cap" style="flex:1;min-width:220px">'+esc(t('food.dlHint'))+'</span></div>';
+}
+
 function foodHTML(){
   var F=D.food; if(!F) return '<div class="wrap">'+esc(t('de.none'))+'</div>';
   var cc=state.fCC, M=F.months, L=M.length-1, mi=fMi();
@@ -1478,7 +1574,7 @@ function foodHTML(){
     +esc(t('food.title'))+(state.fFc?' · '+esc(t('food.fcTab')):cc?' · '+esc(fMkt(cc)):'')+'</div><div style="font-size:11.5px;color:var(--muted)">'+esc(t('food.latestOn',{month:fMonthLbl(M[L],'long')}))+'</div></div></div>';
   return '<div style="animation:cdFade .3s ease">'+fTopbar(title)
     +'<div class="wrapR" style="display:flex;flex-direction:column;gap:18px">'+fMarketChips(state.fFc?'forecast':cc)
-    +(state.fFc?forecastBody():cc?foodMarketBody(cc,mi):foodCompareBody(mk,mi))+'</div></div>';
+    +(state.fFc?'':exportBar(cc||'all',false))+(state.fFc?forecastBody():cc?foodMarketBody(cc,mi):foodCompareBody(mk,mi))+'</div></div>';
 }
 function fOutlookHTML(mk){
   if(!D.foodForecastEts) return '';
@@ -1828,11 +1924,12 @@ function render(){
 document.getElementById('app').addEventListener('click',function(e){
   // NB: not named `t` — that is the translation helper.
   if(e.target.closest('a[href]')) return;
-  var el=e.target.closest('[data-go],[data-open],[data-rank],[data-tab],[data-sort],[data-gtab],[data-gby],[data-gsort],[data-gcat],[data-item],[data-deser],[data-fkind],[data-fitem]');
+  var el=e.target.closest('[data-go],[data-export],[data-open],[data-rank],[data-tab],[data-sort],[data-gtab],[data-gby],[data-gsort],[data-gcat],[data-item],[data-deser],[data-fkind],[data-fitem]');
   if(!el) return;
   if(el.hasAttribute('data-go')){go(el.getAttribute('data-go'));return;}
   if(el.hasAttribute('data-open')){openModal(el.getAttribute('data-open'));return;}
   if(el.hasAttribute('data-rank')){state.rankBy=el.getAttribute('data-rank');render();return;}
+  if(el.hasAttribute('data-export')){doExport(el.getAttribute('data-export'),el.getAttribute('data-ekind'));return;}
   if(el.hasAttribute('data-gtab')){state.gTab=el.getAttribute('data-gtab');render();return;}
   if(el.hasAttribute('data-gby')){state.gBY=parseInt(el.getAttribute('data-gby'),10);render();return;}
   if(el.hasAttribute('data-fkind')){state.fKind=el.getAttribute('data-fkind');render();return;}

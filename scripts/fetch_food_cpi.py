@@ -24,7 +24,7 @@ from fetch_indirect_countries import EUROSTAT, INFL, ONS, SHORT, get_json  # noq
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "food_cpi.json"
-SINCE = "2024-01"
+SINCE = "2015-01"   # full history; Eurostat caps a query at 50k cells, so it is fetched one market at a time
 GEOS = ["EU27_2020", "EA", "DE", "IT", "NL", "IE", "DK", "SE", "NO"]
 
 # ONS CPI index series for COICOP 01 (MM23). CDID, dotted COICOP code, label.
@@ -94,21 +94,25 @@ def main() -> None:
             if k in labels:
                 tr.setdefault(k, {})[lg] = v.replace(" (ND)", "").replace(" (S)", "")
     from urllib.parse import urlencode
-    q = urlencode({"format": "JSON", "unit": "I25", "geo": GEOS, "coicop18": codes, "sinceTimePeriod": SINCE}, doseq=True)
-    d = get_json(EUROSTAT + "prc_hicp_minr?" + q)
-    ids, size = d["id"], d["size"]
-    cats = {i: list(d["dimension"][i]["category"]["index"]) for i in ids}
-    strides = [1] * len(ids)
-    for k in range(len(ids) - 2, -1, -1):
-        strides[k] = strides[k + 1] * size[k + 1]
     series: dict[str, dict[str, dict[str, float]]] = {}
-    for pos, v in d.get("value", {}).items():
-        pos = int(pos)
-        idx = {ids[k]: (pos // strides[k]) % size[k] for k in range(len(ids))}
-        g = cats["geo"][idx["geo"]]
-        c = cats["coicop18"][idx["coicop18"]]
-        t = cats["time"][idx["time"]]
-        series.setdefault(g, {}).setdefault(c, {})[t] = float(v)
+    for geo in GEOS:                                  # one query per market: 101 codes x 142 months stays under the cell cap
+        q = urlencode({"format": "JSON", "unit": "I25", "geo": geo, "coicop18": codes, "sinceTimePeriod": SINCE}, doseq=True)
+        d = get_json(EUROSTAT + "prc_hicp_minr?" + q)
+        ids, size = d["id"], d["size"]
+        cats = {i: list(d["dimension"][i]["category"]["index"]) for i in ids}
+        strides = [1] * len(ids)
+        for k in range(len(ids) - 2, -1, -1):
+            strides[k] = strides[k + 1] * size[k + 1]
+        for pos, v in d.get("value", {}).items():
+            pos = int(pos)
+            idx = {ids[k]: (pos // strides[k]) % size[k] for k in range(len(ids))}
+            g = cats["geo"][idx["geo"]]
+            c = cats["coicop18"][idx["coicop18"]]
+            t = cats["time"][idx["time"]]
+            series.setdefault(g, {}).setdefault(c, {})[t] = float(v)
+        for c in [c for c, m in series.get(geo, {}).items() if max(m) < "2024-01"]:
+            del series[geo][c]                        # series discontinued before 2024 (old IT/NL sub-classes): not shown
+        print(f"  {geo}: {len(series.get(geo, {}))} series", flush=True)
 
     # ---------------- legacy ECOICOP v1 gap-fillers ----------------
     # The new classification (prc_hicp_minr) has no beef/pork/lamb/poultry/potato series for

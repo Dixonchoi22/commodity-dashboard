@@ -324,7 +324,19 @@ def build_germany(destatis: dict, baselines: dict | None = None) -> dict | None:
         # Category view: every 5-digit food / beverage / alcohol item from the
         # monthly Destatis pull, filed under the catalogue's category.
         "items": _category_items(by_coicop, baselines, _aligned) if baselines else [],
+        # Every food / beverage code of the monthly pull (2- to 10-digit, e.g. CC13-0111101100 Rice),
+        # for the "Download Destatis table" button. Months are ISO so the file sorts in Excel.
+        "full": {"months": [_iso_month(m) for m in months],
+                 "series": [{"code": "CC13-" + c[2:], "label": by_coicop[c].get("label", c), "hist": _aligned(by_coicop[c])}
+                            for c in sorted(by_coicop, key=lambda k: k[2:])
+                            if c.startswith("CP01") and len(c) >= 4],
+                 "base": base},
     }
+
+
+def _iso_month(m: str) -> str:
+    mon, yr = m.split()
+    return f"{yr}-{['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].index(mon[:3]) + 1:02d}"
 
 
 def _tone(v):

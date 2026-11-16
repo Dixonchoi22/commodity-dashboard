@@ -2868,6 +2868,72 @@
       "pt": "Todos os mercados e grupos",
       "ro": "Toate piețele și grupele"
     },
+    "food.dlLong": {
+      "en": "Download all data (CSV, one row per month)",
+      "de": "Alle Daten herunterladen (CSV, eine Zeile pro Monat)",
+      "fr": "Télécharger toutes les données (CSV, une ligne par mois)",
+      "it": "Scarica tutti i dati (CSV, una riga per mese)",
+      "es": "Descargar todos los datos (CSV, una fila por mes)",
+      "pl": "Pobierz wszystkie dane (CSV, jeden wiersz na miesiąc)",
+      "nl": "Alle gegevens downloaden (CSV, één rij per maand)",
+      "pt": "Transferir todos os dados (CSV, uma linha por mês)",
+      "ro": "Descarcă toate datele (CSV, un rând pe lună)"
+    },
+    "food.dlWide": {
+      "en": "Download as table (CSV, index by month)",
+      "de": "Als Tabelle herunterladen (CSV, Index je Monat)",
+      "fr": "Télécharger en tableau (CSV, indice par mois)",
+      "it": "Scarica come tabella (CSV, indice per mese)",
+      "es": "Descargar como tabla (CSV, índice por mes)",
+      "pl": "Pobierz jako tabelę (CSV, indeks wg miesięcy)",
+      "nl": "Downloaden als tabel (CSV, index per maand)",
+      "pt": "Transferir como tabela (CSV, índice por mês)",
+      "ro": "Descarcă ca tabel (CSV, indice pe luni)"
+    },
+    "food.dlBase": {
+      "en": "Download annual baselines (CSV)",
+      "de": "Jahresbasiswerte herunterladen (CSV)",
+      "fr": "Télécharger les moyennes annuelles (CSV)",
+      "it": "Scarica le medie annuali (CSV)",
+      "es": "Descargar medias anuales (CSV)",
+      "pl": "Pobierz średnie roczne (CSV)",
+      "nl": "Jaargemiddelden downloaden (CSV)",
+      "pt": "Transferir médias anuais (CSV)",
+      "ro": "Descarcă mediile anuale (CSV)"
+    },
+    "food.dlHint": {
+      "en": "Every series, every month, with MoM and YoY and the source of each series.",
+      "de": "Jede Reihe, jeder Monat, mit MoM, YoY und der Quelle jeder Reihe.",
+      "fr": "Chaque série, chaque mois, avec MoM, YoY et la source de chaque série.",
+      "it": "Ogni serie, ogni mese, con MoM, YoY e la fonte di ogni serie.",
+      "es": "Cada serie, cada mes, con MoM, YoY y la fuente de cada serie.",
+      "pl": "Każda seria, każdy miesiąc, z MoM, YoY i źródłem każdej serii.",
+      "nl": "Elke reeks, elke maand, met MoM, YoY en de bron van elke reeks.",
+      "pt": "Cada série, cada mês, com MoM, YoY e a fonte de cada série.",
+      "ro": "Fiecare serie, fiecare lună, cu MoM, YoY și sursa fiecărei serii."
+    },
+    "food.dlTable": {
+      "en": "Download this table (CSV)",
+      "de": "Diese Tabelle herunterladen (CSV)",
+      "fr": "Télécharger ce tableau (CSV)",
+      "it": "Scarica questa tabella (CSV)",
+      "es": "Descargar esta tabla (CSV)",
+      "pl": "Pobierz tę tabelę (CSV)",
+      "nl": "Deze tabel downloaden (CSV)",
+      "pt": "Transferir esta tabela (CSV)",
+      "ro": "Descarcă acest tabel (CSV)"
+    },
+    "food.dlDest": {
+      "en": "Download Destatis table (index codes + every month)",
+      "de": "Destatis-Tabelle herunterladen (Indexcodes + jeder Monat)",
+      "fr": "Télécharger le tableau Destatis (codes + chaque mois)",
+      "it": "Scarica la tabella Destatis (codici + ogni mese)",
+      "es": "Descargar la tabla Destatis (códigos + cada mes)",
+      "pl": "Pobierz tabelę Destatis (kody + każdy miesiąc)",
+      "nl": "Destatis-tabel downloaden (indexcodes + elke maand)",
+      "pt": "Transferir a tabela Destatis (códigos + cada mês)",
+      "ro": "Descarcă tabelul Destatis (coduri + fiecare lună)"
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",

@@ -49,8 +49,10 @@ MONTH_NAMES = [
 MONTH_NUM = {n: i + 1 for i, n in enumerate(MONTH_NAMES)}
 
 
-# Pull from 2024 so every month shown (from 2025 on) has a true year-on-year.
-START_YEAR = 2024
+# Try the full history first (2015); if the API refuses (table too large for a synchronous call)
+# fall back to 2024 so every month shown (from 2025 on) still has a true year-on-year.
+START_YEARS = [int(y) for y in os.environ.get("DESTATIS_START_YEARS", "2015,2024").split(",")]
+START_YEAR = START_YEARS[0]
 
 API_URL = "https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
 
@@ -72,13 +74,24 @@ def download_api(raw_dir: Path) -> Path:
         "username": token, "password": "",
         "Content-Type": "application/x-www-form-urlencoded",
     })
-    try:
-        with urllib.request.urlopen(req, timeout=120) as r:
-            data = r.read()
-    except urllib.error.HTTPError as e:
-        sys.exit(f"Genesis API HTTP {e.code} — check GENESIS_TOKEN is valid")
+    data = b""
+    for yr in START_YEARS:
+        body2 = body.replace(f"startyear={START_YEAR}".encode(), f"startyear={yr}".encode())
+        req2 = urllib.request.Request(API_URL, data=body2, method="POST", headers=dict(req.header_items()))
+        try:
+            with urllib.request.urlopen(req2, timeout=300) as r:
+                data = r.read()
+        except urllib.error.HTTPError as e:
+            print(f"Genesis API HTTP {e.code} for start year {yr}", flush=True)
+            data = b""
+            continue
+        if data.startswith(b"PK"):
+            print(f"Genesis API: pulled from {yr}", flush=True)
+            break
+        print("Genesis API did not return a zip for start year", yr, data[:200].decode("utf-8", "replace"), flush=True)
+        data = b""
     if not data.startswith(b"PK"):
-        sys.exit("Genesis API did not return a zip: " + data[:300].decode("utf-8", "replace"))
+        sys.exit("Genesis API gave no usable data for any start year - check GENESIS_TOKEN")
     raw_dir.mkdir(parents=True, exist_ok=True)
     out = raw_dir / "61111-0004_en_api.zip"
     out.write_bytes(data)
