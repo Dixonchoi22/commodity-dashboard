@@ -291,10 +291,9 @@ refresh workflow runs the fetch and includes the file in its change check.
 
 **History and CSV export.** `food_cpi.json` runs from **2015-01** (`SINCE` in `fetch_food_cpi.py`; Eurostat caps a
 query at 50k cells, so it is fetched one market at a time; series discontinued before 2024 are dropped). Every Food CPI
-page has a download bar (`exportBar`/`doExport` in `app.html`, client-side CSV with BOM): all data (one row per month with
-MoM/YoY and source), a wide table (index by month), and on the Germany screen also the Destatis table in the workbook layout
+page has a download bar (`exportBar`/`doExport` in `app.html`, client-side CSV with BOM): all data (one row per month, **index only** - no MoM/YoY, with source), a wide table (index by month), and on the Germany screen also the Destatis table in the workbook layout
 (`CPI Index Code`, `CPI Sub-Category (English)`, one `Index YYYY-MM` column per month, codes as `CC13-...`, ordered like the
-workbook) plus the annual baselines and the "All items" table. The Destatis monthly table 61111-0004 only has codes up to 5
+workbook) plus the annual baselines and the "All items" table (its YoY/MoM are always computed from the index series). The Destatis monthly table 61111-0004 only has codes up to 5
 digits; the 74 ten-digit items (e.g. `CC13-0111101100 Rice`) exist only as annual averages in `cpi_baselines.json`, so their
 month columns are blank. The 2-5 digit hierarchy (table 61111-0004) runs from **2015-01** on the same 2020 = 100 base (94 categories); the 10-digit items
 (table 61111-0006, `CC13Z1`) only start in **2020-01** (2015-2019 return "no values").

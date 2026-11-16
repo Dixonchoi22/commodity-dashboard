@@ -1486,7 +1486,7 @@ function dlCSV(name,rows){
 function xcc(c){ return String(c||'').replace(/^CP/,'CC13-'); }
 function xr(v){ return typeof v==='number'?Math.round(v*1e4)/1e4:''; }
 function xpct(a,i,lag){ var c=fChg(a,i,lag); return c==null?'':Math.round(c*1e4)/1e4; }
-var X_LONG=['Source','Market','Code','Product','Parent code','Month','Index','MoM %','YoY %'];
+var X_LONG=['Source','Market','Code','Product','Parent code','Month','Index'];
 // every series of one market -> list of {src,mkt,code,name,parent,vals}
 function xFoodSeries(cc){
   var F=D.food, C=F.countries[cc], out=[];
@@ -1510,7 +1510,7 @@ function xDESeries(){
 function xRowsLong(list){
   var rows=[X_LONG];
   list.forEach(function(s){ (s.vals||[]).forEach(function(v,i){ if(typeof v!=='number') return;
-    rows.push([s.src,s.mkt,s.code,s.name,s.parent,s.months[i],xr(v),xpct(s.vals,i,1),xpct(s.vals,i,12)]); }); });
+    rows.push([s.src,s.mkt,s.code,s.name,s.parent,s.months[i],xr(v)]); }); });
   return rows;
 }
 function xRowsWide(list){
@@ -1565,8 +1565,8 @@ function doExport(what,kind){
     X.cats.forEach(function(c){
       var o=byCode[c.code];
       rowsD.push([c.name,xcc(c.code),xcc(c.code),o?o.label:c.name,o?xr(o.by[cur]):'',o?chg(o,yago):xr(c.yoy),o?chg(o,prev):xr(c.mom),src].concat(iso.map(function(m){return o?xr(o.by[m]):'';})));
-      c.items.forEach(function(x){ var oi=byCode[x.coicop];
-        rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(x.index),xr(x.yoy),xr(x.mom),src].concat(iso.map(function(m,k){return oi?xr(oi.by[m]):xr(x.hist&&x.hist[k]);}))); });
+      c.items.forEach(function(x){ var oi=byCode[x.coicop]; if(!oi){ var t0={}; iso.forEach(function(m,k){ if(x.hist&&typeof x.hist[k]==='number') t0[m]=x.hist[k]; }); oi={label:x.label,by:t0}; }
+        rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(oi.by[cur]),chg(oi,yago),chg(oi,prev),src].concat(iso.map(function(m){return xr(oi.by[m]);}))); });
     });
     dlCSV('germany-all-items-'+(cur||stamp)+'.csv',rowsD); return;
   }
