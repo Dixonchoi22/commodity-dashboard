@@ -125,7 +125,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=f323e62b10"></script>
+<script src="./app-data.js?v=8b2f4135e1"></script>
 <script>
 (function(){
 "use strict";
@@ -1551,13 +1551,24 @@ function doExport(what,kind){
     var X=_detailX, g2=D.reports[state.slug].germany; if(!X||!g2) return;
     var Mi=(g2.months||[]), mn2={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
     var iso=Mi.map(function(m){var q=m.split(' '); return q[1]+'-'+('0'+(mn2[q[0]]||1)).slice(-2);});
-    var head=['Category','Category code','CPI Index Code','Item','Index ('+(iso[X.hi]||'')+')','YoY %','MoM %','Source'].concat(iso.map(function(m){return 'Index '+m;}));
+    // true Destatis index of every code, keyed by month (categories included: Food, Vegetables, ...)
+    var byCode={}, put=function(code,label,months,hist){ if(!hist) return; var o={label:label,by:{}}; months.forEach(function(m,k){ if(typeof hist[k]==='number') o.by[m]=hist[k]; }); byCode[code]=o; };
+    if(g2.hist) put('CP01','Food and non-alcoholic beverages',iso,g2.hist);
+    (g2.groups||[]).forEach(function(s){ put(s.coicop,s.label,iso,s.hist); });
+    (g2.items||[]).forEach(function(s){ put(s.coicop,s.label,iso,s.hist); });
+    var FUd=g2.full; if(FUd) FUd.series.forEach(function(s){ put(s.code.replace(/^CC13-/,'CP'),s.label,FUd.months,s.hist); });
+    var cur=iso[X.hi]||'', prev=iso[X.hi-1]||'', yago=iso[X.hi-12]||'';
+    var chg=function(o,m0){ if(!o||typeof o.by[cur]!=='number'||typeof o.by[m0]!=='number') return ''; return xr((o.by[cur]/o.by[m0]-1)*100); };
+    var head=['Category','Category code','CPI Index Code','CPI Sub-Category (English)','Index ('+cur+')','YoY %','MoM %','Source'].concat(iso.map(function(m){return 'Index '+m;}));
     var rowsD=[head];
+    var src='Destatis 61111-0004 (2020=100)';
     X.cats.forEach(function(c){
-      rowsD.push([c.name,xcc(c.code),xcc(c.code),'(category average)','',xr(c.yoy),xr(c.mom),'Destatis 61111-0004'].concat(iso.map(function(){return '';})));
-      c.items.forEach(function(x){ rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(x.index),xr(x.yoy),xr(x.mom),'Destatis 61111-0004'].concat(iso.map(function(_,i){return xr(x.hist&&x.hist[i]);}))); });
+      var o=byCode[c.code];
+      rowsD.push([c.name,xcc(c.code),xcc(c.code),o?o.label:c.name,o?xr(o.by[cur]):'',o?chg(o,yago):xr(c.yoy),o?chg(o,prev):xr(c.mom),src].concat(iso.map(function(m){return o?xr(o.by[m]):'';})));
+      c.items.forEach(function(x){ var oi=byCode[x.coicop];
+        rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(x.index),xr(x.yoy),xr(x.mom),src].concat(iso.map(function(m,k){return oi?xr(oi.by[m]):xr(x.hist&&x.hist[k]);}))); });
     });
-    dlCSV('germany-all-items-'+(iso[X.hi]||stamp)+'.csv',rowsD); return;
+    dlCSV('germany-all-items-'+(cur||stamp)+'.csv',rowsD); return;
   }
   var list=xList(kind);
   dlCSV('food-cpi-'+tag+'-'+(what==='wide'?'table':'all-data')+'-'+stamp+'.csv',what==='wide'?xRowsWide(list):xRowsLong(list));

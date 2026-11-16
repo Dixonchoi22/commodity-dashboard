@@ -13,14 +13,18 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "destatis_full.json"
 URL = "https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
 TABLE = "61111-0006"
-CHUNKS = [(y, y) for y in range(2015, 2027)]   # one year per call: 5 years at once is 'too big for dialogue-processing'
+import datetime as _dt
+YEARS = list(range(2020, _dt.date.today().year + 1))   # the 2020-based tables start in 2020 (2015-2019 return "no values")
+# (table, variable that selects the 10-digit items or None for the default 2-5 digit hierarchy)
+PULLS = [("61111-0006", "CC13Z1"), ("61111-0004", None)]
 
 
-def pull(token: str, y0: int, y1: int) -> bytes:
-    body = urllib.parse.urlencode({
-        "name": TABLE, "area": "all", "format": "ffcsv", "language": "en", "compress": "false", "job": "false",
-        "startyear": str(y0), "endyear": str(y1), "classifyingvariable1": "CC13Z1",
-    }).encode()
+def pull(token: str, table: str, var: str | None, y0: int, y1: int) -> bytes:
+    q = {"name": table, "area": "all", "format": "ffcsv", "language": "en", "compress": "false", "job": "false",
+         "startyear": str(y0), "endyear": str(y1)}
+    if var:
+        q["classifyingvariable1"] = var
+    body = urllib.parse.urlencode(q).encode()
     req = urllib.request.Request(URL, data=body, method="POST", headers={
         "username": token, "password": "", "Content-Type": "application/x-www-form-urlencoded"})
     with urllib.request.urlopen(req, timeout=420) as r:
@@ -36,14 +40,16 @@ def main() -> None:
         sys.exit("GENESIS_TOKEN is not set")
     labels: dict[str, str] = {}
     vals: dict[str, dict[str, float]] = {}
-    for y0, y1 in CHUNKS:
+    for table, var in PULLS:
+      for y in YEARS:
+        y0 = y1 = y
         try:
-            text = pull(token, y0, y1).decode("utf-8-sig", "replace")
+            text = pull(token, table, var, y0, y1).decode("utf-8-sig", "replace")
         except (urllib.error.URLError, TimeoutError) as e:
-            print(f"  {y0}-{y1}: failed ({type(e).__name__}: {str(e)[:100]})", flush=True)
+            print(f"  {table} {y}: failed ({type(e).__name__}: {str(e)[:100]})", flush=True)
             continue
         if "statistics_code" not in text[:300]:
-            print(f"  {y0}-{y1}: not a flat csv: {text[:160]!r}", flush=True)
+            print(f"  {table} {y}: not a flat csv: {text[:160]!r}", flush=True)
             continue
         n = 0
         for r in csv.DictReader(text.splitlines(), delimiter=";"):
@@ -61,15 +67,15 @@ def main() -> None:
             except ValueError:
                 continue
             ym = f"{int(r['time']):04d}-{mm.group(1)}"
-            labels[code] = label
+            labels.setdefault(code, label)
             vals.setdefault(code, {})[ym] = v
             n += 1
-        print(f"  {y0}-{y1}: {n} observations, {len(vals)} codes so far", flush=True)
+        print(f"  {table} {y}: {n} observations, {len(vals)} codes so far", flush=True)
     if not vals:
         sys.exit("no data pulled - keeping the previous file")
     months = sorted({m for s in vals.values() for m in s})
     series = [{"code": c, "label": labels[c], "vals": [vals[c].get(m) for m in months]} for c in sorted(vals, key=lambda k: k[5:])]
-    OUT.write_text(json.dumps({"source": "Destatis Genesis Online - table 61111-0006", "base": "2020 = 100",
+    OUT.write_text(json.dumps({"source": "Destatis Genesis Online - tables 61111-0004 + 61111-0006", "base": "2020 = 100",
                                "months": months, "series": series}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"wrote {OUT.relative_to(ROOT)}: {len(series)} codes, {months[0]}..{months[-1]}, {OUT.stat().st_size // 1024} KB")
 
