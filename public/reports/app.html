@@ -1490,7 +1490,7 @@ function xFoodSeries(cc){
   var F=D.food, C=F.countries[cc], out=[];
   fTree(cc).forEach(function(n){
     var s=C.series[n.code]; if(!s) return;
-    out.push({src:(cc==='UK'?fSrcName(cc,n.code):'Eurostat HICP prc_hicp_minr (2025=100)'),mkt:fMkt(cc),code:n.code,name:(F.nodes[n.code]&&F.nodes[n.code].label)||n.code,parent:n.parent||'',vals:s,months:F.months});
+    out.push({src:(cc==='UK'?fSrcName(cc,n.code):'Eurostat HICP prc_hicp_minr (2025=100)'),mkt:fMkt(cc),code:(cc==='UK'?n.code.replace(/^uk:/,'UK-'):n.code),name:(F.nodes[n.code]&&F.nodes[n.code].label)||n.code,parent:n.parent||'',vals:s,months:F.months});
   });
   return out;
 }
@@ -1512,11 +1512,12 @@ function xRowsLong(list){
   return rows;
 }
 function xRowsWide(list){
-  var all=[]; list.forEach(function(s){ s.months.forEach(function(m){ if(all.indexOf(m)<0) all.push(m); }); });
+  // workbook layout: CPI Index Code | CPI Sub-Category (English) | Index YYYY-MM ... | Source  (+ Market when several markets)
+  var all=[], multi=false, mk0=list.length?list[0].mkt:''; list.forEach(function(s){ if(s.mkt!==mk0) multi=true; s.months.forEach(function(m){ if(all.indexOf(m)<0) all.push(m); }); });
   all.sort();
-  var rows=[['Source','Market','Code','Product','Parent code'].concat(all.map(function(m){return 'Index '+m;}))];
+  var rows=[(multi?['Market']:[]).concat(['CPI Index Code','CPI Sub-Category (English)']).concat(all.map(function(m){return 'Index '+m;})).concat(['Source'])];
   list.forEach(function(s){ var by={}; s.months.forEach(function(m,i){by[m]=s.vals&&s.vals[i];});
-    rows.push([s.src,s.mkt,s.code,s.name,s.parent].concat(all.map(function(m){return xr(by[m]);}))); });
+    rows.push((multi?[s.mkt]:[]).concat([s.code,s.name]).concat(all.map(function(m){return xr(by[m]);})).concat([s.src])); });
   return rows;
 }
 function xList(kind){
