@@ -2352,15 +2352,15 @@
       "ro": "Prognoză"
     },
     "food.fcIntro": {
-      "en": "Where food inflation is heading over the next 6 months, market by market. Solid line = what has happened; open circles = the projection (small dots = 80% range).",
-      "de": "Wohin sich die Lebensmittelinflation in den nächsten 6 Monaten entwickelt, Markt für Markt. Durchgezogene Linie = bisheriger Verlauf; offene Kreise = Projektion (kleine Punkte = 80-%-Bereich).",
-      "fr": "Où va l'inflation alimentaire dans les 6 prochains mois, marché par marché. Ligne pleine = ce qui s'est passé ; cercles ouverts = la projection (petits points = fourchette à 80 %).",
-      "it": "Dove va l'inflazione alimentare nei prossimi 6 mesi, mercato per mercato. Linea continua = ciò che è accaduto; cerchi vuoti = la proiezione (puntini = intervallo all'80%).",
-      "es": "Hacia dónde va la inflación de los alimentos en los próximos 6 meses, mercado por mercado. Línea continua = lo ocurrido; círculos vacíos = la proyección (puntos pequeños = rango del 80 %).",
-      "pl": "Dokąd zmierza inflacja żywności w najbliższych 6 miesiącach, rynek po rynku. Linia ciągła = co się wydarzyło; puste kółka = projekcja (małe kropki = przedział 80%).",
-      "nl": "Waar de voedselinflatie de komende 6 maanden naartoe gaat, markt voor markt. Doorgetrokken lijn = wat er gebeurd is; open cirkels = de projectie (kleine stippen = 80%-bandbreedte).",
-      "pt": "Para onde vai a inflação alimentar nos próximos 6 meses, mercado a mercado. Linha contínua = o que aconteceu; círculos vazios = a projeção (pontos pequenos = intervalo de 80%).",
-      "ro": "Încotro merge inflația alimentelor în următoarele 6 luni, piață cu piață. Linia continuă = ce s-a întâmplat; cercurile goale = proiecția (punctele mici = intervalul de 80%)."
+      "en": "Where food prices are heading over the next 6 months, market by market. This is a statistical estimate based on past trends, not an official forecast, and it cannot foresee sudden events such as energy price shocks or tax changes.",
+      "de": "Wohin sich die Lebensmittelpreise in den nächsten 6 Monaten entwickeln, Markt für Markt. Es ist eine statistische Schätzung auf Basis früherer Trends, keine offizielle Prognose, und sie kann plötzliche Ereignisse wie Energiepreisschocks oder Steueränderungen nicht vorhersehen.",
+      "fr": "Où vont les prix alimentaires dans les 6 prochains mois, marché par marché. Il s'agit d'une estimation statistique fondée sur les tendances passées, pas d'une prévision officielle, et elle ne peut pas anticiper des événements soudains comme un choc sur l'énergie ou un changement de fiscalité.",
+      "it": "Dove vanno i prezzi alimentari nei prossimi 6 mesi, mercato per mercato. È una stima statistica basata sulle tendenze passate, non una previsione ufficiale, e non può prevedere eventi improvvisi come shock energetici o modifiche fiscali.",
+      "es": "Hacia dónde van los precios de los alimentos en los próximos 6 meses, mercado por mercado. Es una estimación estadística basada en tendencias pasadas, no una previsión oficial, y no puede anticipar sucesos repentinos como shocks energéticos o cambios fiscales.",
+      "pl": "Dokąd zmierzają ceny żywności w ciągu najbliższych 6 miesięcy, rynek po rynku. To statystyczne oszacowanie oparte na wcześniejszych trendach, a nie oficjalna prognoza; nie przewidzi nagłych zdarzeń, takich jak szok cen energii czy zmiany podatków.",
+      "nl": "Waar de voedselprijzen de komende 6 maanden naartoe gaan, markt per markt. Dit is een statistische schatting op basis van eerdere trends, geen officiële prognose, en ze kan plotselinge gebeurtenissen zoals energieprijsschokken of belastingwijzigingen niet voorzien.",
+      "pt": "Para onde vão os preços dos alimentos nos próximos 6 meses, mercado a mercado. É uma estimativa estatística com base em tendências passadas, não uma previsão oficial, e não consegue antecipar acontecimentos súbitos como choques energéticos ou alterações fiscais.",
+      "ro": "Încotro merg prețurile alimentelor în următoarele 6 luni, piață cu piață. Este o estimare statistică bazată pe tendințele trecute, nu o prognoză oficială, și nu poate anticipa evenimente bruște precum șocuri energetice sau modificări fiscale."
     },
     "food.fcNote2": {
       "en": "Statistical projection, not an official forecast. It blends each market's own trend and seasonality with food-manufacturing producer prices, which lead consumer prices by several months. It cannot see tax changes or shocks that producer prices do not yet show.",
@@ -2429,15 +2429,15 @@
       "ro": "Inflația alimentelor: acum și proiecție la {month}"
     },
     "food.fcSumSub": {
-      "en": "Year-on-year food inflation now and projected 3 and 6 months ahead (dotted = projection). The error columns show how far the projection was off on average when tested 6 months ahead on 2024–2026, against simply assuming inflation stays where it is.",
-      "de": "Lebensmittelinflation im Jahresvergleich jetzt und projiziert für 3 und 6 Monate (gepunktet = Projektion). Die Fehlerspalten zeigen, wie weit die Projektion im Test 6 Monate voraus auf 2024–2026 im Mittel danebenlag, verglichen mit der Annahme unveränderter Inflation.",
-      "fr": "Inflation alimentaire sur un an, aujourd'hui et projetée à 3 et 6 mois (pointillé = projection). Les colonnes d'erreur montrent l'écart moyen de la projection à 6 mois lors du test sur 2024–2026, comparé à l'hypothèse d'une inflation inchangée.",
-      "it": "Inflazione alimentare su base annua oggi e proiettata a 3 e 6 mesi (puntinato = proiezione). Le colonne dell'errore mostrano di quanto la proiezione ha sbagliato in media a 6 mesi nel test 2024–2026, rispetto all'ipotesi di inflazione invariata.",
-      "es": "Inflación de alimentos interanual ahora y proyectada a 3 y 6 meses (punteado = proyección). Las columnas de error muestran cuánto se desvió de media la proyección a 6 meses en la prueba de 2024–2026, frente a suponer que la inflación no cambia.",
-      "pl": "Inflacja żywności r/r teraz oraz projekcja na 3 i 6 miesięcy (kropkowane = projekcja). Kolumny błędu pokazują, o ile średnio mylła się projekcja na 6 miesięcy w teście na latach 2024–2026, w porównaniu z założeniem, że inflacja się nie zmieni.",
-      "nl": "Voedselinflatie op jaarbasis nu en geprojecteerd op 3 en 6 maanden (gestippeld = projectie). De foutkolommen tonen hoever de projectie er gemiddeld naast zat in de test 6 maanden vooruit op 2024–2026, tegenover simpelweg aannemen dat de inflatie gelijk blijft.",
-      "pt": "Inflação alimentar homóloga agora e projetada a 3 e 6 meses (ponteado = projeção). As colunas de erro mostram quanto a projeção falhou em média a 6 meses no teste de 2024–2026, face a assumir simplesmente que a inflação se mantém.",
-      "ro": "Inflația alimentelor anuală acum și proiectată la 3 și 6 luni (punctat = proiecție). Coloanele de eroare arată cât a greșit în medie proiecția la 6 luni în testul din 2024–2026, față de presupunerea că inflația rămâne neschimbată."
+      "en": "Year-on-year change in food prices: now (dark bars) and in 6 months (blue bars).",
+      "de": "Jahresveränderung der Lebensmittelpreise: jetzt (dunkle Balken) und in 6 Monaten (blaue Balken).",
+      "fr": "Variation annuelle des prix alimentaires : aujourd'hui (barres foncées) et dans 6 mois (barres bleues).",
+      "it": "Variazione annua dei prezzi alimentari: oggi (barre scure) e tra 6 mesi (barre blu).",
+      "es": "Variación anual de los precios de los alimentos: ahora (barras oscuras) y dentro de 6 meses (barras azules).",
+      "pl": "Roczna zmiana cen żywności: teraz (ciemne słupki) i za 6 miesięcy (niebieskie słupki).",
+      "nl": "Jaarlijkse verandering van de voedselprijzen: nu (donkere balken) en over 6 maanden (blauwe balken).",
+      "pt": "Variação anual dos preços dos alimentos: agora (barras escuras) e daqui a 6 meses (barras azuis).",
+      "ro": "Variația anuală a prețurilor alimentelor: acum (bare închise) și peste 6 luni (bare albastre)."
     },
     "food.fcCol3": {
       "en": "In 3 months",
@@ -2594,15 +2594,15 @@
       "ro": "{market}: inflația alimentelor anuală"
     },
     "food.fcChartSub": {
-      "en": "Solid line = actual. Open circles = projection for the next 6 months; small dots = 80% range.",
-      "de": "Durchgezogene Linie = Ist. Offene Kreise = Projektion für die nächsten 6 Monate; kleine Punkte = 80-%-Bereich.",
-      "fr": "Ligne pleine = réel. Cercles ouverts = projection des 6 prochains mois ; petits points = fourchette à 80 %.",
-      "it": "Linea continua = reale. Cerchi vuoti = proiezione dei prossimi 6 mesi; puntini = intervallo all'80%.",
-      "es": "Línea continua = real. Círculos vacíos = proyección de los próximos 6 meses; puntos pequeños = rango del 80 %.",
-      "pl": "Linia ciągła = dane. Puste kółka = projekcja na 6 miesięcy; małe kropki = przedział 80%.",
-      "nl": "Doorgetrokken lijn = werkelijk. Open cirkels = projectie voor de komende 6 maanden; kleine stippen = 80%-bandbreedte.",
-      "pt": "Linha contínua = real. Círculos vazios = projeção dos próximos 6 meses; pontos pequenos = intervalo de 80%.",
-      "ro": "Linia continuă = real. Cercuri goale = proiecție pe 6 luni; puncte mici = interval de 80%."
+      "en": "Solid line = what has happened. Open circles = the estimate for the next 6 months.",
+      "de": "Durchgezogene Linie = bisheriger Verlauf. Offene Kreise = Schätzung für die nächsten 6 Monate.",
+      "fr": "Ligne pleine = ce qui s'est passé. Cercles vides = estimation pour les 6 prochains mois.",
+      "it": "Linea continua = quanto è successo. Cerchi vuoti = stima per i prossimi 6 mesi.",
+      "es": "Línea continua = lo ocurrido. Círculos vacíos = estimación para los próximos 6 meses.",
+      "pl": "Linia ciągła = to, co się wydarzyło. Puste kółka = oszacowanie na następne 6 miesięcy.",
+      "nl": "Doorgetrokken lijn = wat er is gebeurd. Open cirkels = schatting voor de komende 6 maanden.",
+      "pt": "Linha contínua = o que aconteceu. Círculos vazios = estimativa para os próximos 6 meses.",
+      "ro": "Linie continuă = ce s-a întâmplat. Cercuri goale = estimarea pentru următoarele 6 luni."
     },
     "food.fcMethodTitle": {
       "en": "How this is built and how far to trust it",

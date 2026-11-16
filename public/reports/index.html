@@ -125,7 +125,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=ad42c49743"></script>
+<script src="./app-data.js?v=48133865b5"></script>
 <script>
 (function(){
 "use strict";
@@ -1806,36 +1806,29 @@ function forecastBody(){
   var nBeat=rows.filter(function(r){return r.bt&&r.bt.mae<r.bt.naive;}).length;
   var lbl6=fMonthLbl(fcAddM(M[L],6),'long');
   var kpis=(eu?fKpi(t('food.fcKpiNow'),esc(pct(eu.now)),fMonthLbl(M[L],'long'),fTone(eu.now))
-     +fKpi(t('food.fcKpiIn6'),esc(pct(eu.y6)),lbl6+' · '+pct(eu.lo)+' … '+pct(eu.hi),fTone(eu.y6)):'')
+     +fKpi(t('food.fcKpiIn6'),esc(pct(eu.y6)),lbl6,fTone(eu.y6)):'')
     +(cty.length?fKpi(t('food.fcKpiHi'),esc(pct(cty[0].y6)),fMkt(cty[0].cc),'up')
      +fKpi(t('food.fcKpiLo'),esc(pct(cty[cty.length-1].y6)),fMkt(cty[cty.length-1].cc),'down'):'');
   var sumRows=rows.map(function(r){
-    var v=fcVerdict(r.bt), b=r.bt;
     return '<tr data-go="#/food/forecast/'+r.cc+'" style="'+(r.cc===cc?'background:var(--tint)':'')+'"><td style="font-weight:700"><span>'+fFlag(r.cc)+'</span> '+esc(fMkt(r.cc))+'</td>'
-      +'<td style="text-align:center">'+fcPill(r.now)+'</td><td style="text-align:center">'+fcDots(r.y3)+'</td><td style="text-align:center">'+fcDots(r.y6)+'</td>'
-      +'<td class="num" style="text-align:center;color:var(--muted)">'+esc(pct(r.lo))+' … '+esc(pct(r.hi))+'</td>'
-      +'<td class="num" style="text-align:center">'+(b?esc(numf(b.mae,1,1)):'—')+'</td><td class="num" style="text-align:center;color:var(--muted)">'+(b?esc(numf(b.naive,1,1)):'—')+'</td>'
-      +'<td style="font-size:12px;font-weight:700;color:'+v.c+'">'+esc(t(v.k))+'</td></tr>';
+      +'<td style="text-align:center">'+fcPill(r.now)+'</td><td style="text-align:center">'+fcDots(r.y3)+'</td><td style="text-align:center">'+fcDots(r.y6)+'</td></tr>';
   }).join('');
   var th=function(k,al){return '<th style="text-align:'+(al||'center')+';cursor:default">'+esc(t(k))+'</th>';};
-  var summary='<div class="panel" style="padding:0;overflow:auto"><div style="padding:16px 18px 4px"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcSumTitle',{month:lbl6}))+'</h3>'
-    +'<p class="cap" style="margin:6px 0 0">'+esc(t('food.fcSumSub'))+'</p></div>'
-    +'<table><thead><tr>'+th('food.group','left')+th('food.fcColNow')+th('food.fcCol3')+th('food.fcColProj')+th('food.fcColRange')+th('food.fcColMae')+th('food.fcColNaive')+th('food.fcColVerdict','left')+'</tr></thead><tbody>'+sumRows+'</tbody></table></div>';
+  var cmpChart='<div class="panel"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcSumTitle',{month:lbl6}))+'</h3>'
+    +'<p class="cap" style="margin:6px 0 10px">'+esc(t('food.fcSumSub'))+'</p><div style="height:'+(60+rows.length*34)+'px"><canvas id="fcCmp"></canvas></div></div>';
+  var summary=cmpChart+'<div class="panel" style="padding:0;overflow:auto">'
+    +'<table><thead><tr>'+th('food.group','left')+th('food.fcColNow')+th('food.fcCol3')+th('food.fcColProj')+'</tr></thead><tbody>'+sumRows+'</tbody></table></div>';
   // ---- selected market: chart + groups
   var chips='<div style="display:flex;flex-wrap:wrap;gap:7px">'+mk.map(function(m){
     return '<button class="chipbtn" data-go="#/food/forecast/'+m+'" style="'+(m===cc?'border-color:var(--blue);background:var(--tint);color:var(--ink)':'')+'"><span>'+fFlag(m)+'</span>'+esc(fMkt(m))+'</button>';}).join('')+'</div>';
   var gRows=FC_GROUPS.map(function(code){
     var f=fcGet(cc,code), s=fSeries(cc,code); if(!f||!s) return '';
-    var v=fcVerdict(f.bt), b=f.bt, now=fChg(s,L,12), top=(code==='CP01');
+    var now=fChg(s,L,12), top=(code==='CP01');
     return '<tr style="cursor:default;'+(top?'background:var(--tint)':'')+'"><td style="font-weight:'+(top?800:600)+'">'+esc(fLabel(code))+'</td>'
-      +'<td style="text-align:center">'+fcPill(now)+'</td><td style="text-align:center">'+fcDots(f.yoy[2])+'</td><td style="text-align:center">'+fcDots(f.yoy[5])+'</td>'
-      +'<td class="num" style="text-align:center;color:var(--muted)">'+esc(pct(f.lo[5]))+' … '+esc(pct(f.hi[5]))+'</td>'
-      +'<td class="num" style="text-align:center">'+(b?esc(numf(b.mae,1,1)):'—')+' <span style="color:var(--dim)">('+(b?esc(numf(b.naive,1,1)):'—')+')</span></td>'
-      +'<td style="font-size:12px;font-weight:700;color:'+v.c+'">'+esc(t(v.k))+'</td>'
-      +'<td style="font-size:11.5px;color:var(--muted)">'+esc(fcModelName(f))+(f.driver?' · '+esc(f.driver):'')+'</td></tr>';
+      +'<td style="text-align:center">'+fcPill(now)+'</td><td style="text-align:center">'+fcDots(f.yoy[2])+'</td><td style="text-align:center">'+fcDots(f.yoy[5])+'</td></tr>';
   }).join('');
   var groups='<div class="panel" style="padding:0;overflow:auto"><div style="padding:16px 18px 4px"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcGroupsTitle',{market:fMkt(cc)}))+'</h3></div>'
-    +'<table><thead><tr>'+th('food.group','left')+th('food.fcColNow')+th('food.fcCol3')+th('food.fcColProj')+th('food.fcColRange')+th('food.fcColMaeBoth')+th('food.fcColVerdict','left')+th('food.fcColModel','left')+'</tr></thead><tbody>'+gRows+'</tbody></table></div>';
+    +'<table><thead><tr>'+th('food.group','left')+th('food.fcColNow')+th('food.fcCol3')+th('food.fcColProj')+'</tr></thead><tbody>'+gRows+'</tbody></table></div>';
   var chart='<div class="panel"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcChartTitle',{market:fMkt(cc)}))+'</h3>'
     +'<p class="cap" style="margin:5px 0 10px">'+esc(t('food.fcChartSub'))+'</p><div style="height:300px"><canvas id="fcYoY"></canvas></div></div>';
   // ---- method + evidence
@@ -1867,11 +1860,22 @@ function forecastBody(){
     liveH='<div class="panel"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('food.fcLiveTitle'))+'</h3><p class="cap" style="margin:6px 0 0">'+esc(t('food.fcLiveSub'))+'</p>'+liveBody+'</div>';
   }
   return '<div class="kpis">'+kpis+'</div>'
-    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.fcIntro'))+' '+esc(t('food.fcNote'))+'</p></div>'
+    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.fcIntro'))+'</p></div>'
     +summary+chips+chart+groups;
 }
 function drawForecast(){
   var FF=D.foodForecast, F=D.food; if(!FF||!F||!window.Chart) return;
+  (function(){
+    var el0=document.getElementById('fcCmp'); if(!el0) return;
+    var M0=F.months, L0=M0.length-1, mk0=fMarkets().filter(function(m){return fcGet(m,'CP01')&&fSeries(m,'CP01');});
+    var now0=mk0.map(function(m){return fChg(fSeries(m,'CP01'),L0,12);}), y60=mk0.map(function(m){return fcGet(m,'CP01').yoy[5];});
+    _charts.push(new Chart(el0.getContext('2d'),{type:'bar',data:{labels:mk0.map(function(m){return fMkt(m);}),datasets:[
+      {label:t('food.fcColNow'),data:now0,backgroundColor:'#000064',borderRadius:3},
+      {label:t('food.fcColProj'),data:y60,backgroundColor:'#0078C8',borderRadius:3}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,font:{size:11}}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+pct(c.parsed.x);}}}},
+        scales:{x:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},callback:function(v){return numf(v,0,0)+'%';}}},y:{grid:{display:false},ticks:{color:'#1b2330',font:{size:11}}}}}}));
+  })();
   var cc=(state.fFcCC&&F.countries[state.fFcCC])?state.fFcCC:'EU27_2020', el=document.getElementById('fcYoY'); if(!el) return;
   var f=fcGet(cc,'CP01'), s=fSeries(cc,'CP01'); if(!f||!s) return;
   var M=F.months, L=M.length-1, hist=[], labs=[], i;
@@ -1881,9 +1885,7 @@ function drawForecast(){
   var col=F_COLORS[cc]==='#8CDCDC'?'#0078C8':F_COLORS[cc], last=hist[n-1];
   _charts.push(new Chart(el.getContext('2d'),{type:'line',data:{labels:labs.concat(pl),datasets:[
     {data:hist.concat(pad(N)),borderColor:col,backgroundColor:col+'22',borderWidth:2,fill:true,tension:.3,pointRadius:0,pointHoverRadius:4},
-    {data:pad(n-1).concat([last],f.yoy),borderColor:col+'88',borderWidth:1.2,borderDash:[3,4],fill:false,tension:0,pointRadius:pad(n).map(function(){return 0;}).concat(f.yoy.map(function(_,k){return k===N-1?7:4.5;})),pointBackgroundColor:'#fff',pointBorderColor:col,pointBorderWidth:2,pointHoverRadius:7},
-    {data:pad(n-1).concat([null],f.hi),borderWidth:0,pointRadius:pad(n).map(function(){return 0;}).concat(f.hi.map(function(){return 2;})),pointBackgroundColor:col+'66',showLine:false},
-    {data:pad(n-1).concat([null],f.lo),borderWidth:0,pointRadius:pad(n).map(function(){return 0;}).concat(f.lo.map(function(){return 2;})),pointBackgroundColor:col+'66',showLine:false}]},
+    {data:pad(n-1).concat([last],f.yoy),borderColor:col+'88',borderWidth:1.2,borderDash:[3,4],fill:false,tension:0,pointRadius:pad(n).map(function(){return 0;}).concat(f.yoy.map(function(_,k){return k===N-1?7:4.5;})),pointBackgroundColor:'#fff',pointBorderColor:col,pointBorderWidth:2,pointHoverRadius:7}]},
     options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
       plugins:{legend:{display:false},tooltip:{filter:function(i){return i.parsed.y!=null&&i.datasetIndex<2;},backgroundColor:'#000064',displayColors:false,padding:10,callbacks:{label:function(c){return (c.datasetIndex===1?t('food.fcLegend')+': ':'')+pct(c.parsed.y);}}}},
       scales:{x:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},maxRotation:0,autoSkip:true,maxTicksLimit:8}},y:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},callback:function(v){return numf(v,0,0)+'%';}}}}}}));
