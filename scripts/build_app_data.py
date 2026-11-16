@@ -326,7 +326,7 @@ def build_germany(destatis: dict, baselines: dict | None = None) -> dict | None:
         "items": _category_items(by_coicop, baselines, _aligned) if baselines else [],
         # Every food / beverage code of the monthly pull (2- to 10-digit, e.g. CC13-0111101100 Rice),
         # for the "Download Destatis table" button. Months are ISO so the file sorts in Excel.
-        "full": {"months": [_iso_month(m) for m in months],
+        "full": _full_from_file(destatis) or {"months": [_iso_month(m) for m in months],
                  "series": [{"code": "CC13-" + c[2:], "label": by_coicop[c].get("label", c), "hist": _aligned(by_coicop[c])}
                             for c in sorted(by_coicop, key=lambda k: k[2:])
                             if (c.startswith("CP01") or c.startswith("CP02")) and len(c) >= 4],
@@ -337,6 +337,28 @@ def build_germany(destatis: dict, baselines: dict | None = None) -> dict | None:
 def _iso_month(m: str) -> str:
     mon, yr = m.split()
     return f"{yr}-{['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].index(mon[:3]) + 1:02d}"
+
+
+def _full_from_file(destatis: dict):
+    """Every food/alcohol code incl. the 10-digit items, monthly, from data/destatis_full.json (table 61111-0006).
+    The file pads every code to 10 digits; aggregates are mapped back to the usual 2-5 digit code."""
+    f = ROOT / "data" / "destatis_full.json"
+    if not f.exists():
+        return None
+    d = json.loads(f.read_text(encoding="utf-8"))
+    known = {x["coicop"][2:]: x.get("label", "") for x in destatis.get("series", [])}      # '011', '01111', ... (2-5 digits)
+    out = []
+    for x in d["series"]:
+        digits = x["code"][5:]
+        code = digits
+        if digits[5:] == "00000":                                                         # an aggregate padded with zeros
+            cands = [digits[:k] for k in (5, 4, 3, 2) if digits[:k] + "0" * (10 - k) == digits and digits[:k] in known]
+            lab = x["label"].strip().lower()
+            pick = next((c for c in cands if known[c].strip().lower() == lab), cands[0] if cands else digits.rstrip("0"))
+            code = pick
+        out.append({"code": "CC13-" + code, "label": x["label"], "hist": x["vals"]})
+    out.sort(key=lambda r: r["code"][5:])
+    return {"months": d["months"], "series": out, "base": d.get("base", "2020 = 100")}
 
 
 def _tone(v):

@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "destatis_full.json"
 URL = "https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
 TABLE = "61111-0006"
-CHUNKS = [(2015, 2019), (2020, 2024), (2025, 2026)]
+CHUNKS = [(y, y) for y in range(2015, 2027)]   # one year per call: 5 years at once is 'too big for dialogue-processing'
 
 
 def pull(token: str, y0: int, y1: int) -> bytes:
