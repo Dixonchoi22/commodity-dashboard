@@ -1026,10 +1026,21 @@ function germanyHTML(){
   if(CM){
     var avg=function(a){var v=a.filter(isN);return v.length?v.reduce(function(x,y){return x+y;},0)/v.length:null;};
     var itemsC=g.items.map(calc);
+    // a category's YoY / MoM come from its own index series (never an average of its items' changes)
+    var mnum={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+    var isoOf=function(m){var q=m.split(' '); return q[1]+'-'+('0'+mnum[q[0]]).slice(-2);};
+    var catHist=function(code){
+      var s=(g.groups||[]).filter(function(x){return x.coicop===code;})[0]||(g.items||[]).filter(function(x){return x.coicop===code;})[0];
+      if(s&&s.hist) return s.hist;
+      var F=g.full, f=F&&F.series.filter(function(x){return x.code==='CC13-'+code.slice(2);})[0];
+      if(f){ var by={}; F.months.forEach(function(m,k){by[m]=f.hist[k];}); return M.map(function(m){return by[isoOf(m)];}); }
+      return null;
+    };
     var cats=g.baselines.categories.map(function(c){
-      var mem=itemsC.filter(function(x){return x.cat===c.code;});
+      var mem=itemsC.filter(function(x){return x.cat===c.code;}), h=catHist(c.code);
+      var cy=h?yoyAt(h,null):null, cm=h?momAt(h,null):null;
       return {code:c.code,name:c.name,color:catColorOf(g,c.code),items:mem,
-        yoy:avg(mem.map(function(x){return x.yoy;})),mom:avg(mem.map(function(x){return x.mom;}))};
+        yoy:isN(cy)?cy:avg(mem.map(function(x){return x.yoy;})),mom:isN(cm)?cm:avg(mem.map(function(x){return x.mom;}))};
     }).filter(function(c){return c.items.length;});
     var csel=state.gGroup&&cats.filter(function(c){return c.code===state.gGroup;})[0];
     sel=csel||null;
