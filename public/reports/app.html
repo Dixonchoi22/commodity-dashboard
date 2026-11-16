@@ -1559,14 +1559,14 @@ function doExport(what,kind){
     var FUd=g2.full; if(FUd) FUd.series.forEach(function(s){ put(s.code.replace(/^CC13-/,'CP'),s.label,FUd.months,s.hist); });
     var cur=iso[X.hi]||'', prev=iso[X.hi-1]||'', yago=iso[X.hi-12]||'';
     var chg=function(o,m0){ if(!o||typeof o.by[cur]!=='number'||typeof o.by[m0]!=='number') return ''; return xr((o.by[cur]/o.by[m0]-1)*100); };
-    var head=['Category','Category code','CPI Index Code','CPI Sub-Category (English)','Index ('+cur+')','YoY %','MoM %','Source'].concat(iso.map(function(m){return 'Index '+m;}));
+    var head=['Category','Category code','CPI Index Code','CPI Sub-Category (English)','Index ('+cur+')','Source'].concat(iso.map(function(m){return 'Index '+m;}));
     var rowsD=[head];
     var src='Destatis 61111-0004 (2020=100)';
     X.cats.forEach(function(c){
       var o=byCode[c.code];
-      rowsD.push([c.name,xcc(c.code),xcc(c.code),o?o.label:c.name,o?xr(o.by[cur]):'',o?chg(o,yago):xr(c.yoy),o?chg(o,prev):xr(c.mom),src].concat(iso.map(function(m){return o?xr(o.by[m]):'';})));
+      rowsD.push([c.name,xcc(c.code),xcc(c.code),o?o.label:c.name,o?xr(o.by[cur]):'',src].concat(iso.map(function(m){return o?xr(o.by[m]):'';})));
       c.items.forEach(function(x){ var oi=byCode[x.coicop]; if(!oi){ var t0={}; iso.forEach(function(m,k){ if(x.hist&&typeof x.hist[k]==='number') t0[m]=x.hist[k]; }); oi={label:x.label,by:t0}; }
-        rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(oi.by[cur]),chg(oi,yago),chg(oi,prev),src].concat(iso.map(function(m){return xr(oi.by[m]);}))); });
+        rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(oi.by[cur]),src].concat(iso.map(function(m){return xr(oi.by[m]);}))); });
     });
     dlCSV('germany-all-items-'+(cur||stamp)+'.csv',rowsD); return;
   }
