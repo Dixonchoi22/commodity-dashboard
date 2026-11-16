@@ -329,7 +329,7 @@ def build_germany(destatis: dict, baselines: dict | None = None) -> dict | None:
         "full": {"months": [_iso_month(m) for m in months],
                  "series": [{"code": "CC13-" + c[2:], "label": by_coicop[c].get("label", c), "hist": _aligned(by_coicop[c])}
                             for c in sorted(by_coicop, key=lambda k: k[2:])
-                            if c.startswith("CP01") and len(c) >= 4],
+                            if (c.startswith("CP01") or c.startswith("CP02")) and len(c) >= 4],
                  "base": base},
     }
 

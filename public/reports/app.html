@@ -1540,7 +1540,7 @@ function doExport(what,kind){
     var B3=g3.baselines, yrs3=(B3&&B3.years)||[], map={};
     FU.series.forEach(function(s){ map[s.code]={code:s.code,label:s.label,hist:s.hist}; });
     ((B3&&B3.series)||[]).forEach(function(s){ var c=xcc(s.coicop); var o=map[c]||(map[c]={code:c,label:s.label,hist:null}); o.base=s.base; o.ytd=s.ytd; });
-    var codes=Object.keys(map).filter(function(c){return c.indexOf('CC13-01')===0;}).sort(function(x,y){return x.slice(5)<y.slice(5)?-1:x.slice(5)>y.slice(5)?1:0;});
+    var codes=Object.keys(map).filter(function(c){return c.indexOf('CC13-01')===0||c.indexOf('CC13-02')===0;}).sort(function(x,y){return x.slice(5)<y.slice(5)?-1:x.slice(5)>y.slice(5)?1:0;});
     var head3=['CPI Index Code','CPI Sub-Category (English)'].concat(FU.months.map(function(m){return 'Index '+m;})).concat(yrs3.map(function(y){return 'Annual average '+y;})).concat(['YTD average']);
     var rowsF=[head3];
     codes.forEach(function(c){ var o=map[c];
