@@ -95,6 +95,13 @@ jobs:
           python3 scripts/archive_food_forecast.py
           python3 scripts/score_food_forecast.py
 
+      - name: Fetch the full Destatis CPI table (10-digit items, monthly from 2020)
+        continue-on-error: true
+        env:
+          GENESIS_TOKEN: ${{ secrets.GENESIS_TOKEN }}
+          PYTHONUTF8: "1"
+        run: python3 scripts/fetch_destatis_full.py
+
       - name: Rebuild report and menu
         env:
           PYTHONUTF8: "1"
@@ -109,7 +116,7 @@ jobs:
           SLUG="${{ steps.q.outputs.slug }}"
           # The downloaded zip differs byte-for-byte on every run, so decide
           # on the parsed data instead.
-          if git diff --quiet -- "data/$SLUG/destatis.json" data/indirect_de.json data/indirect_countries.json data/food_cpi.json data/food_forecast.json data/food_forecast_ets.json data/food_forecast_archive.json data/food_forecast_live.json; then
+          if git diff --quiet -- "data/$SLUG/destatis.json" data/indirect_de.json data/indirect_countries.json data/food_cpi.json data/food_forecast.json data/food_forecast_ets.json data/food_forecast_archive.json data/food_forecast_live.json data/destatis_full.json; then
             echo "No new Destatis data for $SLUG - nothing to publish."
             exit 0
           fi

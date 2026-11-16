@@ -296,8 +296,12 @@ MoM/YoY and source), a wide table (index by month), and on the Germany screen al
 (`CPI Index Code`, `CPI Sub-Category (English)`, one `Index YYYY-MM` column per month, codes as `CC13-...`, ordered like the
 workbook) plus the annual baselines and the "All items" table. The Destatis monthly table 61111-0004 only has codes up to 5
 digits; the 74 ten-digit items (e.g. `CC13-0111101100 Rice`) exist only as annual averages in `cpi_baselines.json`, so their
-month columns are blank. `fetch_destatis.py` tries to pull from 2015 (`DESTATIS_START_YEARS`, default `2015,2024`) and falls
-back to 2024 if the API refuses; the Germany month picker and charts handle either length.
+month columns are blank. Destatis' 2020-based tables only start in **2020** (2015-2019 return "no values"), so Germany cannot go back to 2015.
+`scripts/fetch_destatis_full.py` (weekly, needs `GENESIS_TOKEN`, one year per call because multi-year pulls are "too big for
+dialogue-processing") writes `data/destatis_full.json`: table 61111-0004 (2-5 digit hierarchy) plus table 61111-0006 with
+`classifyingvariable1=CC13Z1` (the 187 food/alcohol 10-digit items, e.g. `CC13-0111101100 Rice`), monthly 2020-01 onwards.
+The "Download Destatis table" button and the category rows of the "All items" export read it. The Germany screen itself
+(`destatis.json`, `fetch_destatis.py`) still starts in 2024.
 
 **Two forecasts coexist.** (1) The CPI pages (`#/food/{CC}`, history modal, Germany items, outlook
 table) carry the original ETS projection as *points* for all 742 series, read from

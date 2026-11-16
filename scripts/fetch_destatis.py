@@ -49,9 +49,10 @@ MONTH_NAMES = [
 MONTH_NUM = {n: i + 1 for i, n in enumerate(MONTH_NAMES)}
 
 
-# Try the full history first (2015); if the API refuses (table too large for a synchronous call)
-# fall back to 2024 so every month shown (from 2025 on) still has a true year-on-year.
-START_YEARS = [int(y) for y in os.environ.get("DESTATIS_START_YEARS", "2015,2024").split(",")]
+# The 2020-based tables only start in 2020 (2015-2019 return 'no values'); the full monthly history incl. the
+# 10-digit items comes from scripts/fetch_destatis_full.py. This pull feeds the Germany screen from 2024 so every
+# month shown (from 2025 on) has a true year-on-year.
+START_YEARS = [int(y) for y in os.environ.get("DESTATIS_START_YEARS", "2024").split(",")]
 START_YEAR = START_YEARS[0]
 
 API_URL = "https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
