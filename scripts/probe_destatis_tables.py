@@ -46,7 +46,7 @@ def summarize(label, data):
     return rows
 
 print("\n== attempts with the 10-digit variable(s):", vars10, flush=True)
-for v in vars10[:3]:
+for v in ["CC13Z1", "CC13B1"]:
     try:
         data = post("data/tablefile", name=T, area="all", format="ffcsv", language="en", compress="false", job="false", startyear="2026", classifyingvariable1=v)
     except Exception as e:  # noqa: BLE001
