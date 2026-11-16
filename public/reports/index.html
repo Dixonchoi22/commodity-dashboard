@@ -1097,6 +1097,8 @@ function sparkSVG(h,first,hi,color){
   return '<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" aria-hidden="true"><polyline points="'+line+'" fill="none" stroke="'+color+'" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>'
     +(dot?'<circle cx="'+dot[0]+'" cy="'+dot[1]+'" r="2.8" fill="'+color+'"/>':'')+'</svg>';
 }
+var DE_SRC_URL='https://www-genesis.destatis.de/datenbank/online/statistic/61111/table/61111-0004';
+function deSrc(code){ return '<a href="'+DE_SRC_URL+'" target="_blank" rel="noopener" style="font-size:12px;font-weight:600;white-space:nowrap">Destatis '+esc(String(code||'').replace(/^CP/,'CC13-'))+' ↗</a>'; }
 function itemsTableHTML(s,monthLabel,first,hi,col){
   var its=(s.items||[]).slice().sort(function(a,b){return (typeof b.index==='number'?b.index:-1)-(typeof a.index==='number'?a.index:-1);});
   if(!its.length) return '';
@@ -1105,10 +1107,10 @@ function itemsTableHTML(s,monthLabel,first,hi,col){
       +'<td class="num" style="text-align:right">'+esc(numf(x.index))+'</td>'
       +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dy.c+';background:'+dy.bg+'">'+esc(pct(x.yoy))+'</span></td>'
       +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dm.c+';background:'+dm.bg+'">'+esc(pct(x.mom))+'</span></td>'
-      +'<td>'+sparkSVG(x.hist||[],first,hi,col||groupColor(s.coicop))+'</td></tr>';}).join('');
+      +'<td>'+sparkSVG(x.hist||[],first,hi,col||groupColor(s.coicop))+'</td><td>'+deSrc(x.coicop)+'</td></tr>';}).join('');
   return '<h3 style="font-size:15px;font-weight:700;margin:22px 0 4px">'+esc(t('de.itemsTitle',{month:monthLabel}))+'</h3>'
     +'<div style="overflow-x:auto"><table><thead><tr><th>'+esc(t('de.colItem'))+'</th><th style="text-align:right">'+esc(t('de.indexLabel'))+'</th>'
-    +'<th style="text-align:center">'+esc(t('common.yoy'))+'</th><th style="text-align:center">'+esc(t('common.mom'))+'</th><th>'+esc(t('de.colTrend'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+    +'<th style="text-align:center">'+esc(t('common.yoy'))+'</th><th style="text-align:center">'+esc(t('common.mom'))+'</th><th>'+esc(t('de.colTrend'))+'</th><th>'+esc(t('food.colSource'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function itemMoversHTML(groups,month,cf){
   var all=[]; groups.forEach(function(gr){(gr.items||[]).forEach(function(x){ if(typeof x.yoy==='number') all.push({x:x,g:gr}); });});
@@ -1215,19 +1217,19 @@ function detailTableHTML(cats,monthLbl,first,hi){
     body+='<tr data-go="#/food/DE/'+c.code+'" style="background:var(--tint)"><td style="font-weight:800;color:var(--ink)"><span class="dot" style="display:inline-block;width:9px;height:9px;margin-right:8px;background:'+c.color+'"></span>'+esc(c.name)
       +' <span class="num" style="font-size:11px;font-weight:600;color:var(--dim)">'+esc(t('de.itemsN',{n:mem.length}))+'</span></td><td></td>'
       +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+d.c+';background:'+d.bg+'">'+esc(pct(c.yoy))+'</span></td>'
-      +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dm.c+';background:'+dm.bg+'">'+esc(pct(c.mom))+'</span></td><td></td></tr>';
+      +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dm.c+';background:'+dm.bg+'">'+esc(pct(c.mom))+'</span></td><td></td><td></td></tr>';
     mem.forEach(function(x){ n++; var dy=divColor(x.yoy), dmm=divColor(x.mom);
       body+='<tr data-item="'+x.coicop+'" style="cursor:pointer"><td style="white-space:normal;padding-left:32px;font-weight:600">'+esc(tCoicop(x.coicop,x.label))+'</td>'
         +'<td class="num" style="text-align:right">'+esc(numf(x.index))+'</td>'
         +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dy.c+';background:'+dy.bg+'">'+esc(pct(x.yoy))+'</span></td>'
         +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+dmm.c+';background:'+dmm.bg+'">'+esc(pct(x.mom))+'</span></td>'
-        +'<td>'+sparkSVG(x.hist||[],first,hi,c.color)+'</td></tr>'; });
+        +'<td>'+sparkSVG(x.hist||[],first,hi,c.color)+'</td><td>'+deSrc(x.coicop)+'</td></tr>'; });
   });
   return '<div class="panel" style="animation:cdFade .25s ease"><h3 style="font-size:17px;font-weight:700;margin:0">'+esc(t('de.detailTitle',{month:monthLbl}))+'</h3>'
     +'<p style="font-size:12px;color:var(--muted);margin:5px 0 12px">'+esc(t('de.detailSub',{n:cats.reduce(function(a,c){return a+c.items.length;},0)}))+'</p>'
     +'<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px"><div class="search" style="max-width:320px;flex:1;min-width:220px"><input id="gdq" placeholder="'+esc(t('de.searchItems'))+'" value="'+esc(state.gDQ||'')+'" autocomplete="off"></div>'+'<button class="chipbtn" data-export="detail" data-ekind="de" style="font-weight:700">⬇ '+esc(t('food.dlTable'))+'</button></div>'
     +'<div style="overflow-x:auto;max-height:75vh;overflow-y:auto"><table><thead><tr><th>'+esc(t('de.colItem'))+'</th><th style="text-align:right">'+esc(t('de.indexLabel'))+'</th>'
-    +'<th style="text-align:center">'+esc(t('common.yoy'))+'</th><th style="text-align:center">'+esc(t('common.mom'))+'</th><th>'+esc(t('de.colTrend'))+'</th></tr></thead><tbody>'+body+'</tbody></table></div></div>';
+    +'<th style="text-align:center">'+esc(t('common.yoy'))+'</th><th style="text-align:center">'+esc(t('common.mom'))+'</th><th>'+esc(t('de.colTrend'))+'</th><th>'+esc(t('food.colSource'))+'</th></tr></thead><tbody>'+body+'</tbody></table></div></div>';
 }
 function germanyGroupPanel(s,monthLabel,first,hi){
   var d=divColor(s.yoy),dm=divColor(s.mom);
@@ -1549,11 +1551,11 @@ function doExport(what,kind){
     var X=_detailX, g2=D.reports[state.slug].germany; if(!X||!g2) return;
     var Mi=(g2.months||[]), mn2={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
     var iso=Mi.map(function(m){var q=m.split(' '); return q[1]+'-'+('0'+(mn2[q[0]]||1)).slice(-2);});
-    var head=['Category','Category code','CPI Index Code','Item','Index ('+(iso[X.hi]||'')+')','YoY %','MoM %'].concat(iso.map(function(m){return 'Index '+m;}));
+    var head=['Category','Category code','CPI Index Code','Item','Index ('+(iso[X.hi]||'')+')','YoY %','MoM %','Source'].concat(iso.map(function(m){return 'Index '+m;}));
     var rowsD=[head];
     X.cats.forEach(function(c){
-      rowsD.push([c.name,xcc(c.code),xcc(c.code),'(category average)','',xr(c.yoy),xr(c.mom)].concat(iso.map(function(){return '';})));
-      c.items.forEach(function(x){ rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(x.index),xr(x.yoy),xr(x.mom)].concat(iso.map(function(_,i){return xr(x.hist&&x.hist[i]);}))); });
+      rowsD.push([c.name,xcc(c.code),xcc(c.code),'(category average)','',xr(c.yoy),xr(c.mom),'Destatis 61111-0004'].concat(iso.map(function(){return '';})));
+      c.items.forEach(function(x){ rowsD.push([c.name,xcc(c.code),xcc(x.coicop),tCoicop(x.coicop,x.label),xr(x.index),xr(x.yoy),xr(x.mom),'Destatis 61111-0004'].concat(iso.map(function(_,i){return xr(x.hist&&x.hist[i]);}))); });
     });
     dlCSV('germany-all-items-'+(iso[X.hi]||stamp)+'.csv',rowsD); return;
   }
@@ -1564,7 +1566,7 @@ function exportBar(kind,withBase){
   var b=function(w,k){return '<button class="chipbtn" data-export="'+w+'" data-ekind="'+kind+'" style="font-weight:700">⬇ '+esc(t(k))+'</button>';};
   return '<div class="panel" style="padding:12px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">'
     +(kind==='de'?b('dest','food.dlDest'):'')+b('long','food.dlLong')+b('wide','food.dlWide')+(withBase?b('base','food.dlBase'):'')
-    +'<span class="cap" style="flex:1;min-width:220px">'+esc(t('food.dlHint'))+'</span></div>';
+    +'</div>';
 }
 
 function foodHTML(){
@@ -1924,6 +1926,7 @@ function render(){
 }
 document.getElementById('app').addEventListener('click',function(e){
   // NB: not named `t` — that is the translation helper.
+  if(e.target.closest('a[href]')) return;
   if(e.target.closest('a[href]')) return;
   var el=e.target.closest('[data-go],[data-export],[data-open],[data-rank],[data-tab],[data-sort],[data-gtab],[data-gby],[data-gsort],[data-gcat],[data-item],[data-deser],[data-fkind],[data-fitem]');
   if(!el) return;
