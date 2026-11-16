@@ -1,17 +1,25 @@
 name: Probe Destatis CPI tables (one-off)
 on:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: List CPI tables and check for 10-digit codes
+      - name: Pull the full Destatis table (10-digit codes, monthly from 2015)
         env:
           GENESIS_TOKEN: ${{ secrets.GENESIS_TOKEN }}
           PYTHONUTF8: "1"
-        run: python3 scripts/probe_destatis_tables.py
+        run: python3 scripts/fetch_destatis_full.py
+      - name: Commit the data file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/destatis_full.json
+          git diff --cached --quiet && echo "no change" || (git commit -m "Destatis 61111-0006: 10-digit CPI items, monthly" && git pull --rebase origin main && git push origin HEAD:main)
