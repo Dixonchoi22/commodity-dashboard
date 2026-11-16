@@ -14,9 +14,11 @@ OUT = ROOT / "data" / "destatis_full.json"
 URL = "https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
 TABLE = "61111-0006"
 import datetime as _dt
-YEARS = list(range(2020, _dt.date.today().year + 1))   # the 2020-based tables start in 2020 (2015-2019 return "no values")
+THIS_YEAR = _dt.date.today().year
 # (table, variable that selects the 10-digit items or None for the default 2-5 digit hierarchy)
-PULLS = [("61111-0006", "CC13Z1"), ("61111-0004", None)]
+# (table, variable, first year). The 10-digit items only exist from 2020 (2015-2019 return "no values"); the
+# 2-5 digit hierarchy of 61111-0004 is listed by Destatis from 1991, so it is asked from 2015.
+PULLS = [("61111-0006", "CC13Z1", 2020), ("61111-0004", None, 2015)]
 
 
 def pull(token: str, table: str, var: str | None, y0: int, y1: int) -> bytes:
@@ -40,8 +42,8 @@ def main() -> None:
         sys.exit("GENESIS_TOKEN is not set")
     labels: dict[str, str] = {}
     vals: dict[str, dict[str, float]] = {}
-    for table, var in PULLS:
-      for y in YEARS:
+    for table, var, first in PULLS:
+      for y in range(first, THIS_YEAR + 1):
         y0 = y1 = y
         try:
             text = pull(token, table, var, y0, y1).decode("utf-8-sig", "replace")
