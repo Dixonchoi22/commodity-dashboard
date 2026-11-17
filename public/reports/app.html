@@ -1704,7 +1704,7 @@ function foodCompareBody(mk,mi){
       +mk.map(function(cc){ var on=!fTrOff[cc];
         return '<button class="chipbtn" data-ftr="'+esc(cc)+'" style="'+(on?'border-color:'+F_COLORS[cc]+';background:var(--tint);color:var(--ink)':'opacity:.45')+'"><span class="dot" style="width:9px;height:9px;border-radius:50%;background:'+F_COLORS[cc]+';display:inline-block;margin-right:6px"></span><span>'+fFlag(cc)+'</span> '+esc(fMkt(cc))+'</button>';}).join('')+'</div>'
       +'<div style="height:340px"><canvas id="fTrend"></canvas></div></div>'
-    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.ukNote'))+' '+esc(t('food.deNote'))+' '+esc(t('food.autoNote'))+'<br><span style="display:block;margin-top:6px">'+fSrcLinks()+'</span></p></div>'+deCard;
+;
 }
 function fTree(cc){
   var C=D.food.countries[cc], have=C.series, N=D.food.nodes, out=[];
