@@ -28,7 +28,7 @@ screenshot; replace with the official SVG/PNG when available). The static
 `build_html.py` and the shell in `build_dashboard.py`.
 
 **Languages.** The SPA is multilingual — English, German, French, Italian,
-Spanish, Polish, Dutch, Portuguese and Romanian — via the language picker in
+Spanish, Polish, Dutch, Portuguese, Romanian, Swedish and Danish (11 languages) — via the language picker in
 the header. See **Translations** below.
 
 Slugs are `YYYY-MM` (the cover month of the Expana PDF) and map to a
@@ -117,7 +117,7 @@ public/reports/
 ## Translations
 
 `data/i18n.json` is the single source for every word the SPA renders. It is
-authored **key-first** (all nine languages of one string side by side) and
+authored **key-first** (all eleven languages of one string side by side) and
 `build_app_data.py` pivots it into per-language dictionaries inside
 `app-data.js`. The build prints a warning listing anything that would fall
 back to English, so a missing translation is never silent.
