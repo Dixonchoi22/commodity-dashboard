@@ -383,15 +383,11 @@ function menuHTML(){
     var F=D.food; if(!F) return '';
     var M=F.months, L=M.length-1, mk=fMarkets(), nSer=0;
     mk.forEach(function(c){nSer+=Object.keys(F.countries[c].series).length;});
-    var eu=fChg(F.countries.EU27_2020&&F.countries.EU27_2020.series.CP01,L,12), d=divColor(eu);
     var chips=mk.map(function(cc){return '<button class="chipbtn" data-go="#/food/'+cc+'"><span>'+fFlag(cc)+'</span>'+esc(cc==='EU27_2020'?'EU27':cc==='EA'?'EA':cc)+'</button>';}).join('');
     return '<div class="card">'
       +'<div style="display:flex;align-items:center;gap:13px"><span style="font-size:28px">🛒</span>'
         +'<div><h2 style="font-size:19px;font-weight:700;margin:0">'+esc(t('food.title'))+'</h2>'
         +'<p style="font-size:13px;color:var(--muted);margin:4px 0 0">'+esc(t('food.menuSub',{n:mk.length,s:numf(nSer,0,0),from:fMonthLbl(M[0]),to:fMonthLbl(M[L])}))+'</p></div></div>'
-      +'<div class="glance"><div style="flex:1"><div class="k">'+esc(t('food.euYoy'))+'</div>'
-        +'<div style="display:flex;align-items:baseline;gap:8px;margin-top:3px"><span class="num" style="font-size:22px;font-weight:800;color:'+d.c+'">'+esc(pct(eu))+'</span>'
-        +'<span style="font-size:12.5px;color:var(--muted)">'+esc(fMonthLbl(M[L],'long'))+'</span></div></div></div>'
       +'<div style="display:flex;flex-wrap:wrap;gap:7px">'+chips+'</div>'
       +'<button class="cta ghost" data-go="#/food"><span>'+esc(t('food.open'))+'</span>'
         +'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>'
@@ -1403,7 +1399,7 @@ function drawForecast(fc){
 }
 
 /* ---------------- FOOD CPI (all markets) ---------------- */
-var F_ORDER=['UK','IE','DK','SE','NO','NL','IT','DE','EU27_2020','EA'];
+var F_ORDER=['UK','IE','DK','SE','NO','NL','IT','DE'];
 var F_COLORS={UK:'#000064',IE:'#1E8A4C',DK:'#C62828',SE:'#E0A800',NO:'#8CDCDC',NL:'#E8750A',IT:'#0078C8',DE:'#A99667',FR:'#7B4FB5',ES:'#D94F8A',PL:'#36424A',PT:'#2E9E8F',RO:'#8A6D1F',EU27_2020:'#000000',EA:'#6B7682'};
 var F_GROUP_ROWS=['CP01','CP011','CP0111','CP0112','CP0113','CP0114','CP0115','CP0116','CP0117','CP0118','CP0119','CP012'];
 var F_KEY_ROWS=['CP011131','CP01115','CP011221','CP011222','CP011224','CP01145','CP01146','CP01148','CP01152','CP011513','CP011751','CP01181','CP01220','CP01230'];
@@ -1665,10 +1661,8 @@ function fOutlookHTML(mk){
 function foodCompareBody(mk,mi){
   var F=D.food, M=F.months, L=M.length-1;
   var tot=mk.map(function(cc){var s=fSeries(cc,'CP01');return {cc:cc,yoy:fChg(s,mi,12)};}).filter(function(x){return fNum(x.yoy)&&x.cc!=='EU27_2020'&&x.cc!=='EA';}).sort(function(a,b){return b.yoy-a.yoy;});
-  var eu=fChg(fSeries('EU27_2020','CP01'),mi,12);
   var nSer=0; mk.forEach(function(c){nSer+=Object.keys(F.countries[c].series).length;});
-  var kpis=fKpi(t('food.kpiEU'),esc(pct(eu)),t('food.kpiMonthSub',{month:fMonthLbl(M[mi])}),fTone(eu))
-    +(tot.length?fKpi(t('food.kpiHighest'),esc(pct(tot[0].yoy)),fMkt(tot[0].cc),'up')
+  var kpis=(tot.length?fKpi(t('food.kpiHighest'),esc(pct(tot[0].yoy)),fMkt(tot[0].cc),'up')
       +fKpi(t('food.kpiLowest'),esc(pct(tot[tot.length-1].yoy)),fMkt(tot[tot.length-1].cc),'down'):'')
     +fKpi(t('food.kpiMarkets'),esc(numf(mk.length,0,0)),t('food.kpiMarketsSub',{s:numf(nSer,0,0)}),'');
   var head='<tr><th style="cursor:default">'+esc(t('food.group'))+'</th>'+mk.map(function(cc){
@@ -1876,7 +1870,7 @@ function forecastBody(){
   var FF=D.foodForecast, F=D.food;
   if(!FF||!F) return '<div class="note"><p>'+esc(t('de.none'))+'</p></div>';
   var M=F.months, L=M.length-1, mk=fMarkets();
-  var cc=(state.fFcCC&&F.countries[state.fFcCC])?state.fFcCC:'EU27_2020';
+  var cc=(state.fFcCC&&F.countries[state.fFcCC])?state.fFcCC:mk[0];
   // ---- market summary
   var rows=mk.map(function(m){
     var f=fcGet(m,'CP01'), s=fSeries(m,'CP01'); if(!f||!s) return null;
@@ -1957,7 +1951,7 @@ function drawForecast(){
         plugins:{legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,font:{size:11}}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+pct(c.parsed.x);}}}},
         scales:{x:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},callback:function(v){return numf(v,0,0)+'%';}}},y:{grid:{display:false},ticks:{color:'#1b2330',font:{size:11}}}}}}));
   })();
-  var cc=(state.fFcCC&&F.countries[state.fFcCC])?state.fFcCC:'EU27_2020', el=document.getElementById('fcYoY'); if(!el) return;
+  var cc=(state.fFcCC&&F.countries[state.fFcCC])?state.fFcCC:fMarkets()[0], el=document.getElementById('fcYoY'); if(!el) return;
   var f=fcGet(cc,'CP01'), s=fSeries(cc,'CP01'); if(!f||!s) return;
   var M=F.months, L=M.length-1, hist=[], labs=[], i;
   for(i=12;i<=L;i++){ hist.push(fChg(s,i,12)); labs.push(fMonthLbl(M[i])); }

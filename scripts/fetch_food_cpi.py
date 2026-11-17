@@ -4,7 +4,7 @@ Everything food related (COICOP division 01 "Food and non-alcoholic beverages", 
 the most detailed level a source publishes) from public APIs, no key needed:
 
   Eurostat dissemination API   prc_hicp_minr (HICP, ECOICOP v2, 2025 = 100)
-      EU27, euro area, and DE IT NL IE DK SE NO  - 101 food codes each
+      DE IT NL IE DK SE NO  - 101 food codes each
   ONS time-series API          UK CPI (dataset MM23, 2015 = 100) - 63 food series
 
 The UK is no longer in Eurostat HICP, so it keeps ONS' own (older COICOP) tree.
@@ -25,7 +25,7 @@ from fetch_indirect_countries import EUROSTAT, INFL, ONS, SHORT, get_json  # noq
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "food_cpi.json"
 SINCE = "2015-01"   # full history; Eurostat caps a query at 50k cells, so it is fetched one market at a time
-GEOS = ["EU27_2020", "EA", "DE", "IT", "NL", "IE", "DK", "SE", "NO"]
+GEOS = ["DE", "IT", "NL", "IE", "DK", "SE", "NO"]      # EU27 / euro area were dropped on request
 
 # ONS CPI index series for COICOP 01 (MM23). CDID, dotted COICOP code, label.
 UK = [
@@ -123,7 +123,7 @@ def main() -> None:
               "CP01124": ("Poultry", "CP0112"), "CP01172": ("Potatoes", "CP0117")}
     legacy: dict[str, dict[str, dict[str, float]]] = {}
     print("Eurostat HICP legacy (v1) gap-fillers ...")
-    q = urlencode({"format": "JSON", "unit": "I15", "geo": ["EU27_2020", "EA", "NO", "NL"], "coicop": list(LEGACY), "sinceTimePeriod": SINCE}, doseq=True)
+    q = urlencode({"format": "JSON", "unit": "I15", "geo": ["NO", "NL"], "coicop": list(LEGACY), "sinceTimePeriod": SINCE}, doseq=True)
     d1 = get_json(EUROSTAT + "prc_hicp_midx?" + q)
     ids1, size1 = d1["id"], d1["size"]
     cats1 = {i: list(d1["dimension"][i]["category"]["index"]) for i in ids1}
