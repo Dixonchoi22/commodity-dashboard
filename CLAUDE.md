@@ -409,6 +409,7 @@ the live URL is not evidence that the deploy failed.
   "HICP - food" but doesn't share a base year with Destatis CP01; they
   can't share a Y axis without rebasing. The dashboard uses Destatis only
   for German values to avoid this.
+- **Q3 2026 forecast** comes from Mintec's *Combined Commodity Data* workbook (Nov 2026 onwards, 14 series incl. Tuna 8W01 and Brent BCRD): `py scripts/import_mintec_combined.py 2026-10 data/2026-10/raw/forecast-mintec-combined.xlsx` writes `forecast.json`. Do not re-run `extract.py` for the forecast of that quarter (the old `forecast.xlsx` was renamed `forecast-2026-07-superseded.xlsx`). Series Mintec dropped from the file (RSOR, J114) have no Q3 curve.
 - **Carried-over forecast.** If `forecast.xlsx` was reused from a prior
   quarter, the forward curves are stale — refresh and rebuild when the new
   Mintec export arrives.
