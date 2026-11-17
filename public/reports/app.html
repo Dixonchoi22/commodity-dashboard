@@ -1128,7 +1128,7 @@ function germanyHTML(){
       +esc(t('chart.baseLabel',{base:g.trend.base}))+'</span>'
     +'</div></div>'
     +'<div class="wrapR layout"><aside class="rail">'+rail+'</aside><main class="content">'
-      +(D.food?fMarketChips('DE'):'')
+      +(D.food?fMarketChips('DE')+fSrcBanner('DE'):'')
       +'<div class="note" style="border-color:rgba(169,150,103,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p><b style="color:var(--ink2)">'
         +esc(t('de.baseNoteKey'))+'</b> '+t('de.baseNote',{gbase:b('2020 = 100'),base:b('2025 = 100'),notcomp:b(t('de.notComparable'))})+'</p></div>'
       +tabsHTML+exportBar('de',!!g.baselines)+(state.gTab==='baseline'&&g.baselines?baselineHTML(g):picker+'<div class="kpis">'+kpis+'</div>'+right)
@@ -1628,6 +1628,17 @@ function exportBar(kind,withBase){
     +'</div>';
 }
 
+
+var F_NSI={IE:'Central Statistics Office (CSO)',DK:'Statistics Denmark',SE:'Statistics Sweden (SCB)',NO:'Statistics Norway (SSB)',NL:'Statistics Netherlands (CBS)',IT:'ISTAT'};
+function fSrcBanner(cc){
+  var C=D.food.countries[cc]; if(!C) return '';
+  var body, url;
+  if(cc==='UK'){ body=t('food.srcUK',{base:C.base}); url=fSrcUrl('UK','uk:01'); }
+  else if(cc==='DE'){ body=t('food.srcDE'); url='https://www-genesis.destatis.de/genesis/online?operation=table&code=61111-0004'; }
+  else { body=t('food.srcEU',{market:fMkt(cc),code:'prc_hicp_minr',nsi:F_NSI[cc]||'',base:C.base}); url=fSrcUrl(cc,'CP01'); }
+  return '<div class="note" style="border-color:rgba(0,120,200,.35);background:var(--tint)"><span style="color:var(--blue);flex:none">ⓘ</span><p><b>'+esc(t('ind.srcLabel'))+':</b> '+esc(body)
+    +' <a href="'+esc(url)+'" target="_blank" rel="noopener" style="font-weight:700;white-space:nowrap">'+esc(t('ind.srcOpen'))+' ↗</a></p></div>';
+}
 var fTrOff={}, fTrFc=true;   // chart controls on the Food CPI compare page: hidden markets, forecast on/off
 function foodHTML(){
   var F=D.food; if(!F) return '<div class="wrap">'+esc(t('de.none'))+'</div>';
@@ -1637,7 +1648,7 @@ function foodHTML(){
     +esc(t('food.title'))+(state.fFc?' · '+esc(t('food.fcTab')):cc?' · '+esc(fMkt(cc)):'')+'</div><div style="font-size:11.5px;color:var(--muted)">'+esc(t('food.latestOn',{month:fMonthLbl(M[L],'long')}))+'</div></div></div>';
   return '<div style="animation:cdFade .3s ease">'+fTopbar(title)
     +'<div class="wrapR" style="display:flex;flex-direction:column;gap:18px">'+fMarketChips(state.fFc?'forecast':cc)
-    +(state.fFc?'':exportBar(cc||'all',false))+(state.fFc?forecastBody():cc?foodMarketBody(cc,mi):foodCompareBody(mk,mi))+'</div></div>';
+    +(state.fFc||!cc?'':fSrcBanner(cc))+(state.fFc?'':exportBar(cc||'all',false))+(state.fFc?forecastBody():cc?foodMarketBody(cc,mi):foodCompareBody(mk,mi))+'</div></div>';
 }
 function fOutlookHTML(mk){
   if(!D.foodForecastEts) return '';
@@ -1751,7 +1762,7 @@ function foodMarketBody(cc,mi){
     +fMovers(cc,tree,mi))
     +(q?'<p class="cap" style="margin:0">'+esc(t('food.nSeries',{n:rows.length}))+'</p>':'')
     +table
-    +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.source',{src:C.source,base:C.base}))+' '+esc(t('food.autoNote'))+'<br><span style="display:block;margin-top:6px">'+fSrcLinks()+'</span></p></div>'
+
     +'</main></div>';
 }
 function fFcMarketNote(cc,top,mi){

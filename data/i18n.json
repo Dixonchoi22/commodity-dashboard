@@ -3077,6 +3077,39 @@
       "pt": "Nenhum",
       "ro": "Niciunul"
     },
+    "food.srcEU": {
+      "en": "{market}: Eurostat HICP, dataset {code} (ECOICOP v2), compiled by {nsi}. Index base {base}.",
+      "de": "{market}: Eurostat-HVPI, Datensatz {code} (ECOICOP v2), erstellt von {nsi}. Indexbasis {base}.",
+      "fr": "{market} : IPCH d'Eurostat, jeu de données {code} (ECOICOP v2), établi par {nsi}. Base de l'indice {base}.",
+      "it": "{market}: IPCA di Eurostat, dataset {code} (ECOICOP v2), elaborato da {nsi}. Base dell'indice {base}.",
+      "es": "{market}: IPCA de Eurostat, conjunto de datos {code} (ECOICOP v2), elaborado por {nsi}. Base del índice {base}.",
+      "pl": "{market}: HICP Eurostatu, zbiór danych {code} (ECOICOP v2), opracowany przez {nsi}. Podstawa indeksu {base}.",
+      "nl": "{market}: HICP van Eurostat, dataset {code} (ECOICOP v2), opgesteld door {nsi}. Indexbasis {base}.",
+      "pt": "{market}: IHPC do Eurostat, conjunto de dados {code} (ECOICOP v2), elaborado por {nsi}. Base do índice {base}.",
+      "ro": "{market}: IAPC Eurostat, set de date {code} (ECOICOP v2), elaborat de {nsi}. Baza indicelui {base}."
+    },
+    "food.srcUK": {
+      "en": "United Kingdom: ONS consumer price inflation, dataset MM23 (CPI index, base {base}).",
+      "de": "Vereinigtes Königreich: ONS-Verbraucherpreisinflation, Datensatz MM23 (VPI-Index, Basis {base}).",
+      "fr": "Royaume-Uni : inflation des prix à la consommation de l'ONS, jeu de données MM23 (indice IPC, base {base}).",
+      "it": "Regno Unito: inflazione dei prezzi al consumo dell'ONS, dataset MM23 (indice CPI, base {base}).",
+      "es": "Reino Unido: inflación de precios al consumo de la ONS, conjunto MM23 (índice IPC, base {base}).",
+      "pl": "Wielka Brytania: inflacja cen konsumpcyjnych ONS, zbiór MM23 (indeks CPI, podstawa {base}).",
+      "nl": "Verenigd Koninkrijk: consumentenprijsinflatie van de ONS, dataset MM23 (CPI-index, basis {base}).",
+      "pt": "Reino Unido: inflação dos preços no consumidor do ONS, conjunto MM23 (índice CPI, base {base}).",
+      "ro": "Regatul Unit: inflația prețurilor de consum ONS, set MM23 (indice CPI, baza {base})."
+    },
+    "food.srcDE": {
+      "en": "Germany: Destatis national consumer price index, table 61111-0004 (base 2020 = 100).",
+      "de": "Deutschland: Verbraucherpreisindex des Statistischen Bundesamts (Destatis), Tabelle 61111-0004 (Basis 2020 = 100).",
+      "fr": "Allemagne : indice national des prix à la consommation de Destatis, tableau 61111-0004 (base 2020 = 100).",
+      "it": "Germania: indice nazionale dei prezzi al consumo di Destatis, tabella 61111-0004 (base 2020 = 100).",
+      "es": "Alemania: índice nacional de precios al consumo de Destatis, tabla 61111-0004 (base 2020 = 100).",
+      "pl": "Niemcy: krajowy indeks cen konsumpcyjnych Destatis, tabela 61111-0004 (podstawa 2020 = 100).",
+      "nl": "Duitsland: nationale consumentenprijsindex van Destatis, tabel 61111-0004 (basis 2020 = 100).",
+      "pt": "Alemanha: índice nacional de preços no consumidor do Destatis, tabela 61111-0004 (base 2020 = 100).",
+      "ro": "Germania: indicele național al prețurilor de consum Destatis, tabelul 61111-0004 (baza 2020 = 100)."
+    },
     "de.trendTitle": {
       "en": "German food inflation — 12-month trend",
       "de": "Lebensmittelinflation in Deutschland — Trend über 12 Monate",
