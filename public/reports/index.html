@@ -110,7 +110,8 @@
   td{padding:10px 14px;white-space:nowrap}
   tbody tr{border-bottom:1px solid var(--border2);cursor:pointer;border-left:3px solid transparent}
   tbody tr:hover{background:var(--tint)}
-  .pill{display:inline-flex;align-items:center;justify-content:center;min-width:84px;padding:4px 9px;border-radius:16px;font-size:12px;font-weight:700}
+  a.srcnum{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(0,0,100,.4)}a.srcnum:hover{border-bottom-style:solid;color:var(--blue)}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-width:84px;padding:4px 9px;border-radius:16px;font-size:12px;font-weight:700}
   .verdict{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:9px;font-size:13px;font-weight:700}
   .cap{font-size:12px;color:var(--dim);line-height:1.55}
   /* indirect inflation */
@@ -125,7 +126,7 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="./app-data.js?v=7ba276d889"></script>
+<script src="./app-data.js?v=bbce6fc8f7"></script>
 <script>
 (function(){
 "use strict";
@@ -787,6 +788,43 @@ function deMetrics(s){
   var yoy=(n>step&&isN(v[n-1])&&isN(v[n-1-step])&&v[n-1-step]!==0)?(v[n-1]/v[n-1-step]-1)*100:null;
   return {last:v[n-1],ch:ch,yoy:yoy,asOf:(s.periods||[])[n-1]};
 }
+
+/* ---------------- INDIRECT: where every series comes from ---------------- */
+var IND_SRC={
+ '61111-0002':{o:'Destatis',k:'destatis',n:'Consumer price index: Germany, months'},
+ '61111-0004':{o:'Destatis',k:'destatis',n:'Consumer price index: Germany, months, individual consumption by purpose (COICOP 2-5-digit hierarchy)'},
+ '61241-0006':{o:'Destatis',k:'destatis',n:'Producer price index for industrial products: Germany, months, product classification (GP2019 2-6-digit hierarchy)'},
+ '61311-0006':{o:'Destatis',k:'destatis',n:'Producer price index for services: Germany, quarters, services'},
+ 'prc_hicp_minr':{o:'Eurostat',k:'eurostat',n:'Harmonised index of consumer prices (HICP) - ECOICOP ver.2 - indices and rates of change, monthly data'},
+ 'sts_inppd_m':{o:'Eurostat',k:'eurostat',n:'Producer prices in industry, domestic market - monthly data'},
+ 'sts_sepp_q':{o:'Eurostat',k:'eurostat',n:'Service producer prices - quarterly data'},
+ 'lc_lci_r2_q':{o:'Eurostat',k:'eurostat',n:'Labour cost index by NACE Rev. 2 activity - nominal value, quarterly data'},
+ 'nrg_pc_205':{o:'Eurostat',k:'eurostat',n:'Electricity prices for non-household consumers - bi-annual data'},
+ 'nrg_pc_203':{o:'Eurostat',k:'eurostat',n:'Gas prices for non-household consumers - bi-annual data'},
+ 'ONS MM23':{o:'ONS',k:'ons',ds:'mm23',path:'economy/inflationandpriceindices',n:'Consumer price inflation time series (dataset MM23)'},
+ 'ONS PPI':{o:'ONS',k:'ons',ds:'ppi',path:'economy/inflationandpriceindices',n:'Producer price inflation time series (dataset PPI)'},
+ 'ONS SPPI':{o:'ONS',k:'ons',ds:'sppi',path:'economy/inflationandpriceindices',n:'Services producer price indices (dataset SPPI)'},
+ 'ONS EMP':{o:'ONS',k:'ons',ds:'emp',path:'employmentandlabourmarket/peopleinwork/earningsandworkinghours',n:'Employment and earnings time series (dataset EMP)'},
+ 'ECB EXR':{o:'ECB',k:'ecb',n:'ECB euro foreign exchange reference rates (EXR)'}
+};
+function indSrc(s){
+  var d=IND_SRC[s.table]||{o:'',k:'',n:s.table}, url='';
+  if(d.k==='destatis') url='https://www-genesis.destatis.de/genesis/online?operation=table&code='+encodeURIComponent(s.table);
+  else if(d.k==='eurostat') url='https://ec.europa.eu/eurostat/databrowser/view/'+s.table+'/default/table?lang=en';
+  else if(d.k==='ons') url='https://www.ons.gov.uk/'+d.path+'/timeseries/'+String(s.code).toLowerCase()+'/'+d.ds;
+  else if(d.k==='ecb') url='https://data.ecb.europa.eu/data/datasets/EXR/EXR.M.'+String(s.code).split('/').pop()+'.EUR.SP00.A';
+  var pre=(d.o&&String(s.table).indexOf(d.o)!==0)?d.o+' ':'';
+  return {org:d.o,name:d.n,table:s.table,code:s.code,url:url,short:pre+s.table+' · '+s.code};
+}
+function indNum(s,inner){ return inner; }
+function indSourcesPanel(series){
+  var by={}, order=[]; series.forEach(function(s){ if(!by[s.table]){ by[s.table]={s:s,n:0}; order.push(s.table); } by[s.table].n++; });
+  var rows=order.map(function(k){ var u=indSrc(by[k].s), d=IND_SRC[k]||{};
+    return '<tr style="cursor:default"><td style="font-weight:700">'+esc(u.org||'')+'</td><td style="white-space:normal">'+esc(u.name)+'</td><td class="num" style="white-space:nowrap">'+esc(k)+'</td>'
+      +'<td class="num" style="text-align:center">'+by[k].n+'</td><td>'+(u.url?'<a href="'+esc(u.url)+'" target="_blank" rel="noopener" style="font-weight:700;white-space:nowrap">'+esc(t('ind.srcOpen'))+' ↗</a>':'')+'</td></tr>'; }).join('');
+  return '<div class="panel" style="padding:0;overflow:auto"><div style="padding:16px 18px 6px"><h3 style="font-size:16px;font-weight:700;margin:0">'+esc(t('ind.srcTitle'))+'</h3></div>'
+    +'<table><thead><tr><th>'+esc(t('ind.srcOrg'))+'</th><th>'+esc(t('ind.srcDataset'))+'</th><th>'+esc(t('ind.srcCode'))+'</th><th style="text-align:center">'+esc(t('ind.srcN'))+'</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
 function deSectionHTML(cc){
   var data=countryData(), codes=COUNTRY_ORDER.filter(function(c){return data[c];});
   if(!codes.length) return '';
@@ -800,10 +838,11 @@ function deSectionHTML(cc){
     var rows=ser.map(function(s){
       var m=deMetrics(s), dc=divColor(m.ch), dy=divColor(m.yoy);
       return '<tr data-deser="'+esc(cc+':'+s.key)+'" style="cursor:pointer"><td style="white-space:normal"><span style="font-weight:600">'+esc(s.label)+'</span>'
-        +'<div style="font-size:10.5px;color:var(--dim);margin-top:2px">'+esc(t('ind.deBasis.'+s.basis))+' · '+esc(locMonth(m.asOf))+' · '+esc(s.unit)+(s.freq==='q'?' <span class="qoq">'+esc(t('common.qoq'))+'</span>':s.freq==='s'?' <span class="qoq">'+esc(t('ind.deHoH'))+'</span>':'')+'</div></td>'
-        +'<td class="num" style="text-align:right">'+esc(deNum(m.last))+'</td>'
-        +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+(s.basis==='fx'?'var(--ink2)':dc.c)+';background:'+(s.basis==='fx'?'var(--tint)':dc.bg)+'">'+esc(pct(m.ch))+'</span></td>'
-        +'<td style="text-align:center"><span class="pill" style="min-width:70px;color:'+(s.basis==='fx'?'var(--ink2)':dy.c)+';background:'+(s.basis==='fx'?'var(--tint)':dy.bg)+'">'+esc(pct(m.yoy))+'</span></td>'
+        +'<div style="font-size:10.5px;color:var(--dim);margin-top:2px">'+esc(t('ind.deBasis.'+s.basis))+' · '+esc(locMonth(m.asOf))+' · '+esc(s.unit)+(s.freq==='q'?' <span class="qoq">'+esc(t('common.qoq'))+'</span>':s.freq==='s'?' <span class="qoq">'+esc(t('ind.deHoH'))+'</span>':'')+'</div>'
+        +'<div style="font-size:10.5px;margin-top:2px;font-weight:600">'+esc(t('ind.srcLabel'))+': '+(function(){var u=indSrc(s); return u.url?'<a href="'+esc(u.url)+'" target="_blank" rel="noopener" title="'+esc(u.name)+'">'+esc(u.short)+' ↗</a>':esc(u.short);})()+'</div></td>'
+        +'<td class="num" style="text-align:right">'+indNum(s,esc(deNum(m.last)))+'</td>'
+        +'<td style="text-align:center">'+indNum(s,'<span class="pill" style="min-width:70px;color:'+(s.basis==='fx'?'var(--ink2)':dc.c)+';background:'+(s.basis==='fx'?'var(--tint)':dc.bg)+'">'+esc(pct(m.ch))+'</span>')+'</td>'
+        +'<td style="text-align:center">'+indNum(s,'<span class="pill" style="min-width:70px;color:'+(s.basis==='fx'?'var(--ink2)':dy.c)+';background:'+(s.basis==='fx'?'var(--tint)':dy.bg)+'">'+esc(pct(m.yoy))+'</span>')+'</td>'
         +'<td>'+sparkSVG(s.values||[],Math.max(0,(s.values||[]).length-(DE_SPARK[s.freq]||24)),(s.values||[]).length-1,col)+'</td></tr>';
     }).join('');
     return '<div class="panel" style="animation:cdFade .25s ease;border-top:3px solid '+col+'">'
@@ -816,10 +855,11 @@ function deSectionHTML(cc){
   var src=(cc==='DE')?'Destatis Genesis Online':(cc==='UK'?'ONS':'Eurostat');
   return '<div style="display:flex;flex-direction:column;gap:18px">'
     +'<div><h2 style="font-size:20px;font-weight:800;margin:0">'+esc(t('ind.cTitle',{country:t('country.'+cc)}))+'</h2>'
-    +'<p class="cap" style="margin:6px 0 12px;max-width:720px">'+esc(t('ind.deSub'))+'</p>'+chips+'</div>'
+    +'<p class="cap" style="margin:6px 0 4px;max-width:760px">'+esc(t('ind.deSub'))+'</p>'
+    +'<p class="cap" style="margin:0 0 12px;max-width:760px;font-weight:700;color:var(--ink2)">'+esc(t('ind.clickNum'))+'</p>'+chips+'</div>'
     +'<div class="note" style="border-color:rgba(169,150,103,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('ind.cNote'))+'</p></div>'
     +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(520px,1fr));gap:18px">'+topics+'</div>'
-    +'<div class="note"><span style="color:var(--dim);flex:none">ⓘ</span><p>'+esc(t('ind.cSource',{src:src,tables:tables.join(' · ')}))+'</p></div></div>';
+    +indSourcesPanel(series)+'</div>';
 }
 function openDESeriesModal(ref){
   var parts=String(ref).split(':'), cc=parts[0], key=parts[1];
@@ -840,6 +880,7 @@ function openDESeriesModal(ref){
     +'<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span class="dot" style="width:11px;height:11px;border-radius:3px;background:'+col+'"></span>'
       +'<h2 style="font-size:20px;font-weight:800;margin:0">'+esc(s.label)+'</h2></div>'
     +'<div class="num" style="font-size:12px;color:var(--dim);margin-top:6px">'+esc(t('country.'+cc))+' · '+esc(t('ind.deTopic.'+s.topic))+' · '+esc(t('ind.deBasis.'+s.basis))+' · '+esc(s.table)+' · '+esc(s.code)+' · '+esc(s.unit)+(s.freq==='q'||s.freq==='s'?' · '+esc(chLab):'')+'</div>'
+    +'<div style="font-size:12px;margin-top:6px;font-weight:600">'+esc(t('ind.srcLabel'))+': '+(function(){var u=indSrc(s); return u.url?'<a href="'+esc(u.url)+'" target="_blank" rel="noopener">'+esc(u.name)+' · '+esc(u.short)+' ↗</a>':esc(u.name);})()+'</div>'
     +'<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'+tile(t('ind.deLevel'),deNum(m.last))+tile(chLab,pct(m.ch),s.basis==='fx'?'':divColor(m.ch).c)+tile(t('common.yoy'),pct(m.yoy),s.basis==='fx'?'':divColor(m.yoy).c)+'</div>'
     +'<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('ind.deHistory',{n:n}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="deSerChart"></canvas></div>'
     +'<div style="overflow:auto;max-height:260px;margin-top:10px;border:1px solid var(--border2);border-radius:10px"><table><thead><tr><th>'+esc(t('de.colPeriod'))+'</th><th style="text-align:right">'+esc(t('ind.deLevel'))+'</th>'
@@ -1591,6 +1632,7 @@ function exportBar(kind,withBase){
     +'</div>';
 }
 
+var fTrOff={}, fTrFc=true;   // chart controls on the Food CPI compare page: hidden markets, forecast on/off
 function foodHTML(){
   var F=D.food; if(!F) return '<div class="wrap">'+esc(t('de.none'))+'</div>';
   var cc=state.fCC, M=F.months, L=M.length-1, mi=fMi();
@@ -1634,7 +1676,9 @@ function foodCompareBody(mk,mi){
   var row=function(code,strong){
     var cells=mk.map(function(cc){
       var s=fSeries(cc,code), v=s?(state.fKind==='mom'?fChg(s,mi,1):fChg(s,mi,12)):null;
-      return '<td class="num" style="text-align:center;font-weight:'+(strong?800:600)+';'+fHeat(v)+'">'+esc(pct(v))+'</td>';}).join('');
+      var sc=(cc==='UK'&&code.indexOf('uk:')!==0)?F_UKMAP[code]:code;
+      var can=(s&&fNum(v)&&sc);
+      return '<td class="num"'+(can?' data-fitem="'+esc(cc+'|'+sc)+'" title="'+esc(t('food.openSrc',{src:fSrcName(cc,sc)}))+'"':'')+' style="text-align:center;font-weight:'+(strong?800:600)+';'+(can?'cursor:pointer;':'')+fHeat(v)+'">'+esc(pct(v))+'</td>';}).join('');
     return '<tr style="cursor:default;'+(strong?'background:var(--tint)':'')+'"><td style="font-weight:'+(strong?800:600)+'">'+esc(fLabel(code))+'</td>'+cells+'</tr>';
   };
   var sect=function(h){return '<tr style="cursor:default"><td colspan="'+(mk.length+1)+'" style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);padding-top:16px">'+esc(h)+'</td></tr>';};
@@ -1645,10 +1689,16 @@ function foodCompareBody(mk,mi){
   var deCard='<button class="cta ghost" data-go="#/food/DE" style="align-self:flex-start"><span>'+esc(t('food.openDE'))+'</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>';
   return '<div class="kpis">'+kpis+'</div>'
     +'<div class="filters"><b style="font-size:14px">'+esc(t('food.compareTitle'))+'</b><span style="flex:1"></span>'+fKindSeg()+fMonthPicker()
-      +'<span class="cap" style="flex-basis:100%">'+esc(t('food.heatSub',{kind:state.fKind==='mom'?t('common.momLong'):t('common.yoyLong'),month:fMonthLbl(M[mi],'long')}))+'</span></div>'
+      +'<span class="cap" style="flex-basis:100%">'+esc(t('food.heatSub',{kind:state.fKind==='mom'?t('common.momLong'):t('common.yoyLong'),month:fMonthLbl(M[mi],'long')}))+' <b style="color:var(--ink2)">'+esc(t('food.clickSrc'))+'</b></span></div>'
     +table
     +fOutlookHTML(mk)
-    +'<div class="panel"><h3 style="font-size:15px;font-weight:700;margin:0 0 10px">'+esc(t('food.trendTitle'))+'</h3><div style="height:300px"><canvas id="fTrend"></canvas></div></div>'
+    +'<div class="panel"><h3 style="font-size:15px;font-weight:700;margin:0 0 10px">'+esc(t('food.trendTitle'))+'</h3>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:0 0 12px">'
+      +(D.foodForecast?'<button class="chipbtn" data-ftr="fc" style="font-weight:800;'+(fTrFc?'border-color:var(--blue);background:var(--tint);color:var(--ink)':'opacity:.5')+'">📈 '+esc(t('food.trForecast'))+'</button><span style="width:1px;height:20px;background:var(--border2)"></span>':'')
+      +'<button class="chipbtn" data-ftr="all">'+esc(t('food.trAll'))+'</button><button class="chipbtn" data-ftr="none">'+esc(t('food.trNone'))+'</button>'
+      +mk.map(function(cc){ var on=!fTrOff[cc];
+        return '<button class="chipbtn" data-ftr="'+esc(cc)+'" style="'+(on?'border-color:'+F_COLORS[cc]+';background:var(--tint);color:var(--ink)':'opacity:.45')+'"><span class="dot" style="width:9px;height:9px;border-radius:50%;background:'+F_COLORS[cc]+';display:inline-block;margin-right:6px"></span><span>'+fFlag(cc)+'</span> '+esc(fMkt(cc))+'</button>';}).join('')+'</div>'
+      +'<div style="height:340px"><canvas id="fTrend"></canvas></div></div>'
     +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.ukNote'))+' '+esc(t('food.deNote'))+' '+esc(t('food.autoNote'))+'<br><span style="display:block;margin-top:6px">'+fSrcLinks()+'</span></p></div>'+deCard;
 }
 function fTree(cc){
@@ -1750,13 +1800,21 @@ function drawFood(){
   var M=F.months, mi=fMi(), lbl=M.slice(12).map(function(m){return fMonthLbl(m);});
   if(!state.fCC){
     var el=document.getElementById('fTrend'); if(!el) return;
-    var ds=fMarkets().map(function(cc){
-      var s=fSeries(cc,'CP01'), v=M.map(function(_,i){return fChg(s,i,12);}).slice(12);
-      return {label:fMkt(cc),data:v,borderColor:F_COLORS[cc],backgroundColor:F_COLORS[cc],borderWidth:(cc==='EU27_2020'?3:1.8),borderDash:(cc==='EA'?[5,4]:[]),pointRadius:0,pointHoverRadius:4,tension:.3,spanGaps:true};
+    var L0=M.length-1, mkv=fMarkets().filter(function(cc){return !fTrOff[cc];}), FFo=D.foodForecast;
+    var fcOf=function(cc){ var f=(fTrFc&&FFo)?fcGet(cc,'CP01'):null; return (f&&f.last===M[L0])?f:null; };
+    var ref=null; mkv.forEach(function(cc){ if(!ref&&fcOf(cc)) ref=fcOf(cc); });
+    var fl=ref?fcMonthsOf(ref,6).map(function(m){return fMonthLbl(m);}):[], N=fl.length;
+    var pad=function(k){var r=[],q;for(q=0;q<k;q++)r.push(null);return r;};
+    var ds=[];
+    mkv.forEach(function(cc){
+      var s=fSeries(cc,'CP01'), v=M.map(function(_,i){return fChg(s,i,12);}).slice(12), col=F_COLORS[cc], f=fcOf(cc);
+      ds.push({label:fMkt(cc),data:v.concat(pad(N)),borderColor:col,backgroundColor:col,borderWidth:(cc==='EU27_2020'?3:1.8),borderDash:(cc==='EA'?[5,4]:[]),pointRadius:0,pointHoverRadius:4,tension:.3,spanGaps:false});
+      if(f&&N) ds.push({label:fMkt(cc)+' · '+t('food.trForecast'),data:pad(v.length-1).concat([v[v.length-1]],f.yoy),borderColor:col,backgroundColor:'#fff',borderWidth:1.4,borderDash:[3,4],fill:false,tension:0,
+        pointRadius:pad(v.length).map(function(){return 0;}).concat(f.yoy.map(function(_,k){return k===N-1?6:4;})),pointBackgroundColor:'#fff',pointBorderColor:col,pointBorderWidth:2,pointHoverRadius:6,spanGaps:false});
     });
-    _charts.push(new Chart(el.getContext('2d'),{type:'line',data:{labels:lbl,datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},
-      plugins:{legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,font:{size:11}}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+pct(c.parsed.y);}}}},
-      scales:{x:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},maxRotation:0,autoSkip:true,maxTicksLimit:7}},y:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},callback:function(v){return numf(v,0,0)+'%';}}}}}}));
+    _charts.push(new Chart(el.getContext('2d'),{type:'line',data:{labels:lbl.concat(fl),datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},
+      plugins:{legend:{display:false},tooltip:{filter:function(i){return i.parsed.y!=null;},callbacks:{label:function(c){return c.dataset.label+': '+pct(c.parsed.y);}}}},
+      scales:{x:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},maxRotation:0,autoSkip:true,maxTicksLimit:8}},y:{grid:{color:'#E4E8F0'},ticks:{color:'#6B7682',font:{size:10},callback:function(v){return numf(v,0,0)+'%';}}}}}}));
   } else {
     var C=F.countries[state.fCC]; if(!C||!document.getElementById('fGroupChart')) return;
     var top=(state.fCode&&C.series[state.fCode])?state.fCode:fRootOf(state.fCC), s=C.series[top];
@@ -1781,6 +1839,7 @@ function openFoodModal(ref){
   ovEl.innerHTML='<div class="modal" style="position:relative;max-width:700px"><button class="x" data-close title="'+esc(t('modal.close'))+'" aria-label="'+esc(t('modal.close'))+'">✕</button>'
     +'<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span style="font-size:20px">'+fFlag(cc)+'</span><h2 style="font-size:20px;font-weight:800;margin:0">'+esc(fLabel(code))+'</h2>'
     +'<span class="num" style="font-size:12px;color:var(--dim)">'+esc(code.replace('uk:','').replace('CP',''))+'</span><span style="font-size:12px;color:var(--muted)">'+esc(fMkt(cc))+'</span></div>'
+    +'<div style="font-size:12px;margin-top:6px;font-weight:600">'+esc(t('ind.srcLabel'))+': <a href="'+esc(fSrcUrl(cc,code))+'" target="_blank" rel="noopener">'+esc(fSrcName(cc,code))+' ↗</a></div>'
     +'<div style="display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap">'+tile(t('food.index',{base:C.base}),numf(s[mi]))+tile(t('common.mom'),pct(mom),divColor(mom).c)+tile(t('common.yoy'),pct(yoy),divColor(yoy).c)+'</div>'
     +'<h3 style="font-size:14px;font-weight:700;margin:20px 0 0">'+esc(t('de.itemHistory',{n:M.length}))+'</h3><div style="height:200px;margin-top:8px"><canvas id="itemChart"></canvas></div>'+fModalFcNote(cc,code,s)
     +'<div style="overflow:auto;max-height:260px;margin-top:10px;border:1px solid var(--border2);border-radius:10px"><table><thead><tr><th>'+esc(t('de.colMonth'))+'</th><th style="text-align:right">'+esc(t('food.index',{base:C.base}))+'</th><th style="text-align:center">'+esc(t('common.mom'))+'</th><th style="text-align:center">'+esc(t('common.yoy'))+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
@@ -1952,7 +2011,7 @@ document.getElementById('app').addEventListener('click',function(e){
   // NB: not named `t` — that is the translation helper.
   if(e.target.closest('a[href]')) return;
   if(e.target.closest('a[href]')) return;
-  var el=e.target.closest('[data-go],[data-export],[data-open],[data-rank],[data-tab],[data-sort],[data-gtab],[data-gby],[data-gsort],[data-gcat],[data-item],[data-deser],[data-fkind],[data-fitem]');
+  var el=e.target.closest('[data-go],[data-export],[data-ftr],[data-open],[data-rank],[data-tab],[data-sort],[data-gtab],[data-gby],[data-gsort],[data-gcat],[data-item],[data-deser],[data-fkind],[data-fitem]');
   if(!el) return;
   if(el.hasAttribute('data-go')){go(el.getAttribute('data-go'));return;}
   if(el.hasAttribute('data-open')){openModal(el.getAttribute('data-open'));return;}
@@ -1960,6 +2019,11 @@ document.getElementById('app').addEventListener('click',function(e){
   if(el.hasAttribute('data-export')){doExport(el.getAttribute('data-export'),el.getAttribute('data-ekind'));return;}
   if(el.hasAttribute('data-gtab')){state.gTab=el.getAttribute('data-gtab');render();return;}
   if(el.hasAttribute('data-gby')){state.gBY=parseInt(el.getAttribute('data-gby'),10);render();return;}
+  if(el.hasAttribute('data-ftr')){
+    var kk=el.getAttribute('data-ftr');
+    if(kk==='fc') fTrFc=!fTrFc; else if(kk==='all') fTrOff={}; else if(kk==='none'){ fTrOff={}; fMarkets().forEach(function(c){fTrOff[c]=true;}); } else fTrOff[kk]=!fTrOff[kk];
+    var sy=window.scrollY; render(); window.scrollTo(0,sy); return;
+  }
   if(el.hasAttribute('data-fkind')){state.fKind=el.getAttribute('data-fkind');render();return;}
   if(el.hasAttribute('data-fitem')){openFoodModal(el.getAttribute('data-fitem'));return;}
   if(el.hasAttribute('data-deser')){openDESeriesModal(el.getAttribute('data-deser'));return;}
