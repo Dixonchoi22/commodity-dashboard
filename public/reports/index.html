@@ -1111,8 +1111,7 @@ function germanyHTML(){
       +itemMoversHTML(cats.map(function(c){return {coicop:c.code,items:c.items};}),M[mi]||g.meta.latestMonth,function(code){return catColorOf(g,code);})
       +detailTableHTML(cats,mLbl,first,mi);
   }
-  var tabsHTML=(g.baselines&&!state.gGroup)?'<div class="tabs"><button class="tab '+(state.gTab!=='baseline'?'on':'')+'" data-gtab="monthly">'+esc(t('de.tabMonthly'))+'</button>'
-    +'<button class="tab '+(state.gTab==='baseline'?'on':'')+'" data-gtab="baseline">'+esc(t('de.tabBaseline'))+'</button></div>':'';
+  var tabsHTML='';   // the Annual baselines tab was removed on request (data still feeds the category view)
   var b=function(s){return '<b style="color:var(--ink2)">'+esc(s)+'</b>';};
   return '<div style="animation:cdFade .3s ease">'
     +'<div class="topbar"><div class="topbar-in">'
@@ -1130,7 +1129,7 @@ function germanyHTML(){
       +(D.food?fMarketChips('DE')+fSrcBanner('DE'):'')
       +'<div class="note" style="border-color:rgba(169,150,103,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p><b style="color:var(--ink2)">'
         +esc(t('de.baseNoteKey'))+'</b> '+t('de.baseNote',{gbase:b('2020 = 100'),base:b('2025 = 100'),notcomp:b(t('de.notComparable'))})+'</p></div>'
-      +tabsHTML+exportBar('de',!!g.baselines)+(state.gTab==='baseline'&&g.baselines?baselineHTML(g):picker+'<div class="kpis">'+kpis+'</div>'+right)
+      +tabsHTML+exportBar('de',false)+(state.gTab==='baseline'&&g.baselines?baselineHTML(g):picker+'<div class="kpis">'+kpis+'</div>'+right)
     +'</main></div></div>';
 }
 function sparkSVG(h,first,hi,color){
@@ -1588,10 +1587,10 @@ function doExport(what,kind){
     FU.series.forEach(function(s){ map[s.code]={code:s.code,label:s.label,hist:s.hist}; });
     ((B3&&B3.series)||[]).forEach(function(s){ var c=xcc(s.coicop); var o=map[c]||(map[c]={code:c,label:s.label,hist:null}); o.base=s.base; o.ytd=s.ytd; });
     var codes=Object.keys(map).filter(function(c){return c.indexOf('CC13-01')===0||c.indexOf('CC13-02')===0;}).sort(function(x,y){return x.slice(5)<y.slice(5)?-1:x.slice(5)>y.slice(5)?1:0;});
-    var head3=['CPI Index Code','CPI Sub-Category (English)'].concat(FU.months.map(function(m){return 'Index '+m;})).concat(yrs3.map(function(y){return 'Annual average '+y;})).concat(['YTD average']);
+    var head3=['CPI Index Code','CPI Sub-Category (English)'].concat(FU.months.map(function(m){return 'Index '+m;}));
     var rowsF=[head3];
     codes.forEach(function(c){ var o=map[c];
-      rowsF.push([o.code,o.label].concat(FU.months.map(function(_,i){return xr(o.hist&&o.hist[i]);})).concat(yrs3.map(function(_,i){return xr(o.base&&o.base[i]);})).concat([xr(o.ytd)])); });
+      rowsF.push([o.code,o.label].concat(FU.months.map(function(_,i){return xr(o.hist&&o.hist[i]);}))); });
     dlCSV('germany-destatis-cpi-food-'+FU.months[FU.months.length-1]+'.csv',rowsF); return;
   }
   if(what==='detail'){
