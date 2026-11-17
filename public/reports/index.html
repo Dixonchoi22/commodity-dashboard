@@ -1997,7 +1997,7 @@ function forecastBody(){
     +'<div class="note"><span style="color:var(--warn);flex:none">ⓘ</span><p>'+esc(t('food.fcIntro'))+'</p></div>'
     +summary+chips+chart+groups;
 }
-function drawForecast(){
+function drawFoodForecast(){
   var FF=D.foodForecast, F=D.food; if(!FF||!F||!window.Chart) return;
   (function(){
     var el0=document.getElementById('fcCmp'); if(!el0) return;
@@ -2038,7 +2038,7 @@ function render(){
     var rep=D.reports[state.slug];
     lineChart('hicpChart',rep.hicp.labels.map(locMonth),rep.hicp.values,'#0078C8',t('common.indexUnit'));
   }
-  if(state.screen==='food'){ if(state.fFc) drawForecast(); else drawFood(); }
+  if(state.screen==='food'){ if(state.fFc) drawFoodForecast(); else drawFood(); }
   if(state.screen==='germany'){
     var g=D.reports[state.slug].germany;
     if(g){
