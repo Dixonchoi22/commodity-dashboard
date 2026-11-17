@@ -409,7 +409,7 @@ the live URL is not evidence that the deploy failed.
   "HICP - food" but doesn't share a base year with Destatis CP01; they
   can't share a Y axis without rebasing. The dashboard uses Destatis only
   for German values to avoid this.
-- **Q3 2026 forecast** comes from Mintec's *Combined Commodity Data* workbook (Nov 2026 onwards, 14 series incl. Tuna 8W01 and Brent BCRD): `py scripts/import_mintec_combined.py 2026-10 data/2026-10/raw/forecast-mintec-combined.xlsx` writes `forecast.json`. Do not re-run `extract.py` for the forecast of that quarter (the old `forecast.xlsx` was renamed `forecast-2026-07-superseded.xlsx`). Series Mintec dropped from the file (RSOR, J114) have no Q3 curve.
+- **Q3 2026 forecast** comes from Mintec's *Combined Commodity Data* workbook (Nov 2026 onwards, 14 series incl. Tuna 8W01 and Brent BCRD): `py scripts/import_mintec_combined.py 2026-10 data/2026-10/raw/forecast-mintec-combined.xlsx --carry RSOR,J114 --from 2026-04` writes `forecast.json` (`--carry` keeps the Q1 curves of codes missing from the new file, trimmed to the new start date and labelled "older Mintec curve, made 2026-05"). Do not re-run `extract.py` for the forecast of that quarter (the old `forecast.xlsx` was renamed `forecast-2026-07-superseded.xlsx`). Tuna (8W01) maps to the `Tuna Thailand` row; Brent (BCRD) has no commodity row (the Expana table has no Brent line) so it stays in the data only.
 - **Carried-over forecast.** If `forecast.xlsx` was reused from a prior
   quarter, the forward curves are stale — refresh and rebuild when the new
   Mintec export arrives.

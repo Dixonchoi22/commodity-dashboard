@@ -192,6 +192,7 @@ FORECAST_CODE_TO_NAME = {
     "ED24": "Milk EU",
     "UI62": "Cod Norway",
     "UG01": "Salmon Norway",
+    "8W01": "Tuna Thailand",
 }
 
 
