@@ -193,17 +193,17 @@
       "da": "Rapporteringsår"
     },
     "menu.yearTitle": {
-      "en": "Reporting year {y}",
-      "de": "Berichtsjahr {y}",
-      "fr": "Année de reporting {y}",
-      "it": "Anno di reporting {y}",
-      "es": "Año de reporting {y}",
-      "pl": "Rok raportowy {y}",
-      "nl": "Rapportagejaar {y}",
-      "pt": "Ano de reporte {y}",
-      "ro": "Anul de raportare {y}",
-      "sv": "Rapportår {y}",
-      "da": "Rapporteringsår {y}"
+      "en": "Detailed commodity driven",
+      "de": "Detailliert, rohstoffgetrieben",
+      "fr": "Détaillé, par matière première",
+      "it": "Dettagliato, guidato dalle materie prime",
+      "es": "Detallado, por materia prima",
+      "pl": "Szczegółowo, według surowców",
+      "nl": "Gedetailleerd, grondstofgedreven",
+      "pt": "Detalhado, por matéria-prima",
+      "ro": "Detaliat, pe materii prime",
+      "sv": "Detaljerat, råvarudrivet",
+      "da": "Detaljeret, råvaredrevet"
     },
     "menu.yearQuartersN": {
       "en": "{n} quarters of reports",
@@ -4949,6 +4949,19 @@
       "ro": "Nivelurile indicelui folosesc baza Destatis 2020 = 100: un indice mai mic înseamnă un nivel al prețurilor mai mic, nu o inflație mai mică. Doar copiii direcți sunt comparați cu părintele.",
       "sv": "Indexnivåerna använder Destatis bas 2020 = 100: lägre index betyder lägre prisnivå, inte lägre inflation. Endast direkta delposter jämförs med sin överordnade.",
       "da": "Indeksniveauerne bruger Destatis-basis 2020 = 100: lavere indeks betyder lavere prisniveau, ikke lavere inflation. Kun direkte underposter sammenlignes med deres overordnede."
+    },
+    "food.menuTitle": {
+      "en": "Country level CPI data",
+      "de": "VPI-Daten auf Länderebene",
+      "fr": "Données IPC par pays",
+      "it": "Dati IPC per paese",
+      "es": "Datos de IPC por país",
+      "pl": "Dane CPI na poziomie krajów",
+      "nl": "CPI-gegevens per land",
+      "pt": "Dados de IPC por país",
+      "ro": "Date IPC pe țări",
+      "sv": "KPI-data per land",
+      "da": "CPI-data pr. land"
     }
   },
   "categories": {

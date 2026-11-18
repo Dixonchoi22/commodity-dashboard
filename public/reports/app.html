@@ -394,7 +394,7 @@ function menuHTML(){
     var chips=mk.map(function(cc){return '<button class="chipbtn" data-go="#/food/'+cc+'"><span>'+fFlag(cc)+'</span>'+esc(cc==='EU27_2020'?'EU27':cc==='EA'?'EA':cc)+'</button>';}).join('');
     return '<div class="card">'
       +'<div style="display:flex;align-items:center;gap:13px"><span style="font-size:28px">🛒</span>'
-        +'<div><h2 style="font-size:19px;font-weight:700;margin:0">'+esc(t('food.title'))+'</h2>'
+        +'<div><h2 style="font-size:19px;font-weight:700;margin:0">'+esc(t('food.menuTitle'))+'</h2>'
         +'<p style="font-size:13px;color:var(--muted);margin:4px 0 0">'+esc(t('food.menuSub',{n:mk.length,s:numf(nSer,0,0),from:fMonthLbl(M[0]),to:fMonthLbl(M[L])}))+'</p></div></div>'
       +'<div style="display:flex;flex-wrap:wrap;gap:7px">'+chips+'</div>'
 
