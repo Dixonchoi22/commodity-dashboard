@@ -138,7 +138,9 @@
 var D = window.CD_APP;
 // Forecasts are hidden for now while their accuracy is tracked (data + weekly archive keep running). Set true to show them again.
 var SHOW_FORECAST = false;
-if(!SHOW_FORECAST){ D.foodForecast=null; D.foodForecastEts=null; Object.keys(D.reports||{}).forEach(function(k){ (D.reports[k].rows||[]).forEach(function(r){ r.forecast=null; }); }); }
+var SHOW_MINTEC = true;   // commodity forward curves (Mintec) in the commodity modal; Food CPI statistical forecasts stay governed by SHOW_FORECAST
+if(!SHOW_FORECAST){ D.foodForecast=null; D.foodForecastEts=null; }
+if(!SHOW_MINTEC){ Object.keys(D.reports||{}).forEach(function(k){ (D.reports[k].rows||[]).forEach(function(r){ r.forecast=null; }); }); }
 if(!D){document.getElementById('app').innerHTML='<div class="wrap">Data failed to load.</div>';return;}
 var CAT_COLORS = D.categoryColors || {};
 function catColor(n){return CAT_COLORS[n]||'#6B7682';}
