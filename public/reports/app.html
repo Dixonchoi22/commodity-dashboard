@@ -1119,7 +1119,7 @@ function germanyHTML(){
       +itemMoversHTML(cats.map(function(c){return {coicop:c.code,items:c.items};}),M[mi]||g.meta.latestMonth,function(code){return catColorOf(g,code);})
       +detailTableHTML(cats,mLbl,first,mi);
   }
-  var tabsHTML=(g.baselines&&!state.gGroup)?'<div class="tabs"><button class="tab '+(state.gTab!=='baseline'&&state.gTab!=='lowest'?'on':'')+'" data-gtab="monthly">'+esc(t('de.tabMonthly'))+'</button>'
+  var tabsHTML=(false&&g.baselines&&!state.gGroup)?  /* Lowest-in-group / Annual baselines tabs hidden on request */'<div class="tabs"><button class="tab '+(state.gTab!=='baseline'&&state.gTab!=='lowest'?'on':'')+'" data-gtab="monthly">'+esc(t('de.tabMonthly'))+'</button>'
     // Annual baselines tab hidden on request (baselineHTML kept; add the button back to show it again)
     +'<button class="tab '+(state.gTab==='lowest'?'on':'')+'" data-gtab="lowest">'+esc(t('de.tabLowest'))+'</button></div>':'';
   var b=function(s){return '<b style="color:var(--ink2)">'+esc(s)+'</b>';};
@@ -1139,7 +1139,7 @@ function germanyHTML(){
       +(D.food?fMarketChips('DE')+fSrcBanner('DE'):'')
       +'<div class="note" style="border-color:rgba(169,150,103,.28)"><span style="color:var(--warn);flex:none">ⓘ</span><p><b style="color:var(--ink2)">'
         +esc(t('de.baseNoteKey'))+'</b> '+t('de.baseNote',{gbase:b('2020 = 100'),base:b('2025 = 100'),notcomp:b(t('de.notComparable'))})+'</p></div>'
-      +tabsHTML+exportBar('de',false)+(state.gTab==='baseline'&&g.baselines?baselineHTML(g):state.gTab==='lowest'&&g.baselines?lowestHTML(g):picker+'<div class="kpis">'+kpis+'</div>'+right)
+      +tabsHTML+exportBar('de',false)+(state.gTab==='baseline'&&g.baselines?baselineHTML(g):false?lowestHTML(g):picker+'<div class="kpis">'+kpis+'</div>'+right)
     +'</main></div></div>';
 }
 function sparkSVG(h,first,hi,color){
