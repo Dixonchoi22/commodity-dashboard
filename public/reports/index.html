@@ -1120,7 +1120,7 @@ function germanyHTML(){
       +detailTableHTML(cats,mLbl,first,mi);
   }
   var tabsHTML=(g.baselines&&!state.gGroup)?'<div class="tabs"><button class="tab '+(state.gTab!=='baseline'&&state.gTab!=='lowest'?'on':'')+'" data-gtab="monthly">'+esc(t('de.tabMonthly'))+'</button>'
-    +'<button class="tab '+(state.gTab==='baseline'?'on':'')+'" data-gtab="baseline">'+esc(t('de.tabBaseline'))+'</button>'
+    // Annual baselines tab hidden on request (baselineHTML kept; add the button back to show it again)
     +'<button class="tab '+(state.gTab==='lowest'?'on':'')+'" data-gtab="lowest">'+esc(t('de.tabLowest'))+'</button></div>':'';
   var b=function(s){return '<b style="color:var(--ink2)">'+esc(s)+'</b>';};
   return '<div style="animation:cdFade .3s ease">'
