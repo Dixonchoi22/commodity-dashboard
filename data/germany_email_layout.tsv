@@ -1,0 +1,105 @@
+Typ	Code	Bezeichnung
+2-5 Steller	CC13-01	Nahrungsmittel und alkoholfreie Getränke
+2-5 Steller	CC13-011	Nahrungsmittel
+2-5 Steller	CC13-0111	Brot und Getreideerzeugnisse
+2-5 Steller	CC13-01111	Reis, einschließlich Reiszubereitungen
+2-5 Steller	CC13-01112	Mehl und andere Getreideerzeugnisse
+2-5 Steller	CC13-01113	Brot und Brötchen
+2-5 Steller	CC13-01114	Andere Backwaren
+2-5 Steller	CC13-01115	Pizza, Quiches oder Ähnliches
+2-5 Steller	CC13-01116	Teigwaren
+2-5 Steller	CC13-01117	Frühstückszubereitungen
+2-5 Steller	CC13-01118	Andere Getreideprodukte
+2-5 Steller	CC13-0112	Fleisch und Fleischwaren
+2-5 Steller	CC13-01121	Rind- und Kalbfleisch
+2-5 Steller	CC13-01122	Schweinefleisch
+2-5 Steller	CC13-01123	Lamm- und Schaffleisch, Ziegenfleisch
+2-5 Steller	CC13-01124	Geflügelfleisch
+2-5 Steller	CC13-01125	Andere Fleischprodukte
+2-5 Steller	CC13-01126	Leber oder andere Innereien
+2-5 Steller	CC13-01127	Fleisch- und Wurstwaren
+2-5 Steller	CC13-01128	Anderes Fleisch, verarbeitet und zubereitet
+2-5 Steller	CC13-0113	Fisch, Fischwaren und Meeresfrüchte
+2-5 Steller	CC13-01131	Fische und Fischfilets, frisch oder gekühlt
+2-5 Steller	CC13-01132	Fische und Fischfilets, tiefgefroren
+2-5 Steller	CC13-01133	Meeresfrüchte, frisch oder gekühlt
+2-5 Steller	CC13-01134	Tiefgefrorene Meeresfrüchte
+2-5 Steller	CC13-01135	Fisch, getrocknet, geräuchert oder gesalzen
+2-5 Steller	CC13-01136	Konserven und andere Zubereitungen von Fisch
+2-5 Steller	CC13-0114	Molkereiprodukte und Eier
+2-5 Steller	CC13-01141	Vollmilch
+2-5 Steller	CC13-01142	Teilentrahmte Milch
+2-5 Steller	CC13-01143	Kondensierte Milch
+2-5 Steller	CC13-01144	Joghurt
+2-5 Steller	CC13-01145	Käse und Quark
+2-5 Steller	CC13-01146	Andere Milchprodukte
+2-5 Steller	CC13-01147	Eier
+2-5 Steller	CC13-0115	Speisefette und Speiseöle
+2-5 Steller	CC13-01151	Butter
+2-5 Steller	CC13-01152	Margarine oder Pflanzenfett
+2-5 Steller	CC13-01153	Olivenöl
+2-5 Steller	CC13-01154	Sonnenblumenöl, Rapsöl oder Ähnliches
+2-5 Steller	CC13-01155	Schmalz oder anderes tierisches Speisefett
+2-5 Steller	CC13-0116	Obst
+2-5 Steller	CC13-01161	Obst, frisch oder gekühlt
+2-5 Steller	CC13-01162	Tiefgefrorenes Obst
+2-5 Steller	CC13-01163	Trockenobst, Nüsse und Ähnliches
+2-5 Steller	CC13-01164	Obstkonserven
+2-5 Steller	CC13-0117	Gemüse
+2-5 Steller	CC13-01171	Gemüse (ohne Kartoffeln), frisch oder gekühlt
+2-5 Steller	CC13-01172	Gemüse (ohne Kartoffeln), tiefgefroren
+2-5 Steller	CC13-01173	Trockengemüse und konserviertes Gemüse
+2-5 Steller	CC13-01174	Kartoffeln, frisch, gekühlt und verarbeitet
+2-5 Steller	CC13-01175	Chips und -sticks
+2-5 Steller	CC13-0118	Zucker, Marmelade, Honig und andere Süßwaren
+2-5 Steller	CC13-01181	Zucker
+2-5 Steller	CC13-01182	Konfitüre, Marmelade, Honig und Ähnliches
+2-5 Steller	CC13-01183	Schokoladen
+2-5 Steller	CC13-01184	Süßwaren
+2-5 Steller	CC13-01185	Speiseeis
+2-5 Steller	CC13-01186	Süßstoffe und andere Süßungsmittel
+2-5 Steller	CC13-0119	Nahrungsmittel, a.n.g.
+2-5 Steller	CC13-01191	Soßen, Würzen und Würzmittel
+2-5 Steller	CC13-01192	Speisesalz, Küchenkräuter und Gewürze
+2-5 Steller	CC13-01193	Säuglings- und Kleinkindernahrung
+2-5 Steller	CC13-01194	Fertiggerichte, a.n.g.
+2-5 Steller	CC13-01199	Suppen und andere Nahrungsmittelzubereitungen
+2-5 Steller	CC13-012	Alkoholfreie Getränke
+2-5 Steller	CC13-0121	Kaffee, Tee und Kakao
+2-5 Steller	CC13-01211	Kaffee und Ähnliches
+2-5 Steller	CC13-01212	Tee und teeähnliche Erzeugnisse
+2-5 Steller	CC13-01213	Kakaopulver oder Ähnliches
+2-5 Steller	CC13-0122	Mineralwasser, Limonaden und Säfte
+2-5 Steller	CC13-01221	Mineralwasser
+2-5 Steller	CC13-01222	Erfrischungsgetränke (ohne Mineralwasser)
+2-5 Steller	CC13-01223	Frucht- und Gemüsesäfte
+2-5 Steller	CC13-02	Alkoholische Getränke und Tabakwaren
+2-5 Steller	CC13-021	Alkoholische Getränke
+2-5 Steller	CC13-0211	Spirituosen
+2-5 Steller	CC13-02111	Liköre und andere Spirituosen
+2-5 Steller	CC13-02112	Erfrischungsmixgetränk unter 6% Alkoholgehalt
+2-5 Steller	CC13-0212	Wein
+2-5 Steller	CC13-02121	Traubenwein
+2-5 Steller	CC13-02122	Kernobstwein oder anderer Fruchtwein
+2-5 Steller	CC13-02123	Wein mit mehr als 15% Alkoholgehalt
+2-5 Steller	CC13-02124	Andere weinhaltige Getränke
+2-5 Steller	CC13-0213	Bier
+2-5 Steller	CC13-02131	Pils, Lager, Schwarzbier o.a. untergäriges Bier
+2-5 Steller	CC13-02132	Weizenbier, Altbier oder anderes obergäriges Bier
+2-5 Steller	CC13-02133	Alkoholfreies Bier, Malzbier oder Ähnliches
+2-5 Steller	CC13-02134	Biermischgetränk
+2-5 Steller	CC13-022	Tabakwaren
+2-5 Steller	CC13-0220	Tabakwaren
+2-5 Steller	CC13-02201	Zigaretten
+2-5 Steller	CC13-02202	Zigarren und Zigarillos
+2-5 Steller	CC13-02203	Tabak, Liquid oder Ähnliches für E-Zigaretten
+10-Steller	CC13-0122312200	Orangensaft oder ähnlicher Fruchtsaft
+10-Steller	CC13-0116161100	Erdbeeren, Himbeeren, Stachelbeeren oder Ähnliches
+10-Steller	CC13-0118301100	Schokoladentafel
+10-Steller	CC13-0115300100	Olivenöl
+10-Steller	CC13-0112710300	
+10-Steller	CC13-0112721100	
+10-Steller	CC13-0113100200	
+10-Steller	CC13-0117149200	
+10-Steller	CC13-0121121100	
+10-Steller	CC13-0122320300	

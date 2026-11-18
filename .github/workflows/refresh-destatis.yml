@@ -129,6 +129,29 @@ jobs:
           # so start the Pages deploy explicitly.
           gh workflow run pages.yml --ref main
 
+      - name: E-mail the Germany CPI Excel when Destatis has published a new month
+        # Needs the repository secrets SMTP_HOST, SMTP_USER, SMTP_PASSWORD (and optionally SMTP_PORT,
+        # MAIL_FROM, MAIL_TO; MAIL_TO defaults to dbeare@gategroup.com). Without SMTP_HOST it only builds the file.
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          PYTHONUTF8: "1"
+        run: |
+          pip install --quiet openpyxl
+          python3 scripts/send_germany_monthly.py --out "$RUNNER_TEMP/germany_cpi.xlsx"
+          if ! git diff --quiet -- data/germany_email_state.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/germany_email_state.json
+            git commit -m "Germany CPI e-mail sent"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
       - name: Open an issue if the refresh failed
         if: failure()
         env:

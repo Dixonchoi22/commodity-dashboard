@@ -265,6 +265,8 @@ the Expana overview PDF, the Mintec forecast and the Expana indirect-inflation
 PDFs (licensed files someone has to drop in `input/`). Locally:
 `GENESIS_TOKEN=... py scripts/fetch_destatis.py {slug} --api`.
 
+**Monthly Germany e-mail.** `scripts/send_germany_monthly.py` (last step of the refresh workflow) builds an Excel (`Typ | Code | Bezeichnung | Index YYYY-MM...`, index only, rows from `data/germany_email_layout.tsv` = the agreed code list with German names; data from `destatis_full.json`) and e-mails it to dbeare@gategroup.com once per new month (state in `data/germany_email_state.json`). Needs repo secrets `SMTP_HOST`, `SMTP_USER`, `SMTP_PASSWORD` (optional `SMTP_PORT`, `MAIL_FROM`, `MAIL_TO`); without `SMTP_HOST` it only builds the file. Public Destatis data only - never add Mintec, tracker-workbook or Individual Index numbers. Test: `python3 scripts/send_germany_monthly.py --dry-run --out x.xlsx`.
+
 Each drilldown panel includes the parent COICOP series (e.g. CP0122) as
 the first row + a white dashed line, alongside its 5-digit children
 (CP01221, CP01222, …).
